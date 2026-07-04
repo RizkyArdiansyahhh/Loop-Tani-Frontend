@@ -159,7 +159,10 @@ const RegisterPage = () => {
                   name="agree"
                   control={form.control}
                   render={({ field, fieldState }) => (
-                    <Field orientation="horizontal" data-invalid={fieldState.invalid}>
+                    <Field
+                      orientation="horizontal"
+                      data-invalid={fieldState.invalid}
+                    >
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
