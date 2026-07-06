@@ -1,63 +1,99 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+
+const TICK = 50;
 
 const SLIDES = [
-  "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874692/banner-2_hzumlx.jpg",
-  "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874698/banner-3_d4y8li.png",
-  "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874687/banner-1_t5bjir.jpg",
+  {
+    type: "video",
+    src: "https://res.cloudinary.com/dy9gtwsh7/video/upload/v1783266018/5104194-uhd_3840_2160_30fps_oa3dpo.mp4",
+    duration: 14000,
+  },
+  {
+    type: "image",
+    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783269526/karsten-bauche-dc3X_g5f28s-unsplash_wjrwjs.jpg",
+    duration: 10000,
+  },
+  {
+    type: "image",
+    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874698/banner-3_d4y8li.png",
+    duration: 10000,
+  },
+  {
+    type: "image",
+    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874687/banner-1_t5bjir.jpg",
+    duration: 10000,
+  },
 ];
-
-const DURATION = 5000;
-const TICK = 50;
 
 export const CarouselHomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  /* PROGRESS */
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const currentSlide = SLIDES[activeIndex];
+  const duration = currentSlide.duration;
+
   useEffect(() => {
     setProgress(0);
 
     const progressInterval = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (TICK / DURATION) * 100, 100));
+      setProgress((prev) => Math.min(prev + (TICK / duration) * 100, 100));
     }, TICK);
 
-    const slideTimeout = setTimeout(() => {
-      setActiveIndex((i) => (i + 1) % SLIDES.length);
-    }, DURATION);
+    timeoutRef.current = setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % SLIDES.length);
+    }, duration);
 
     return () => {
       clearInterval(progressInterval);
-      clearTimeout(slideTimeout);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
-  }, [activeIndex]);
+  }, [activeIndex, duration]);
 
   return (
-    <section className="relative h-full w-full overflow-hidden bg-foreground">
-      <AnimatePresence>
+    <section className="relative h-full w-full overflow-hidden bg-black">
+      <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 0.8 }}
           className="absolute inset-0"
         >
-          <Image
-            src={SLIDES[activeIndex]}
-            fill
-            alt="hero-banner"
-            className="object-cover"
-            priority
-          />
+          {currentSlide.type === "image" ? (
+            <Image
+              src={currentSlide.src}
+              alt="hero-banner"
+              fill
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <video
+              src={currentSlide.src}
+              autoPlay
+              muted
+              playsInline
+              className="h-full w-full object-cover"
+              onEnded={() =>
+                setActiveIndex((prev) => (prev + 1) % SLIDES.length)
+              }
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+      <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 gap-3">
         {SLIDES.map((_, index) => (
           <button key={index} onClick={() => setActiveIndex(index)}>
             <DotProgress
@@ -76,10 +112,10 @@ type DotProgressProps = {
   progress: number;
 };
 
-export const DotProgress = ({ active, progress }: DotProgressProps) => {
+function DotProgress({ active, progress }: DotProgressProps) {
   const radius = 8;
   const stroke = 2;
-  const normalizedRadius = radius - stroke * 0.5;
+  const normalizedRadius = radius - stroke / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
 
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -94,18 +130,18 @@ export const DotProgress = ({ active, progress }: DotProgressProps) => {
       )}
     >
       {!active && (
-        <circle fill="white" r={normalizedRadius} cx={radius} cy={radius} />
+        <circle fill="white" cx={radius} cy={radius} r={normalizedRadius} />
       )}
 
       {active && (
         <>
           <circle
-            stroke="rgba(255,255,255,0.25)"
+            stroke="rgba(255,255,255,.25)"
             fill="transparent"
             strokeWidth={stroke}
-            r={normalizedRadius}
             cx={radius}
             cy={radius}
+            r={normalizedRadius}
           />
 
           <circle
@@ -115,13 +151,13 @@ export const DotProgress = ({ active, progress }: DotProgressProps) => {
             strokeLinecap="round"
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
-            r={normalizedRadius}
             cx={radius}
             cy={radius}
+            r={normalizedRadius}
             className="transition-[stroke-dashoffset] duration-75 ease-linear"
           />
         </>
       )}
     </svg>
   );
-};
+}

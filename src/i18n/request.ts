@@ -3,12 +3,8 @@ import { routing } from "./routing";
 import fs from "fs";
 import path from "path";
 
-
-
 function loadMessages(locale: string) {
-  const safeLocale = ["id", "en"].includes(locale)
-    ? locale
-    : "id";
+  const safeLocale = ["id", "en"].includes(locale) ? locale : "id";
 
   const dir = path.join(process.cwd(), "messages", safeLocale);
 
@@ -17,13 +13,11 @@ function loadMessages(locale: string) {
   const files = fs.readdirSync(dir);
 
   return files.reduce((acc, file) => {
-    const content = JSON.parse(
-      fs.readFileSync(path.join(dir, file), "utf-8")
-    );
+    const content = JSON.parse(fs.readFileSync(path.join(dir, file), "utf-8"));
 
     return {
       ...acc,
-      ...content
+      ...content,
     };
   }, {});
 }
@@ -33,6 +27,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    messages: loadMessages(locale)
+    messages: loadMessages(locale),
   };
 });

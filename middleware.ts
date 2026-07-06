@@ -1,11 +1,8 @@
 import createMiddleware from "next-intl/middleware";
-import {routing} from "./src/i18n/routing";
+import { routing } from "./src/i18n/routing";
 
 export default createMiddleware(routing);
 
 export const config = {
-  matcher: [
-    
-    "/((?!api|_next|.*\\..*|favicon.ico).*)"
-  ]
+  matcher: ["/((?!api|_next|.*\\..*|favicon.ico).*)"],
 };

@@ -192,4 +192,20 @@
   html {
     @apply font-sans;
   }
+  .animation-link-background {
+    @apply relative text-sm font-medium text-foreground/80 transition-all duration-300
+         hover:text-primary
+         after:absolute
+         after:left-0
+         after:-bottom-1
+         after:h-0.5
+         after:w-full
+         after:origin-left
+         after:scale-x-0
+         after:rounded-full
+         after:bg-primary
+         after:transition-transform
+         after:duration-300
+         hover:after:scale-x-100;
+  }
 }

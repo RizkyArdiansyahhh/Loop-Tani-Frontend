@@ -30,6 +30,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { MegaMenuItem } from "./mega-menu-item";
 
 const components: {
   title: string;
@@ -106,6 +107,8 @@ function ListItem({
 
 function NavbarContent() {
   const t = useTranslations("auth");
+  const t_navbar = useTranslations("navbar");
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
@@ -114,7 +117,7 @@ function NavbarContent() {
         href="/"
         className="shrink-0 text-xl font-bold tracking-tight text-gray-900"
       >
-        Loop Tani
+        <img src="/images/logo-putih.png" alt="logo" className="h-10" />
       </Link>
 
       {/* Desktop nav — center */}
@@ -123,38 +126,148 @@ function NavbarContent() {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent">
-                Home
+                {t_navbar("marketplace.title")}
               </NavigationMenuTrigger>
+
               <NavigationMenuContent>
-                <ul className="grid gap-2 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                  <li className="row-span-3">
-                    <NavigationMenuLink asChild>
-                      <Link
-                        className="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-6 no-underline outline-hidden select-none focus:shadow-md"
-                        href="/"
-                      >
-                        <div className="mt-4 mb-2 text-lg font-medium">
-                          Loop Tani
-                        </div>
-                        <p className="text-muted-foreground text-sm leading-tight">
-                          Modern marketplace for agricultural products.
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <ListItem href="/docs" title="Introduction">
-                    Re-usable components built using Radix UI and Tailwind CSS.
-                  </ListItem>
-                  <ListItem href="/docs/installation" title="Installation">
-                    How to install dependencies and structure your app.
-                  </ListItem>
-                  <ListItem
-                    href="/docs/primitives/typography"
-                    title="Typography"
-                  >
-                    Styles for headings, paragraphs, lists...etc
-                  </ListItem>
-                </ul>
+                <div className="w-max rounded-xl p-4">
+                  <div className="flex divide-x divide-border">
+                    {/* Agricultural Waste */}
+                    <div className="min-w-[220px] px-6 first:pl-0">
+                      <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                        {t_navbar("marketplace.agriculturalWaste.title")}
+                      </h4>
+
+                      <ul className="space-y-3">
+                        <MegaMenuItem
+                          href="/marketplace/agricultural-waste"
+                          label={t_navbar("marketplace.agriculturalWaste.all")}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/agricultural-waste/rice-straw"
+                          label={t_navbar(
+                            "marketplace.agriculturalWaste.riceStraw",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/agricultural-waste/rice-husk"
+                          label={t_navbar(
+                            "marketplace.agriculturalWaste.riceHusk",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/agricultural-waste/oil-palm-efb"
+                          label={t_navbar(
+                            "marketplace.agriculturalWaste.oilPalmEFB",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/agricultural-waste/manure"
+                          label={t_navbar(
+                            "marketplace.agriculturalWaste.livestockManure",
+                          )}
+                        />
+                      </ul>
+                    </div>
+
+                    {/* Processed Products */}
+                    <div className="min-w-[220px] px-6">
+                      <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                        {t_navbar("marketplace.processedProducts.title")}
+                      </h4>
+
+                      <ul className="space-y-3">
+                        <MegaMenuItem
+                          href="/marketplace/processed-products"
+                          label={t_navbar("marketplace.processedProducts.all")}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/processed-products/compost"
+                          label={t_navbar(
+                            "marketplace.processedProducts.compost",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/processed-products/briquettes"
+                          label={t_navbar(
+                            "marketplace.processedProducts.biomassBriquettes",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/processed-products/liquid-fertilizer"
+                          label={t_navbar(
+                            "marketplace.processedProducts.liquidOrganicFertilizer",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/processed-products/silica-ash"
+                          label={t_navbar(
+                            "marketplace.processedProducts.silicaAsh",
+                          )}
+                        />
+                      </ul>
+                    </div>
+
+                    {/* Second-hand Equipment */}
+                    <div className="min-w-[220px] px-6 last:pr-0">
+                      <h4 className="mb-5 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                        {t_navbar("marketplace.secondhandEquipment.title")}
+                      </h4>
+
+                      <ul className="space-y-3">
+                        <MegaMenuItem
+                          href="/marketplace/equipment"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.all",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/equipment/tractors"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.tractors",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/equipment/planting-tools"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.plantingTools",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/equipment/harvesting-tools"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.harvestingTools",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/equipment/sprayers"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.sprayers",
+                          )}
+                        />
+
+                        <MegaMenuItem
+                          href="/marketplace/equipment/irrigation"
+                          label={t_navbar(
+                            "marketplace.secondhandEquipment.irrigationEquipment",
+                          )}
+                        />
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
 

@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "marketplace": {
+      "title": "Marketplace",
+
+      "agriculturalWaste": {
+        "title": "Agricultural Waste",
+        "all": "All Agricultural Waste",
+        "riceStraw": "Rice Straw",
+        "riceHusk": "Rice Husk",
+        "oilPalmEFB": "Oil Palm Empty Fruit Bunches (EFB)",
+        "livestockManure": "Livestock Manure"
+      },
+
+      "processedProducts": {
+        "title": "Processed Products",
+        "all": "All Processed Products",
+        "compost": "Compost & Organic Fertilizer",
+        "biomassBriquettes": "Biomass Briquettes",
+        "liquidOrganicFertilizer": "Liquid Organic Fertilizer",
+        "silicaAsh": "Silica Ash"
+      },
+
+      "secondhandEquipment": {
+        "title": "Second-hand Equipment",
+        "all": "All Equipment",
+        "tractors": "Tractors & Machinery",
+        "plantingTools": "Planting Tools",
+        "harvestingTools": "Harvesting Tools",
+        "sprayers": "Sprayers",
+        "irrigationEquipment": "Irrigation Equipment"
+      }
+    }
+  }
+}

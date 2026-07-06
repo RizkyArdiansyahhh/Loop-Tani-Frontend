@@ -1,0 +1,35 @@
+{
+  "navbar": {
+    "marketplace": {
+      "title": "Marketplace",
+
+      "agriculturalWaste": {
+        "title": "Limbah Pertanian",
+        "all": "Semua Limbah",
+        "riceStraw": "Jerami Padi",
+        "riceHusk": "Sekam Padi",
+        "oilPalmEFB": "TKKS Sawit",
+        "livestockManure": "Kotoran Ternak"
+      },
+
+      "processedProducts": {
+        "title": "Produk Olahan",
+        "all": "Semua Produk Olahan",
+        "compost": "Kompos & Pupuk",
+        "biomassBriquettes": "Briket Biomassa",
+        "liquidOrganicFertilizer": "Pupuk Cair Organik",
+        "silicaAsh": "Silika Abu"
+      },
+
+      "secondhandEquipment": {
+        "title": "Alat Secondhand",
+        "all": "Semua Alat",
+        "tractors": "Traktor & Mesin",
+        "plantingTools": "Alat Tanam",
+        "harvestingTools": "Alat Panen",
+        "sprayers": "Alat Semprot",
+        "irrigationEquipment": "Alat Irigasi"
+      }
+    }
+  }
+}
