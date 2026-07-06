@@ -377,7 +377,7 @@ function NavbarContent() {
         <Button
           size="sm"
           asChild
-          className="bg-secondary text-foreground font-semibold"
+          className="bg-primary text-background px-6 py-4 font-semibold"
         >
           <Link href="/auth/register">{t("register.button")}</Link>
         </Button>

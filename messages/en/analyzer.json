@@ -1,0 +1,75 @@
+{
+  "analyzer": {
+    "hero": {
+      "badge": "Trusted by Farmers",
+      "titlePrefix": "Not Just Production Residue,",
+      "titleMiddle": "Waste Is Now a",
+      "titleSuffix": "",
+      "rotatingTexts": ["Revenue", "Asset", "Opportunity"],
+      "subtitle": "Upload a photo of your agricultural waste and let AI identify its type, estimate its market value, and recommend the best utilization.",
+      "cta": "Analyze Waste"
+    },
+    "upload": {
+      "title": "Upload Photo",
+      "description": "Take or upload a photo of your agricultural waste.",
+      "dragDrop": "Drag & Drop your photo",
+      "orClick": "or click to browse",
+      "formats": "PNG, JPG · Max 5 MB",
+      "change": "Change",
+      "button": "Analyze Waste"
+    },
+    "summary": {
+      "title": "AI Summary",
+      "description": "Upload a photo to see analysis results.",
+      "wasteType": "Waste Type",
+      "condition": "Condition",
+      "estimatedValue": "Estimated Value",
+      "recommendation": "Recommendation",
+      "confidence": "Confidence",
+      "placeholder": "—",
+      "aiTitle": "AI-Powered Analysis",
+      "aiDescription": "Our AI model analyzes your waste photo to identify type, condition, and market value in seconds."
+    },
+    "loading": {
+      "identifying": "Identifying waste...",
+      "analyzing": "Analyzing texture...",
+      "estimating": "Estimating value...",
+      "generating": "Generating recommendations...",
+      "complete": "complete"
+    },
+    "result": {
+      "estimatedMarketValue": "Estimated Market Value",
+      "aiEstimation": "AI-based price estimation.",
+      "disclaimer": "This value is an AI estimation. Final verification will be performed during the selling process.",
+      "sellNow": "Sell Now",
+      "analysisComplete": "Analysis complete with {confidence}% confidence. Powered by Loopi AI.",
+      "estimatedQuantity": "Estimated Quantity",
+      "recommendedUtilization": "Recommended Utilization",
+      "confirmationTitle": "Is this analysis correct?",
+      "yes": "Yes",
+      "editWasteType": "Edit Waste Type",
+      "confirmed": "Confirmed — {type}",
+      "analyzeAnother": "Analyze Another Photo"
+    },
+    "editDialog": {
+      "title": "Edit Waste Type",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "wasteTypes": {
+      "riceStraw": "Rice Straw",
+      "riceHusk": "Rice Husk",
+      "cornStalk": "Corn Stalk",
+      "palmFrond": "Palm Frond",
+      "coconutHusk": "Coconut Husk",
+      "pineappleLeaves": "Pineapple Leaves",
+      "sugarcaneBagasse": "Sugarcane Bagasse",
+      "others": "Others"
+    },
+    "bottomCta": {
+      "title": "Ready to turn your agricultural waste into value?",
+      "description": "List your waste and receive offers from buyers.",
+      "button": "Sell Now"
+    }
+  }
+}

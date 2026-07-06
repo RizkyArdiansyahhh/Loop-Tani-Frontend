@@ -1,0 +1,75 @@
+{
+  "analyzer": {
+    "hero": {
+      "badge": "Dipercaya Petani",
+      "titlePrefix": "Bukan Sekadar Sisa Produksi,",
+      "titleMiddle": "Limbah Kini Jadi",
+      "titleSuffix": "",
+      "rotatingTexts": ["Penghasilan", "Aset", "Peluang"],
+      "subtitle": "Unggah foto limbah pertanian Anda dan biarkan AI mengidentifikasi jenisnya, memperkirakan nilai pasar, dan merekomendasikan pemanfaatan terbaik.",
+      "cta": "Analisis Limbah"
+    },
+    "upload": {
+      "title": "Unggah Foto",
+      "description": "Ambil atau unggah foto limbah pertanian Anda.",
+      "dragDrop": "Seret & Jatuhkan foto Anda",
+      "orClick": "atau klik untuk memilih",
+      "formats": "PNG, JPG · Maksimal 5 MB",
+      "change": "Ganti",
+      "button": "Analisis Limbah"
+    },
+    "summary": {
+      "title": "Ringkasan AI",
+      "description": "Unggah foto untuk melihat hasil analisis.",
+      "wasteType": "Jenis Limbah",
+      "condition": "Kondisi",
+      "estimatedValue": "Estimasi Nilai",
+      "recommendation": "Rekomendasi",
+      "confidence": "Kepercayaan",
+      "placeholder": "—",
+      "aiTitle": "Analisis Berbasis AI",
+      "aiDescription": "Model AI kami menganalisis foto limbah Anda untuk mengidentifikasi jenis, kondisi, dan nilai pasar dalam hitungan detik."
+    },
+    "loading": {
+      "identifying": "Mengidentifikasi limbah...",
+      "analyzing": "Menganalisis tekstur...",
+      "estimating": "Memperkirakan nilai...",
+      "generating": "Membuat rekomendasi...",
+      "complete": "selesai"
+    },
+    "result": {
+      "estimatedMarketValue": "Estimasi Nilai Pasar",
+      "aiEstimation": "Estimasi harga berbasis AI.",
+      "disclaimer": "Nilai ini adalah estimasi AI. Verifikasi akhir akan dilakukan selama proses penjualan.",
+      "sellNow": "Jual Sekarang",
+      "analysisComplete": "Analisis selesai dengan kepercayaan {confidence}%. Didukung oleh Loopi AI.",
+      "estimatedQuantity": "Estimasi Jumlah",
+      "recommendedUtilization": "Pemanfaatan yang Direkomendasikan",
+      "confirmationTitle": "Apakah analisis ini benar?",
+      "yes": "Ya",
+      "editWasteType": "Edit Jenis Limbah",
+      "confirmed": "Dikonfirmasi — {type}",
+      "analyzeAnother": "Analisis Foto Lain"
+    },
+    "editDialog": {
+      "title": "Edit Jenis Limbah",
+      "cancel": "Batal",
+      "confirm": "Konfirmasi"
+    },
+    "wasteTypes": {
+      "riceStraw": "Jerami Padi",
+      "riceHusk": "Sekam Padi",
+      "cornStalk": "Batang Jagung",
+      "palmFrond": "Daun Sawit",
+      "coconutHusk": "Sabut Kelapa",
+      "pineappleLeaves": "Daun Nanas",
+      "sugarcaneBagasse": "Ampas Tebu",
+      "others": "Lainnya"
+    },
+    "bottomCta": {
+      "title": "Siap mengubah limbah pertanian Anda menjadi bernilai?",
+      "description": "Daftarkan limbah Anda dan terima penawaran dari pembeli.",
+      "button": "Jual Sekarang"
+    }
+  }
+}

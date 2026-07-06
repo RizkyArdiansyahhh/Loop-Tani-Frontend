@@ -12,7 +12,7 @@ export default function CustomerLayout({
       <header>
         <Navbar></Navbar>
       </header>
-      <div className="px-7 pt-4">{children}</div>
+      <div>{children}</div>
       <Footer></Footer>
       <LoopiFloating />
     </>
