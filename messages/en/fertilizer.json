@@ -1,0 +1,78 @@
+{
+  "fertilizer": {
+    "hero": {
+      "badge": "AI Farming Assistant",
+      "title": "Smart Fertilizer Calculator",
+      "subtitle": "Calculate the optimal fertilizer dosage based on your crop, land area, and farming conditions.",
+      "cta": "Start Calculation"
+    },
+    "form": {
+      "title": "Farm Information",
+      "subtitle": "Tell us about your farm.",
+      "cropType": "Crop Type",
+      "cropTypePlaceholder": "Select crop type",
+      "landSize": "Land Area",
+      "landSizePlaceholder": "Enter land area",
+      "unit": "Unit",
+      "soilType": "Soil Type",
+      "soilTypePlaceholder": "Select soil type",
+      "growthStage": "Growth Stage",
+      "growthStagePlaceholder": "Select growth stage",
+      "calculate": "Calculate Recommendation"
+    },
+    "loading": {
+      "understanding": "Understanding crop requirements...",
+      "calculating": "Calculating nutrient demand...",
+      "optimizing": "Optimizing N-P-K composition...",
+      "preparing": "Preparing recommendations...",
+      "complete": "complete"
+    },
+    "result": {
+      "recommendedNutrients": "Recommended Nutrients",
+      "nitrogen": "Nitrogen (N)",
+      "phosphorus": "Phosphorus (P)",
+      "potassium": "Potassium (K)",
+      "recommendedFertilizers": "Recommended Fertilizers",
+      "estimatedCost": "Estimated Cost",
+      "aiConfidence": "AI Confidence",
+      "accuracy": "Recommendation Accuracy",
+      "status": "Status",
+      "optimal": "Optimal",
+      "suitable": "Suitable for current farming conditions.",
+      "reset": "Recalculate"
+    },
+    "insights": {
+      "title": "AI Farming Insights",
+      "tip1": "Split fertilizer application into three stages.",
+      "tip2": "Use compost together with chemical fertilizer.",
+      "tip3": "Water crops after fertilization.",
+      "tip4": "Avoid fertilizing before heavy rainfall."
+    },
+    "bottomCta": {
+      "title": "Ready to improve your harvest?",
+      "description": "Save your recommendation and use it during your farming activities.",
+      "primary": "Save Recommendation",
+      "secondary": "Download PDF"
+    },
+    "crops": {
+      "rice": "Rice",
+      "corn": "Corn",
+      "chili": "Chili",
+      "soybean": "Soybean",
+      "palmOil": "Palm Oil",
+      "tomato": "Tomato"
+    },
+    "soils": {
+      "clay": "Clay",
+      "loam": "Loam",
+      "sandy": "Sandy",
+      "peat": "Peat"
+    },
+    "stages": {
+      "seedling": "Seedling",
+      "vegetative": "Vegetative",
+      "flowering": "Flowering",
+      "harvest": "Harvest"
+    }
+  }
+}

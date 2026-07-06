@@ -1,0 +1,78 @@
+{
+  "fertilizer": {
+    "hero": {
+      "badge": "AI Farming Assistant",
+      "title": "Kalkulator Pupuk Cerdas",
+      "subtitle": "Hitung dosis pupuk optimal berdasarkan tanaman, luas lahan, dan kondisi pertanian Anda.",
+      "cta": "Mulai Perhitungan"
+    },
+    "form": {
+      "title": "Informasi Pertanian",
+      "subtitle": "Ceritakan tentang pertanian Anda.",
+      "cropType": "Jenis Tanaman",
+      "cropTypePlaceholder": "Pilih jenis tanaman",
+      "landSize": "Luas Lahan",
+      "landSizePlaceholder": "Masukkan luas lahan",
+      "unit": "Satuan",
+      "soilType": "Jenis Tanah",
+      "soilTypePlaceholder": "Pilih jenis tanah",
+      "growthStage": "Fase Pertumbuhan",
+      "growthStagePlaceholder": "Pilih fase pertumbuhan",
+      "calculate": "Hitung Rekomendasi"
+    },
+    "loading": {
+      "understanding": "Memahami kebutuhan tanaman...",
+      "calculating": "Menghitung kebutuhan nutrisi...",
+      "optimizing": "Mengoptimalkan komposisi N-P-K...",
+      "preparing": "Menyiapkan rekomendasi...",
+      "complete": "selesai"
+    },
+    "result": {
+      "recommendedNutrients": "Nutrisi yang Direkomendasikan",
+      "nitrogen": "Nitrogen (N)",
+      "phosphorus": "Fosfor (P)",
+      "potassium": "Kalium (K)",
+      "recommendedFertilizers": "Pupuk yang Direkomendasikan",
+      "estimatedCost": "Estimasi Biaya",
+      "aiConfidence": "Kepercayaan AI",
+      "accuracy": "Akurasi Rekomendasi",
+      "status": "Status",
+      "optimal": "Optimal",
+      "suitable": "Cocok untuk kondisi pertanian saat ini.",
+      "reset": "Hitung Ulang"
+    },
+    "insights": {
+      "title": "Wawasan Pertanian AI",
+      "tip1": "Bagi aplikasi pupuk menjadi tiga tahap.",
+      "tip2": "Gunakan kompos bersama pupuk kimia.",
+      "tip3": "Siram tanaman setelah pemupukan.",
+      "tip4": "Hindari pemupukan sebelum hujan lebat."
+    },
+    "bottomCta": {
+      "title": "Siap meningkatkan panen Anda?",
+      "description": "Simpan rekomendasi Anda dan gunakan selama kegiatan pertanian.",
+      "primary": "Simpan Rekomendasi",
+      "secondary": "Unduh PDF"
+    },
+    "crops": {
+      "rice": "Padi",
+      "corn": "Jagung",
+      "chili": "Cabai",
+      "soybean": "Kedelai",
+      "palmOil": "Kelapa Sawit",
+      "tomato": "Tomat"
+    },
+    "soils": {
+      "clay": "Tanah Liat",
+      "loam": "Tanah Lempung",
+      "sandy": "Tanah Pasir",
+      "peat": "Tanah Gambut"
+    },
+    "stages": {
+      "seedling": "Pembibitan",
+      "vegetative": "Vegetatif",
+      "flowering": "Berbunga",
+      "harvest": "Panen"
+    }
+  }
+}
