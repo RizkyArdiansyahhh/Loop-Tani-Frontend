@@ -111,9 +111,8 @@ const MarketplacePage = () => {
                   Semua Produk
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Menampilkan{" "}
-                  <span className="font-bold text-primary">128</span> produk
-                  pilihan
+                  Menampilkan <span className="font-bold text-primary">3</span>{" "}
+                  produk pilihan
                 </p>
               </div>
             </div>

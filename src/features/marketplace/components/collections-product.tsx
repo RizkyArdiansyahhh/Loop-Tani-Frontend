@@ -35,7 +35,7 @@ const dummyProducts = [
     category: "processed-product",
     name: "Biochar",
     rating: 4.8,
-    price: 15.5,
+    price: 15500,
     location: "Kampar, Riau",
     seller: "Sawa",
   },
