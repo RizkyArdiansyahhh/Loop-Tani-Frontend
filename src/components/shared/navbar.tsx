@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Menu,
+  X,
   CircleCheckIcon,
   CircleHelpIcon,
   CircleIcon,
@@ -14,13 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+// Sheet removed from navbar
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -94,7 +89,7 @@ function NavbarContent() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
-    <div className="mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
+    <div className="relative mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
       <Link
         href="/"
         className="shrink-0 text-xl font-bold tracking-tight text-gray-900"
@@ -326,48 +321,62 @@ function NavbarContent() {
       </div>
 
       {/* Mobile hamburger */}
-      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="shrink-0 lg:hidden"
-            aria-label="Open menu"
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setMobileOpen((prev) => !prev)}
+        className="shrink-0 lg:hidden"
+        aria-label="Toggle menu"
+      >
+        {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </Button>
+
+      {/* Dropdown Modal style menu (not full screen height, slides down below navbar) */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="absolute top-full right-4 w-[85vw] max-w-[360px] sm:w-[320px] z-150 mt-3 overflow-hidden rounded-3xl border border-gray-150 bg-white/95 p-6 shadow-xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/95 lg:hidden"
           >
-            <Menu className="h-5 w-5" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-          <SheetHeader>
-            <SheetTitle className="text-left">Menu</SheetTitle>
-          </SheetHeader>
-          <nav className="mt-6 flex flex-col gap-4">
-            {mobileLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-base font-medium text-gray-700 transition-colors hover:text-gray-900"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <div className="mt-8 flex flex-col gap-3">
-            <LanguageSwitcher />
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                {t("login.button")}
-              </Link>
-            </Button>
-            <Button size="lg" asChild>
-              <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
-                {t("register.button")}
-              </Link>
-            </Button>
-          </div>
-        </SheetContent>
-      </Sheet>
+            <nav className="flex flex-col gap-4">
+              {mobileLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-base font-semibold text-gray-700 transition-colors hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="mt-6 h-px w-full bg-gray-100 dark:bg-gray-800" />
+            <div className="mt-6 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                  Bahasa / Language
+                </span>
+                <LanguageSwitcher />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-2">
+                <Button variant="outline" size="lg" asChild className="rounded-2xl h-11">
+                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
+                    {t("login.button")}
+                  </Link>
+                </Button>
+                <Button size="lg" asChild className="rounded-2xl h-11">
+                  <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
+                    {t("register.button")}
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -409,7 +418,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isSticky && (
           <motion.nav
-            className="fixed top-0 left-0 right-0 z-[200] border-b border-gray-200 bg-white shadow-sm"
+            className="fixed top-0 left-0 right-0 z-200 border-b border-gray-200 bg-white shadow-sm"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
