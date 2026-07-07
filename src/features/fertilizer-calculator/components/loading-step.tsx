@@ -79,9 +79,7 @@ const LoadingStep = () => {
             <div
               key={i}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-300 ${
-                completedSteps.includes(i)
-                  ? "bg-primary/5"
-                  : "opacity-40"
+                completedSteps.includes(i) ? "bg-primary/5" : "opacity-40"
               }`}
             >
               <CircleCheck

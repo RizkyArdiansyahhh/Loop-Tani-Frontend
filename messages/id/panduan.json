@@ -1,0 +1,58 @@
+{
+  "panduan": {
+    "title": "Panduan Tani",
+    "subtitle": "Pusat edukasi pertanian sirkular. Pelajari cara mengubah limbah menjadi produk bernilai tinggi, tonton praktik lapangan, dan kumpulkan LoopPoints untuk ditukar dengan reward menarik!",
+    "pointsBalance": "LoopPoints Saya",
+    "tierProgress": "Level Kemitraan: {current} → {next}",
+    "pointsToNext": "Kumpulkan {points} LoopPoints lagi untuk naik ke tier {next}",
+    "pointsReward": "{points} LP Reward",
+    "filterCategory": "Komoditas Utama",
+    "filterDifficulty": "Tingkat Kesulitan Pelatihan",
+    "filterAll": "Semua Kategori",
+    "tabArticles": "Artikel Panduan",
+    "tabVideos": "Video Praktik Lapangan",
+    "readDuration": "Estimasi {duration} baca",
+    "videoDuration": "Durasi {duration}",
+    "difficultyLabel": {
+      "pemula": "Pemula (Dasar)",
+      "menengah": "Menengah (Lanjutan)"
+    },
+    "categoryLabel": {
+      "limbah": "Limbah Organik",
+      "olahan": "Produk Olahan",
+      "alat": "Alat & Mesin Tani"
+    },
+    "uploadBy": "Diunggah oleh Kontributor",
+    "ctaPractice": "Praktikkan Sekarang di Marketplace",
+    "markCompleted": "Selesai Menonton & Klaim Reward",
+    "congratsTitle": "Luar Biasa!",
+    "pointsEarnedToast": "+{points} LoopPoints berhasil ditambahkan ke saldo Anda!",
+    "uploadModal": {
+      "title": "Bagikan Panduan Praktis",
+      "description": "Bantu sesama petani berkembang dengan membagikan panduan artikel atau video praktik lapangan. Dapatkan +50 LoopPoints untuk kontribusi Anda!",
+      "formType": "Format Edukasi",
+      "formTitle": "Judul Panduan Tani",
+      "formCategory": "Kategori Komoditas",
+      "formDifficulty": "Tingkat Kesulitan",
+      "formDuration": "Estimasi Durasi (Contoh: 5 menit / 06:32)",
+      "formYoutube": "YouTube Video ID (Contoh: ZKazVjP4Q1U)",
+      "formImage": "Kata Kunci Gambar Unsplash (Contoh: straw, compost)",
+      "formContent": "Isi Artikel Edukasi / Deskripsi Singkat Video",
+      "formUploader": "Pilih Profil Pengirim",
+      "submit": "Publikasikan Panduan",
+      "typeArticle": "Artikel Bacaan",
+      "typeVideo": "Video Praktik"
+    },
+    "redeemPoints": {
+      "title": "Klaim Reward Eksklusif",
+      "subtitle": "Tukarkan LoopPoints Anda dengan voucher komisi penjualan atau potongan belanja perlengkapan tani.",
+      "option1Title": "Bebas Biaya Layanan Penjual (Diskon 5%)",
+      "option1Desc": "Potongan komisi untuk transaksi penjualan hasil olahan limbah tani Anda selanjutnya di LoopTani.",
+      "option2Title": "Voucher Belanja Rp20.000",
+      "option2Desc": "Potongan langsung untuk pembelian pupuk organik cair, kompos, atau alat tani bekas pilihan.",
+      "buttonRedeem": "Tukar {points} LP",
+      "insufficient": "LoopPoints Tidak Cukup",
+      "redeemSuccess": "Berhasil menukarkan {reward}! Saldo LoopPoints Anda terpotong."
+    }
+  }
+}

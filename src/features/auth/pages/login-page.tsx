@@ -31,8 +31,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-row p-4 gap-4">
-      <div className="w-1/2 h-full flex flex-col">
+    <div className="flex h-screen w-screen flex-col p-4 gap-4 lg:flex-row">
+      {/* Form side */}
+      <div className="flex h-full w-full flex-col overflow-y-auto lg:w-1/2">
         <div>
           <Image
             src="/images/logo-putih.png"
@@ -42,12 +43,14 @@ const LoginPage = () => {
             priority
           />
         </div>
-        {/* <LanguageSwitcher></LanguageSwitcher> */}
-        <div className="flex-1 w-full h-full flex justify-center pt-10">
-          <div className="w-3/4 h-[50%]">
+
+        <div className="flex flex-1 w-full items-center justify-center py-8  lg:pt-10">
+          <div className="w-full max-w-md px-2 sm:px-4 ">
             <div className="mb-6">
-              <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
-              <p className="text-md">{t("description")}</p>
+              <h1 className="text-2xl font-bold mb-2 sm:text-3xl">
+                {t("title")}
+              </h1>
+              <p className="text-sm sm:text-md">{t("description")}</p>
             </div>
 
             <div className="w-full">
@@ -117,7 +120,7 @@ const LoginPage = () => {
                   ></Controller>
                   <Link
                     href={"/forgot-password"}
-                    className="flex-1/2 text-primary text-sm text-right"
+                    className="text-primary text-sm text-right"
                   >
                     {t("forgotPassword")}
                   </Link>
@@ -151,7 +154,8 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <div className="w-1/2 h-full">
+      {/* Image side — hidden on mobile/tablet */}
+      <div className="hidden h-full w-1/2 lg:block">
         <CutoutCard
           image="/images/auth-1.jpg"
           label="Featured"

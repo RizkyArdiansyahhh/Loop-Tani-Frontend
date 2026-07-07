@@ -30,9 +30,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-row p-4 gap-4">
-      {/* Left side: CutoutCard/Image */}
-      <div className="w-1/2 h-full">
+    <div className="flex h-screen w-screen flex-col p-4 gap-4 lg:flex-row">
+      {/* Image side — hidden on mobile/tablet */}
+      <div className="hidden h-full w-1/2 lg:block">
         <CutoutCard
           image="/images/auth-1.jpg"
           label="Featured"
@@ -40,8 +40,8 @@ const RegisterPage = () => {
         />
       </div>
 
-      {/* Right side: Register Form */}
-      <div className="w-1/2 h-full flex flex-col justify-between">
+      {/* Form side */}
+      <div className="flex h-full w-full flex-col justify-between overflow-y-auto lg:w-1/2">
         <div>
           <Image
             src="/images/logo-putih.png"
@@ -52,8 +52,8 @@ const RegisterPage = () => {
           />
         </div>
 
-        <div className="flex-1 w-full h-full flex justify-center pt-6">
-          <div className="w-3/4 h-[80%] flex flex-col justify-center">
+        <div className="flex flex-1 w-full items-center justify-center py-6 lg:pt-6">
+          <div className="w-full max-w-md px-2 sm:px-4 flex flex-col justify-center">
             <div className="mb-6">
               <h1 className="text-3xl font-bold mb-2">{t("title")}</h1>
               <p className="text-md">{t("description")}</p>

@@ -1,7 +1,14 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Sprout, Ruler, Mountain, Flower2, ChevronDown, Calculator } from "lucide-react";
+import {
+  Sprout,
+  Ruler,
+  Mountain,
+  Flower2,
+  ChevronDown,
+  Calculator,
+} from "lucide-react";
 import {
   type FarmFormData,
   cropOptions,
@@ -19,7 +26,10 @@ const FormStep = ({ formData, onChange, onCalculate }: FormStepProps) => {
   const t = useTranslations("fertilizer");
 
   const isFormValid =
-    formData.cropType && formData.landSize && formData.soilType && formData.growthStage;
+    formData.cropType &&
+    formData.landSize &&
+    formData.soilType &&
+    formData.growthStage;
 
   const selectClass =
     "w-full appearance-none rounded-xl border border-border/60 bg-background/80 px-4 py-3 text-sm text-foreground outline-none transition-all focus:border-primary/50 focus:ring-2 focus:ring-primary/10";

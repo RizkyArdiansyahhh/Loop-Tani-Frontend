@@ -1,0 +1,58 @@
+{
+  "panduan": {
+    "title": "Farming Guide",
+    "subtitle": "Circular agriculture education hub. Learn to transform farm waste into valuable products, watch field practice videos, and gather LoopPoints for premium rewards!",
+    "pointsBalance": "My LoopPoints",
+    "tierProgress": "Partnership Level: {current} → {next}",
+    "pointsToNext": "Earn {points} more LoopPoints to upgrade to {next} tier",
+    "pointsReward": "{points} LP Reward",
+    "filterCategory": "Main Commodity",
+    "filterDifficulty": "Training Level",
+    "filterAll": "All Categories",
+    "tabArticles": "Guide Articles",
+    "tabVideos": "Field Practice Videos",
+    "readDuration": "Est. {duration} read",
+    "videoDuration": "Duration {duration}",
+    "difficultyLabel": {
+      "pemula": "Beginner (Basic)",
+      "menengah": "Intermediate (Advanced)"
+    },
+    "categoryLabel": {
+      "limbah": "Organic Waste",
+      "olahan": "Processed Products",
+      "alat": "Tools & Machinery"
+    },
+    "uploadBy": "Uploaded by Contributor",
+    "ctaPractice": "Practice Now in Marketplace",
+    "markCompleted": "Mark as Completed & Claim Reward",
+    "congratsTitle": "Outstanding!",
+    "pointsEarnedToast": "+{points} LoopPoints successfully added to your balance!",
+    "uploadModal": {
+      "title": "Share Practical Guide",
+      "description": "Help other farmers grow by sharing guide articles or field practice videos. Earn +50 LoopPoints for your contribution!",
+      "formType": "Education Format",
+      "formTitle": "Farming Guide Title",
+      "formCategory": "Commodity Category",
+      "formDifficulty": "Difficulty Level",
+      "formDuration": "Estimated Duration (e.g. 5 minutes / 06:32)",
+      "formYoutube": "YouTube Video ID (e.g., ZKazVjP4Q1U)",
+      "formImage": "Unsplash Image Keyword (e.g., straw, compost)",
+      "formContent": "Article Body / Brief Video Description",
+      "formUploader": "Select Submitter Profile",
+      "submit": "Publish Guide",
+      "typeArticle": "Educational Article",
+      "typeVideo": "Practice Video"
+    },
+    "redeemPoints": {
+      "title": "Claim Exclusive Rewards",
+      "subtitle": "Redeem your LoopPoints for sales commission waivers or discounts on farming supplies.",
+      "option1Title": "Free Seller Service Fee (5% Discount)",
+      "option1Desc": "Commission discount for your next processed waste sales transaction in LoopTani.",
+      "option2Title": "Rp20,000 Shopping Voucher",
+      "option2Desc": "Direct discount on purchasing liquid organic fertilizer, compost, or selected secondhand tools.",
+      "buttonRedeem": "Redeem {points} LP",
+      "insufficient": "Insufficient LoopPoints",
+      "redeemSuccess": "Successfully redeemed {reward}! Your LoopPoints balance has been deducted."
+    }
+  }
+}

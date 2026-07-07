@@ -19,20 +19,22 @@ const badgeConfig = {
     label: "Limbah Pertanian",
     icon: Wheat,
     className:
-      "bg-secondary/20 text-secondary-foreground border-secondary/40 hover:bg-secondary/30",
+      // Menggunakan background putih 95% dengan bayangan agar terpisah dari gambar
+      "bg-white/95 text-amber-700 border-amber-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-amber-500 dark:border-amber-900/50",
   },
 
   "processed-product": {
     label: "Produk Olahan",
     icon: Leaf,
     className:
-      "bg-primary/10 text-primary border-primary/25 hover:bg-primary/15",
+      "bg-white/95 text-green-700 border-green-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-green-500 dark:border-green-900/50",
   },
 
   secondhand: {
     label: "Alat Secondhand",
     icon: Hammer,
-    className: "bg-accent/15 text-accent border-accent/30 hover:bg-accent/25",
+    className:
+      "bg-white/95 text-blue-700 border-blue-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-blue-500 dark:border-blue-900/50",
   },
 };
 

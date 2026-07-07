@@ -40,7 +40,7 @@ export default function CategoryFilter() {
   return (
     <RadioGroup
       defaultValue="all"
-      className="flex flex-wrap items-center gap-3 "
+      className="flex flex-nowrap lg:flex-wrap items-center gap-3"
     >
       {categories.map((category) => (
         <label
