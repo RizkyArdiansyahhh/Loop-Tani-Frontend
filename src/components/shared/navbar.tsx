@@ -38,51 +38,33 @@ const components: {
   description: string;
 }[] = [
   {
-    title: "Alert Dialog",
-    href: "/docs/alert-dialog",
+    title: "AI Chatbot Loopi",
+    href: "/loopi",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Asisten virtual pintar untuk menjawab segala pertanyaan pertanian Anda secara instan.",
   },
   {
-    title: "Hover Card",
-    href: "/docs/hover-card",
+    title: "Limbah Analyzer",
+    href: "/limbah-analyzer",
     description:
-      "For sighted users to preview content available behind a link.",
+      "Ukur potensi ekonomi limbah pertanian Anda menggunakan pemrosesan gambar AI.",
   },
   {
-    title: "Progress",
-    href: "/docs/progress",
+    title: "Kalkulator Pupuk",
+    href: "/fertilizer-calculator",
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      "Hitung rekomendasi dosis pupuk optimal berdasarkan komoditas dan kondisi tanah.",
   },
 ];
 
 const mobileLinks = [
   { href: "/", label: "Home" },
-  { href: "/docs", label: "Docs" },
-  { href: "/docs/alert-dialog", label: "Alert Dialog" },
-  { href: "/docs/hover-card", label: "Hover Card" },
-  { href: "/docs/progress", label: "Progress" },
-  { href: "/docs/scroll-area", label: "Scroll Area" },
-  { href: "/docs/tabs", label: "Tabs" },
-  { href: "/docs/tooltip", label: "Tooltip" },
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/loopi", label: "AI Loopi" },
+  { href: "/limbah-analyzer", label: "Limbah Analyzer" },
+  { href: "/fertilizer-calculator", label: "Kalkulator Pupuk" },
+  { href: "/panduan-tani", label: "Panduan Tani" },
+  { href: "/jejak-lestari", label: "Jejak Lestari" },
 ];
 
 function ListItem({
@@ -121,7 +103,7 @@ function NavbarContent() {
       </Link>
 
       {/* Desktop nav — center */}
-      <div className="hidden flex-1 justify-center md:flex">
+      <div className="hidden flex-1 justify-center lg:flex">
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -298,7 +280,7 @@ function NavbarContent() {
                   "bg-transparent font-semibold",
                 )}
               >
-                <Link href="/docs">Panduan tani</Link>
+                <Link href="/panduan-tani">Panduan Tani</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -310,7 +292,7 @@ function NavbarContent() {
                   "bg-transparent font-semibold",
                 )}
               >
-                <Link href="/docs">Jejak Lestari</Link>
+                <Link href="/jejak-lestari">Jejak Lestari</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -329,7 +311,7 @@ function NavbarContent() {
       </div>
 
       {/* Desktop actions — right */}
-      <div className="hidden shrink-0 items-center gap-3 md:flex">
+      <div className="hidden shrink-0 items-center gap-3 lg:flex">
         <LanguageSwitcher />
         <Button variant="ghost" size="sm" asChild>
           <Link href="/auth/login">{t("login.button")}</Link>
@@ -349,7 +331,7 @@ function NavbarContent() {
           <Button
             variant="ghost"
             size="icon"
-            className="shrink-0 md:hidden"
+            className="shrink-0 lg:hidden"
             aria-label="Open menu"
           >
             <Menu className="h-5 w-5" />
