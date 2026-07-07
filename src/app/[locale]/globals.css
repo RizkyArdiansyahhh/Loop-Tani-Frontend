@@ -210,3 +210,27 @@
          hover:after:scale-x-100;
   }
 }
+
+/* ── Accessibility Mode Classes ── */
+html.zoom-sm {
+  font-size: 14px !important;
+}
+html.zoom-md {
+  font-size: 16px !important;
+}
+html.zoom-lg {
+  font-size: 18px !important;
+}
+html.contrast-high {
+  filter: contrast(1.25) saturate(1.1) !important;
+}
+html.contrast-high.grayscale-filter {
+  filter: contrast(1.25) grayscale(1) !important;
+}
+html.grayscale-filter {
+  filter: grayscale(1) !important;
+}
+html.font-dyslexic,
+html.font-dyslexic * {
+  font-family: "Comic Sans MS", "Comic Neue", cursive, sans-serif !important;
+}
