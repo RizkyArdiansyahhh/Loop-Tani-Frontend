@@ -31,9 +31,21 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col p-4 gap-4 lg:flex-row">
+    <div className="flex h-screen w-screen flex-col p-4 gap-4 md:flex-row">
+      {/* Mobile Top Image (hidden on md+) */}
+      <div className="w-full h-40 sm:h-48 shrink-0 md:hidden overflow-hidden rounded-[24px] relative">
+        <Image
+          src="/images/auth-1.jpg"
+          alt="Auth Banner"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+      </div>
+
       {/* Form side */}
-      <div className="flex h-full w-full flex-col overflow-y-auto lg:w-1/2">
+      <div className="flex h-full w-full flex-col overflow-y-auto md:w-1/2">
         <div>
           <Image
             src="/images/logo-putih.png"
@@ -135,7 +147,7 @@ const LoginPage = () => {
                     type="submit"
                     variant="outline"
                   >
-                    <FcGoogle className="mr-4 !w-6 !h-6" />
+                    <FcGoogle className="mr-4 w-6! h-6!" />
                     {t("google")}
                   </Button>
                   <div className="flex items-center gap-2 justify-center text-sm">
@@ -154,8 +166,8 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Image side — hidden on mobile/tablet */}
-      <div className="hidden h-full w-1/2 lg:block">
+      {/* Image side — visible on tablet & desktop (md+) */}
+      <div className="hidden h-full w-1/2 md:block">
         <CutoutCard
           image="/images/auth-1.jpg"
           label="Featured"
