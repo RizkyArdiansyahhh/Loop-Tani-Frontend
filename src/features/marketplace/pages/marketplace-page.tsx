@@ -17,12 +17,14 @@ import {
   FilterSheetMobile,
 } from "../components/filter-sidebar";
 import CategoryFilter from "../components/categories-filter";
+import Breadcrumbs from "@/components/shared/breadcrumbs";
 
 const MarketplacePage = () => {
   return (
     <div className="min-h-screen bg-gray-50/30 pb-24 dark:bg-gray-950">
       {/* Container Wrapper */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
+        <Breadcrumbs items={[{ label: "Marketplace" }]} />
         {/* ── Responsive Hero Banner ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[200px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
           {/* Main Large Banner */}

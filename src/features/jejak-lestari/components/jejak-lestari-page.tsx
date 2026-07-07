@@ -11,6 +11,7 @@ import {
   ImpactCategory,
   categoryLabels,
 } from "../lib/dummy-data";
+import Breadcrumbs from "@/components/shared/breadcrumbs";
 
 type FilterCategory = "semua" | ImpactCategory;
 
@@ -106,6 +107,7 @@ export default function JejakLestariPage() {
 
       {/* ── Main Content ─────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl space-y-10 px-4 pt-10 sm:px-6">
+        <Breadcrumbs items={[{ label: "Jejak Lestari" }]} />
         
         {/* ── Section 1: Impact Cards ─────────────────────────────────────────── */}
         <section aria-labelledby="section-impact-heading">

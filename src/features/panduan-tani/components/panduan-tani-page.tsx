@@ -10,6 +10,7 @@ import { ContentCard } from "./content-card";
 import { UploadModal } from "./upload-modal";
 import { initialPanduanContents, PanduanContent } from "../lib/dummy-data";
 import { toast } from "sonner";
+import Breadcrumbs from "@/components/shared/breadcrumbs";
 
 export default function PanduanTani() {
   const t = useTranslations("panduan");
@@ -124,6 +125,7 @@ export default function PanduanTani() {
 
       {/* Main Container */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-10 space-y-8">
+        <Breadcrumbs items={[{ label: "Panduan Tani" }]} />
         
         {/* Highlighted LoopPoints Dashboard Widget */}
         <section className="bg-transparent">

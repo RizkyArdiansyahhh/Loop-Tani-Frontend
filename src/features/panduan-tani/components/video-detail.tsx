@@ -7,6 +7,7 @@ import { Sparkles, ArrowLeft, Play, Clock, Award, ShoppingBag, User, CheckCircle
 import { Button } from "@/components/ui/button";
 import { PanduanContent } from "../lib/dummy-data";
 import { toast } from "sonner";
+import Breadcrumbs from "@/components/shared/breadcrumbs";
 
 interface VideoDetailProps {
   video: PanduanContent;
@@ -32,7 +33,14 @@ export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
   return (
     <article className="min-h-screen bg-gray-50/50 pb-20 dark:bg-gray-950">
       {/* Back Navigation */}
-      <div className="mx-auto max-w-4xl px-4 pt-8">
+      <div className="mx-auto max-w-4xl px-4 pt-8 space-y-4">
+        <Breadcrumbs
+          items={[
+            { label: "Panduan Tani", href: "/panduan-tani" },
+            { label: "Video", href: "/panduan-tani" },
+            { label: video.title },
+          ]}
+        />
         <button
           onClick={() => router.back()}
           className="group mb-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-650 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-primary"
