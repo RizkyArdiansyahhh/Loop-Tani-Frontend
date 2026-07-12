@@ -11,24 +11,12 @@ import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import { useRegisterForm } from "../hooks/use-register-form";
+import { Spinner } from "@/components/ui/spinner";
 
 const RegisterPage = () => {
   const t = useTranslations("auth.register");
-  const form = useForm<RegisterFormSchema>({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      agree: false,
-    },
-    resolver: zodResolver(registerFormSchema),
-  });
-
-  const onSubmit = (data: RegisterFormSchema) => {
-    console.log("register data:", data);
-  };
-
+  const { form, onSubmit } = useRegisterForm();
   return (
     <div className="flex h-screen w-screen flex-col p-4 gap-4 md:flex-row">
       {/* Mobile Top Image (hidden on md+) */}
@@ -193,14 +181,21 @@ const RegisterPage = () => {
                   )}
                 />
 
-                {/* Buttons and footer */}
                 <div className="mt-4 flex flex-col gap-4">
-                  <Button className="w-full h-10" type="submit">
-                    {t("button")}
-                  </Button>
                   <Button
                     className="w-full h-10"
                     type="submit"
+                    isLoading={form.formState.isSubmitting}
+                    disabled={
+                      !form.formState.isValid || form.formState.isSubmitting
+                    }
+                  >
+                    <Spinner></Spinner>
+                    {/* {t("button")} */}
+                  </Button>
+                  <Button
+                    className="w-full h-10"
+                    type="button"
                     variant="outline"
                   >
                     <FcGoogle className="mr-4 w-6! h-6!" />

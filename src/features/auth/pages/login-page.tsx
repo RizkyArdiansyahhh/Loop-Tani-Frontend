@@ -13,22 +13,11 @@ import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import { useLoginForm } from "../hooks/use-login-form";
 
 const LoginPage = () => {
   const t = useTranslations("auth.login");
-  const form = useForm<LoginFormSchema>({
-    defaultValues: {
-      email: "",
-      password: "",
-      remember: false,
-    },
-    resolver: zodResolver(loginFormSchema),
-  });
-
-  const onSubmit = (data: LoginFormSchema) => {
-    console.log("oke");
-    console.log(data);
-  };
+  const { form, onSubmit } = useLoginForm();
 
   return (
     <div className="flex h-screen w-screen flex-col p-4 gap-4 md:flex-row">
