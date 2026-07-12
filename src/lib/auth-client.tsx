@@ -5,6 +5,15 @@ export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+export const signInGoogle = async () => {
+  const data = await authClient.signIn.social({
+    provider: "google",
+    callbackURL: process.env.NEXT_PUBLIC_APP_URL,
+  });
+
+  return data;
+};
+
 export const useAuthError = () => {
   const t = useTranslations("auth.errors");
 

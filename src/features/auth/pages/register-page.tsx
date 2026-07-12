@@ -13,6 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { useRegisterForm } from "../hooks/use-register-form";
 import { Spinner } from "@/components/ui/spinner";
+import ButtonAuthGoogle from "../components/button-auth-google";
 
 const RegisterPage = () => {
   const t = useTranslations("auth.register");
@@ -193,14 +194,7 @@ const RegisterPage = () => {
                     <Spinner></Spinner>
                     {/* {t("button")} */}
                   </Button>
-                  <Button
-                    className="w-full h-10"
-                    type="button"
-                    variant="outline"
-                  >
-                    <FcGoogle className="mr-4 w-6! h-6!" />
-                    {t("google")}
-                  </Button>
+                  <ButtonAuthGoogle type="register" />
                   <div className="flex items-center gap-2 justify-center text-sm">
                     <p>{t("haveAccount")}</p>
                     <Link

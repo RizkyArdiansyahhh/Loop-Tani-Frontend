@@ -14,6 +14,7 @@ import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { useLoginForm } from "../hooks/use-login-form";
+import ButtonAuthGoogle from "../components/button-auth-google";
 
 const LoginPage = () => {
   const t = useTranslations("auth.login");
@@ -131,14 +132,7 @@ const LoginPage = () => {
                   <Button className="w-full h-10" type="submit">
                     {t("button")}
                   </Button>
-                  <Button
-                    className="w-full h-10"
-                    type="submit"
-                    variant="outline"
-                  >
-                    <FcGoogle className="mr-4 w-6! h-6!" />
-                    {t("google")}
-                  </Button>
+                  <ButtonAuthGoogle type="login" />
                   <div className="flex items-center gap-2 justify-center text-sm">
                     <p>{t("noAccount")}</p>
                     <Link
