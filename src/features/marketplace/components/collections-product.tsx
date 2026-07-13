@@ -1,77 +1,101 @@
+"use client";
+
 import CardProduct from "./card-product";
+import { useProducts } from "../hooks/use-products";
+import { useFavoriteProducts } from "../hooks/use-favorite-products";
+import type { GetProductsParams } from "@/types/api";
+import { Button } from "@/components/ui/button";
+import { RotateCcw, AlertTriangle, Inbox } from "lucide-react";
 
-// 1. Buat array of objects dengan atribut yang persis sesuai kebutuhan CardProduct
-const dummyProducts = [
-  {
-    id: 1,
-    image: [
-      {
-        id: 101,
-        url: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783445457/Tongkol_jagung_si2fwa.jpg",
-        isPrimary: true,
-      },
-      {
-        id: 102,
-        url: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783445457/Tongkol_jagung_si2fwa.jpg",
-        isPrimary: false,
-      },
-    ],
-    category: "agricultural-waste",
-    name: "Tongkol Jagung",
-    rating: 4.5,
-    price: 7000,
-    location: "Pekanbaru, Riau",
-    seller: "Lestari Farm",
-  },
-  {
-    id: 2,
-    image: [
-      {
-        id: 201,
-        url: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783445854/images_2_lduzjc.jpg",
-        isPrimary: true,
-      },
-    ],
-    category: "processed-product",
-    name: "Biochar",
-    rating: 4.8,
-    price: 15500,
-    location: "Kampar, Riau",
-    seller: "Sawa",
-  },
-  {
-    id: 3,
-    image: [
-      {
-        id: 301,
-        url: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783446062/d_sxojwe.jpg",
-        isPrimary: true,
-      },
-    ],
-    category: "secondhand",
-    name: "Mesin Traktor Mini",
-    rating: 5.0,
-    price: 2210000,
-    location: "Pekanbaru, Riau",
-    seller: "Ahmad",
-  },
-];
+interface CollectionsProductProps {
+  params: GetProductsParams;
+  onResetFilters?: () => void;
+}
 
-const CollectionsProduct = () => {
+const ProductSkeleton = () => (
+  <div className="rounded-2xl border border-border bg-background overflow-hidden animate-pulse">
+    <div className="aspect-square bg-gray-200 dark:bg-gray-800" />
+    <div className="p-4 space-y-3">
+      <div className="h-3 bg-gray-200 rounded dark:bg-gray-800 w-1/3" />
+      <div className="h-4 bg-gray-200 rounded dark:bg-gray-800 w-3/4" />
+      <div className="h-3 bg-gray-200 rounded dark:bg-gray-800 w-1/2" />
+      <div className="h-5 bg-gray-200 rounded dark:bg-gray-800 w-1/4 mt-4" />
+    </div>
+  </div>
+);
+
+const CollectionsProduct = ({ params, onResetFilters }: CollectionsProductProps) => {
+  const isFavoritesOnly = params.favoriteOnly === true;
+
+  // Fetch using the appropriate hook depending on the active tab
+  const productsQuery = useProducts({
+    params,
+    queryConfig: { enabled: !isFavoritesOnly },
+  });
+
+  const favoritesQuery = useFavoriteProducts({
+    params,
+    queryConfig: { enabled: isFavoritesOnly },
+  });
+
+  const query = isFavoritesOnly ? favoritesQuery : productsQuery;
+  const { data, isLoading, isError, refetch } = query;
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-white border border-gray-100 rounded-3xl dark:bg-gray-900 dark:border-gray-800 shadow-2xs">
+        <div className="h-12 w-12 rounded-full bg-red-50 dark:bg-red-950/30 flex items-center justify-center text-red-600 mb-4">
+          <AlertTriangle className="h-6 w-6" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Gagal memuat produk</h3>
+        <p className="text-sm text-muted-foreground max-w-sm mb-6">
+          Terjadi kesalahan koneksi saat memuat data. Silakan coba beberapa saat lagi.
+        </p>
+        <Button onClick={() => refetch()} className="rounded-xl px-6">
+          Coba Lagi
+        </Button>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <ProductSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  const products = data?.data ?? [];
+
+  if (products.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-white border border-gray-100 rounded-3xl dark:bg-gray-900 dark:border-gray-800 shadow-2xs">
+        <div className="h-12 w-12 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-400 mb-4">
+          <Inbox className="h-6 w-6" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Produk tidak ditemukan</h3>
+        <p className="text-sm text-muted-foreground max-w-sm mb-6">
+          {isFavoritesOnly
+            ? "Belum ada produk yang Anda sukai. Telusuri marketplace untuk menyukai produk!"
+            : "Coba ubah kata kunci pencarian atau reset filter untuk melihat produk lainnya."}
+        </p>
+        {onResetFilters && !isFavoritesOnly && (
+          <Button onClick={onResetFilters} variant="outline" className="rounded-xl px-5 border-gray-200">
+            <RotateCcw className="mr-2 h-4 w-4" />
+            Reset Filter
+          </Button>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {/* 2. Map data dummy ke dalam komponen CardProduct */}
-      {dummyProducts.map((product) => (
-        <CardProduct
-          key={product.id}
-          image={product.image} // Atribut image mengambil dari array image di dalam object
-          category={product.category} // Atribut category
-          name={product.name} // Atribut name
-          rating={product.rating} // Atribut rating
-          price={product.price} // Atribut price
-          location={product.location} // Atribut location
-          seller={product.seller} // Atribut seller
-        />
+      {products.map((product) => (
+        <CardProduct key={product.id} product={product} />
       ))}
     </div>
   );

@@ -309,14 +309,14 @@ function NavbarContent() {
       <div className="hidden shrink-0 items-center gap-3 lg:flex">
         <LanguageSwitcher />
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/auth/login">{t("login.button")}</Link>
+          <Link href="/login">{t("login.button")}</Link>
         </Button>
         <Button
           size="sm"
           asChild
           className="bg-primary text-background px-6 py-4 font-semibold"
         >
-          <Link href="/auth/register">{t("register.button")}</Link>
+          <Link href="/register">{t("register.button")}</Link>
         </Button>
       </div>
 
@@ -362,13 +362,18 @@ function NavbarContent() {
                 <LanguageSwitcher />
               </div>
               <div className="grid grid-cols-2 gap-3 mt-2">
-                <Button variant="outline" size="lg" asChild className="rounded-2xl h-11">
-                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  asChild
+                  className="rounded-2xl h-11"
+                >
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
                     {t("login.button")}
                   </Link>
                 </Button>
                 <Button size="lg" asChild className="rounded-2xl h-11">
-                  <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
+                  <Link href="/register" onClick={() => setMobileOpen(false)}>
                     {t("register.button")}
                   </Link>
                 </Button>

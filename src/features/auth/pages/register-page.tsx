@@ -194,7 +194,7 @@ const RegisterPage = () => {
                     <Spinner></Spinner>
                     {/* {t("button")} */}
                   </Button>
-                  <ButtonAuthGoogle type="register" />
+                  <ButtonAuthGoogle type="register"></ButtonAuthGoogle>
                   <div className="flex items-center gap-2 justify-center text-sm">
                     <p>{t("haveAccount")}</p>
                     <Link
