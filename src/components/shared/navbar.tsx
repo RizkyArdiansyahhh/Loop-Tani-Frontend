@@ -11,10 +11,13 @@ import {
   CircleCheckIcon,
   CircleHelpIcon,
   CircleIcon,
+  ShoppingCart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { useCart } from "@/features/cart/hooks/use-cart";
 // Sheet removed from navbar
 import {
   NavigationMenu,
@@ -85,6 +88,7 @@ function ListItem({
 function NavbarContent() {
   const t = useTranslations("auth");
   const t_navbar = useTranslations("navbar");
+  const { data: session } = authClient.useSession();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -308,16 +312,41 @@ function NavbarContent() {
       {/* Desktop actions — right */}
       <div className="hidden shrink-0 items-center gap-3 lg:flex">
         <LanguageSwitcher />
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/login">{t("login.button")}</Link>
-        </Button>
-        <Button
-          size="sm"
-          asChild
-          className="bg-primary text-background px-6 py-4 font-semibold"
-        >
-          <Link href="/register">{t("register.button")}</Link>
-        </Button>
+        {session ? (
+          <>
+            <CartBadge />
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
+            <div className="flex items-center gap-2">
+              <div className="h-9 w-9 rounded-full bg-green-100 dark:bg-green-950/30 flex items-center justify-center font-bold text-green-700 dark:text-green-400">
+                {session.user.name?.charAt(0) || "U"}
+              </div>
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                {session.user.name}
+              </span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => authClient.signOut()}
+              className="text-gray-600 dark:text-gray-400 font-semibold"
+            >
+              Keluar
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">{t("login.button")}</Link>
+            </Button>
+            <Button
+              size="sm"
+              asChild
+              className="bg-primary text-background px-6 py-4 font-semibold"
+            >
+              <Link href="/register">{t("register.button")}</Link>
+            </Button>
+          </>
+        )}
       </div>
 
       {/* Mobile hamburger */}
@@ -361,23 +390,49 @@ function NavbarContent() {
                 </span>
                 <LanguageSwitcher />
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-2">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  asChild
-                  className="rounded-2xl h-11"
-                >
-                  <Link href="/login" onClick={() => setMobileOpen(false)}>
-                    {t("login.button")}
-                  </Link>
-                </Button>
-                <Button size="lg" asChild className="rounded-2xl h-11">
-                  <Link href="/register" onClick={() => setMobileOpen(false)}>
-                    {t("register.button")}
-                  </Link>
-                </Button>
-              </div>
+              {session ? (
+                <div className="flex flex-col gap-3 mt-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11 w-full"
+                  >
+                    <Link href="/cart" onClick={() => setMobileOpen(false)}>
+                      <ShoppingCart className="h-4.5 w-4.5 mr-2 text-primary" />
+                      Keranjang Belanja
+                    </Link>
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={() => {
+                      authClient.signOut();
+                      setMobileOpen(false);
+                    }}
+                    className="rounded-2xl h-11 w-full bg-red-600 text-white hover:bg-red-700"
+                  >
+                    Keluar
+                  </Button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11"
+                  >
+                    <Link href="/login" onClick={() => setMobileOpen(false)}>
+                      {t("login.button")}
+                    </Link>
+                  </Button>
+                  <Button size="lg" asChild className="rounded-2xl h-11">
+                    <Link href="/register" onClick={() => setMobileOpen(false)}>
+                      {t("register.button")}
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -434,5 +489,24 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function CartBadge() {
+  const { data } = useCart();
+  const count = data?.summary?.totalItems ?? 0;
+
+  return (
+    <Link
+      href="/cart"
+      className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-all duration-300 hover:bg-gray-100 hover:scale-105 dark:text-gray-300 dark:hover:bg-gray-800"
+    >
+      <ShoppingCart className="h-5 w-5" />
+      {count > 0 && (
+        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white animate-in scale-in duration-300">
+          {count > 99 ? "99+" : count}
+        </span>
+      )}
+    </Link>
   );
 }

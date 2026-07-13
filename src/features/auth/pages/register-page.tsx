@@ -191,8 +191,7 @@ const RegisterPage = () => {
                       !form.formState.isValid || form.formState.isSubmitting
                     }
                   >
-                    <Spinner></Spinner>
-                    {/* {t("button")} */}
+                    {t("button")}
                   </Button>
                   <ButtonAuthGoogle type="register"></ButtonAuthGoogle>
                   <div className="flex items-center gap-2 justify-center text-sm">

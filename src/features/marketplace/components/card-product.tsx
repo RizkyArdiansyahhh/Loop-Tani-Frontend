@@ -9,12 +9,14 @@ import type { ProductSummary } from "@/types/api";
 import Link from "next/link";
 import { useFavorite } from "../hooks/use-favorite";
 import { cn } from "@/lib/utils";
+import { useAddToCart } from "@/features/cart/hooks/use-add-to-cart";
 
 interface CardProductProps {
   product: ProductSummary;
 }
 
 const CardProduct = ({ product }: CardProductProps) => {
+  const addToCartMutation = useAddToCart();
   const {
     id,
     images,
@@ -144,13 +146,14 @@ const CardProduct = ({ product }: CardProductProps) => {
         </div>
         <Button
           className="px-6 rounded-full font-semibold h-9 text-xs"
+          disabled={product.stock === 0 || addToCartMutation.isPending}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            // Handle buy / add to cart later
+            addToCartMutation.mutate({ productId: id, quantity: 1 });
           }}
         >
-          Beli
+          {addToCartMutation.isPending ? "..." : "Beli"}
         </Button>
       </div>
     </Link>

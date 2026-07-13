@@ -9,11 +9,15 @@ import BadgeProduct from "@/components/shared/badge-product";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useFavorite } from "../hooks/use-favorite";
+import { useAddToCart } from "@/features/cart/hooks/use-add-to-cart";
+import { useRouter } from "next/navigation";
 
 export default function ProductDetailPage({ id }: { id: string }) {
   const { data: product, isLoading, isError } = useProductById({ id });
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const { toggleFavorite } = useFavorite();
+  const addToCartMutation = useAddToCart();
+  const router = useRouter();
 
   if (isLoading) {
     return (
@@ -193,12 +197,20 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 <Button
                   variant="outline"
                   className="flex-1 h-12 rounded-xl border-primary text-primary hover:bg-primary/5"
-                  disabled={product.stock === 0}
+                  disabled={product.stock === 0 || addToCartMutation.isPending}
+                  onClick={() => addToCartMutation.mutate({ productId: product.id, quantity: 1 })}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
-                  Keranjang
+                  {addToCartMutation.isPending ? "Menambahkan..." : "Keranjang"}
                 </Button>
-                <Button className="flex-1 h-12 rounded-xl" disabled={product.stock === 0}>
+                <Button 
+                  className="flex-1 h-12 rounded-xl" 
+                  disabled={product.stock === 0 || addToCartMutation.isPending}
+                  onClick={() => addToCartMutation.mutate(
+                    { productId: product.id, quantity: 1 },
+                    { onSuccess: () => router.push("/cart") }
+                  )}
+                >
                   Beli Sekarang
                 </Button>
               </div>

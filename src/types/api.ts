@@ -133,3 +133,59 @@ export interface CreateCategoryPayload {
   name: string;
   slug: string;
 }
+
+// ─────────────────────────────────────────────
+// Cart Types
+// ─────────────────────────────────────────────
+
+export interface Cart {
+  id: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CartItemProduct {
+  id: string;
+  title: string;
+  thumbnail: string | null;
+  price: number;
+  stock: number;
+  weight: number;
+  seller: {
+    id: string;
+    name: string;
+  };
+}
+
+export interface CartItem {
+  id: string;
+  quantity: number;
+  subtotal: number;
+  isAvailable: boolean;
+  availabilityReason: 'OUT_OF_STOCK' | 'ARCHIVED' | 'SOLD' | 'DRAFT' | null;
+  createdAt: string;
+  updatedAt: string;
+  product: CartItemProduct;
+}
+
+export interface CartSummary {
+  totalItems: number;
+  subtotal: number;
+  totalWeight: number;
+}
+
+export interface CartResponse {
+  cart: Cart | null;
+  items: CartItem[];
+  summary: CartSummary;
+}
+
+export interface AddToCartPayload {
+  productId: string;
+  quantity: number;
+}
+
+export interface UpdateCartItemPayload {
+  quantity: number;
+}
