@@ -4,6 +4,9 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
+import LoopiFloating from "@/features/chatbot/components/loopi-floating";
+import AccessibilityWidget from "@/components/shared/accessibility-widget";
+import { Providers } from "@/components/providers";
 
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -42,8 +45,12 @@ export default async function RootLayout({
         className={`${fontSans.variable} ${fontFraunces.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
-          <Toaster />
+          <Providers>
+            {children}
+            <Toaster />
+            <LoopiFloating />
+            <AccessibilityWidget />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>
