@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Sprout, Download, Bookmark } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import FormStep from "./form-step";
 import LoadingStep from "./loading-step";
 import ResultStep from "./result-step";
@@ -11,8 +11,8 @@ import AiInsight from "./ai-insight";
 import {
   type FarmFormData,
   type CalculationResult,
-  dummyResult,
 } from "../lib/dummy-data";
+import { recommendFertilizer } from "../lib/engine";
 
 type Step = "form" | "loading" | "result";
 
@@ -25,6 +25,7 @@ const fadeSlide = {
 
 const FertilizerCalculator = () => {
   const t = useTranslations("fertilizer");
+  const locale = useLocale();
   const [step, setStep] = useState<Step>("form");
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [formData, setFormData] = useState<FarmFormData>({
@@ -35,14 +36,16 @@ const FertilizerCalculator = () => {
     growthStage: "",
   });
 
-  const handleCalculate = useCallback(() => {
+  const handleCalculate = useCallback((data: FarmFormData) => {
     setStep("loading");
     const delay = 2000 + Math.random() * 1000;
     setTimeout(() => {
-      setResult(dummyResult);
+      console.log("Recommend Fertilizer Input Data:", data, "with locale:", locale);
+      const calcResult = recommendFertilizer(data, locale);
+      setResult(calcResult);
       setStep("result");
     }, delay);
-  }, []);
+  }, [locale]);
 
   const handleReset = useCallback(() => {
     setStep("form");
@@ -147,6 +150,11 @@ const FertilizerCalculator = () => {
               {step === "result" && result && (
                 <motion.div key="result" {...fadeSlide}>
                   <ResultStep result={result} onReset={handleReset} />
+                  <div className="border-t border-border/50 bg-muted/20 p-4 text-center text-xs text-muted-foreground">
+                    <p>
+                      <strong>Disclaimer:</strong> This recommendation is an estimation based on official fertilizer dosage references combined with agronomic heuristic adjustments. It is intended as a decision-support tool and should not replace site-specific soil testing.
+                    </p>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

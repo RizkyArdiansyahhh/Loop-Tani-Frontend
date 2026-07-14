@@ -5,17 +5,23 @@ import { useTranslations } from "next-intl";
 import { X, Sparkles, Plus, Image, Video, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { dummyUploaders, PanduanContent } from "../lib/dummy-data";
 import { toast } from "sonner";
+import { useCreateContent } from "../hooks/use-create-content";
+import { authClient } from "@/lib/auth-client";
 
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (newContent: PanduanContent) => void;
+  onUploadSuccess: () => void;
 }
 
-export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
+export function UploadModal({ isOpen, onClose, onUploadSuccess }: UploadModalProps) {
   const t = useTranslations("panduan");
+  const createMutation = useCreateContent();
+  const { data: session } = authClient.useSession();
+  const userRole = (session?.user as any)?.role;
+  const isAdmin = userRole === "ADMIN" ||
+                  (Array.isArray(userRole) && userRole.includes("ADMIN"));
 
   // Form states
   const [type, setType] = useState<"artikel" | "video">("artikel");
@@ -26,7 +32,6 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
   const [youtubeId, setYoutubeId] = useState("");
   const [imageQuery, setImageQuery] = useState("");
   const [content, setContent] = useState("");
-  const [uploaderKey, setUploaderKey] = useState<"ahmad" | "ebel" | "rizky">("ahmad");
 
   if (!isOpen) return null;
 
@@ -42,15 +47,10 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
 
     if (type === "video" && !youtubeId.trim()) {
       toast.error("Formulir tidak lengkap", {
-        description: "Video ID YouTube wajib diisi jika tipe konten adalah Video.",
+        description: "URL Video / ID Video wajib diisi jika tipe konten adalah Video.",
       });
       return;
     }
-
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)+/g, "");
 
     // Unsplash photo library mapping based on keywords to keep design premium
     const imageKeyword = imageQuery.trim() || "farming";
@@ -62,38 +62,41 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
       imageUrl = "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&w=600&h=400&q=80";
     }
 
-    const pointsToAward = type === "artikel" ? 20 : 30; // standard content points
+    const durationNum = parseInt(duration) || 5;
 
-    const newContent: PanduanContent = {
-      id: `custom-${Date.now()}`,
-      slug,
-      type,
-      title,
-      category,
-      difficulty,
-      imageQuery: imageKeyword,
-      imageUrl: type === "artikel" ? imageUrl : undefined,
-      youtubeId: type === "video" ? youtubeId.trim() : undefined,
-      duration: type === "artikel" ? `${duration.trim()} menit baca` : duration.trim(),
-      points: pointsToAward,
-      relatedListingSlug: "marketplace-produk",
-      content,
-      uploader: dummyUploaders[uploaderKey],
-    };
-
-    onUpload(newContent);
-    
-    // Reset Form
-    setTitle("");
-    setDuration("");
-    setYoutubeId("");
-    setImageQuery("");
-    setContent("");
-    onClose();
+    createMutation.mutate(
+      {
+        type: type === "artikel" ? "ARTICLE" : "VIDEO",
+        title,
+        content,
+        category,
+        difficulty,
+        imageUrl: type === "artikel" ? imageUrl : undefined,
+        estimatedReadingMinutes: type === "artikel" ? durationNum : undefined,
+        videoDuration: type === "video" ? durationNum * 60 : undefined,
+        secureUrl: type === "video" ? youtubeId.trim() : undefined,
+      },
+      {
+        onSuccess: () => {
+          // Reset Form
+          setTitle("");
+          setDuration("");
+          setYoutubeId("");
+          setImageQuery("");
+          setContent("");
+          onUploadSuccess();
+          onClose();
+        },
+        onError: (err: any) => {
+          const msg = err?.response?.data?.message || "Gagal mengirimkan konten.";
+          toast.error(msg);
+        },
+      }
+    );
   };
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
+    <div className="fixed inset-0 z-300 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-300">
       {/* Modal Box */}
       <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-3xl bg-white shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 dark:bg-gray-900 dark:border dark:border-gray-800">
         
@@ -123,32 +126,34 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
         {/* Modal Scrollable Form Body */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5">
           {/* Toggle Type Artikel / Video */}
-          <div className="grid grid-cols-2 gap-3 p-1 rounded-2xl bg-gray-50 border border-gray-100 dark:bg-gray-950 dark:border-gray-800">
-            <button
-              type="button"
-              onClick={() => setType("artikel")}
-              className={`flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
-                type === "artikel"
-                  ? "bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white"
-                  : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <Image className="h-4 w-4" />
-              {t("uploadModal.typeArticle")}
-            </button>
-            <button
-              type="button"
-              onClick={() => setType("video")}
-              className={`flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
-                type === "video"
-                  ? "bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white"
-                  : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <Video className="h-4 w-4" />
-              {t("uploadModal.typeVideo")}
-            </button>
-          </div>
+          {isAdmin && (
+            <div className="grid grid-cols-2 gap-3 p-1 rounded-2xl bg-gray-50 border border-gray-100 dark:bg-gray-950 dark:border-gray-800">
+              <button
+                type="button"
+                onClick={() => setType("artikel")}
+                className={`flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
+                  type === "artikel"
+                    ? "bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white"
+                    : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                }`}
+              >
+                <Image className="h-4 w-4" />
+                {t("uploadModal.typeArticle")}
+              </button>
+              <button
+                type="button"
+                onClick={() => setType("video")}
+                className={`flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 ${
+                  type === "video"
+                    ? "bg-white text-gray-900 shadow-sm dark:bg-gray-800 dark:text-white"
+                    : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                }`}
+              >
+                <Video className="h-4 w-4" />
+                {t("uploadModal.typeVideo")}
+              </button>
+            </div>
+          )}
 
           {/* Form Fields Grid */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -242,43 +247,7 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
               )}
             </div>
 
-            {/* Uploader profiles */}
-            <div className="sm:col-span-2">
-              <label className="mb-1.5 block text-xs font-bold text-gray-700 dark:text-gray-300 flex items-center gap-1">
-                <Users className="h-3.5 w-3.5" />
-                {t("uploadModal.formUploader")}
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                {(["ahmad", "ebel", "rizky"] as const).map((key) => {
-                  const user = dummyUploaders[key];
-                  const isSelected = uploaderKey === key;
-                  return (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setUploaderKey(key)}
-                      className={`flex flex-col items-center p-3 rounded-2xl border text-center transition-all ${
-                        isSelected
-                          ? "border-primary bg-primary/5 dark:bg-primary/10"
-                          : "border-gray-150 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-850"
-                      }`}
-                    >
-                      <img
-                        src={user.avatarUrl}
-                        alt={user.name}
-                        className="h-10 w-10 rounded-full object-cover mb-1.5 ring-2 ring-white shadow-xs"
-                      />
-                      <span className="text-xs font-semibold text-gray-900 dark:text-white">
-                        {user.name}
-                      </span>
-                      <span className="text-4xs text-muted-foreground leading-none">
-                        {user.role}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+
 
             {/* Content text */}
             <div className="sm:col-span-2">

@@ -39,14 +39,24 @@
       "status": "Status",
       "optimal": "Optimal",
       "suitable": "Suitable for current farming conditions.",
-      "reset": "Recalculate"
+      "reset": "Recalculate",
+      "breakdownTitle": "Calculation Breakdown & References",
+      "stepByStepTitle": "Step-by-step Execution",
+      "referenceTitle": "Official Reference",
+      "baseDosageLabel": "Base Dosage:",
+      "soilAdjustmentLabel": "Soil Adjustment:",
+      "fertilizerSelectionLabel": "Fertilizer Selection:",
+      "marketplaceTitle": "Marketplace Recommendations",
+      "marketplaceSubtitle": "Matching products available in Loop Tani",
+      "viewProduct": "View Product"
     },
     "insights": {
       "title": "AI Farming Insights",
       "tip1": "Split fertilizer application into three stages.",
       "tip2": "Use compost together with chemical fertilizer.",
       "tip3": "Water crops after fertilization.",
-      "tip4": "Avoid fertilizing before heavy rainfall."
+      "tip4": "Avoid fertilizing before heavy rainfall.",
+      "unverified_crop": "This crop currently lacks an official reference for dosage. Please consult a local agricultural extension worker."
     },
     "bottomCta": {
       "title": "Ready to improve your harvest?",

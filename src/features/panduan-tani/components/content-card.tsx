@@ -6,10 +6,10 @@ import { useTranslations } from "next-intl";
 import { Play, Sparkles, Clock, BookOpen, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import { PanduanContent } from "../lib/dummy-data";
+import { KnowledgeContent } from "@/types/api";
 
 interface ContentCardProps {
-  content: PanduanContent;
+  content: KnowledgeContent;
 }
 
 export function ContentCard({ content }: ContentCardProps) {
@@ -17,9 +17,9 @@ export function ContentCard({ content }: ContentCardProps) {
   const [imageError, setImageError] = useState(false);
 
   // Setup thumbnail image
-  let thumbnailUrl = content.imageUrl;
-  if (content.type === "video" && content.youtubeId) {
-    // If it's a video, use the YouTube high quality thumbnail
+  let thumbnailUrl = content.thumbnailUrl || content.imageUrl;
+  if (content.type === "video" && content.youtubeId && !thumbnailUrl) {
+    // If it's a video and has a youtubeId, use the YouTube high quality thumbnail
     thumbnailUrl = imageError
       ? `https://img.youtube.com/vi/${content.youtubeId}/hqdefault.jpg`
       : `https://img.youtube.com/vi/${content.youtubeId}/maxresdefault.jpg`;
@@ -39,7 +39,7 @@ export function ContentCard({ content }: ContentCardProps) {
       className="group flex flex-col h-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
     >
       {/* Media Cover / Image Section */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-muted">
         <img
           src={thumbnailUrl}
           alt={content.title}
@@ -51,15 +51,15 @@ export function ContentCard({ content }: ContentCardProps) {
         {/* Difficulty Badge - Absolute */}
         <div className="absolute top-3 left-3 flex gap-1.5 z-10">
           <Badge
-            variant={content.difficulty === "pemula" ? "secondary" : "default"}
+            variant={content.difficulty?.toLowerCase() === "pemula" ? "secondary" : "default"}
             className="bg-white/95 text-gray-900 shadow-xs backdrop-blur-xs font-semibold hover:bg-white border-0 dark:bg-gray-800/90 dark:text-white"
           >
-            {t(`difficultyLabel.${content.difficulty}`)}
+            {t("difficultyLabel." + content.difficulty?.toLowerCase())}
           </Badge>
           <Badge
             className="bg-primary/90 text-white shadow-xs backdrop-blur-xs font-semibold hover:bg-primary border-0"
           >
-            {t(`categoryLabel.${content.category}`)}
+            {t("categoryLabel." + content.category?.toLowerCase())}
           </Badge>
         </div>
 
@@ -99,7 +99,7 @@ export function ContentCard({ content }: ContentCardProps) {
         </div>
 
         {/* Card Title - Strict line clamp and min-height to fix alignment */}
-        <h3 className="mb-3 line-clamp-2 text-base font-semibold leading-snug text-gray-900 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 min-h-[2.75rem]">
+        <h3 className="mb-3 line-clamp-2 text-base font-semibold leading-snug text-gray-900 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 min-h-11">
           {content.title}
         </h3>
 
@@ -107,7 +107,7 @@ export function ContentCard({ content }: ContentCardProps) {
         <div className="flex-1" />
 
         {/* Separator line */}
-        <div className="my-3.5 h-[1px] w-full bg-gray-100 dark:bg-gray-800" />
+        <div className="my-3.5 h-px w-full bg-gray-100 dark:bg-gray-800" />
 
         {/* Uploader / Author info */}
         <div className="flex items-center justify-between">

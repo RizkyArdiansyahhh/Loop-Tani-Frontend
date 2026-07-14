@@ -1,0 +1,39 @@
+{
+  "profile": {
+    "sidebar": {
+    "account": "Akun Saya",
+    "addresses": "Buku Alamat",
+    "orders": "Pesanan Saya",
+    "favorites": "Favorit",
+    "notifications": "Notifikasi",
+    "settings": "Pengaturan"
+  },
+  "card": {
+    "title": "Profil Pengguna",
+    "description": "Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun.",
+    "nameLabel": "Nama Lengkap",
+    "emailLabel": "Alamat Email",
+    "emailDescription": "Email tidak dapat diubah karena terikat dengan akun Anda.",
+    "phoneLabel": "Nomor Telepon",
+    "saveButton": "Simpan Perubahan"
+  },
+  "avatar": {
+    "upload": "Unggah Foto",
+    "formatHint": "Format: JPEG, PNG",
+    "sizeHint": "Maksimal ukuran: 5MB"
+  },
+  "sellerStatus": {
+    "active": "Toko Aktif",
+    "dashboardLink": "Ke Dashboard Toko",
+    "pending": "Menunggu Persetujuan",
+    "rejected": "Pendaftaran Ditolak",
+    "reapplyLink": "Daftar Ulang",
+    "suspended": "Toko Ditangguhkan"
+  },
+  "page": {
+    "title": "Profil Saya",
+    "description": "Kelola informasi profil dan pengaturan akun Anda",
+    "error": "Gagal memuat profil. Silakan coba lagi."
+  }
+  }
+}
