@@ -1,0 +1,39 @@
+{
+  "profile": {
+    "sidebar": {
+    "account": "My Account",
+    "addresses": "Address Book",
+    "orders": "My Orders",
+    "favorites": "Favorites",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "card": {
+    "title": "User Profile",
+    "description": "Manage your profile information to control, protect, and secure your account.",
+    "nameLabel": "Full Name",
+    "emailLabel": "Email Address",
+    "emailDescription": "Email cannot be changed because it is linked to your account.",
+    "phoneLabel": "Phone Number",
+    "saveButton": "Save Changes"
+  },
+  "avatar": {
+    "upload": "Upload Photo",
+    "formatHint": "Format: JPEG, PNG",
+    "sizeHint": "Max size: 5MB"
+  },
+  "sellerStatus": {
+    "active": "Active Store",
+    "dashboardLink": "Go to Dashboard",
+    "pending": "Pending Approval",
+    "rejected": "Application Rejected",
+    "reapplyLink": "Re-apply",
+    "suspended": "Store Suspended"
+  },
+  "page": {
+    "title": "My Profile",
+    "description": "Manage your profile information and account settings",
+    "error": "Failed to load profile. Please try again."
+  }
+  }
+}

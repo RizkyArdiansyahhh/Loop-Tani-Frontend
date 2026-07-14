@@ -12,6 +12,7 @@ import {
   CircleHelpIcon,
   CircleIcon,
   ShoppingCart,
+  User,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
@@ -316,14 +317,14 @@ function NavbarContent() {
           <>
             <CartBadge />
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
-            <div className="flex items-center gap-2">
+            <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
               <div className="h-9 w-9 rounded-full bg-green-100 dark:bg-green-950/30 flex items-center justify-center font-bold text-green-700 dark:text-green-400">
                 {session.user.name?.charAt(0) || "U"}
               </div>
               <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 {session.user.name}
               </span>
-            </div>
+            </Link>
             <Button
               variant="ghost"
               size="sm"
@@ -392,6 +393,17 @@ function NavbarContent() {
               </div>
               {session ? (
                 <div className="flex flex-col gap-3 mt-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11 w-full"
+                  >
+                    <Link href="/profile" onClick={() => setMobileOpen(false)}>
+                      <User className="h-4.5 w-4.5 mr-2 text-primary" />
+                      Profil Saya
+                    </Link>
+                  </Button>
                   <Button
                     variant="outline"
                     size="lg"

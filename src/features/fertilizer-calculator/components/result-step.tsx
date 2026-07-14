@@ -8,9 +8,13 @@ import {
   RotateCcw,
   TrendingUp,
   CircleCheck,
+  BookOpen,
+  Info,
+  ShoppingCart
 } from "lucide-react";
 import type { CalculationResult } from "../lib/dummy-data";
 import { formatRupiah } from "../lib/dummy-data";
+import Link from "next/link";
 
 interface ResultStepProps {
   result: CalculationResult;
@@ -169,6 +173,92 @@ const ResultStep = ({ result, onReset }: ResultStepProps) => {
           </p>
         </div>
       </div>
+
+      {/* Transparent Breakdown Section */}
+      <div className="mt-6 rounded-2xl border border-border/40 bg-background/60 p-5">
+        <div className="mb-4 flex items-center gap-2 border-b border-border/30 pb-3">
+          <Info className="h-5 w-5 text-primary" />
+          <h3 className="text-sm font-semibold text-foreground">
+            {t("result.breakdownTitle")}
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Step-by-step */}
+          <div>
+            <h4 className="mb-3 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              {t("result.stepByStepTitle")}
+            </h4>
+            <ul className="space-y-2.5">
+              {result.stepByStep?.map((step, idx) => (
+                <li key={idx} className="flex gap-2.5 text-sm text-foreground">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                    {idx + 1}
+                  </span>
+                  <span className="leading-snug">{step}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Recommendation Source */}
+          <div className="flex flex-col gap-4 rounded-xl bg-muted/20 p-5 border border-border/30">
+            <h4 className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              <BookOpen className="h-4 w-4 text-primary" /> {t("result.referenceTitle")}
+            </h4>
+            <div className="space-y-4 text-sm">
+              <div className="rounded-lg bg-background/40 p-3 border border-border/20 shadow-xs">
+                <p className="text-xs font-semibold text-muted-foreground">{t("result.baseDosageLabel")}</p>
+                <p className="mt-1 font-medium text-foreground leading-normal">{result.recommendationSource.dosage}</p>
+              </div>
+              <div className="rounded-lg bg-background/40 p-3 border border-border/20 shadow-xs">
+                <p className="text-xs font-semibold text-muted-foreground">{t("result.soilAdjustmentLabel")}</p>
+                <p className="mt-1 font-medium text-foreground leading-normal">{result.recommendationSource.soilAdjustment}</p>
+              </div>
+              <div className="rounded-lg bg-background/40 p-3 border border-border/20 shadow-xs">
+                <p className="text-xs font-semibold text-muted-foreground mb-1.5">{t("result.fertilizerSelectionLabel")}</p>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary border border-primary/20">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                  {result.recommendationSource.fertilizerSelection}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Marketplace Integration */}
+      {result.marketplaceProducts && result.marketplaceProducts.length > 0 && (
+        <div className="mt-6 rounded-2xl border border-border/40 bg-background/60 p-5">
+          <div className="mb-4 flex items-center gap-2 border-b border-border/30 pb-3">
+            <ShoppingCart className="h-5 w-5 text-accent" />
+            <h3 className="text-sm font-semibold text-foreground">
+              {t("result.marketplaceTitle")}
+            </h3>
+            <span className="ml-auto text-xs text-muted-foreground hidden sm:inline-block">
+              {t("result.marketplaceSubtitle")}
+            </span>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {result.marketplaceProducts.map((product) => (
+              <div
+                key={product.id}
+                className="group relative overflow-hidden rounded-xl border border-border/40 bg-background p-4 shadow-xs transition-all hover:border-primary/50 hover:shadow-md"
+              >
+                <h4 className="font-semibold text-foreground text-sm line-clamp-1">{product.name}</h4>
+                <p className="mt-1 text-xs text-muted-foreground">{product.storeName}</p>
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="font-bold text-accent">{formatRupiah(product.price)}</span>
+                  <Link
+                    href={`/marketplace/${product.slug}`}
+                    className="text-xs font-semibold text-primary hover:underline"
+                  >
+                    {t("result.viewProduct")}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

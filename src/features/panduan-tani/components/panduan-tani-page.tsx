@@ -1,24 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Sparkles, Search, SlidersHorizontal, Plus, BookOpen, Video, ArrowRight } from "lucide-react";
+import { Plus, BookOpen, Video, Search, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoopPointsWidget } from "./looppoints-widget";
 import { ContentCard } from "./content-card";
 import { UploadModal } from "./upload-modal";
-import { initialPanduanContents, PanduanContent } from "../lib/dummy-data";
-import { toast } from "sonner";
 import Breadcrumbs from "@/components/shared/breadcrumbs";
+import { useContents } from "../hooks/use-contents";
+import { usePoints } from "../hooks/use-points";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export default function PanduanTani() {
   const t = useTranslations("panduan");
-
-  // State loaded from localStorage if client side
-  const [points, setPoints] = useState(350);
-  const [contents, setContents] = useState<PanduanContent[]>(initialPanduanContents);
-  const [isClient, setIsClient] = useState(false);
+  const { data: session } = authClient.useSession();
+  
+  const userRole = (session?.user as any)?.role;
+  const isSellerOrAdmin = userRole === "ADMIN" ||
+                          userRole === "SELLER" ||
+                          (Array.isArray(userRole) && (userRole.includes("ADMIN") || userRole.includes("SELLER")));
 
   // Search & Filters state
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,78 +32,38 @@ export default function PanduanTani() {
   // Upload modal state
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
-  // LocalStorage sync
-  useEffect(() => {
-    setIsClient(true);
-    const storedPoints = localStorage.getItem("looptani_points");
-    if (storedPoints !== null) {
-      setPoints(Number(storedPoints));
-    } else {
-      localStorage.setItem("looptani_points", "350");
-    }
+  // Fetch points from backend (enabled only if logged in)
+  const { data: pointAccount } = usePoints(!!session);
+  const points = pointAccount?.totalPoint ?? 0;
 
-    const storedContents = localStorage.getItem("looptani_contents");
-    if (storedContents !== null) {
-      try {
-        setContents(JSON.parse(storedContents));
-      } catch (e) {
-        console.error("Error parsing stored contents", e);
-      }
-    } else {
-      localStorage.setItem("looptani_contents", JSON.stringify(initialPanduanContents));
-    }
-  }, []);
+  // Fetch contents from backend API
+  const { data: contentResponse, isLoading } = useContents({
+    type: activeTab === "artikel" ? "ARTICLE" : "VIDEO",
+    category: selectedCategory === "semua" ? undefined : (selectedCategory.toUpperCase() as any),
+    difficulty: selectedDifficulty === "semua" ? undefined : (selectedDifficulty.toUpperCase() as any),
+    search: searchQuery || undefined,
+  });
 
-  const handleEarnPoints = (amount: number) => {
-    const nextPoints = points + amount;
-    setPoints(nextPoints);
-    localStorage.setItem("looptani_points", String(nextPoints));
-  };
+  const contents = contentResponse?.data || [];
 
   const handleRedeemPoints = (cost: number, rewardName: string) => {
+    // Basic local simulation of voucher point deduction (for demo/points shop interface)
     if (points >= cost) {
-      const nextPoints = points - cost;
-      setPoints(nextPoints);
-      localStorage.setItem("looptani_points", String(nextPoints));
       toast.success(t("redeemPoints.redeemSuccess", { reward: rewardName }));
     }
   };
 
-  const handleAddContent = (newContent: PanduanContent) => {
-    const updatedContents = [newContent, ...contents];
-    setContents(updatedContents);
-    localStorage.setItem("looptani_contents", JSON.stringify(updatedContents));
-    
-    // Reward points for uploading content
-    const rewardPoints = 50;
-    const nextPoints = points + rewardPoints;
-    setPoints(nextPoints);
-    localStorage.setItem("looptani_points", String(nextPoints));
-
-    toast.success("Konten Berhasil Diupload!", {
-      description: `Selamat! Anda mendapatkan +50 LoopPoints sebagai kontributor ilmu.`,
-      icon: <Sparkles className="h-5 w-5 fill-current text-yellow-500" />,
-      duration: 5000,
+  const handleAddContentSuccess = () => {
+    // When a seller or admin uploads successfully, we close modal and notify
+    toast.success("Konten Berhasil Diajukan!", {
+      description: "Konten Anda telah masuk ke sistem dan akan ditinjau oleh Admin.",
     });
   };
-
-  // Filter Contents
-  const filteredContents = contents.filter((item) => {
-    const matchesTab = item.type === activeTab;
-    const matchesCategory = selectedCategory === "semua" || item.category === selectedCategory;
-    const matchesDifficulty = selectedDifficulty === "semua" || item.difficulty === selectedDifficulty;
-    const matchesSearch =
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.uploader.name.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesTab && matchesCategory && matchesDifficulty && matchesSearch;
-  });
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-24 dark:bg-gray-950">
       
-      {/* Header Banner - Large FRAUNCES font */}
+      {/* Header Banner */}
       <div className="relative overflow-hidden bg-white border-b border-gray-100 py-12 px-6 dark:bg-gray-900 dark:border-gray-800">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -112,13 +75,15 @@ export default function PanduanTani() {
                 {t("subtitle")}
               </p>
             </div>
-            <Button
-              onClick={() => setIsUploadOpen(true)}
-              className="w-full md:w-auto rounded-2xl bg-primary text-white font-semibold flex items-center justify-center gap-2 px-6 py-5 shadow-xs transition-all hover:bg-emerald-700"
-            >
-              <Plus className="h-5 w-5" />
-              {t("uploadModal.title")}
-            </Button>
+            {session && isSellerOrAdmin && (
+              <Button
+                onClick={() => setIsUploadOpen(true)}
+                className="w-full md:w-auto rounded-2xl bg-primary text-white font-semibold flex items-center justify-center gap-2 px-6 py-5 shadow-xs transition-all hover:bg-emerald-700"
+              >
+                <Plus className="h-5 w-5" />
+                {t("uploadModal.title")}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -130,7 +95,7 @@ export default function PanduanTani() {
         {/* Highlighted LoopPoints Dashboard Widget */}
         <section className="bg-transparent">
           <h2 className="sr-only">LoopPoints Dashboard</h2>
-          <LoopPointsWidget points={isClient ? points : 350} onRedeem={handleRedeemPoints} />
+          <LoopPointsWidget points={points} onRedeem={handleRedeemPoints} />
         </section>
 
         {/* Content Tabs (Articles vs Videos) */}
@@ -227,9 +192,13 @@ export default function PanduanTani() {
         </div>
 
         {/* Content Grid */}
-        {filteredContents.length > 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center py-20">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          </div>
+        ) : contents.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredContents.map((item) => (
+            {contents.map((item) => (
               <ContentCard key={item.id} content={item} />
             ))}
           </div>
@@ -244,11 +213,13 @@ export default function PanduanTani() {
       </div>
 
       {/* Upload Modal component */}
-      <UploadModal
-        isOpen={isUploadOpen}
-        onClose={() => setIsUploadOpen(false)}
-        onUpload={handleAddContent}
-      />
+      {session && (
+        <UploadModal
+          isOpen={isUploadOpen}
+          onClose={() => setIsUploadOpen(false)}
+          onUploadSuccess={handleAddContentSuccess}
+        />
+      )}
 
     </div>
   );

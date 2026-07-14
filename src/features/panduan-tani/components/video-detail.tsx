@@ -1,39 +1,102 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Sparkles, ArrowLeft, Play, Clock, Award, ShoppingBag, User, CheckCircle2 } from "lucide-react";
+import { Sparkles, ArrowLeft, Clock, Award, ShoppingBag, User, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PanduanContent } from "../lib/dummy-data";
-import { toast } from "sonner";
+import { KnowledgeContent } from "@/types/api";
 import Breadcrumbs from "@/components/shared/breadcrumbs";
+import { useVideoProgress } from "../hooks/use-video-progress";
+import { useProgress } from "../hooks/use-progress";
+import { useCompleteContent } from "../hooks/use-complete-content";
+import { useClaimReward } from "../hooks/use-claim-reward";
+import { authClient } from "@/lib/auth-client";
 
 interface VideoDetailProps {
-  video: PanduanContent;
-  onEarnPoints: (points: number) => void;
+  video: KnowledgeContent;
 }
 
-export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
+export default function VideoDetail({ video }: VideoDetailProps) {
   const t = useTranslations("panduan");
   const router = useRouter();
-  const [videoCompleted, setVideoCompleted] = useState(false);
+  const { data: session } = authClient.useSession();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const handleMarkCompleted = () => {
-    if (videoCompleted) return;
-    setVideoCompleted(true);
-    onEarnPoints(20); // Award points
-    toast.success(t("congratsTitle"), {
-      description: t("pointsEarnedToast", { points: 20 }),
-      icon: <Sparkles className="h-5 w-5 fill-current text-yellow-500" />,
-      duration: 4000,
+  // 1. Fetch backend progress
+  const { data: progress, isLoading: isProgressLoading, refetch: refetchProgress } = useProgress(
+    video.id,
+    !!session
+  );
+
+  const completed = progress?.completed ?? false;
+  const claimed = progress?.rewardClaimed ?? false;
+
+  // Resolve whether video is streamed directly from Cloudinary or uses YouTube fallback
+  const isCloudinary = video.secureUrl && video.secureUrl.startsWith("http");
+
+  // 2. Local progress tracking
+  const { watchedPercentage, meetsThreshold } = useVideoProgress({
+    videoRef,
+    videoDurationSeconds: video.duration ? (parseInt(video.duration.split(":")[0]) * 60 + parseInt(video.duration.split(":")[1])) : 300,
+    completed,
+  });
+
+  const completeMutation = useCompleteContent();
+  const claimMutation = useClaimReward();
+  const [completeSent, setCompleteSent] = useState(false);
+
+  // 3. Auto-submit completion once watched >= 80%
+  useEffect(() => {
+    if (session && meetsThreshold && !completed && !completeSent && !completeMutation.isPending) {
+      setCompleteSent(true);
+      completeMutation.mutate(
+        {
+          contentId: video.id,
+          payload: {
+            watchedPercentage,
+          },
+        },
+        {
+          onSuccess: () => {
+            refetchProgress();
+          },
+        }
+      );
+    }
+  }, [session, meetsThreshold, completed, completeSent, watchedPercentage, video.id]);
+
+  const handleClaim = () => {
+    if (claimMutation.isPending) return;
+    claimMutation.mutate(video.id, {
+      onSuccess: () => {
+        refetchProgress();
+      },
     });
+  };
+
+  const handleYouTubeComplete = () => {
+    // Fallback tracker for legacy YouTube videos
+    if (completeMutation.isPending) return;
+    completeMutation.mutate(
+      {
+        contentId: video.id,
+        payload: {
+          watchedPercentage: 80, // Mock 80%
+        },
+      },
+      {
+        onSuccess: () => {
+          refetchProgress();
+        },
+      }
+    );
   };
 
   return (
     <article className="min-h-screen bg-gray-50/50 pb-20 dark:bg-gray-950">
       {/* Back Navigation */}
-      <div className="mx-auto max-w-4xl px-4 pt-8 space-y-4">
+      <div className="mx-auto max-w-6xl px-4 pt-8 space-y-4">
         <Breadcrumbs
           items={[
             { label: "Panduan Tani", href: "/panduan-tani" },
@@ -51,12 +114,23 @@ export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
       </div>
 
       {/* Main Container */}
-      <div className="mx-auto max-w-4xl px-4">
-        <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          {/* Left Column: Video Content */}
+          <div className="lg:col-span-8">
+            <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900">
           
-          {/* Responsive YouTube Player Iframe */}
-          <div className="relative aspect-[16/9] w-full bg-black">
-            {video.youtubeId ? (
+          {/* Video Player */}
+          <div className="relative aspect-video w-full bg-black">
+            {isCloudinary ? (
+              <video
+                ref={videoRef}
+                src={video.secureUrl || ""}
+                controls
+                className="absolute inset-0 h-full w-full object-contain"
+                poster={video.thumbnailUrl || video.imageUrl || ""}
+              />
+            ) : video.youtubeId ? (
               <iframe
                 src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
                 title={video.title}
@@ -66,7 +140,7 @@ export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center text-white">
-                <p>Video ID tidak valid atau tidak ditemukan.</p>
+                <p>Video tidak ditemukan.</p>
               </div>
             )}
           </div>
@@ -88,14 +162,22 @@ export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
               </div>
 
               {/* Point Status Tracker */}
-              {videoCompleted ? (
+              {claimed ? (
                 <span className="rounded-full bg-emerald-50 px-3 py-1 text-2xs font-bold text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 flex items-center gap-1">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   Reward LP Berhasil Didapat
                 </span>
+              ) : completed ? (
+                <span className="rounded-full bg-amber-100 px-3 py-1 text-2xs font-bold text-amber-800 animate-pulse">
+                  🎉 Menonton selesai! Silakan klaim poin di bawah.
+                </span>
+              ) : session ? (
+                <span className="rounded-full bg-amber-50 px-3 py-1 text-2xs font-bold text-amber-700 dark:bg-amber-950/30 dark:text-amber-400">
+                  ⚠️ Ditonton: {Math.round(watchedPercentage)}/80% untuk +{video.points} LP
+                </span>
               ) : (
-                <span className="animate-pulse rounded-full bg-amber-50 px-3 py-1 text-2xs font-bold text-amber-700 dark:bg-amber-950/30 dark:text-amber-400">
-                  ⚠️ Klik tombol "Tandai Selesai Menonton" di bawah untuk klaim reward
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-2xs font-semibold text-gray-500">
+                  Masuk untuk mengumpulkan LoopPoints
                 </span>
               )}
             </div>
@@ -166,34 +248,148 @@ export default function VideoDetail({ video, onEarnPoints }: VideoDetailProps) {
                   asChild
                   className="w-full sm:w-auto rounded-xl bg-primary text-white font-semibold flex items-center justify-center gap-2 px-6 py-5"
                 >
-                  <Link href={`/marketplace/produk/${video.relatedListingSlug}`}>
+                  <Link href={`/marketplace`}>
                     <ShoppingBag className="h-5 w-5" />
                     {t("ctaPractice")}
                   </Link>
                 </Button>
 
-                {!videoCompleted ? (
+                {session && !isCloudinary && !completed && (
                   <Button
-                    onClick={handleMarkCompleted}
+                    onClick={handleYouTubeComplete}
+                    disabled={completeMutation.isPending}
                     className="w-full sm:w-auto rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-semibold flex items-center justify-center gap-2 px-6 py-5 shadow-sm"
                   >
                     <Sparkles className="h-4 w-4 fill-current text-yellow-200" />
-                    {t("markCompleted")}
+                    Tandai Selesai Menonton
                   </Button>
-                ) : (
+                )}
+
+                {session && !claimed && (
+                  <Button
+                    onClick={handleClaim}
+                    disabled={!completed || claimMutation.isPending}
+                    className={`w-full sm:w-auto rounded-xl font-semibold flex items-center justify-center gap-2 px-6 py-5 ${
+                      completed
+                        ? "bg-amber-500 hover:bg-amber-600 text-white shadow-md animate-bounce"
+                        : "bg-gray-100 text-gray-400 border border-gray-250 cursor-not-allowed dark:bg-gray-800 dark:text-gray-650"
+                    }`}
+                  >
+                    <Sparkles className="h-4 w-4 fill-current text-yellow-300" />
+                    Klaim LoopPoints
+                  </Button>
+                )}
+
+                {session && claimed && (
                   <Button
                     disabled
-                    className="w-full sm:w-auto rounded-xl bg-emerald-50 text-emerald-700 font-semibold border-emerald-150 border flex items-center justify-center gap-2 px-6 py-5 cursor-default opacity-100 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/40"
+                    className="w-full sm:w-auto rounded-xl bg-emerald-50 text-emerald-700 font-semibold border-emerald-150 border flex items-center justify-center gap-2 px-6 py-5 cursor-default opacity-100 dark:bg-emerald-950/20 dark:text-emerald-400"
                   >
-                    ✓ Tonton Selesai
+                    ✓ Tonton Selesai & Poin Diklaim
                   </Button>
                 )}
               </div>
             </div>
 
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Sticky Progress Widget */}
+        <div className="lg:col-span-4">
+          <div className="sticky top-24 space-y-6">
+            <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-gray-900">
+              <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-800">
+                <h3 className="font-fraunces text-base font-bold text-gray-900 dark:text-white">
+                  Progress Menonton
+                </h3>
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 dark:bg-amber-500/20">
+                  <Sparkles className="h-4.5 w-4.5 fill-current animate-pulse" />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {/* Watching Progress */}
+                <div>
+                  <div className="mb-1.5 flex justify-between text-xs">
+                    <span className="font-medium text-muted-foreground">Durasi Ditonton</span>
+                    <span className="font-bold text-primary">{Math.round(watchedPercentage)}% / 80%</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-gray-100 overflow-hidden dark:bg-gray-800">
+                    <div
+                      className={`h-full rounded-full transition-all duration-300 ${
+                        meetsThreshold ? "bg-emerald-500" : "bg-primary"
+                      }`}
+                      style={{ width: `${Math.min(watchedPercentage / 0.8, 100)}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* Status Indicator */}
+                <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 text-center">
+                  {claimed ? (
+                    <div className="rounded-2xl bg-emerald-50 p-4 dark:bg-emerald-950/20">
+                      <div className="flex items-center justify-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-sm">
+                        <CheckCircle2 className="h-5 w-5" />
+                        <span>Poin Telah Diklaim</span>
+                      </div>
+                      <p className="text-3xs text-emerald-600 mt-1 dark:text-emerald-500">
+                        Anda berhasil mengumpulkan +{video.points} LP dari panduan ini.
+                      </p>
+                    </div>
+                  ) : completed ? (
+                    <div className="space-y-3">
+                      <div className="rounded-2xl bg-amber-50 p-3 dark:bg-amber-950/20">
+                        <p className="text-xs font-bold text-amber-800 dark:text-amber-300">
+                          🎉 Selamat! Selesai menonton.
+                        </p>
+                      </div>
+                      {session ? (
+                        <Button
+                          onClick={handleClaim}
+                          disabled={claimMutation.isPending}
+                          className="w-full rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce"
+                        >
+                          <Sparkles className="mr-2 h-4 w-4 fill-current text-yellow-205" />
+                          Klaim {video.points} LP Sekarang
+                        </Button>
+                      ) : (
+                        <div className="text-xs text-muted-foreground p-2">
+                          Silakan login untuk klaim reward.
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-950/40">
+                        <div className="flex items-center gap-2 justify-center text-xs font-semibold text-gray-700 dark:text-gray-300">
+                          <Clock className="h-4 w-4 text-primary animate-pulse" />
+                          <span>Poin aktif setelah tontonan 80%</span>
+                        </div>
+                        <p className="text-3xs text-muted-foreground mt-1 leading-relaxed">
+                          Tonton setidaknya 80% dari durasi video untuk mendapatkan +{video.points} LP.
+                        </p>
+                      </div>
+
+                      {session && !isCloudinary && (
+                        <Button
+                          onClick={handleYouTubeComplete}
+                          disabled={completeMutation.isPending}
+                          className="w-full rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold py-3.5 shadow-sm text-xs"
+                        >
+                          <Sparkles className="mr-2 h-3.5 w-3.5 fill-current text-yellow-205" />
+                          Tandai Selesai Menonton
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
+  </article>
   );
 }
