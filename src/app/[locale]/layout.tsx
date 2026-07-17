@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import LoopiFloating from "@/features/chatbot/components/loopi-floating";
 import AccessibilityWidget from "@/components/shared/accessibility-widget";
 import { Providers } from "@/components/providers";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
+            <ReactQueryDevtools initialIsOpen={false} />
             {children}
             <Toaster />
             <LoopiFloating />

@@ -4,13 +4,19 @@ interface UseVideoProgressProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
   videoDurationSeconds: number;
   completed: boolean;
+  enabled?: boolean;
 }
 
-export function useVideoProgress({ videoRef, videoDurationSeconds, completed }: UseVideoProgressProps) {
+export function useVideoProgress({ videoRef, videoDurationSeconds, completed, enabled = true }: UseVideoProgressProps) {
   const [watchedPercentage, setWatchedPercentage] = useState(0);
   const watchedSecondsSetRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
+    if (!enabled) {
+      setWatchedPercentage(0);
+      return;
+    }
+
     if (completed) {
       setWatchedPercentage(100);
       return;

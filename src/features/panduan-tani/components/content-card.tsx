@@ -7,6 +7,7 @@ import { Play, Sparkles, Clock, BookOpen, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { KnowledgeContent } from "@/types/api";
+import { authClient } from "@/lib/auth-client";
 
 interface ContentCardProps {
   content: KnowledgeContent;
@@ -14,6 +15,7 @@ interface ContentCardProps {
 
 export function ContentCard({ content }: ContentCardProps) {
   const t = useTranslations("panduan");
+  const { data: session } = authClient.useSession();
   const [imageError, setImageError] = useState(false);
 
   // Setup thumbnail image
@@ -29,9 +31,10 @@ export function ContentCard({ content }: ContentCardProps) {
     thumbnailUrl = `https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&h=400&q=80`;
   }
 
-  const detailUrl = content.type === "artikel" 
-    ? `/panduan-tani/artikel/${content.slug}` 
-    : `/panduan-tani/video/${content.slug}`;
+  const detailUrl =
+    content.type === "artikel"
+      ? `/panduan-tani/artikel/${content.slug}`
+      : `/panduan-tani/video/${content.slug}`;
 
   return (
     <Link
@@ -51,14 +54,16 @@ export function ContentCard({ content }: ContentCardProps) {
         {/* Difficulty Badge - Absolute */}
         <div className="absolute top-3 left-3 flex gap-1.5 z-10">
           <Badge
-            variant={content.difficulty?.toLowerCase() === "pemula" ? "secondary" : "default"}
+            variant={
+              content.difficulty?.toLowerCase() === "pemula"
+                ? "secondary"
+                : "default"
+            }
             className="bg-white/95 text-gray-900 shadow-xs backdrop-blur-xs font-semibold hover:bg-white border-0 dark:bg-gray-800/90 dark:text-white"
           >
             {t("difficultyLabel." + content.difficulty?.toLowerCase())}
           </Badge>
-          <Badge
-            className="bg-primary/90 text-white shadow-xs backdrop-blur-xs font-semibold hover:bg-primary border-0"
-          >
+          <Badge className="bg-primary/90 text-white shadow-xs backdrop-blur-xs font-semibold hover:bg-primary border-0">
             {t("categoryLabel." + content.category?.toLowerCase())}
           </Badge>
         </div>
@@ -79,8 +84,10 @@ export function ContentCard({ content }: ContentCardProps) {
           ) : (
             <Clock className="h-3 w-3" />
           )}
-          {content.type === "artikel" 
-            ? t("readDuration", { duration: content.duration.replace(" baca", "") }) 
+          {content.type === "artikel"
+            ? t("readDuration", {
+                duration: content.duration.replace(" baca", ""),
+              })
             : t("videoDuration", { duration: content.duration })}
         </div>
       </div>
@@ -91,7 +98,11 @@ export function ContentCard({ content }: ContentCardProps) {
         <div className="mb-2.5 flex items-center justify-between">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-600/10 dark:bg-amber-950/30 dark:text-amber-400 dark:ring-amber-500/20">
             <Sparkles className="h-3.5 w-3.5 fill-current animate-pulse text-amber-500" />
-            <span>{t("pointsReward", { points: content.points })}</span>
+            <span>
+              {session
+                ? t("pointsReward", { points: content.points })
+                : t("pointsRewardLocked", { points: content.points })}
+            </span>
           </div>
           <span className="text-3xs text-muted-foreground uppercase tracking-widest font-semibold">
             {content.type === "artikel" ? "Artikel" : "Video"}

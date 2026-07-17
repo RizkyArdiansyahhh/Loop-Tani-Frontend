@@ -374,3 +374,34 @@ export interface PointTransaction {
   sourceType: string | null;
   createdAt: string;
 }
+
+export interface CommentUser {
+  id: string;
+  name: string;
+  image: string | null;
+}
+
+export type CommentStatus = 'ACTIVE' | 'HIDDEN' | 'DELETED';
+
+export interface Comment {
+  id: string;
+  contentId: string;
+  userId: string;
+  parentId: string | null;
+  content: string;
+  status: CommentStatus;
+  createdAt: string;
+  updatedAt: string;
+  user: CommentUser;
+  replies?: Comment[];
+}
+
+export interface CommentsResponse {
+  data: Comment[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}

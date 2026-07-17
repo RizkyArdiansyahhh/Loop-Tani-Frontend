@@ -3,9 +3,10 @@ import { useEffect, useState, useRef } from "react";
 interface UseReadingProgressProps {
   estimatedReadingMinutes: number;
   completed: boolean;
+  enabled?: boolean;
 }
 
-export function useReadingProgress({ estimatedReadingMinutes, completed }: UseReadingProgressProps) {
+export function useReadingProgress({ estimatedReadingMinutes, completed, enabled = true }: UseReadingProgressProps) {
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const [activeReadingSeconds, setActiveReadingSeconds] = useState(0);
   
@@ -17,6 +18,12 @@ export function useReadingProgress({ estimatedReadingMinutes, completed }: UseRe
   const targetReadingSeconds = (estimatedReadingMinutes || 5) * 60 * 0.7; // 70% threshold
 
   useEffect(() => {
+    if (!enabled) {
+      setScrollPercentage(0);
+      setActiveReadingSeconds(0);
+      return;
+    }
+
     if (completed) {
       setScrollPercentage(100);
       setActiveReadingSeconds(targetReadingSeconds);
