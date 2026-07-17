@@ -8,6 +8,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   // Dynamically import all json files for the locale
   const [
     analyzer,
+    admin,
     auth,
     fertilizer,
     navbar,
@@ -16,6 +17,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     seller,
   ] = await Promise.all([
     import(`../../messages/${safeLocale}/analyzer.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/admin.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/auth.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/fertilizer.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/navbar.json`).then(m => m.default).catch(() => ({})),
@@ -28,6 +30,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale: safeLocale,
     messages: {
       ...analyzer,
+      ...admin,
       ...auth,
       ...fertilizer,
       ...navbar,

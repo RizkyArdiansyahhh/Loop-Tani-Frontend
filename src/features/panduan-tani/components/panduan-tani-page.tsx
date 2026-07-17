@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Plus, BookOpen, Video, Search, SlidersHorizontal } from "lucide-react";
+import { Plus, BookOpen, Video, Search, SlidersHorizontal, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoopPointsWidget } from "./looppoints-widget";
@@ -12,21 +12,28 @@ import Breadcrumbs from "@/components/shared/breadcrumbs";
 import { useContents } from "../hooks/use-contents";
 import { usePoints } from "../hooks/use-points";
 import { authClient } from "@/lib/auth-client";
+import { Link } from "@/i18n/navigation";
 import { toast } from "sonner";
 
 export default function PanduanTani() {
   const t = useTranslations("panduan");
-  const { data: session } = authClient.useSession();
-  
+  const { data: session, isPending: isSessionLoading } = authClient.useSession();
+
   const userRole = (session?.user as any)?.role;
-  const isSellerOrAdmin = userRole === "ADMIN" ||
-                          userRole === "SELLER" ||
-                          (Array.isArray(userRole) && (userRole.includes("ADMIN") || userRole.includes("SELLER")));
+  const isSellerOrAdmin =
+    userRole === "ADMIN" ||
+    userRole === "SELLER" ||
+    (Array.isArray(userRole) &&
+      (userRole.includes("ADMIN") || userRole.includes("SELLER")));
 
   // Search & Filters state
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<"semua" | "limbah" | "olahan" | "alat">("semua");
-  const [selectedDifficulty, setSelectedDifficulty] = useState<"semua" | "pemula" | "menengah">("semua");
+  const [selectedCategory, setSelectedCategory] = useState<
+    "semua" | "limbah" | "olahan" | "alat"
+  >("semua");
+  const [selectedDifficulty, setSelectedDifficulty] = useState<
+    "semua" | "pemula" | "menengah"
+  >("semua");
   const [activeTab, setActiveTab] = useState<"artikel" | "video">("artikel");
 
   // Upload modal state
@@ -39,8 +46,14 @@ export default function PanduanTani() {
   // Fetch contents from backend API
   const { data: contentResponse, isLoading } = useContents({
     type: activeTab === "artikel" ? "ARTICLE" : "VIDEO",
-    category: selectedCategory === "semua" ? undefined : (selectedCategory.toUpperCase() as any),
-    difficulty: selectedDifficulty === "semua" ? undefined : (selectedDifficulty.toUpperCase() as any),
+    category:
+      selectedCategory === "semua"
+        ? undefined
+        : (selectedCategory.toUpperCase() as any),
+    difficulty:
+      selectedDifficulty === "semua"
+        ? undefined
+        : (selectedDifficulty.toUpperCase() as any),
     search: searchQuery || undefined,
   });
 
@@ -56,13 +69,13 @@ export default function PanduanTani() {
   const handleAddContentSuccess = () => {
     // When a seller or admin uploads successfully, we close modal and notify
     toast.success("Konten Berhasil Diajukan!", {
-      description: "Konten Anda telah masuk ke sistem dan akan ditinjau oleh Admin.",
+      description:
+        "Konten Anda telah masuk ke sistem dan akan ditinjau oleh Admin.",
     });
   };
 
   return (
     <div className="min-h-screen bg-gray-50/50 pb-24 dark:bg-gray-950">
-      
       {/* Header Banner */}
       <div className="relative overflow-hidden bg-white border-b border-gray-100 py-12 px-6 dark:bg-gray-900 dark:border-gray-800">
         <div className="mx-auto max-w-7xl">
@@ -91,16 +104,55 @@ export default function PanduanTani() {
       {/* Main Container */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-10 space-y-8">
         <Breadcrumbs items={[{ label: "Panduan Tani" }]} />
-        
-        {/* Highlighted LoopPoints Dashboard Widget */}
+
+        {/* Highlighted LoopPoints Dashboard Widget or Guest CTA Card */}
         <section className="bg-transparent">
           <h2 className="sr-only">LoopPoints Dashboard</h2>
-          <LoopPointsWidget points={points} onRedeem={handleRedeemPoints} />
+          {isSessionLoading ? (
+            <div className="grid gap-6 lg:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-[220px] rounded-3xl bg-white border border-gray-100 dark:border-gray-800 dark:bg-gray-900 animate-pulse" />
+              ))}
+            </div>
+          ) : session ? (
+            <LoopPointsWidget points={points} onRedeem={handleRedeemPoints} />
+          ) : (
+            <div className="rounded-3xl border border-emerald-100 bg-emerald-50/40 p-6 sm:p-10 shadow-xs dark:border-emerald-950/20 dark:bg-emerald-950/10 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex flex-col md:flex-row gap-6 items-start text-left">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
+                  <Sparkles className="h-7 w-7 fill-current animate-pulse" />
+                </div>
+                <div>
+                  <span className="text-3xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest leading-none">
+                    Mode Belajar Tamu
+                  </span>
+                  <h3 className="font-fraunces text-2xl font-bold text-gray-900 dark:text-white mt-1 mb-2">
+                    {t("guestCTA.title")}
+                  </h3>
+                  <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+                    {t("guestCTA.description")}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-3.5 w-full md:w-auto shrink-0">
+                <Link href="/login" className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto rounded-2xl bg-primary hover:bg-emerald-700 text-white font-bold px-6 py-5.5 shadow-md flex items-center justify-center gap-2 text-sm">
+                    {t("guestCTA.loginButton")}
+                  </Button>
+                </Link>
+                <Link href="/register" className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto rounded-2xl border-gray-250 bg-white text-gray-700 font-bold px-6 py-5.5 hover:bg-gray-50 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-750 transition-all text-sm">
+                    {t("guestCTA.registerButton")}
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Content Tabs (Articles vs Videos) */}
         <div className="flex flex-col md:flex-row gap-5 items-stretch md:items-center justify-between border-t border-gray-100 pt-8 dark:border-gray-800">
-          
           {/* Custom Tabs Slider */}
           <div className="flex p-1.5 rounded-2xl bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-800 w-full md:w-auto">
             <button
@@ -141,7 +193,6 @@ export default function PanduanTani() {
 
         {/* Filters Section */}
         <div className="flex flex-wrap gap-4 items-center justify-between bg-white border border-gray-100 p-5 rounded-3xl dark:bg-gray-900 dark:border-gray-800">
-          
           {/* Category Badges Filter */}
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-gray-700 mr-2 dark:text-gray-300 flex items-center gap-1">
@@ -188,7 +239,6 @@ export default function PanduanTani() {
               <option value="menengah">{t("difficultyLabel.menengah")}</option>
             </select>
           </div>
-
         </div>
 
         {/* Content Grid */}
@@ -205,11 +255,11 @@ export default function PanduanTani() {
         ) : (
           <div className="rounded-3xl border border-dashed border-gray-200 py-16 text-center dark:border-gray-800">
             <p className="text-sm text-muted-foreground">
-              Tidak ada panduan ditemukan yang cocok dengan kriteria filter Anda.
+              Tidak ada panduan ditemukan yang cocok dengan kriteria filter
+              Anda.
             </p>
           </div>
         )}
-
       </div>
 
       {/* Upload Modal component */}
@@ -220,7 +270,6 @@ export default function PanduanTani() {
           onUploadSuccess={handleAddContentSuccess}
         />
       )}
-
     </div>
   );
 }

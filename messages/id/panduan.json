@@ -6,6 +6,13 @@
     "tierProgress": "Level Kemitraan: {current} → {next}",
     "pointsToNext": "Kumpulkan {points} LoopPoints lagi untuk naik ke tier {next}",
     "pointsReward": "{points} LP Reward",
+    "pointsRewardLocked": "🔒 Login untuk mendapatkan {points} LP",
+    "guestCTA": {
+      "title": "Belajar lebih banyak, dapatkan lebih banyak manfaat",
+      "description": "Anda dapat membaca artikel dan menonton video secara gratis. Login untuk melacak progres belajar, mendapatkan LoopPoints, dan membuka reward eksklusif.",
+      "loginButton": "Login untuk Mendapatkan LoopPoints",
+      "registerButton": "Daftar Sekarang"
+    },
     "filterCategory": "Komoditas Utama",
     "filterDifficulty": "Tingkat Kesulitan Pelatihan",
     "filterAll": "Semua Kategori",
@@ -53,6 +60,34 @@
       "buttonRedeem": "Tukar {points} LP",
       "insufficient": "LoopPoints Tidak Cukup",
       "redeemSuccess": "Berhasil menukarkan {reward}! Saldo LoopPoints Anda terpotong."
+    },
+    "comments": {
+      "title": "Diskusi & Komentar",
+      "placeholder": "Tulis komentar Anda di sini...",
+      "replyPlaceholder": "Tulis balasan Anda di sini...",
+      "submit": "Kirim Komentar",
+      "replySubmit": "Kirim Balasan",
+      "edit": "Edit",
+      "delete": "Hapus",
+      "report": "Laporkan",
+      "guestPrompt": "Belajar bersama komunitas. Login untuk bergabung dalam diskusi.",
+      "loginButton": "Login untuk Berkomentar",
+      "deleteConfirmTitle": "Hapus Komentar?",
+      "deleteConfirmDesc": "Apakah Anda yakin ingin menghapus komentar ini? Tindakan ini tidak dapat dibatalkan.",
+      "deleteConfirmAction": "Hapus",
+      "reportConfirmTitle": "Laporkan Komentar?",
+      "reportConfirmDesc": "Apakah Anda yakin ingin melaporkan komentar ini karena dinilai melanggar aturan atau tidak pantas?",
+      "reportConfirmAction": "Laporkan",
+      "reportSuccess": "Komentar berhasil dilaporkan.",
+      "empty": "Belum ada diskusi di sini. Mulai obrolan dengan menulis komentar!",
+      "loading": "Memuat komentar...",
+      "editTitle": "Edit Komentar",
+      "cancel": "Batal",
+      "save": "Simpan Perubahan",
+      "edited": "(diedit)",
+      "repliesCount": "{count} Balasan",
+      "hide": "Sembunyikan",
+      "show": "Tampilkan"
     }
   }
 }

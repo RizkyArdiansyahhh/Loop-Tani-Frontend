@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormSchema, LoginFormSchema } from "../forms/login";
 import { authClient, useAuthError } from "@/lib/auth-client";
+import { getProfile } from "@/features/profile/api/get-profile";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/navigation";
 
@@ -31,9 +32,20 @@ export const useLoginForm = () => {
         return;
       }
 
+      // Fetch user profile to check roles
+      const profile = await getProfile();
+      console.log("LOGIN SUCCESS! Profile details:", profile);
       toast.success("Login berhasil!");
-      router.push("/");
+      
+      if (profile?.roles?.includes("ADMIN")) {
+        console.log("Redirecting to /admin as ADMIN");
+        router.push("/admin");
+      } else {
+        console.log("Redirecting to / as normal user");
+        router.push("/");
+      }
     } catch (err: any) {
+      console.error("LOGIN EXCEPTION:", err);
       toast.error(err?.message || getErrorMessage("generic"));
     }
   };
