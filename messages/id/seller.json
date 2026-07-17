@@ -81,6 +81,31 @@
       "items": "Item",
       "empty": "Semua stok produk aman."
     }
+  },
+  "storefront": {
+    "notFound": "Toko tidak ditemukan atau tidak aktif",
+    "backToMarketplace": "Kembali ke Marketplace",
+    "verified": "Penjual Terverifikasi",
+    "joined": "Bergabung {date}",
+    "productsCount": "{count} Produk",
+    "soldCount": "{count} Terjual",
+    "location": "Lokasi",
+    "products": "Produk",
+    "homeTab": "Beranda",
+    "productsTab": "Produk",
+    "aboutTab": "Tentang Toko",
+    "latestProducts": "Produk Terbaru",
+    "noProducts": "Belum ada produk aktif di toko ini.",
+    "aboutTitle": "Informasi Toko",
+    "contact": "Hubungi Penjual",
+    "circularImpact": "Dampak Sirkular Pertanian",
+    "circularImpactDesc": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
+    "comingSoon": "Segera Hadir",
+    "searchPlaceholder": "Cari produk di toko ini...",
+    "sortBy": "Urutkan",
+    "reviews": "Ulasan Toko",
+    "noReviews": "Belum ada ulasan untuk toko ini.",
+    "reviewsTab": "Ulasan"
   }
   }
 }

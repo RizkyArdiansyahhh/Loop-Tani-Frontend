@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { useFavorite } from "../hooks/use-favorite";
 import { useAddToCart } from "@/features/cart/hooks/use-add-to-cart";
 import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 
 export default function ProductDetailPage({ id }: { id: string }) {
   const { data: product, isLoading, isError } = useProductById({ id });
@@ -159,9 +160,17 @@ export default function ProductDetailPage({ id }: { id: string }) {
                       </div>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm" className="rounded-full border-gray-200">
-                    Kunjungi Toko
-                  </Button>
+                  {product.seller.storeSlug ? (
+                    <Button asChild variant="outline" size="sm" className="rounded-full border-gray-200 cursor-pointer">
+                      <Link href={`/store/${product.seller.storeSlug}`}>
+                        Kunjungi Toko
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="outline" size="sm" className="rounded-full border-gray-200" disabled>
+                      Kunjungi Toko
+                    </Button>
+                  )}
                 </div>
               </div>
 

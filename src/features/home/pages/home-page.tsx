@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -17,28 +18,162 @@ import {
   Award,
   Sparkles,
   ArrowUpRight,
+  CheckCircle2,
+  ChevronRight,
 } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import Navbar from "@/components/shared/navbar";
 import { InfoBar } from "@/components/shared/info-bar";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
 
 const HomePage = () => {
+  // Tabs state for Notion-style interactive features section
+  const [activeTab, setActiveTab] = useState<"marketplace" | "ai" | "edukasi" | "lestari">("marketplace");
+
+  const features = {
+    marketplace: {
+      title: "Marketplace Sirkular",
+      badge: "Marketplace",
+      description: "Temukan limbah pertanian berkualitas tinggi atau jual sisa panen Anda secara langsung ke pelaku industri pengolahan organik.",
+      cta: "Buka Marketplace",
+      link: "/marketplace",
+      mockup: (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border-b border-gray-150 pb-3 dark:border-gray-800">
+            <span className="text-xs font-bold text-gray-900 dark:text-white">Katalog Limbah Populer</span>
+            <span className="text-[10px] text-primary font-bold flex items-center gap-0.5 cursor-pointer">Lihat Semua <ChevronRight className="h-3 w-3" /></span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { name: "Sekam Padi Kering", price: "Rp 1.200 / kg", location: "Sragen, Jateng", label: "Limbah", textGreen: true },
+              { name: "Pupuk Kompos Organik", price: "Rp 4.500 / kg", location: "Sleman, DIY", label: "Olahan", textGreen: false },
+            ].map((prod, i) => (
+              <div key={i} className="border border-gray-150 rounded-xl p-3 bg-white dark:border-gray-800 dark:bg-gray-950 space-y-2 shadow-3xs text-left">
+                <div className="h-20 bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400">
+                  {prod.name}
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 dark:text-emerald-400 px-2 py-0.5 rounded-full">{prod.label}</span>
+                  <h4 className="text-xs font-bold text-gray-900 dark:text-white truncate pt-1">{prod.name}</h4>
+                  <p className="text-[10px] font-extrabold text-gray-950 dark:text-gray-300">{prod.price}</p>
+                  <p className="text-[8px] text-muted-foreground">{prod.location}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    ai: {
+      title: "AI Loopi Consultant",
+      badge: "AI Assistant",
+      description: "Konsultasi penyakit tanaman, rekomendasi pupuk limbah, hingga hitung estimasi nilai jual sisa panen Anda seketika.",
+      cta: "Mulai Chat Asisten",
+      link: "/loopi",
+      mockup: (
+        <div className="space-y-3.5 flex flex-col h-full justify-between text-left">
+          <div className="space-y-2.5">
+            <div className="flex gap-2.5 items-start">
+              <div className="h-7 w-7 rounded-full bg-gray-100 flex items-center justify-center font-bold text-xs shrink-0 dark:bg-gray-800">👤</div>
+              <div className="bg-gray-50 border border-gray-150 rounded-xl rounded-tl-none p-2.5 text-[11px] text-gray-700 leading-relaxed dark:bg-gray-900 dark:border-gray-800 dark:text-gray-300">
+                Bagaimana cara terbaik mengolah jerami padi sisa panen agar bermanfaat kembali?
+              </div>
+            </div>
+            <div className="flex gap-2.5 items-start">
+              <div className="h-7 w-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0 select-none">🤖</div>
+              <div className="bg-emerald-50/50 border border-emerald-100/60 rounded-xl rounded-tl-none p-3 text-[11px] text-emerald-950 leading-relaxed dark:bg-emerald-950/20 dark:border-emerald-900/30 dark:text-emerald-300 space-y-1">
+                <p className="font-bold text-emerald-800 dark:text-emerald-400">Hai! Jerami padi bisa diolah menjadi:</p>
+                <p>1. **Kompos**: Campur dengan kotoran ternak & EM4.</p>
+                <p>2. **Briket/Bahan Bakar**: Potensi nilai jual Rp 1.500/kg di LoopTani!</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative pt-2">
+            <div className="h-8 border border-gray-150 rounded-lg bg-white dark:border-gray-800 dark:bg-gray-950 flex items-center px-3 text-[10px] text-muted-foreground justify-between">
+              Tanyakan dosis pupuk sekam...
+              <span className="text-[10px] font-bold text-primary">Kirim</span>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    edukasi: {
+      title: "Panduan Tani Sirkular",
+      badge: "Edukasi Tani",
+      description: "Akses ratusan modul edukasi sirkular, video praktik terverifikasi, dan kumpulkan reward LoopPoints menarik dari setiap kontribusi Anda.",
+      cta: "Pelajari Panduan",
+      link: "/panduan-tani",
+      mockup: (
+        <div className="space-y-4 text-left">
+          <div className="flex items-center justify-between border-b border-gray-150 pb-3 dark:border-gray-800">
+            <span className="text-xs font-bold text-gray-900 dark:text-white">Modul Terpopuler Minggu Ini</span>
+            <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Reward +100 LP</span>
+          </div>
+          <div className="space-y-2.5">
+            {[
+              { title: "Panduan Pembuatan Pupuk Kompos Cair dari Bonggol Pisang", readTime: "5 menit", points: "+50 LP" },
+              { title: "Pemanfaatan Sekam Padi Menjadi Biochar Penjaga Air Tanah", readTime: "8 menit", points: "+80 LP" },
+            ].map((modul, i) => (
+              <div key={i} className="flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50/50 dark:border-gray-800 dark:bg-gray-950/40 cursor-pointer transition-colors shadow-3xs">
+                <div className="flex gap-3 items-center text-left">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center font-bold text-xs text-primary shrink-0 select-none">📖</div>
+                  <div className="min-w-0">
+                    <h4 className="text-xs font-bold text-gray-900 dark:text-white truncate max-w-[220px]">{modul.title}</h4>
+                    <span className="text-[10px] text-muted-foreground">{modul.readTime} membaca</span>
+                  </div>
+                </div>
+                <Badge className="bg-amber-100 text-amber-800 border-0 font-extrabold text-[10px]">{modul.points}</Badge>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    lestari: {
+      title: "Jejak Lestari (ESG)",
+      badge: "Laporan Dampak",
+      description: "Hitung dan laporkan secara transparan jumlah emisi CO₂ yang berhasil dikurangi serta air tanah terlindungi dari setiap daur ulang limbah.",
+      cta: "Lihat Laporan ESG",
+      link: "/jejak-lestari",
+      mockup: (
+        <div className="space-y-4 text-left">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="border border-gray-150 rounded-xl p-3 bg-white dark:border-gray-800 dark:bg-gray-950 shadow-3xs space-y-1">
+              <span className="text-[10px] font-bold text-gray-400 block uppercase">CO₂ Dicegah</span>
+              <span className="text-lg font-black text-emerald-600">15.420 Kg</span>
+              <p className="text-[9px] text-muted-foreground leading-none">Setara 5.930 pohon</p>
+            </div>
+            <div className="border border-gray-150 rounded-xl p-3 bg-white dark:border-gray-800 dark:bg-gray-950 shadow-3xs space-y-1">
+              <span className="text-[10px] font-bold text-gray-400 block uppercase">Air Dilindungi</span>
+              <span className="text-lg font-black text-sky-500">84.200 Liter</span>
+              <p className="text-[9px] text-muted-foreground leading-none">Bebas nitrat kimia</p>
+            </div>
+          </div>
+          <div className="border border-emerald-100 bg-emerald-50/10 rounded-xl p-3 dark:border-emerald-950/20 text-left space-y-2">
+            <div className="flex items-center gap-1 text-[11px] text-emerald-800 dark:text-emerald-400 font-bold">
+              <Sparkles className="h-4 w-4 fill-current text-emerald-600" />
+              Sertifikat Keberlanjutan Sirkular
+            </div>
+            <div className="h-1.5 w-full bg-emerald-100 rounded-full overflow-hidden dark:bg-emerald-950">
+              <div className="h-full bg-primary w-[75%] rounded-full" />
+            </div>
+            <p className="text-[10px] text-muted-foreground leading-relaxed">Komunitas Anda telah mencapai 75% target reduksi emisi karbon kuartal ini.</p>
+          </div>
+        </div>
+      ),
+    },
+  };
+
   return (
     <>
       <header>
         <InfoBar />
         <Navbar />
       </header>
-      <main className="w-full bg-[#fafbf9] dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden relative">
-        {/* Decorative background gradients for premium mesh feel */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute top-[20%] left-[-10%] h-[500px] w-[500px] rounded-full bg-emerald-500/3 blur-[120px] dark:bg-emerald-500/5" />
-          <div className="absolute top-[40%] right-[-10%] h-[600px] w-[600px] rounded-full bg-sky-500/3 blur-[140px] dark:bg-sky-500/5" />
-          <div className="absolute bottom-[20%] left-[15%] h-[500px] w-[500px] rounded-full bg-amber-500/3 blur-[120px] dark:bg-amber-500/5" />
-        </div>
-
-        {/* Hero Banner Section */}
+      <main className="w-full bg-[#fcfdfa] dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden relative transition-colors duration-300">
+        
+        {/* ── Visual Banner Slideshow Carousel at the very top ── */}
         <div
           className="w-full relative z-10"
           style={{ height: "calc(100vh - 104px)" }}
@@ -46,221 +181,280 @@ const HomePage = () => {
           <CarouselHomePage />
         </div>
 
-        {/* ── Section 1: Core Services Grid ── */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 backdrop-blur-xs">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                LoopTani Ecosystem
+        {/* Subtle Notion-Style Dot Grid Overlay below Carousel */}
+        <div className="absolute inset-0 top-[100vh] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] pointer-events-none z-0" />
+
+        {/* ── HERO SECTION: Notion-style bold & clean description block ── */}
+        <section className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-16 text-center space-y-6">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-emerald-500/5 px-3 py-1 text-primary">
+            <Sparkles className="h-3.5 w-3.5 fill-current text-primary" />
+            <span className="text-[10px] font-bold uppercase tracking-widest">
+              Pertanian Sirkular Berbasis AI
+            </span>
+          </div>
+          
+          <h2 className="font-fraunces text-4xl sm:text-5xl font-black tracking-tight text-gray-950 dark:text-white leading-tight max-w-4xl mx-auto">
+            Hubungkan Pertanian. Kelola Limbah. Dengan AI.
+          </h2>
+          
+          <p className="font-sans text-xs sm:text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            LoopTani menyatukan petani modern, industri kreatif pupuk organik, dan pembeli limbah pertanian secara sirkular menggunakan teknologi kecerdasan buatan terpadu.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <Button
+              size="sm"
+              asChild
+              className="rounded-lg font-bold px-5 py-4 bg-primary hover:bg-emerald-700 text-white text-xs shadow-xs transition-all duration-300 cursor-pointer"
+            >
+              <Link href="/register">Mulai Sekarang</Link>
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              asChild
+              className="rounded-lg font-bold bg-white border-gray-200 text-gray-700 hover:bg-gray-50 px-5 py-4 text-xs shadow-3xs cursor-pointer"
+            >
+              <Link href="/marketplace">Eksplor Marketplace</Link>
+            </Button>
+          </div>
+        </section>
+
+        {/* ── PARTNERS / SOCIAL PROOF BANNER: Minimalist Monochrome ── */}
+        <section className="relative z-10 mx-auto max-w-5xl px-4 text-center border-t border-gray-150 dark:border-gray-850/80 py-8">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
+            Dipercaya Oleh Rantai Pertanian Nasional
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 text-xs sm:text-sm font-fraunces text-gray-400 select-none">
+            <span className="hover:text-gray-500 transition-colors">🌾 Kelompok Tani Makmur</span>
+            <span className="hover:text-gray-500 transition-colors">♻️ Riau Organic Compost</span>
+            <span className="hover:text-gray-500 transition-colors">🌱 Green Agri Lestari</span>
+            <span className="hover:text-gray-500 transition-colors">🚜 Mitra Alat Tani</span>
+          </div>
+        </section>
+
+        {/* ── SECTION: Notion-style Interactive Tabs features description ── */}
+        <section className="relative z-10 border-t border-gray-150 bg-white/40 dark:bg-gray-900/20 dark:border-gray-850 py-20 md:py-28">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            
+            <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+                Satu Aplikasi Terpadu
               </span>
+              <h2 className="font-fraunces text-3xl sm:text-4xl font-bold tracking-tight text-gray-950 dark:text-white">
+                Segala Kebutuhan Tani dalam Genggaman
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                Pilih tab di bawah untuk melihat simulasi antarmuka dan kecanggihan fitur kami.
+              </p>
             </div>
-            <h2 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-              Ekosistem Pertanian Pintar &amp; Sirkular
+
+            {/* Interactive Tab Selectors */}
+            <div className="flex flex-wrap p-1 rounded-xl bg-gray-50 border border-gray-150 dark:bg-gray-900 dark:border-gray-800 w-full shadow-3xs mb-8">
+              {[
+                { key: "marketplace", label: "Marketplace Sirkular", icon: ShoppingBag },
+                { key: "ai", label: "AI Loopi Consultant", icon: MessageSquare },
+                { key: "edukasi", label: "Edukasi Tani", icon: BookOpen },
+                { key: "lestari", label: "Jejak Lestari (ESG)", icon: Leaf },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key as any)}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+                    activeTab === tab.key
+                      ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
+                      : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                  }`}
+                >
+                  <tab.icon className="h-4 w-4" />
+                  <span className="hidden md:inline">{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Interactive Feature Panel Card */}
+            <div className="border border-gray-200 rounded-xl bg-white dark:border-gray-800 dark:bg-gray-900 shadow-lg overflow-hidden min-h-[360px] grid grid-cols-1 lg:grid-cols-12">
+              
+              {/* Left pane: Description & Details (5 cols) */}
+              <div className="lg:col-span-5 p-8 flex flex-col justify-between text-left space-y-6">
+                <div className="space-y-4">
+                  <Badge className="bg-primary/10 text-primary border-0 font-bold text-[10px] px-2.5 py-0.5 rounded-full select-none">
+                    {features[activeTab].badge}
+                  </Badge>
+                  <h3 className="font-fraunces text-2xl font-bold text-gray-950 dark:text-white leading-tight">
+                    {features[activeTab].title}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {features[activeTab].description}
+                  </p>
+                </div>
+
+                <div className="space-y-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                  <div className="flex gap-2 items-center text-xs text-gray-700 dark:text-gray-300 font-semibold">
+                    <CheckCircle2 className="h-4.5 w-4.5 text-primary shrink-0" />
+                    Terintegrasi LoopPoints reward
+                  </div>
+                  <div className="flex gap-2 items-center text-xs text-gray-700 dark:text-gray-300 font-semibold">
+                    <CheckCircle2 className="h-4.5 w-4.5 text-primary shrink-0" />
+                    Keamanan data transaksi terjamin
+                  </div>
+                  
+                  <div className="pt-3">
+                    <Button asChild className="rounded-lg bg-primary hover:bg-emerald-700 text-white font-bold text-xs h-9 cursor-pointer">
+                      <Link href={features[activeTab].link}>
+                        {features[activeTab].cta}
+                        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right pane: Actual Interactive Mockup Display (7 cols) */}
+              <div className="lg:col-span-7 bg-gray-50/50 border-t lg:border-t-0 lg:border-l border-gray-150 dark:bg-gray-950/20 dark:border-gray-800 p-8 flex items-center justify-center">
+                <div className="w-full max-w-md">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeTab}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {features[activeTab].mockup}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ── SECTION: Circular Roadmap process steps ── */}
+        <section className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+              Circular Flow
+            </span>
+            <h2 className="font-fraunces text-3xl font-bold tracking-tight text-gray-950 dark:text-white leading-tight">
+              Bagaimana Siklus Sirkular Berputar
             </h2>
-            <div className="h-1 w-20 bg-primary mx-auto rounded-full my-4" />
-            <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 font-sans leading-relaxed max-w-2xl mx-auto">
-              Menghubungkan produsen limbah tani dengan industri olahan
-              menggunakan teknologi AI presisi untuk memaksimalkan potensi
-              ekonomi hijau.
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-lg mx-auto">
+              Proses terintegrasi dari pengumpulan limbah hingga terhitung menjadi kontribusi dampak lingkungan yang terverifikasi.
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* Marketplace */}
-            <ServiceCard
-              icon={ShoppingBag}
-              title="Marketplace Sirkular"
-              description="Temukan limbah organik berkualitas tinggi, jual beli sisa panen, atau dapatkan alat tani bekas siap pakai."
-              link="/marketplace"
-              actionText="Jelajahi Toko"
-              accentColor="from-emerald-500 to-teal-500"
-              iconBg="bg-emerald-500/10 text-emerald-600"
-              topBorder="border-t-2 border-t-emerald-500"
+          <div className="grid gap-6 md:grid-cols-4 relative">
+            <StepItem
+              step="01"
+              icon={Recycle}
+              title="Koleksi Limbah"
+              description="Petani mengumpulkan sisa sekam padi, jerami, atau kulit jagung pasca panen."
             />
-            {/* AI Loopi */}
-            <ServiceCard
-              icon={MessageSquare}
-              title="AI Loopi Consultant"
-              description="Asisten cerdas 24/7 untuk menjawab tanya jawab pertanian, dosis pemupukan, hingga analisis penyakit."
-              link="/loopi"
-              actionText="Mulai Chat"
-              accentColor="from-sky-500 to-blue-500"
-              iconBg="bg-sky-500/10 text-sky-600"
-              topBorder="border-t-2 border-t-sky-500"
+            <StepItem
+              step="02"
+              icon={DollarSign}
+              title="Pasarkan Produk"
+              description="Limbah ditawarkan langsung di marketplace untuk menambah pemasukan."
             />
-            {/* Panduan Tani */}
-            <ServiceCard
-              icon={BookOpen}
-              title="Panduan Tani"
-              description="Ratusan modul edukasi sirkular, video praktik terverifikasi, dan raih koin LoopPoints dari kontribusi Anda."
-              link="/panduan-tani"
-              actionText="Baca Panduan"
-              accentColor="from-green-500 to-emerald-600"
-              iconBg="bg-green-500/10 text-green-600"
-              topBorder="border-t-2 border-t-green-500"
+            <StepItem
+              step="03"
+              icon={Cpu}
+              title="Proses Olahan"
+              description="Mitra industri mendaur ulang limbah menjadi kompos organik atau biochar."
             />
-            {/* Jejak Lestari */}
-            <ServiceCard
-              icon={Leaf}
-              title="Jejak Lestari"
-              description="Transparan melacak emisi CO₂ yang berhasil dicegah, air tanah terlindungi, dan cetak laporan ESG instan."
-              link="/jejak-lestari"
-              actionText="Lacak Dampak"
-              accentColor="from-amber-500 to-orange-500"
-              iconBg="bg-amber-500/10 text-amber-600"
-              topBorder="border-t-2 border-t-amber-500"
+            <StepItem
+              step="04"
+              icon={Award}
+              title="Perhitungan Dampak"
+              description="Transaksi live dikonversi otomatis menjadi hitungan emisi CO₂."
             />
           </div>
         </section>
 
-        {/* ── Section 2: Circular Process Flow ── */}
-        <section className="relative z-10 bg-white border-y border-gray-100 dark:bg-gray-900/60 dark:border-gray-850 py-24 md:py-32">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-20 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-3.5 py-1.5 rounded-full">
-                Circular Roadmap
-              </span>
-              <h2 className="font-fraunces text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-                Bagaimana Siklus Sirkular Berputar
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-lg mx-auto">
-                Proses terintegrasi dari pengumpulan limbah hingga terhitung
-                menjadi kontribusi dampak lingkungan yang terverifikasi.
-              </p>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-4 relative">
-              {/* Desktop connected connector dashed lines */}
-              <div className="hidden md:block absolute top-[28%] left-[12%] right-[12%] h-[2px] border-t-2 border-dashed border-gray-200 dark:border-gray-800 z-0" />
-
-              <StepItem
-                step="01"
-                icon={Recycle}
-                title="Koleksi Limbah"
-                description="Petani mengumpulkan sisa sekam padi, jerami, atau tongkol jagung sisa panen."
-                color="bg-emerald-500"
-                glowColor="shadow-emerald-500/20"
-              />
-              <StepItem
-                step="02"
-                icon={DollarSign}
-                title="Pasarkan Produk"
-                description="Limbah dijual langsung ke marketplace LoopTani untuk menambah penghasilan."
-                color="bg-sky-500"
-                glowColor="shadow-sky-500/20"
-              />
-              <StepItem
-                step="03"
-                icon={Cpu}
-                title="Proses Olahan"
-                description="Mitra industri mendaur ulang limbah menjadi kompos, briket, atau biochar bernilai."
-                color="bg-green-600"
-                glowColor="shadow-green-500/20"
-              />
-              <StepItem
-                step="04"
-                icon={Award}
-                title="Perhitungan Dampak"
-                description="Setiap transaksi dikonversi menjadi laporan emisi CO₂ dicegah dan air dilindungi."
-                color="bg-amber-500"
-                glowColor="shadow-amber-500/20"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* ── Section 3: Community Stats ── */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="grid gap-12 lg:grid-cols-3 items-center">
-            {/* Left intro details column */}
-            <div className="lg:col-span-1 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3.5 py-1.5">
-                <TrendingUp className="h-4.5 w-4.5 text-primary" />
-                <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                  Live Impact Statistics
-                </span>
+        {/* ── SECTION: Live Impact Statistics ── */}
+        <section className="relative z-10 border-t border-gray-150 bg-white/40 dark:bg-gray-900/20 dark:border-gray-850 py-20 md:py-28">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-3 items-center">
+              
+              <div className="lg:col-span-1 space-y-4 text-left">
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-primary">
+                  <TrendingUp className="h-4 w-4" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest">
+                    Real-time Impact
+                  </span>
+                </div>
+                <h3 className="font-fraunces text-3xl font-bold tracking-tight text-gray-950 dark:text-white leading-tight">
+                  Dampak Riil Komunitas Tani
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Setiap hari, para petani dan pembeli di LoopTani bergotong royong mengurangi beban lingkungan dan menyuburkan ekosistem pertanian kita.
+                </p>
+                <div className="flex items-center gap-2 text-[10px] text-gray-400">
+                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Diperbarui secara berkala</span>
+                </div>
               </div>
-              <h3 className="font-fraunces text-4xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
-                Dampak Riil Komunitas Tani
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed font-sans">
-                Setiap hari, ratusan petani dan mitra industri bekerja sama di
-                LoopTani untuk mengurangi beban emisi karbon dan melestarikan
-                air tanah kita.
-              </p>
-              <div className="flex items-center gap-2 text-xs text-gray-400">
-                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Diperbarui otomatis berdasarkan transaksi live</span>
-              </div>
-            </div>
 
-            {/* Right stats grid column */}
-            <div className="lg:col-span-2 grid gap-6 sm:grid-cols-3">
-              {/* Stat 1 */}
-              <StatCard
-                icon={Wind}
-                value="15.420"
-                unit="kg"
-                label="Emisi CO₂ Dicegah"
-                subtext="Setara menanam 5.930 pohon"
-                accentColor="from-emerald-500 to-teal-500 text-white"
-              />
-              {/* Stat 2 */}
-              <StatCard
-                icon={Droplets}
-                value="84.200"
-                unit="L"
-                label="Air Tanah Dilindungi"
-                subtext="Mencegah rembesan nitrat kimia"
-                accentColor="from-sky-500 to-blue-500 text-white"
-              />
-              {/* Stat 3 */}
-              <StatCard
-                icon={Users}
-                value="2.400"
-                unit="+"
-                label="Petani Berdaya"
-                subtext="Meningkatkan pendapatan sirkular"
-                accentColor="from-amber-400 to-orange-500 text-white"
-              />
+              <div className="lg:col-span-2 grid gap-5 sm:grid-cols-3">
+                <StatCard
+                  icon={Wind}
+                  value="15.420"
+                  unit="kg"
+                  label="Emisi CO₂ Dicegah"
+                  subtext="Setara menanam 5.930 pohon baru"
+                />
+                <StatCard
+                  icon={Droplets}
+                  value="84.200"
+                  unit="L"
+                  label="Air Tanah Dilindungi"
+                  subtext="Terbebas dari nitrat pupuk kimia"
+                />
+                <StatCard
+                  icon={Users}
+                  value="2.400"
+                  unit="+"
+                  label="Petani Terbantu"
+                  subtext="Meningkatkan pendapatan sirkular"
+                />
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* ── Section 4: Premium Bottom CTA Card ── */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-32">
-          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-gray-900 via-gray-800 to-primary/95 px-6 py-20 text-center shadow-2xl sm:px-12 md:py-24">
-            {/* Glowing backdrop elements inside CTA */}
-            <div className="pointer-events-none absolute -top-12 -right-12 h-56 w-56 rounded-full bg-emerald-400/20 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-[-50px] left-20 h-40 w-40 rounded-full bg-sky-400/15 blur-2xl" />
-
-            <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+        {/* ── SECTION: Premium Clean Bottom CTA Card ── */}
+        <section className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+          <div className="relative border border-emerald-100/50 bg-emerald-50/10 dark:border-emerald-950/20 dark:bg-emerald-950/5 rounded-xl px-6 py-16 text-center overflow-hidden">
+            <div className="absolute -top-12 -right-12 h-56 w-56 rounded-full bg-emerald-400/5 blur-3xl pointer-events-none" />
+            
+            <div className="relative z-10 max-w-2xl mx-auto space-y-5">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
                 Gabung Ekosistem Hijau
               </span>
-              <h2 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+              <h2 className="font-fraunces text-3xl font-bold tracking-tight text-gray-950 dark:text-white leading-tight">
                 Mulai Langkah Hijau Bertani Berkelanjutan
               </h2>
-              <p className="font-sans text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Bergabunglah bersama ribuan petani modern dan mitra industri
-                hijau. Ubah limbah menjadi nilai guna baru, lindungi air tanah,
-                dan raih pendapatan berkelanjutan sekarang.
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-lg mx-auto">
+                Daftar sebagai mitra penjual atau pembeli sekarang. Daur ulang limbah organik, lindungi air tanah, dan raih LoopPoints reward menarik.
               </p>
 
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
                 <Button
                   size="lg"
                   asChild
-                  className="rounded-full font-semibold px-8 py-6 bg-primary hover:bg-primary/90 text-white text-sm shadow-lg hover:shadow-xl hover:scale-102 transition-all"
+                  className="rounded-lg font-bold px-6 py-5 bg-primary hover:bg-emerald-700 text-white text-xs shadow-xs cursor-pointer"
                 >
-                  <Link href="/auth/register">Daftar Sekarang</Link>
+                  <Link href="/register">Daftar Sekarang</Link>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   asChild
-                  className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-sm"
+                  className="rounded-lg font-bold bg-white border-gray-200 text-gray-700 hover:bg-gray-50 px-6 py-5 text-xs shadow-3xs cursor-pointer"
                 >
                   <Link href="/marketplace">Buka Marketplace</Link>
                 </Button>
@@ -268,6 +462,7 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+
       </main>
     </>
   );
@@ -275,105 +470,30 @@ const HomePage = () => {
 
 // ─── Subcomponents ────────────────────────────────────────────────────────────
 
-interface ServiceCardProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  link: string;
-  actionText: string;
-  accentColor: string;
-  iconBg: string;
-  topBorder: string;
-}
-
-function ServiceCard({
-  icon: Icon,
-  title,
-  description,
-  link,
-  actionText,
-  accentColor,
-  iconBg,
-  topBorder,
-}: ServiceCardProps) {
-  return (
-    <div
-      className={`group relative flex flex-col justify-between rounded-3xl border border-gray-150 bg-white/80 dark:bg-gray-900/60 dark:border-gray-800/80 p-7 backdrop-blur-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${topBorder}`}
-    >
-      {/* Decorative gradient corner light */}
-      <div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-br from-transparent to-black/[0.02] dark:to-white/[0.01] rounded-bl-3xl pointer-events-none" />
-
-      <div className="space-y-5">
-        {/* Icon container */}
-        <div
-          className={`flex h-12 w-12 items-center justify-center rounded-2xl ${iconBg} shadow-xs`}
-        >
-          <Icon className="h-5.5 w-5.5" />
-        </div>
-
-        {/* Title (Fraunces) */}
-        <h3 className="font-fraunces text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
-          {title}
-        </h3>
-
-        {/* Description */}
-        <p className="font-sans text-xs text-gray-550 dark:text-gray-450 leading-relaxed">
-          {description}
-        </p>
-      </div>
-
-      <div className="pt-8 flex items-center justify-between">
-        <Link
-          href={link}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary transition-all group-hover:gap-2.5"
-        >
-          {actionText}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-        <ArrowUpRight className="h-4 w-4 text-gray-300 group-hover:text-primary transition-colors duration-300" />
-      </div>
-    </div>
-  );
-}
-
 interface StepItemProps {
   step: string;
   icon: React.ElementType;
   title: string;
   description: string;
-  color: string;
-  glowColor: string;
 }
 
-function StepItem({
-  step,
-  icon: Icon,
-  title,
-  description,
-  color,
-  glowColor,
-}: StepItemProps) {
+function StepItem({ step, icon: Icon, title, description }: StepItemProps) {
   return (
-    <div className="relative flex flex-col items-center text-center space-y-4 z-10 group">
-      {/* Outer Circle Container */}
-      <div className="relative p-2.5 rounded-full border border-gray-100 bg-gray-50/50 dark:border-gray-800 dark:bg-gray-900/30">
-        <div
-          className={`relative flex h-16 w-16 items-center justify-center rounded-full ${color} text-white shadow-md ${glowColor} transition-transform duration-500 group-hover:rotate-12`}
-        >
-          <Icon className="h-7 w-7" />
-          {/* Badge Step */}
-          <span className="absolute -top-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white text-[10px] font-bold text-gray-900 shadow-sm border border-gray-150 dark:bg-gray-800 dark:text-white dark:border-gray-700">
-            {step}
-          </span>
-        </div>
+    <div className="border border-gray-200 bg-white rounded-xl p-6 text-left dark:border-gray-800 dark:bg-gray-900 space-y-4 shadow-3xs relative overflow-hidden group">
+      <div className="absolute top-3 right-3 text-2xl font-black text-gray-100 dark:text-gray-800 select-none">
+        {step}
       </div>
-
-      <h4 className="font-fraunces text-base font-bold text-gray-900 dark:text-white">
-        {title}
-      </h4>
-      <p className="font-sans text-xs text-gray-500 dark:text-gray-400 max-w-[200px] leading-relaxed">
-        {description}
-      </p>
+      <div className="h-10 w-10 rounded-lg bg-emerald-50 text-primary flex items-center justify-center dark:bg-emerald-950/40 shrink-0">
+        <Icon className="h-5.5 w-5.5" />
+      </div>
+      <div className="space-y-1">
+        <h4 className="text-xs font-bold text-gray-900 dark:text-white">
+          {title}
+        </h4>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+      </div>
     </div>
   );
 }
@@ -384,51 +504,39 @@ interface StatCardProps {
   unit: string;
   label: string;
   subtext: string;
-  accentColor: string;
 }
 
-function StatCard({
-  icon: Icon,
-  value,
-  unit,
-  label,
-  subtext,
-  accentColor,
-}: StatCardProps) {
+function StatCard({ icon: Icon, value, unit, label, subtext }: StatCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-gray-150 bg-white/90 p-7 dark:bg-gray-900/60 dark:border-gray-800/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
-      {/* Header and Icon */}
-      <div className="mb-6 flex items-start justify-between">
-        <div className="text-left">
-          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
-            {label}
-          </p>
-        </div>
-        <div
-          className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${accentColor} shadow-xs`}
-        >
-          <Icon className="h-5 w-5 text-white" />
+    <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 dark:bg-gray-900 dark:border-gray-800 shadow-3xs flex flex-col justify-between min-h-[140px] text-left">
+      <div className="flex items-start justify-between">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
+          {label}
+        </span>
+        <div className="h-8 w-8 rounded-lg bg-emerald-50 text-primary flex items-center justify-center dark:bg-emerald-950/30">
+          <Icon className="h-4.5 w-4.5" />
         </div>
       </div>
 
-      {/* Numerical values */}
-      <div className="text-left mb-4">
-        <span className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white font-sans">
+      <div className="pt-4">
+        <span className="text-3xl font-extrabold tracking-tight text-gray-950 dark:text-white">
           {value}
         </span>
-        <span className="ml-1 text-sm font-bold text-gray-400">{unit}</span>
-      </div>
-
-      {/* Footer comparison */}
-      <div className="pt-4 border-t border-gray-50 dark:border-gray-800/50">
-        <p className="text-[10px] text-gray-400 font-medium leading-relaxed">
+        <span className="ml-0.5 text-xs font-bold text-gray-400">{unit}</span>
+        <p className="text-[10px] text-muted-foreground leading-none pt-1">
           {subtext}
         </p>
       </div>
-
-      {/* Subtle bottom decorative light */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
     </div>
+  );
+}
+
+// Inline mini badge
+function Badge({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <span className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ring-1 ring-inset ring-gray-500/10 ${className}`}>
+      {children}
+    </span>
   );
 }
 

@@ -92,6 +92,20 @@ function NavbarContent() {
   const { data: session } = authClient.useSession();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setProfileDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="relative mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
@@ -317,22 +331,70 @@ function NavbarContent() {
           <>
             <CartBadge />
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
-            <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
-              <div className="h-9 w-9 rounded-full bg-green-100 dark:bg-green-950/30 flex items-center justify-center font-bold text-green-700 dark:text-green-400">
-                {session.user.name?.charAt(0) || "U"}
-              </div>
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                {session.user.name}
-              </span>
-            </Link>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => authClient.signOut()}
-              className="text-gray-600 dark:text-gray-400 font-semibold"
-            >
-              Keluar
-            </Button>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-hidden"
+              >
+                {session.user.image ? (
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    className="h-9 w-9 rounded-full object-cover border border-gray-200 dark:border-gray-800"
+                  />
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center font-bold text-emerald-700 dark:text-emerald-400">
+                    {session.user.name?.charAt(0) || "U"}
+                  </div>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {profileDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2.5 w-56 bg-white border border-gray-150 rounded-xl shadow-lg py-2 z-50 dark:bg-gray-900 dark:border-gray-850"
+                  >
+                    <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800/80">
+                      <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-3xs text-muted-foreground truncate">
+                        {session.user.email}
+                      </p>
+                    </div>
+
+                    <div className="py-1">
+                      <Link
+                        href="/profile"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                      >
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        Profil Saya
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-gray-100 dark:border-gray-805/80 my-1" />
+
+                    <div className="px-1">
+                      <button
+                        onClick={() => {
+                          setProfileDropdownOpen(false);
+                          authClient.signOut();
+                        }}
+                        className="flex items-center gap-2 w-full text-left px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-750 dark:text-red-400 dark:hover:bg-red-950/30 rounded-lg cursor-pointer"
+                      >
+                        Keluar
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </>
         ) : (
           <>

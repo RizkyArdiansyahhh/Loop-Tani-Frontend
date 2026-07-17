@@ -44,6 +44,7 @@ export interface SellerSummary {
   id: string;
   name: string;
   image: string | null;
+  storeSlug: string | null;
 }
 
 // ─────────────────────────────────────────────
@@ -94,6 +95,34 @@ export interface GetProductsParams {
   city?: string;
   minSellerRating?: number;
   favoriteOnly?: boolean;
+  sellerId?: string;
+  storeSlug?: string;
+}
+
+export interface PublicStoreProfile {
+  id: string;
+  userId: string;
+  storeName: string;
+  storeSlug: string;
+  description: string | null;
+  province: string | null;
+  city: string | null;
+  address: string | null;
+  postalCode: string | null;
+  phone: string | null;
+  logoUrl: string | null;
+  status: string;
+  createdAt: string;
+  user: {
+    name: string;
+    image: string | null;
+    joinedAt: string;
+  };
+  stats: {
+    totalProducts: number;
+    totalReview: number;
+    averageRating: number | null;
+  };
 }
 
 export interface PaginationMeta {

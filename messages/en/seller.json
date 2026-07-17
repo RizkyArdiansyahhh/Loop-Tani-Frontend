@@ -81,6 +81,31 @@
       "items": "Items",
       "empty": "All product stocks are safe."
     }
+  },
+  "storefront": {
+    "notFound": "Store not found or inactive",
+    "backToMarketplace": "Back to Marketplace",
+    "verified": "Verified Seller",
+    "joined": "Joined {date}",
+    "productsCount": "{count} Products",
+    "soldCount": "{count} Sold",
+    "location": "Location",
+    "products": "Products",
+    "homeTab": "Home",
+    "productsTab": "Products",
+    "aboutTab": "About Store",
+    "latestProducts": "Latest Products",
+    "noProducts": "No active products in this store yet.",
+    "aboutTitle": "Store Information",
+    "contact": "Contact Seller",
+    "circularImpact": "Circular Agriculture Impact",
+    "circularImpactDesc": "Metric of the store's contribution to recycling agricultural waste and supporting eco-friendly farming.",
+    "comingSoon": "Coming Soon",
+    "searchPlaceholder": "Search products in this store...",
+    "sortBy": "Sort By",
+    "reviews": "Store Reviews",
+    "noReviews": "No reviews for this store yet.",
+    "reviewsTab": "Reviews"
   }
   }
 }
