@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Wheat,
   Sprout,
@@ -13,6 +14,8 @@ import LoopiMessageArea from "./loopi-message";
 import LoopiSidebar from "./loopi-sidebar";
 import ChatInput from "./chat-input";
 import SuggestionCard from "./suggestion-card";
+import LoopiEmpty from "./loopi-empty";
+import { useChatbot } from "../hooks/use-chatbot";
 
 const suggestions = [
   {
@@ -48,6 +51,24 @@ const suggestions = [
 ];
 
 const LoopiChat = () => {
+  const [lastQuery, setLastQuery] = useState<string | null>(null);
+  const [lastResponse, setLastResponse] = useState<string | null>(null);
+
+  const { mutate, isPending, isError } = useChatbot();
+
+  const handleSend = (message: string) => {
+    setLastQuery(message);
+    setLastResponse(null);
+    mutate(
+      { message },
+      {
+        onSuccess: (data) => {
+          setLastResponse(data.message);
+        },
+      }
+    );
+  };
+
   return (
     <div className="flex h-[calc(100vh-8rem)] gap-6 p-6">
       {/* Main Chat Area */}
@@ -66,16 +87,26 @@ const LoopiChat = () => {
                 icon={s.icon}
                 title={s.title}
                 description={s.description}
+                onClick={() => handleSend(s.title)}
               />
             ))}
           </div>
         </div>
 
-        {/* Messages */}
-        <LoopiMessageArea />
+        {/* Messages or Empty State */}
+        {lastQuery === null ? (
+          <LoopiEmpty onSelectSuggestion={handleSend} />
+        ) : (
+          <LoopiMessageArea
+            query={lastQuery}
+            response={lastResponse}
+            isPending={isPending}
+            isError={isError}
+          />
+        )}
 
         {/* Input */}
-        <ChatInput />
+        <ChatInput onSend={handleSend} disabled={isPending} />
       </div>
 
       {/* Right Sidebar */}

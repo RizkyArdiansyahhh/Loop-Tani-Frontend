@@ -1,4 +1,5 @@
 import LoopiAvatar from "./loopi-avatar";
+import ChatFormattedText from "./chat-formatted-text";
 
 interface ChatBubbleProps {
   role: "user" | "bot";
@@ -22,7 +23,11 @@ const ChatBubble = ({ role, content, timestamp }: ChatBubbleProps) => {
               : "rounded-2xl rounded-tr-md bg-primary px-4 py-3 text-primary-foreground"
           }
         >
-          <p className="text-sm leading-relaxed">{content}</p>
+          {isBot ? (
+            <ChatFormattedText text={content} />
+          ) : (
+            <p className="text-sm leading-relaxed">{content}</p>
+          )}
         </div>
         {timestamp && (
           <span className="mt-1 px-1 text-[11px] text-muted-foreground">
