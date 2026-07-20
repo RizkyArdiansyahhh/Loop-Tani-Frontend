@@ -19,8 +19,8 @@ const ChatBubble = ({ role, content, timestamp }: ChatBubbleProps) => {
         <div
           className={
             isBot
-              ? "rounded-2xl rounded-tl-md bg-secondary/30 px-4 py-3 text-foreground"
-              : "rounded-2xl rounded-tr-md bg-primary px-4 py-3 text-primary-foreground"
+              ? "rounded-2xl rounded-tl-md bg-muted/65 border border-border/40 px-4 py-3 text-foreground shadow-2xs"
+              : "rounded-2xl rounded-tr-md bg-primary px-4 py-3 text-primary-foreground shadow-2xs"
           }
         >
           {isBot ? (

@@ -16,6 +16,10 @@ import ChatInput from "./chat-input";
 import SuggestionCard from "./suggestion-card";
 import LoopiEmpty from "./loopi-empty";
 import { useChatbot } from "../hooks/use-chatbot";
+import { useConversationDetail } from "../hooks/use-conversation-detail";
+import { authClient } from "@/lib/auth-client";
+import type { ChatMessageItem } from "../api/send-message";
+import type { AxiosError } from "axios";
 
 const suggestions = [
   {
@@ -51,57 +55,128 @@ const suggestions = [
 ];
 
 const LoopiChat = () => {
-  const [lastQuery, setLastQuery] = useState<string | null>(null);
-  const [lastResponse, setLastResponse] = useState<string | null>(null);
+  const { data: session } = authClient.useSession();
+  const isLoggedIn = !!session;
 
-  const { mutate, isPending, isError } = useChatbot();
+  const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
+  const [localMessages, setLocalMessages] = useState<ChatMessageItem[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSend = (message: string) => {
-    setLastQuery(message);
-    setLastResponse(null);
+  const { data: conversationDetail } = useConversationDetail(activeConversationId);
+  const { mutate, isPending } = useChatbot();
+
+  // Active messages: for authenticated existing chat, merge query data with local pending messages
+  const displayMessages: ChatMessageItem[] = activeConversationId && conversationDetail
+    ? conversationDetail.messages.concat(
+        localMessages.filter(
+          (lm) => !conversationDetail.messages.some((cm) => cm.id && cm.id === lm.id)
+        )
+      )
+    : localMessages;
+
+  const handleNewChat = () => {
+    setActiveConversationId(null);
+    setLocalMessages([]);
+    setErrorMessage(null);
+  };
+
+  const handleSelectConversation = (id: string) => {
+    setActiveConversationId(id);
+    setLocalMessages([]);
+    setErrorMessage(null);
+  };
+
+  const handleSend = (messageText: string) => {
+    setErrorMessage(null);
+
+    // Optimistically add user message
+    const tempUserMsg: ChatMessageItem = {
+      role: "user",
+      content: messageText,
+      createdAt: new Date().toISOString(),
+    };
+
+    setLocalMessages((prev) => [...prev, tempUserMsg]);
+
     mutate(
-      { message },
+      {
+        message: messageText,
+        conversationId: activeConversationId,
+      },
       {
         onSuccess: (data) => {
-          setLastResponse(data.message);
+          if (data.conversationId) {
+            if (!activeConversationId) {
+              setActiveConversationId(data.conversationId);
+            }
+            if (data.userMessage && data.assistantMessage) {
+              setLocalMessages((prev) => [
+                ...prev.filter((m) => m.content !== messageText),
+                data.userMessage!,
+                data.assistantMessage!,
+              ]);
+            }
+          } else if (data.message) {
+            // Anonymous user
+            const botMsg: ChatMessageItem = {
+              role: "model",
+              content: data.message,
+              createdAt: new Date().toISOString(),
+            };
+            setLocalMessages((prev) => [...prev, botMsg]);
+          }
+        },
+        onError: (error) => {
+          const err = error as AxiosError<{ message?: string }>;
+          const msg =
+            err.response?.data?.message ||
+            "Gagal memproses pesan chatbot. Silakan coba kembali.";
+          setErrorMessage(msg);
         },
       }
     );
   };
 
+  const hasMessages = displayMessages.length > 0;
+
   return (
-    <div className="flex h-[calc(100vh-8rem)] gap-6 p-6">
+    <div className="relative flex h-[calc(100vh-4rem)] gap-6 p-6 overflow-hidden">
+      {/* Background glow effects for premium look */}
+      <div className="absolute top-1/4 left-1/4 -z-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 -z-10 h-72 w-72 rounded-full bg-secondary/10 blur-3xl" />
+
       {/* Main Chat Area */}
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-border/70 bg-card/95 shadow-xl shadow-primary/5 backdrop-blur-md transition-all duration-300">
         {/* Header */}
         <div className="shrink-0 border-b border-border px-6 py-5">
-          <LoopiHeader />
+          <LoopiHeader onNewChat={handleNewChat} isLoggedIn={isLoggedIn} />
         </div>
 
-        {/* Suggestion Cards */}
-        <div className="shrink-0 border-b border-border px-6 py-4">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {suggestions.map((s, i) => (
-              <SuggestionCard
-                key={i}
-                icon={s.icon}
-                title={s.title}
-                description={s.description}
-                onClick={() => handleSend(s.title)}
-              />
-            ))}
+        {/* Suggestion Cards - Hide when chat starts */}
+        {!hasMessages && (
+          <div className="shrink-0 border-b border-border px-6 py-4 bg-muted/20 animate-fade-in">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+              {suggestions.map((s, i) => (
+                <SuggestionCard
+                  key={i}
+                  icon={s.icon}
+                  title={s.title}
+                  description={s.description}
+                  onClick={() => handleSend(s.title)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Messages or Empty State */}
-        {lastQuery === null ? (
+        {!hasMessages ? (
           <LoopiEmpty onSelectSuggestion={handleSend} />
         ) : (
           <LoopiMessageArea
-            query={lastQuery}
-            response={lastResponse}
+            messages={displayMessages}
             isPending={isPending}
-            isError={isError}
+            errorMessage={errorMessage}
           />
         )}
 
@@ -110,7 +185,11 @@ const LoopiChat = () => {
       </div>
 
       {/* Right Sidebar */}
-      <LoopiSidebar />
+      <LoopiSidebar
+        activeConversationId={activeConversationId}
+        onSelectConversation={handleSelectConversation}
+        onNewChat={handleNewChat}
+      />
     </div>
   );
 };
