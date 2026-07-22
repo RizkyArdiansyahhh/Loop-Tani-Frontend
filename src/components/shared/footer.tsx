@@ -36,7 +36,7 @@ export function Footer() {
               <img
                 src="/images/logo-putih.png"
                 alt="LoopTani Logo"
-                className="h-10 invert dark:invert-0 transition-all duration-300"
+                className="h-10 brightness-0 dark:brightness-100 transition-all duration-300"
               />
             </Link>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
