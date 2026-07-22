@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { PiTiktokLogo } from "react-icons/pi";
-import { Mail, MapPin, Phone, ArrowRight, Send, Leaf, Heart } from "lucide-react";
+import { Mail, MapPin, Phone, ArrowRight, Send, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -32,14 +32,13 @@ export function Footer() {
         {/* ── Top Section: Brand & Newsletter Subscription ── */}
         <div className="grid gap-8 lg:grid-cols-12 items-center border-b border-emerald-100/50 dark:border-slate-800/60 pb-12 mb-12">
           <div className="lg:col-span-5 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-md shadow-emerald-500/20 text-white">
-                <Leaf className="h-5 w-5" />
-              </span>
-              <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white font-fraunces">
-                Loop<span className="text-primary">Tani</span>
-              </h2>
-            </div>
+            <Link href="/" className="flex items-center gap-2">
+              <img
+                src="/images/logo-putih.png"
+                alt="LoopTani Logo"
+                className="h-10 invert dark:invert-0 transition-all duration-300"
+              />
+            </Link>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
               Marketplace digital sirkular terpadu yang memberdayakan petani, industri pengolahan organik, dan melacak emisi lingkungan secara real-time.
             </p>
