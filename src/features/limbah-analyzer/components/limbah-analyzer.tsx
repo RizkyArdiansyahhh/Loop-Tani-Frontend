@@ -2,16 +2,14 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Star } from "lucide-react";
+import { Sparkles, Star, AlertTriangle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import RotatingText from "./rotating-text";
 import UploadStep from "./upload-step";
 import LoadingStep from "./loading-step";
 import ResultStep from "./result-step";
-import {
-  type AnalysisResult,
-  getRandomAnalysisResult,
-} from "../lib/dummy-data";
+import { useAnalyzeWaste } from "../hooks/use-analyze-waste";
+import type { WasteAnalysisResult } from "../types";
 
 type Step = "upload" | "loading" | "result";
 
@@ -25,29 +23,45 @@ const fadeSlide = {
 const LimbahAnalyzer = () => {
   const t = useTranslations("analyzer");
   const [step, setStep] = useState<Step>("upload");
-  const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [result, setResult] = useState<WasteAnalysisResult | null>(null);
   const [preview, setPreview] = useState<string>("");
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  const handleAnalyze = useCallback((file: File) => {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
+  const { mutate: analyze } = useAnalyzeWaste();
 
-    setStep("loading");
+  const handleAnalyze = useCallback(
+    (file: File) => {
+      setApiError(null);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
 
-    const delay = 2000 + Math.random() * 1000;
-    setTimeout(() => {
-      setResult(getRandomAnalysisResult());
-      setStep("result");
-    }, delay);
-  }, []);
+      setStep("loading");
+
+      analyze(file, {
+        onSuccess: (response) => {
+          setResult(response.data);
+          setStep("result");
+        },
+        onError: (err) => {
+          console.error("Gemini Waste Vision analysis failed:", err);
+          setApiError(
+            "Analisis sedang mengalami gangguan. Silakan coba lagi."
+          );
+          setStep("upload");
+        },
+      });
+    },
+    [analyze]
+  );
 
   const handleReset = useCallback(() => {
     setStep("upload");
     setResult(null);
     setPreview("");
+    setApiError(null);
   }, []);
 
   return (
@@ -147,6 +161,13 @@ const LimbahAnalyzer = () => {
 
         {/* Main Analyzer Card */}
         <div id="analyzer-card" className="mx-auto max-w-5xl px-4">
+          {apiError && (
+            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive/10 p-4 text-destructive">
+              <AlertTriangle className="h-5 w-5 shrink-0" />
+              <p className="text-sm font-medium">{apiError}</p>
+            </div>
+          )}
+
           <motion.div
             className="overflow-hidden rounded-3xl border border-border/50 bg-white/80 shadow-xl shadow-black/5 backdrop-blur-sm"
             initial={{ opacity: 0, y: 30 }}
@@ -169,6 +190,7 @@ const LimbahAnalyzer = () => {
               {step === "result" && result && (
                 <motion.div key="result" {...fadeSlide}>
                   <ResultStep
+                    key={preview}
                     result={result}
                     preview={preview}
                     onReset={handleReset}

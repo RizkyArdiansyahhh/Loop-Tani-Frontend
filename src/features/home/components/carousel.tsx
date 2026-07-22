@@ -6,79 +6,72 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 const TICK = 50;
 
-interface SlideItem {
+interface SlideStaticData {
   type: "video" | "image";
   src: string;
   duration: number;
-  title: string;
-  description: string;
   actionLink: string;
-  actionText: string;
   secondaryLink?: string;
-  secondaryText?: string;
-  eyebrow: string;
+  key: string;
 }
 
-const SLIDES: SlideItem[] = [
+const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/dy9gtwsh7/video/upload/v1783266018/5104194-uhd_3840_2160_30fps_oa3dpo.mp4",
     duration: 14000,
-    eyebrow: "Sirkularitas Ekonomi Pertanian",
-    title: "Siklus Lestari Pertanian Indonesia",
-    description:
-      "LoopTani menghubungkan limbah pertanian berkualitas tinggi dengan industri pengolahan untuk masa depan pangan berkelanjutan.",
     actionLink: "/marketplace",
-    actionText: "Mulai Jelajah",
     secondaryLink: "/loopi",
-    secondaryText: "Tanya Loopi AI",
+    key: "slide1",
   },
   {
     type: "image",
     src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783269526/karsten-bauche-dc3X_g5f28s-unsplash_wjrwjs.jpg",
     duration: 10000,
-    eyebrow: "Pemberdayaan Agri-Limbah",
-    title: "Ubah Limbah Pertanian Jadi Nilai Baru",
-    description:
-      "Jual ampas kopi, jerami padi, sekam, atau pupuk organik Anda langsung ke pembeli di marketplace LoopTani.",
     actionLink: "/marketplace",
-    actionText: "Buka Marketplace",
+    key: "slide2",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874698/banner-3_d4y8li.png",
+    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1784704305/karsten-wurth-UbGYPMbMYP8-unsplash_ybufgt.jpg",
     duration: 10000,
-    eyebrow: "Pusat Edukasi Tani",
-    title: "Edukasi Tani & Praktik Lapangan",
-    description:
-      "Ratusan panduan bertani, video demo olahan limbah, dan kumpulkan LoopPoints sebagai bentuk kontributor ilmu.",
     actionLink: "/panduan-tani",
-    actionText: "Lihat Panduan",
+    key: "slide3",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1770874687/banner-1_t5bjir.jpg",
+    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1784704311/randy-fath-dDc0vuVH_LU-unsplash_e8070x.jpg",
     duration: 10000,
-    eyebrow: "Sustainability Metrics",
-    title: "Jejak Hijau Setiap Transaksi",
-    description:
-      "Transparan melacak emisi CO₂ yang dikurangi, air tanah dilindungi, dan ekspor laporan CSR dengan mudah di LoopTani.",
     actionLink: "/jejak-lestari",
-    actionText: "Lihat Dampak Anda",
+    key: "slide4",
   },
 ];
 
 export const CarouselHomePage = () => {
+  const t = useTranslations("carousel");
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const currentSlide = SLIDES[activeIndex];
-  const duration = currentSlide.duration;
+  const currentSlideData = SLIDES[activeIndex];
+  const duration = currentSlideData.duration;
+
+  // Resolve translated texts dynamically
+  const currentSlide = {
+    ...currentSlideData,
+    eyebrow: t(`${currentSlideData.key}.eyebrow`),
+    title: t(`${currentSlideData.key}.title`),
+    description: t(`${currentSlideData.key}.description`),
+    actionText: t(`${currentSlideData.key}.actionText`),
+    secondaryText: currentSlideData.secondaryLink
+      ? t(`${currentSlideData.key}.secondaryText`)
+      : undefined,
+  };
 
   useEffect(() => {
     setProgress(0);
@@ -140,7 +133,6 @@ export const CarouselHomePage = () => {
           <div className="absolute inset-0 flex items-center">
             <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
               <div className="max-w-2xl space-y-4 md:space-y-6">
-                
                 {/* Eyebrow */}
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
@@ -180,8 +172,14 @@ export const CarouselHomePage = () => {
                   transition={{ delay: 0.45, duration: 0.5 }}
                   className="flex flex-wrap items-center gap-3 pt-2"
                 >
-                  <Button size="lg" asChild className="rounded-full font-semibold px-8 py-6">
-                    <Link href={currentSlide.actionLink}>{currentSlide.actionText}</Link>
+                  <Button
+                    size="lg"
+                    asChild
+                    className="rounded-full font-semibold px-8 py-6"
+                  >
+                    <Link href={currentSlide.actionLink}>
+                      {currentSlide.actionText}
+                    </Link>
                   </Button>
                   {currentSlide.secondaryLink && (
                     <Button
@@ -196,7 +194,6 @@ export const CarouselHomePage = () => {
                     </Button>
                   )}
                 </motion.div>
-
               </div>
             </div>
           </div>

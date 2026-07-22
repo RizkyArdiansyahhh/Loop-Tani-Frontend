@@ -1,41 +1,30 @@
 "use client";
-import { Controller, useForm } from "react-hook-form";
-import { loginFormSchema, LoginFormSchema } from "../forms/login";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
+import { Controller } from "react-hook-form";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import CutoutCard from "@/components/ui/cutout-card";
-import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { useTranslations } from "next-intl";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { useLoginForm } from "../hooks/use-login-form";
 import ButtonAuthGoogle from "../components/button-auth-google";
+import { AuthCarousel } from "../components/auth-carousel";
 
 const LoginPage = () => {
   const t = useTranslations("auth.login");
   const { form, onSubmit } = useLoginForm();
 
   return (
-    <div className="flex h-screen w-screen flex-col p-4 gap-4 md:flex-row">
-      {/* Mobile Top Image (hidden on md+) */}
-      <div className="w-full h-40 sm:h-48 shrink-0 md:hidden overflow-hidden rounded-[24px] relative">
-        <Image
-          src="/images/auth-1.jpg"
-          alt="Auth Banner"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+    <div className="flex h-screen w-screen flex-col p-4 gap-4 md:flex-row bg-background">
+      {/* Mobile Top Carousel Banner (hidden on md+) */}
+      <div className="w-full h-56 shrink-0 md:hidden">
+        <AuthCarousel className="w-full h-full" />
       </div>
 
       {/* Form side */}
-      <div className="flex h-full w-full flex-col overflow-y-auto md:w-1/2">
+      <div className="flex h-full w-full flex-col overflow-y-auto md:w-1/2 p-2 md:p-6">
         <div>
           <Image
             src="/images/logo-putih.png"
@@ -46,13 +35,13 @@ const LoginPage = () => {
           />
         </div>
 
-        <div className="flex flex-1 w-full items-center justify-center py-8  lg:pt-10">
-          <div className="w-full max-w-md px-2 sm:px-4 ">
+        <div className="flex flex-1 w-full items-center justify-center py-6 lg:pt-10">
+          <div className="w-full max-w-md px-2 sm:px-4">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold mb-2 sm:text-3xl">
+              <h1 className="text-2xl font-bold mb-2 sm:text-3xl text-foreground">
                 {t("title")}
               </h1>
-              <p className="text-sm sm:text-md">{t("description")}</p>
+              <p className="text-sm sm:text-md text-muted-foreground">{t("description")}</p>
             </div>
 
             <div className="w-full">
@@ -79,18 +68,19 @@ const LoginPage = () => {
                       )}
                     </Field>
                   )}
-                ></Controller>
+                />
                 <Controller
                   name="password"
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor="form-rhf-input-username">
+                      <FieldLabel htmlFor="form-rhf-input-password">
                         Password
                       </FieldLabel>
                       <Input
                         {...field}
-                        id="form-rhf-input-username"
+                        type="password"
+                        id="form-rhf-input-password"
                         aria-invalid={fieldState.invalid}
                         placeholder={t("password.placeholder")}
                       />
@@ -99,7 +89,7 @@ const LoginPage = () => {
                       )}
                     </Field>
                   )}
-                ></Controller>
+                />
                 <div className="flex items-center justify-between">
                   <Controller
                     name="remember"
@@ -119,10 +109,10 @@ const LoginPage = () => {
                         </FieldLabel>
                       </Field>
                     )}
-                  ></Controller>
+                  />
                   <Link
                     href={"/forgot-password"}
-                    className="text-primary text-sm text-right"
+                    className="text-primary text-sm text-right hover:underline"
                   >
                     {t("forgotPassword")}
                   </Link>
@@ -134,7 +124,7 @@ const LoginPage = () => {
                   </Button>
                   <ButtonAuthGoogle type="login" />
                   <div className="flex items-center gap-2 justify-center text-sm">
-                    <p>{t("noAccount")}</p>
+                    <p className="text-muted-foreground">{t("noAccount")}</p>
                     <Link
                       className="font-semibold text-primary underline"
                       href={"/register"}
@@ -149,13 +139,9 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Image side — visible on tablet & desktop (md+) */}
+      {/* Image side — Auth Carousel visible on tablet & desktop (md+) */}
       <div className="hidden h-full w-1/2 md:block">
-        <CutoutCard
-          image="/images/auth-1.jpg"
-          label="Featured"
-          className="w-full h-full"
-        />
+        <AuthCarousel className="w-full h-full" />
       </div>
     </div>
   );

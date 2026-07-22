@@ -1,0 +1,64 @@
+{
+  "about": {
+    "badge": "AI Agricultural Circular Ecosystem",
+    "heroTitle": "Transforming Agricultural Waste into Sustainable & High-Value Resources",
+    "heroSubtitle": "An integrated AI-powered platform connecting farmers, processors, and businesses to achieve zero-waste agriculture and boost local farmer prosperity.",
+    "stats": {
+      "wasteProcessed": "Waste Identified",
+      "wasteProcessedVal": "5,000+ Tons",
+      "farmersEmpowered": "Farmer Partners & Cooperatives",
+      "farmersEmpoweredVal": "1,200+",
+      "emissionsReduced": "Open Burning Reduced",
+      "emissionsReducedVal": "85%",
+      "economicCreated": "New Economic Value",
+      "economicCreatedVal": "IDR 4.2B+"
+    },
+    "visionMission": {
+      "visionTitle": "Our Vision",
+      "visionDesc": "To become Indonesia's leading AI-powered agricultural circular economy ecosystem, pioneering zero-waste farming and global competitiveness.",
+      "missionTitle": "Our Mission",
+      "missionDesc": "Empowering local farmers through artificial intelligence, transparent circular market access, and sustainability education for a greener food future."
+    },
+    "pillars": {
+      "title": "Four Pillars of the UTU Ecosystem",
+      "subtitle": "Integrated technology innovations to optimize waste potential from farmland to high-value bio-products.",
+      "analyzerTitle": "AI Waste Analyzer",
+      "analyzerDesc": "Automated visual detection of waste types, physical states, and market value estimations using Computer Vision AI.",
+      "marketplaceTitle": "Circular Marketplace",
+      "marketplaceDesc": "Direct B2B & B2C marketplace for trading raw waste, processed items (compost, briquettes), and farming machinery.",
+      "loopiTitle": "Loopi AI Assistant",
+      "loopiDesc": "Smart 24/7 virtual agronomy assistant ready to answer technical waste processing and crop health questions.",
+      "jejakTitle": "Jejak Lestari & Calculator",
+      "jejakDesc": "Avoided CO2 emissions tracker and precision fertilizer dosage recommendation calculator."
+    },
+    "values": {
+      "title": "Core Values",
+      "v1Title": "Sustainable Innovation",
+      "v1Desc": "Integrating cutting-edge AI technologies with green agronomy principles.",
+      "v2Title": "Transparency & Fairness",
+      "v2Desc": "Providing accurate market valuation to ensure fair returns for farmers.",
+      "v3Title": "Measurable Impact",
+      "v3Desc": "Focusing on concrete figures for carbon reduction and farmer income growth.",
+      "v4Title": "Community Collaboration",
+      "v4Desc": "Uniting farmers, industry, academia, and government in one supply chain."
+    },
+    "timeline": {
+      "title": "Our Journey & Growth",
+      "t1Year": "2024",
+      "t1Title": "AI Research & Initiation",
+      "t1Desc": "Development of initial AI vision algorithms for local agricultural waste classification.",
+      "t2Year": "2025",
+      "t2Title": "Waste Analyzer Launch",
+      "t2Desc": "Field testing with 10+ local Farmer Cooperatives (Gapoktan) in West Java.",
+      "t3Year": "2026",
+      "t3Title": "Marketplace & Loopi Ecosystem",
+      "t3Desc": "Launch of unified circular marketplace, Loopi AI assistant, and national expansion."
+    },
+    "cta": {
+      "title": "Join the Circular Economy Revolution",
+      "subtitle": "Explore agricultural waste trade or analyze your waste potential now.",
+      "primaryBtn": "Try Waste Analyzer",
+      "secondaryBtn": "Explore Marketplace"
+    }
+  }
+}

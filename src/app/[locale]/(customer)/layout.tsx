@@ -16,7 +16,7 @@ export default function CustomerLayout({
 
   return (
     <>
-      <header>
+      <header className="relative z-50">
         <Navbar></Navbar>
       </header>
       <div>{children}</div>

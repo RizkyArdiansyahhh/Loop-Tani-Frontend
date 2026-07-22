@@ -38,6 +38,16 @@
       "complete": "selesai"
     },
     "result": {
+      "wasteType": "Jenis Limbah",
+      "category": "Kategori",
+      "confidence": "Kepercayaan",
+      "color": "Warna Visual",
+      "state": "Kondisi / Status",
+      "environment": "Lingkungan",
+      "processingPotential": "Potensi Pemrosesan",
+      "economicPotential": "Potensi Nilai Ekonomi",
+      "marketOpportunity": "Peluang Pasar",
+      "notes": "Catatan Analisis",
       "estimatedMarketValue": "Estimasi Nilai Pasar",
       "aiEstimation": "Estimasi harga berbasis AI.",
       "disclaimer": "Nilai ini adalah estimasi AI. Verifikasi akhir akan dilakukan selama proses penjualan.",

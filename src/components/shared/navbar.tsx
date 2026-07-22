@@ -13,6 +13,7 @@ import {
   CircleIcon,
   ShoppingCart,
   User,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
@@ -121,8 +122,14 @@ function NavbarContent() {
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent font-semibold">
-                {t_navbar("marketplace.title")}
+              <NavigationMenuTrigger asChild className="bg-transparent font-semibold">
+                <Link href="/marketplace">
+                  <span>{t_navbar("marketplace.title")}</span>
+                  <ChevronDown
+                    className="relative top-[1px] ms-1 size-3.5 opacity-60 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </Link>
               </NavigationMenuTrigger>
 
               <NavigationMenuContent>
@@ -544,7 +551,7 @@ export default function Navbar() {
     <>
       <nav
         ref={floatingRef}
-        className="w-full border-b border-gray-200 bg-white"
+        className="relative z-50 w-full border-b border-gray-200 bg-white"
       >
         <NavbarContent />
       </nav>
@@ -552,7 +559,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isSticky && (
           <motion.nav
-            className="fixed top-0 left-0 right-0 z-200 border-b border-gray-200 bg-white shadow-sm"
+            className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}

@@ -15,6 +15,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
     panduan,
     profile,
     seller,
+    about,
+    home,
   ] = await Promise.all([
     import(`../../messages/${safeLocale}/analyzer.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/admin.json`).then(m => m.default).catch(() => ({})),
@@ -24,6 +26,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../../messages/${safeLocale}/panduan.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/profile.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/seller.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/about.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/home.json`).then(m => m.default).catch(() => ({})),
   ]);
 
   return {
@@ -37,6 +41,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...panduan,
       ...profile,
       ...seller,
+      ...about,
+      ...home,
     },
   };
 });

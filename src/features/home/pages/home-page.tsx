@@ -167,7 +167,7 @@ const HomePage = () => {
 
   return (
     <>
-      <header>
+      <header className="relative z-50">
         <InfoBar />
         <Navbar />
       </header>
