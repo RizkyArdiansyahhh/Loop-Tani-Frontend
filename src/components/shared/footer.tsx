@@ -45,18 +45,7 @@ const Footer = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="
-                    flex h-11 w-11 items-center justify-center
-                    rounded-full
-                    border border-border
-                    bg-background
-                    text-muted-foreground
-                    transition-all duration-300
-                    hover:-translate-y-1
-                    hover:border-primary
-                    hover:bg-primary
-                    hover:text-primary-foreground
-                  "
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   {item.icon}
                 </a>
@@ -117,7 +106,7 @@ const Footer = () => {
 
             <ul className="space-y-3 text-muted-foreground">
               <li>
-                <Link href="#" className="animation-link-background w-fit">
+                <Link href="/about" className="animation-link-background w-fit">
                   Tentang Kami
                 </Link>
               </li>

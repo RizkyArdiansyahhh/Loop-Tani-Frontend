@@ -1,36 +1,28 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Hammer, Leaf, Wheat } from "lucide-react";
+import { Hammer, Leaf, Wheat, Tag } from "lucide-react";
 import clsx from "clsx";
 
-export type ProductCategory =
-  | "agricultural-waste"
-  | "processed-product"
-  | "secondhand";
-
 interface BadgeProductProps {
-  category: ProductCategory;
+  category: string;
   className?: string;
 }
 
-const badgeConfig = {
-  "agricultural-waste": {
+const badgeConfig: Record<string, { label: string; icon: React.ElementType; className: string }> = {
+  "Limbah Pertanian": {
     label: "Limbah Pertanian",
     icon: Wheat,
     className:
-      // Menggunakan background putih 95% dengan bayangan agar terpisah dari gambar
       "bg-white/95 text-amber-700 border-amber-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-amber-500 dark:border-amber-900/50",
   },
-
-  "processed-product": {
+  "Produk Olahan": {
     label: "Produk Olahan",
     icon: Leaf,
     className:
       "bg-white/95 text-green-700 border-green-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-green-500 dark:border-green-900/50",
   },
-
-  secondhand: {
+  "Alat Secondhand": {
     label: "Alat Secondhand",
     icon: Hammer,
     className:
@@ -39,7 +31,13 @@ const badgeConfig = {
 };
 
 const BadgeProduct = ({ category, className }: BadgeProductProps) => {
-  const config = badgeConfig[category];
+  const config = badgeConfig[category] || {
+    label: category,
+    icon: Tag,
+    className:
+      "bg-white/95 text-gray-700 border-gray-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-gray-500 dark:border-gray-800",
+  };
+  
   const Icon = config.icon;
 
   return (

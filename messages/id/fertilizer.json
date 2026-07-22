@@ -39,14 +39,24 @@
       "status": "Status",
       "optimal": "Optimal",
       "suitable": "Cocok untuk kondisi pertanian saat ini.",
-      "reset": "Hitung Ulang"
+      "reset": "Hitung Ulang",
+      "breakdownTitle": "Detail Perhitungan & Referensi",
+      "stepByStepTitle": "Langkah Eksekusi",
+      "referenceTitle": "Referensi Resmi",
+      "baseDosageLabel": "Dosis Dasar:",
+      "soilAdjustmentLabel": "Penyesuaian Tanah:",
+      "fertilizerSelectionLabel": "Pemilihan Pupuk:",
+      "marketplaceTitle": "Rekomendasi Toko",
+      "marketplaceSubtitle": "Produk pupuk yang cocok tersedia di LoopTani",
+      "viewProduct": "Lihat Produk"
     },
     "insights": {
       "title": "Wawasan Pertanian AI",
       "tip1": "Bagi aplikasi pupuk menjadi tiga tahap.",
       "tip2": "Gunakan kompos bersama pupuk kimia.",
       "tip3": "Siram tanaman setelah pemupukan.",
-      "tip4": "Hindari pemupukan sebelum hujan lebat."
+      "tip4": "Hindari pemupukan sebelum hujan lebat.",
+      "unverified_crop": "Tanaman ini belum memiliki referensi dosis resmi. Silakan hubungi penyuluh pertanian setempat."
     },
     "bottomCta": {
       "title": "Siap meningkatkan panen Anda?",

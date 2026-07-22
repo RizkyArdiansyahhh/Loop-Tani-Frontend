@@ -38,6 +38,16 @@
       "complete": "complete"
     },
     "result": {
+      "wasteType": "Waste Type",
+      "category": "Category",
+      "confidence": "Confidence",
+      "color": "Visual Color",
+      "state": "Condition State",
+      "environment": "Environment",
+      "processingPotential": "Processing Potential",
+      "economicPotential": "Economic Value Potential",
+      "marketOpportunity": "Market Opportunity",
+      "notes": "Analysis Notes",
       "estimatedMarketValue": "Estimated Market Value",
       "aiEstimation": "AI-based price estimation.",
       "disclaimer": "This value is an AI estimation. Final verification will be performed during the selling process.",

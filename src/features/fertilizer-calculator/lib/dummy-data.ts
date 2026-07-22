@@ -19,12 +19,30 @@ export interface FertilizerResult {
   unit: string;
 }
 
+export interface MarketplaceProduct {
+  id: string;
+  name: string;
+  price: number;
+  slug: string;
+  image?: string;
+  storeName?: string;
+}
+
+export interface RecommendationSource {
+  dosage: string;
+  soilAdjustment: string;
+  fertilizerSelection: string;
+}
+
 export interface CalculationResult {
   nutrients: NutrientResult[];
   fertilizers: FertilizerResult[];
   estimatedCost: number;
   confidence: number;
   insights: string[];
+  recommendationSource: RecommendationSource;
+  stepByStep: string[];
+  marketplaceProducts?: MarketplaceProduct[];
 }
 
 export const cropOptions = [
@@ -64,6 +82,18 @@ export const dummyResult: CalculationResult = {
   estimatedCost: 1250000,
   confidence: 96,
   insights: ["tip1", "tip2", "tip3", "tip4"],
+  recommendationSource: {
+    dosage: "Peraturan Menteri Pertanian (Permentan) Nomor 13 Tahun 2022",
+    soilAdjustment: "Heuristic: Tanah Berpasir (+20% N, K)",
+    fertilizerSelection: "Loop Tani Optimization Engine"
+  },
+  stepByStep: [
+    "Dosis dasar diambil dari rekomendasi resmi.",
+    "Faktor tanah diterapkan berdasarkan heuristik.",
+    "Pembagian fase pertumbuhan dihitung.",
+    "Luas lahan dikonversi.",
+    "Optimasi rekomendasi produk pupuk dijalankan."
+  ],
 };
 
 export function formatRupiah(amount: number): string {

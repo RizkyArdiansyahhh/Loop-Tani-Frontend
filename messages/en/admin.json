@@ -1,0 +1,184 @@
+{
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "users": "Manage Users",
+      "sellers": "Seller Verification",
+      "categories": "Category Management",
+      "knowledge": "Learning Management",
+      "rewards": "Reward Management",
+      "notifications": "Platform Broadcast",
+      "pointTransactions": "Point Transactions",
+      "settings": "Settings",
+      "backToProfile": "Back to Profile"
+    },
+    "dashboard": {
+      "title": "Platform Analytics",
+      "totalUsers": "Total Users",
+      "totalSellers": "Active Sellers",
+      "pendingSellers": "Pending Stores",
+      "totalProducts": "Total Products",
+      "totalArticles": "Total Articles",
+      "totalVideos": "Total Videos",
+      "totalPoints": "Total LoopPoints",
+      "systemTitle": "LoopTani Admin Dashboard",
+      "subtitle": "Overview of circular agriculture platform analytics and management."
+    },
+    "users": {
+      "title": "User Management",
+      "subtitle": "Activate/deactivate user accounts and manage system roles and permissions.",
+      "searchPlaceholder": "Search by name or email...",
+      "table": {
+        "name": "User Name",
+        "email": "Email",
+        "status": "Status",
+        "roles": "Roles",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "roles": {
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "admin": "Admin"
+      },
+      "changeRoles": "Edit Roles",
+      "saveRoles": "Save Roles",
+      "cancel": "Cancel"
+    },
+    "sellers": {
+      "title": "Seller Account Verification",
+      "subtitle": "Review and verify incoming seller store applications.",
+      "noPending": "No pending store applications found.",
+      "storeName": "Store Name",
+      "owner": "Owner",
+      "location": "Location",
+      "status": "Status",
+      "date": "Submission Date",
+      "actions": "Verify",
+      "approve": "Approve",
+      "reject": "Reject",
+      "rejectionTitle": "Rejection Reason",
+      "rejectionPlaceholder": "Enter reason for rejection...",
+      "rejectionRequired": "Rejection reason is required"
+    },
+    "categories": {
+      "title": "Category Management",
+      "subtitle": "Manage marketplace product categories and learning center categories.",
+      "addCategory": "Add Category",
+      "editCategory": "Edit Category",
+      "deleteCategory": "Delete Category",
+      "table": {
+        "name": "Category Name",
+        "slug": "Slug",
+        "type": "Category Type",
+        "actions": "Actions"
+      },
+      "types": {
+        "marketplace": "Marketplace",
+        "learning": "Learning Center"
+      },
+      "form": {
+        "name": "Category Name",
+        "slug": "Slug (kebab-case)",
+        "type": "Category Type",
+        "submit": "Save Category"
+      }
+    },
+    "knowledge": {
+      "title": "Learning Content Management",
+      "subtitle": "Manage articles and videos for the learning center (Panduan Tani).",
+      "addContent": "Add Content",
+      "editContent": "Edit Content",
+      "table": {
+        "title": "Content Title",
+        "type": "Type",
+        "category": "Category",
+        "points": "Reward Points",
+        "author": "Author",
+        "actions": "Actions"
+      },
+      "form": {
+        "title": "Content Title",
+        "type": "Type",
+        "content": "Main Content (Article) / Description (Video)",
+        "category": "Category",
+        "difficulty": "Difficulty Level",
+        "imageUrl": "Cover Image URL",
+        "rewardPoint": "Reward Points Amount",
+        "estimatedMinutes": "Est. Reading Time (Mins)",
+        "videoDuration": "Video Duration (Secs)",
+        "secureUrl": "Cloudinary Video URL",
+        "thumbnailUrl": "Video Thumbnail URL",
+        "difficultyLabel": {
+          "pemula": "Beginner",
+          "menengah": "Intermediate"
+        },
+        "submit": "Save Content"
+      }
+    },
+    "rewards": {
+      "title": "LoopPoints Shop Catalog",
+      "subtitle": "Manage vouchers and items that users can redeem using LoopPoints.",
+      "addReward": "Add Reward",
+      "editReward": "Edit Reward",
+      "table": {
+        "title": "Reward Title",
+        "description": "Description",
+        "cost": "Points Cost",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "form": {
+        "title": "Reward Title",
+        "description": "Detailed Description",
+        "pointsCost": "LoopPoints Cost",
+        "isActive": "Is Active",
+        "submit": "Save Reward"
+      }
+    },
+    "notifications": {
+      "title": "Platform Notification Broadcast",
+      "subtitle": "Send global broadcast notifications to all registered users.",
+      "sendNotification": "Send Broadcast",
+      "table": {
+        "title": "Broadcast Title",
+        "content": "Message Content",
+        "date": "Broadcast Date"
+      },
+      "form": {
+        "title": "Notification Title",
+        "content": "Broadcast Message Content",
+        "submit": "Send Broadcast Now"
+      }
+    },
+    "settings": {
+      "title": "Platform Settings",
+      "subtitle": "Configure global system parameters for LoopTani.",
+      "save": "Save Settings",
+      "maintenance": "Maintenance Mode",
+      "maintenanceDesc": "When active, only Admins can access the platform.",
+      "minWithdrawal": "Minimum Withdrawal Amount (Rp)",
+      "commissionRate": "Marketplace Commission Rate (%)",
+      "successMessage": "Settings updated successfully."
+    },
+    "pointTransactions": {
+      "title": "Point Transactions History",
+      "subtitle": "Monitor and audit LoopPoints earnings and redemptions by platform users.",
+      "searchPlaceholder": "Search by name, email, or description...",
+      "table": {
+        "user": "User",
+        "type": "Type",
+        "amount": "Points Amount",
+        "description": "Description",
+        "date": "Date"
+      },
+      "types": {
+        "earn": "Earned",
+        "redeem": "Redeemed"
+      }
+    }
+  }
+}

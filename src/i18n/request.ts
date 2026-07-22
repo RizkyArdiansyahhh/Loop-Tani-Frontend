@@ -1,32 +1,48 @@
 import { getRequestConfig } from "next-intl/server";
 import { routing } from "./routing";
-import fs from "fs";
-import path from "path";
-
-function loadMessages(locale: string) {
-  const safeLocale = ["id", "en"].includes(locale) ? locale : "id";
-
-  const dir = path.join(process.cwd(), "messages", safeLocale);
-
-  console.log("LOADED MESSAGES:", safeLocale);
-
-  const files = fs.readdirSync(dir);
-
-  return files.reduce((acc, file) => {
-    const content = JSON.parse(fs.readFileSync(path.join(dir, file), "utf-8"));
-
-    return {
-      ...acc,
-      ...content,
-    };
-  }, {});
-}
 
 export default getRequestConfig(async ({ requestLocale }) => {
   const locale = (await requestLocale) ?? routing.defaultLocale;
+  const safeLocale = ["id", "en"].includes(locale) ? locale : "id";
+
+  // Dynamically import all json files for the locale
+  const [
+    analyzer,
+    admin,
+    auth,
+    fertilizer,
+    navbar,
+    panduan,
+    profile,
+    seller,
+    about,
+    home,
+  ] = await Promise.all([
+    import(`../../messages/${safeLocale}/analyzer.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/admin.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/auth.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/fertilizer.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/navbar.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/panduan.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/profile.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/seller.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/about.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/home.json`).then(m => m.default).catch(() => ({})),
+  ]);
 
   return {
-    locale,
-    messages: loadMessages(locale),
+    locale: safeLocale,
+    messages: {
+      ...analyzer,
+      ...admin,
+      ...auth,
+      ...fertilizer,
+      ...navbar,
+      ...panduan,
+      ...profile,
+      ...seller,
+      ...about,
+      ...home,
+    },
   };
 });

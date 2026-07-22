@@ -1,0 +1,64 @@
+{
+  "about": {
+    "badge": "Ekosistem Sirkularitas Pertanian AI",
+    "heroTitle": "Mengubah Limbah Pertanian Menjadi Sumber Daya Berkelanjutan",
+    "heroSubtitle": "Platform terpadu berbasis AI yang menghubungkan petani, industri pengolah, dan pelaku usaha untuk mewujudkan nol limbah (zero-waste) dan meningkatkan kesejahteraan petani Indonesia.",
+    "stats": {
+      "wasteProcessed": "Limbah Teridentifikasi",
+      "wasteProcessedVal": "5.000+ Ton",
+      "farmersEmpowered": "Mitra Petani & Gapoktan",
+      "farmersEmpoweredVal": "1.200+",
+      "emissionsReduced": "Pengurangan Pembakaran",
+      "emissionsReducedVal": "85%",
+      "economicCreated": "Nilai Ekonomi Baru",
+      "economicCreatedVal": "Rp 4.2M+"
+    },
+    "visionMission": {
+      "visionTitle": "Visi Kami",
+      "visionDesc": "Menjadi ekosistem ekonomi sirkular pertanian berbasis AI terdepan di Indonesia yang mewujudkan pertanian bebas limbah (zero-waste farming) dan berdaya saing global.",
+      "missionTitle": "Misi Kami",
+      "missionDesc": "Memberdayakan petani lokal melalui kecerdasan buatan, akses pasar sirkular yang transparan, dan edukasi keberlanjutan demi masa depan pangan yang hijau."
+    },
+    "pillars": {
+      "title": "Empat Pilar Ekosistem UTU",
+      "subtitle": "Inovasi teknologi terpadu untuk mengoptimalkan potensi limbah dari lahan hingga produk olahan bernilai tinggi.",
+      "analyzerTitle": "AI Limbah Analyzer",
+      "analyzerDesc": "Deteksi visual otomatis jenis limbah pertanian, kondisi fisik, dan estimasi nilai jual menggunakan Computer Vision AI.",
+      "marketplaceTitle": "Sirkular Marketplace",
+      "marketplaceDesc": "Pasar B2B & B2C langsung untuk memperjualbelikan limbah mentah, produk olahan (kompos, briket), dan alat pertanian.",
+      "loopiTitle": "Asisten AI Loopi",
+      "loopiDesc": "Asisten virtual agronomi pintar 24/7 yang siap menjawab pertanyaan teknis pengolahan limbah dan kesehatan tanaman.",
+      "jejakTitle": "Jejak Lestari & Kalkulator",
+      "jejakDesc": "Pelacak dampak penurunan emisi CO2 terhindar serta kalkulator presisi rekomendasi dosis pupuk."
+    },
+    "values": {
+      "title": "Nilai-Nilai Utama",
+      "v1Title": "Inovasi Berkelanjutan",
+      "v1Desc": "Mengintegrasikan teknologi AI mutakhir dengan prinsip agronomi hijau.",
+      "v2Title": "Transparansi & Keadilan",
+      "v2Desc": "Memberikan estimasi nilai pasar yang akurat demi kesejahteraan petani.",
+      "v3Title": "Dampak Terukur",
+      "v3Desc": "Fokus pada angka konkret penurunan emisi karbon dan peningkatan pendapatan.",
+      "v4Title": "Kolaborasi Komunitas",
+      "v4Desc": "Merangkul petani, industri, akademi, dan pemerintah dalam satu rantai pasok."
+    },
+    "timeline": {
+      "title": "Perjalanan & Perkembangan",
+      "t1Year": "2024",
+      "t1Title": "Inisiasi & Riset AI",
+      "t1Desc": "Pengembangan algoritma visi AI awal untuk klasifikasi limbah pertanian lokal.",
+      "t2Year": "2025",
+      "t2Title": "Peluncuran Limbah Analyzer",
+      "t2Desc": "Uji coba lapangan bersama 10+ Kelompok Tani (Gapoktan) di Jawa Barat.",
+      "t3Year": "2026",
+      "t3Title": "Ekosistem Marketplace & Loopi",
+      "t3Desc": "Peluncuran pasar sirkular terpadu, asisten AI Loopi, dan ekspansi nasional."
+    },
+    "cta": {
+      "title": "Mulai Berkontribusi dalam Ekonomi Sirkular",
+      "subtitle": "Jelajahi pasar limbah pertanian atau analisis potensi limbah Anda sekarang.",
+      "primaryBtn": "Coba Limbah Analyzer",
+      "secondaryBtn": "Jelajahi Marketplace"
+    }
+  }
+}

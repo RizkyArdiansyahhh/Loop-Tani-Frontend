@@ -1,0 +1,29 @@
+{
+  "carousel": {
+    "slide1": {
+      "eyebrow": "Sirkularitas Ekonomi Pertanian",
+      "title": "Siklus Lestari Pertanian Indonesia",
+      "description": "LoopTani menghubungkan limbah pertanian berkualitas tinggi dengan industri pengolahan untuk masa depan pangan berkelanjutan.",
+      "actionText": "Mulai Jelajah",
+      "secondaryText": "Tanya Loopi AI"
+    },
+    "slide2": {
+      "eyebrow": "Pemberdayaan Agri-Limbah",
+      "title": "Ubah Limbah Pertanian Jadi Nilai Baru",
+      "description": "Jual ampas kopi, jerami padi, sekam, atau pupuk organik Anda langsung ke pembeli di marketplace LoopTani.",
+      "actionText": "Buka Marketplace"
+    },
+    "slide3": {
+      "eyebrow": "Pusat Edukasi Tani",
+      "title": "Edukasi Tani & Praktik Lapangan",
+      "description": "Ratusan panduan bertani, video demo olahan limbah, dan kumpulkan LoopPoints sebagai bentuk kontributor ilmu.",
+      "actionText": "Lihat Panduan"
+    },
+    "slide4": {
+      "eyebrow": "Sustainability Metrics",
+      "title": "Jejak Hijau Setiap Transaksi",
+      "description": "Transparan melacak emisi CO₂ yang dikurangi, air tanah dilindungi, dan ekspor laporan CSR dengan mudah di LoopTani.",
+      "actionText": "Lihat Dampak Anda"
+    }
+  }
+}

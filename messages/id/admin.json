@@ -1,0 +1,184 @@
+{
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "users": "Kelola Pengguna",
+      "sellers": "Verifikasi Toko",
+      "categories": "Manajemen Kategori",
+      "knowledge": "Manajemen Edukasi",
+      "rewards": "Reward LoopPoints",
+      "notifications": "Siaran Notifikasi",
+      "pointTransactions": "Transaksi Poin",
+      "settings": "Pengaturan",
+      "backToProfile": "Kembali ke Profil"
+    },
+    "dashboard": {
+      "title": "Analitik Platform",
+      "totalUsers": "Total Pengguna",
+      "totalSellers": "Seller Aktif",
+      "pendingSellers": "Toko Pending",
+      "totalProducts": "Total Produk",
+      "totalArticles": "Total Artikel",
+      "totalVideos": "Total Video",
+      "totalPoints": "Total LoopPoints",
+      "systemTitle": "Admin Dashboard LoopTani",
+      "subtitle": "Gambaran umum analitik dan pengawasan platform pertanian sirkular."
+    },
+    "users": {
+      "title": "Kelola Pengguna",
+      "subtitle": "Aktifkan/nonaktifkan akun pengguna dan kelola hak akses/peran sistem.",
+      "searchPlaceholder": "Cari berdasarkan nama atau email...",
+      "table": {
+        "name": "Nama Pengguna",
+        "email": "Email",
+        "status": "Status",
+        "roles": "Peran",
+        "actions": "Aksi"
+      },
+      "status": {
+        "active": "Aktif",
+        "inactive": "Nonaktif"
+      },
+      "roles": {
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "admin": "Admin"
+      },
+      "changeRoles": "Edit Peran",
+      "saveRoles": "Simpan Peran",
+      "cancel": "Batal"
+    },
+    "sellers": {
+      "title": "Verifikasi Registrasi Toko",
+      "subtitle": "Tinjau pengajuan registrasi toko seller baru.",
+      "noPending": "Tidak ada pengajuan toko tertunda.",
+      "storeName": "Nama Toko",
+      "owner": "Pemilik",
+      "location": "Lokasi",
+      "status": "Status",
+      "date": "Tanggal Pengajuan",
+      "actions": "Verifikasi",
+      "approve": "Setujui",
+      "reject": "Tolak",
+      "rejectionTitle": "Alasan Penolakan",
+      "rejectionPlaceholder": "Tuliskan alasan penolakan toko...",
+      "rejectionRequired": "Alasan penolakan wajib diisi"
+    },
+    "categories": {
+      "title": "Manajemen Kategori",
+      "subtitle": "Kelola kategori produk marketplace dan kategori belajar panduan tani.",
+      "addCategory": "Tambah Kategori",
+      "editCategory": "Edit Kategori",
+      "deleteCategory": "Hapus Kategori",
+      "table": {
+        "name": "Nama Kategori",
+        "slug": "Slug",
+        "type": "Tipe Kategori",
+        "actions": "Aksi"
+      },
+      "types": {
+        "marketplace": "Marketplace",
+        "learning": "Panduan Tani"
+      },
+      "form": {
+        "name": "Nama Kategori",
+        "slug": "Slug (kebab-case)",
+        "type": "Tipe Kategori",
+        "submit": "Simpan Kategori"
+      }
+    },
+    "knowledge": {
+      "title": "Manajemen Konten Edukasi",
+      "subtitle": "Kelola konten belajar artikel dan video panduan tani.",
+      "addContent": "Tambah Konten",
+      "editContent": "Edit Konten",
+      "table": {
+        "title": "Judul Konten",
+        "type": "Tipe",
+        "category": "Kategori",
+        "points": "Reward Poin",
+        "author": "Penulis",
+        "actions": "Aksi"
+      },
+      "form": {
+        "title": "Judul Konten",
+        "type": "Tipe",
+        "content": "Konten Utama (Artikel) / Deskripsi (Video)",
+        "category": "Kategori",
+        "difficulty": "Tingkat Kesulitan",
+        "imageUrl": "URL Gambar Sampul",
+        "rewardPoint": "Jumlah Reward Poin",
+        "estimatedMinutes": "Estimasi Membaca (Menit)",
+        "videoDuration": "Durasi Video (Detik)",
+        "secureUrl": "URL Video Cloudinary",
+        "thumbnailUrl": "URL Thumbnail Video",
+        "difficultyLabel": {
+          "pemula": "Pemula",
+          "menengah": "Menengah"
+        },
+        "submit": "Simpan Konten"
+      }
+    },
+    "rewards": {
+      "title": "Katalog Reward LoopPoints",
+      "subtitle": "Kelola voucher dan hadiah yang dapat ditukarkan menggunakan LoopPoints.",
+      "addReward": "Tambah Reward",
+      "editReward": "Edit Reward",
+      "table": {
+        "title": "Judul Hadiah",
+        "description": "Deskripsi",
+        "cost": "Biaya Poin",
+        "status": "Status",
+        "actions": "Aksi"
+      },
+      "form": {
+        "title": "Judul Hadiah",
+        "description": "Deskripsi Lengkap",
+        "pointsCost": "Biaya LoopPoints",
+        "isActive": "Status Aktif",
+        "submit": "Simpan Reward"
+      }
+    },
+    "notifications": {
+      "title": "Siaran Notifikasi Platform",
+      "subtitle": "Kirim notifikasi broadcast global ke seluruh pengguna platform.",
+      "sendNotification": "Kirim Notifikasi",
+      "table": {
+        "title": "Judul Siaran",
+        "content": "Isi Pesan",
+        "date": "Tanggal Siaran"
+      },
+      "form": {
+        "title": "Judul Notifikasi",
+        "content": "Isi Pesan Siaran",
+        "submit": "Kirim Siaran Sekarang"
+      }
+    },
+    "settings": {
+      "title": "Pengaturan Platform",
+      "subtitle": "Kelola konfigurasi global sistem LoopTani.",
+      "save": "Simpan Pengaturan",
+      "maintenance": "Mode Pemeliharaan (Maintenance)",
+      "maintenanceDesc": "Ketika diaktifkan, hanya Admin yang dapat mengakses platform.",
+      "minWithdrawal": "Minimal Penarikan Pendapatan (Rp)",
+      "commissionRate": "Komisi Marketplace (%)",
+      "successMessage": "Pengaturan berhasil diperbarui."
+    },
+    "pointTransactions": {
+      "title": "Riwayat Transaksi Poin",
+      "subtitle": "Pantau dan audit perolehan serta penukaran LoopPoints oleh pengguna platform.",
+      "searchPlaceholder": "Cari berdasarkan nama, email, atau deskripsi...",
+      "table": {
+        "user": "Pengguna",
+        "type": "Tipe",
+        "amount": "Jumlah Poin",
+        "description": "Deskripsi",
+        "date": "Tanggal"
+      },
+      "types": {
+        "earn": "Diterima",
+        "redeem": "Ditukarkan"
+      }
+    }
+  }
+}

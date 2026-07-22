@@ -1,0 +1,29 @@
+{
+  "carousel": {
+    "slide1": {
+      "eyebrow": "Agricultural Circular Economy",
+      "title": "Sustainable Farming Cycle in Indonesia",
+      "description": "LoopTani connects high-quality agricultural waste with processing industries for a sustainable food future.",
+      "actionText": "Start Exploring",
+      "secondaryText": "Ask Loopi AI"
+    },
+    "slide2": {
+      "eyebrow": "Agri-Waste Empowerment",
+      "title": "Turn Agricultural Waste into New Value",
+      "description": "Sell your coffee grounds, rice straw, husks, or organic fertilizer directly to buyers on the LoopTani marketplace.",
+      "actionText": "Open Marketplace"
+    },
+    "slide3": {
+      "eyebrow": "Farming Education Hub",
+      "title": "Farming Education & Field Practice",
+      "description": "Hundreds of farming guides, waste processing video demos, and collect LoopPoints as a knowledge contributor.",
+      "actionText": "View Guide"
+    },
+    "slide4": {
+      "eyebrow": "Sustainability Metrics",
+      "title": "Green Footprint for Every Transaction",
+      "description": "Transparently track reduced CO₂ emissions, protected groundwater, and easily export CSR reports on LoopTani.",
+      "actionText": "View Your Impact"
+    }
+  }
+}

@@ -11,10 +11,15 @@ import {
   CircleCheckIcon,
   CircleHelpIcon,
   CircleIcon,
+  ShoppingCart,
+  User,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { useCart } from "@/features/cart/hooks/use-cart";
 // Sheet removed from navbar
 import {
   NavigationMenu,
@@ -85,8 +90,23 @@ function ListItem({
 function NavbarContent() {
   const t = useTranslations("auth");
   const t_navbar = useTranslations("navbar");
+  const { data: session } = authClient.useSession();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = React.useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setProfileDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="relative mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
@@ -102,8 +122,14 @@ function NavbarContent() {
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent font-semibold">
-                {t_navbar("marketplace.title")}
+              <NavigationMenuTrigger asChild className="bg-transparent font-semibold">
+                <Link href="/marketplace">
+                  <span>{t_navbar("marketplace.title")}</span>
+                  <ChevronDown
+                    className="relative top-[1px] ms-1 size-3.5 opacity-60 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </Link>
               </NavigationMenuTrigger>
 
               <NavigationMenuContent>
@@ -308,16 +334,89 @@ function NavbarContent() {
       {/* Desktop actions — right */}
       <div className="hidden shrink-0 items-center gap-3 lg:flex">
         <LanguageSwitcher />
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/auth/login">{t("login.button")}</Link>
-        </Button>
-        <Button
-          size="sm"
-          asChild
-          className="bg-primary text-background px-6 py-4 font-semibold"
-        >
-          <Link href="/auth/register">{t("register.button")}</Link>
-        </Button>
+        {session ? (
+          <>
+            <CartBadge />
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                className="flex items-center hover:opacity-80 transition-opacity cursor-pointer focus:outline-hidden"
+              >
+                {session.user.image ? (
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "User"}
+                    className="h-9 w-9 rounded-full object-cover border border-gray-200 dark:border-gray-800"
+                  />
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-emerald-100 dark:bg-emerald-950/30 flex items-center justify-center font-bold text-emerald-700 dark:text-emerald-400">
+                    {session.user.name?.charAt(0) || "U"}
+                  </div>
+                )}
+              </button>
+
+              <AnimatePresence>
+                {profileDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2.5 w-56 bg-white border border-gray-150 rounded-xl shadow-lg py-2 z-50 dark:bg-gray-900 dark:border-gray-850"
+                  >
+                    <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800/80">
+                      <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-3xs text-muted-foreground truncate">
+                        {session.user.email}
+                      </p>
+                    </div>
+
+                    <div className="py-1">
+                      <Link
+                        href="/profile"
+                        onClick={() => setProfileDropdownOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
+                      >
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        Profil Saya
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-gray-100 dark:border-gray-805/80 my-1" />
+
+                    <div className="px-1">
+                      <button
+                        onClick={() => {
+                          setProfileDropdownOpen(false);
+                          authClient.signOut();
+                        }}
+                        className="flex items-center gap-2 w-full text-left px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-750 dark:text-red-400 dark:hover:bg-red-950/30 rounded-lg cursor-pointer"
+                      >
+                        Keluar
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </>
+        ) : (
+          <>
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">{t("login.button")}</Link>
+            </Button>
+            <Button
+              size="sm"
+              asChild
+              className="bg-primary text-background px-6 py-4 font-semibold"
+            >
+              <Link href="/register">{t("register.button")}</Link>
+            </Button>
+          </>
+        )}
       </div>
 
       {/* Mobile hamburger */}
@@ -361,18 +460,60 @@ function NavbarContent() {
                 </span>
                 <LanguageSwitcher />
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-2">
-                <Button variant="outline" size="lg" asChild className="rounded-2xl h-11">
-                  <Link href="/auth/login" onClick={() => setMobileOpen(false)}>
-                    {t("login.button")}
-                  </Link>
-                </Button>
-                <Button size="lg" asChild className="rounded-2xl h-11">
-                  <Link href="/auth/register" onClick={() => setMobileOpen(false)}>
-                    {t("register.button")}
-                  </Link>
-                </Button>
-              </div>
+              {session ? (
+                <div className="flex flex-col gap-3 mt-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11 w-full"
+                  >
+                    <Link href="/profile" onClick={() => setMobileOpen(false)}>
+                      <User className="h-4.5 w-4.5 mr-2 text-primary" />
+                      Profil Saya
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11 w-full"
+                  >
+                    <Link href="/cart" onClick={() => setMobileOpen(false)}>
+                      <ShoppingCart className="h-4.5 w-4.5 mr-2 text-primary" />
+                      Keranjang Belanja
+                    </Link>
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={() => {
+                      authClient.signOut();
+                      setMobileOpen(false);
+                    }}
+                    className="rounded-2xl h-11 w-full bg-red-600 text-white hover:bg-red-700"
+                  >
+                    Keluar
+                  </Button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11"
+                  >
+                    <Link href="/login" onClick={() => setMobileOpen(false)}>
+                      {t("login.button")}
+                    </Link>
+                  </Button>
+                  <Button size="lg" asChild className="rounded-2xl h-11">
+                    <Link href="/register" onClick={() => setMobileOpen(false)}>
+                      {t("register.button")}
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -410,7 +551,7 @@ export default function Navbar() {
     <>
       <nav
         ref={floatingRef}
-        className="w-full border-b border-gray-200 bg-white"
+        className="relative z-50 w-full border-b border-gray-200 bg-white"
       >
         <NavbarContent />
       </nav>
@@ -418,7 +559,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isSticky && (
           <motion.nav
-            className="fixed top-0 left-0 right-0 z-200 border-b border-gray-200 bg-white shadow-sm"
+            className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
@@ -429,5 +570,24 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function CartBadge() {
+  const { data } = useCart();
+  const count = data?.summary?.totalItems ?? 0;
+
+  return (
+    <Link
+      href="/cart"
+      className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-all duration-300 hover:bg-gray-100 hover:scale-105 dark:text-gray-300 dark:hover:bg-gray-800"
+    >
+      <ShoppingCart className="h-5 w-5" />
+      {count > 0 && (
+        <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-white animate-in scale-in duration-300">
+          {count > 99 ? "99+" : count}
+        </span>
+      )}
+    </Link>
   );
 }

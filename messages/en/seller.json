@@ -1,0 +1,111 @@
+{
+  "seller": {
+    "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "Orders",
+    "revenue": "Revenue",
+    "analytics": "Analytics",
+    "reviews": "Reviews",
+    "settings": "Store Settings",
+    "backToProfile": "Back to Profile"
+  },
+  "gate": {
+    "notRegisteredTitle": "Start Selling on Loop Tani",
+    "notRegisteredDescription": "Join thousands of other farmers and sellers. Reach buyers across Indonesia by opening your own store.",
+    "backButton": "Back to Home",
+    "registerButton": "Open Store Now",
+    "accessDenied": "Access Denied",
+    "statusMessage": "Your current store status is: {status}",
+    "pendingDescription": "Your store application is currently under review. Please wait for further information from our team."
+  },
+  "register": {
+    "title": "Open Your Store",
+    "description": "Fill out the form below to start selling on Loop Tani.",
+    "steps": {
+      "1": {
+        "title": "Store Info",
+        "description": "Name and identity of your store"
+      },
+      "2": {
+        "title": "Contact & Address",
+        "description": "Contact info and shipping address"
+      },
+      "3": {
+        "title": "Store Details",
+        "description": "Description and extra info"
+      }
+    },
+    "form": {
+      "storeNameLabel": "Store Name",
+      "storeSlugLabel": "Store URL Slug",
+      "storeSlugDescription": "This will be your store profile URL (e.g. looptani.com/store/store-slug)",
+      "phoneLabel": "WhatsApp/Phone Number",
+      "provinceLabel": "Province",
+      "cityLabel": "City",
+      "postalCodeLabel": "Postal Code",
+      "addressLabel": "Full Address",
+      "almostDone": "Almost Done!",
+      "almostDoneDescription": "Tell buyers about your store to increase trust.",
+      "descriptionLabel": "Store Description",
+      "descriptionPlaceholder": "Tell us about your store, products, and your unique value...",
+      "descriptionHint": "Optional, but highly recommended."
+    },
+    "buttons": {
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit Application"
+    }
+  },
+  "dashboard": {
+    "title": "Seller Center",
+    "description": "Overview of your store performance",
+    "error": "Failed to load dashboard. Please try again.",
+    "stats": {
+      "todayRevenue": "Today's Revenue",
+      "monthlyRevenue": "Monthly Revenue",
+      "ordersCount": "This Month Orders",
+      "visitorsCount": "Store Visitors",
+      "vsYesterday": "vs yesterday",
+      "vsLastMonth": "vs last month",
+      "conversion": "Conversion rate: {rate}%"
+    },
+    "recentOrders": {
+      "title": "Recent Orders",
+      "description": "List of newly arrived orders",
+      "empty": "No recent orders yet."
+    },
+    "lowStock": {
+      "title": "Low Stock",
+      "description": "Products with less than 5 stock",
+      "items": "Items",
+      "empty": "All product stocks are safe."
+    }
+  },
+  "storefront": {
+    "notFound": "Store not found or inactive",
+    "backToMarketplace": "Back to Marketplace",
+    "verified": "Verified Seller",
+    "joined": "Joined {date}",
+    "productsCount": "{count} Products",
+    "soldCount": "{count} Sold",
+    "location": "Location",
+    "products": "Products",
+    "homeTab": "Home",
+    "productsTab": "Products",
+    "aboutTab": "About Store",
+    "latestProducts": "Latest Products",
+    "noProducts": "No active products in this store yet.",
+    "aboutTitle": "Store Information",
+    "contact": "Contact Seller",
+    "circularImpact": "Circular Agriculture Impact",
+    "circularImpactDesc": "Metric of the store's contribution to recycling agricultural waste and supporting eco-friendly farming.",
+    "comingSoon": "Coming Soon",
+    "searchPlaceholder": "Search products in this store...",
+    "sortBy": "Sort By",
+    "reviews": "Store Reviews",
+    "noReviews": "No reviews for this store yet.",
+    "reviewsTab": "Reviews"
+  }
+  }
+}

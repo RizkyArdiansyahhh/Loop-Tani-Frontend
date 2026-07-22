@@ -1,0 +1,111 @@
+{
+  "seller": {
+    "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Produk",
+    "orders": "Pesanan",
+    "revenue": "Pendapatan",
+    "analytics": "Analitik",
+    "reviews": "Ulasan",
+    "settings": "Pengaturan Toko",
+    "backToProfile": "Kembali ke Profil"
+  },
+  "gate": {
+    "notRegisteredTitle": "Mulai Berjualan di Loop Tani",
+    "notRegisteredDescription": "Bergabunglah dengan ribuan petani dan penjual lainnya. Jangkau pembeli di seluruh Indonesia dengan membuka toko Anda sendiri.",
+    "backButton": "Kembali ke Beranda",
+    "registerButton": "Buka Toko Sekarang",
+    "accessDenied": "Akses Ditolak",
+    "statusMessage": "Status toko Anda saat ini: {status}",
+    "pendingDescription": "Pendaftaran toko Anda sedang dalam proses peninjauan. Mohon tunggu informasi selanjutnya dari tim kami."
+  },
+  "register": {
+    "title": "Buka Toko Anda",
+    "description": "Lengkapi formulir di bawah ini untuk mulai berjualan di Loop Tani.",
+    "steps": {
+      "1": {
+        "title": "Informasi Toko",
+        "description": "Nama dan identitas toko Anda"
+      },
+      "2": {
+        "title": "Kontak & Alamat",
+        "description": "Informasi kontak dan alamat pengiriman"
+      },
+      "3": {
+        "title": "Detail Toko",
+        "description": "Deskripsi dan informasi tambahan"
+      }
+    },
+    "form": {
+      "storeNameLabel": "Nama Toko",
+      "storeSlugLabel": "Slug URL Toko",
+      "storeSlugDescription": "Ini akan menjadi URL profil toko Anda (contoh: looptani.com/toko/slug-toko)",
+      "phoneLabel": "Nomor WhatsApp/Telepon",
+      "provinceLabel": "Provinsi",
+      "cityLabel": "Kota/Kabupaten",
+      "postalCodeLabel": "Kode Pos",
+      "addressLabel": "Alamat Lengkap",
+      "almostDone": "Hampir Selesai!",
+      "almostDoneDescription": "Beritahu pembeli tentang toko Anda untuk meningkatkan kepercayaan.",
+      "descriptionLabel": "Deskripsi Toko",
+      "descriptionPlaceholder": "Ceritakan tentang toko Anda, produk yang dijual, dan keunggulan Anda...",
+      "descriptionHint": "Opsional, namun sangat disarankan."
+    },
+    "buttons": {
+      "back": "Kembali",
+      "next": "Selanjutnya",
+      "submit": "Ajukan Pendaftaran"
+    }
+  },
+  "dashboard": {
+    "title": "Seller Center",
+    "description": "Ringkasan performa toko Anda",
+    "error": "Gagal memuat dashboard. Silakan coba lagi.",
+    "stats": {
+      "todayRevenue": "Pendapatan Hari Ini",
+      "monthlyRevenue": "Pendapatan Bulan Ini",
+      "ordersCount": "Pesanan Bulan Ini",
+      "visitorsCount": "Pengunjung Toko",
+      "vsYesterday": "vs kemarin",
+      "vsLastMonth": "vs bulan lalu",
+      "conversion": "Tingkat konversi: {rate}%"
+    },
+    "recentOrders": {
+      "title": "Pesanan Terbaru",
+      "description": "Daftar pesanan yang baru masuk",
+      "empty": "Belum ada pesanan terbaru."
+    },
+    "lowStock": {
+      "title": "Stok Menipis",
+      "description": "Produk dengan stok kurang dari 5",
+      "items": "Item",
+      "empty": "Semua stok produk aman."
+    }
+  },
+  "storefront": {
+    "notFound": "Toko tidak ditemukan atau tidak aktif",
+    "backToMarketplace": "Kembali ke Marketplace",
+    "verified": "Penjual Terverifikasi",
+    "joined": "Bergabung {date}",
+    "productsCount": "{count} Produk",
+    "soldCount": "{count} Terjual",
+    "location": "Lokasi",
+    "products": "Produk",
+    "homeTab": "Beranda",
+    "productsTab": "Produk",
+    "aboutTab": "Tentang Toko",
+    "latestProducts": "Produk Terbaru",
+    "noProducts": "Belum ada produk aktif di toko ini.",
+    "aboutTitle": "Informasi Toko",
+    "contact": "Hubungi Penjual",
+    "circularImpact": "Dampak Sirkular Pertanian",
+    "circularImpactDesc": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
+    "comingSoon": "Segera Hadir",
+    "searchPlaceholder": "Cari produk di toko ini...",
+    "sortBy": "Urutkan",
+    "reviews": "Ulasan Toko",
+    "noReviews": "Belum ada ulasan untuk toko ini.",
+    "reviewsTab": "Ulasan"
+  }
+  }
+}
