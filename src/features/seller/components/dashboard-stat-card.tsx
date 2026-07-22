@@ -47,7 +47,7 @@ export function DashboardStatCard({
 
         {/* Body: Value & Trend */}
         <div className="space-y-1">
-          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight font-fraunces">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
             {value}
           </h3>
 

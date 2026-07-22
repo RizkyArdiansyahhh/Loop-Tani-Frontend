@@ -79,7 +79,7 @@ export function SellerDashboardPage() {
               <Sparkles className="h-3.5 w-3.5" />
               <span>Dashboard Mitra Penjual</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black font-fraunces tracking-tight mt-1.5">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight mt-1.5">
               Selamat Datang, {session?.user?.name || "Mitra LoopTani"}!
             </h1>
             <p className="text-xs text-emerald-100/90 font-medium">
