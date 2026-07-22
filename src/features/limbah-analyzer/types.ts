@@ -1,6 +1,28 @@
-import type { WasteAnalysisResult } from "../../../../shared/types/waste-analysis";
+export interface WasteAnalysisResult {
+  isAgriculturalWaste: boolean;
+  isAnalyzable: boolean;
 
-export type { WasteAnalysisResult };
+  wasteIdentification: {
+    indonesianName: string;
+    englishName: string;
+    category: string;
+    confidenceScore: number;
+  };
+
+  visualCondition: {
+    color: string;
+    state: string;
+    environment: string;
+  };
+
+  processingPotential: string[];
+
+  economicEstimation: {
+    potentialValue: string;
+    marketOpportunity: string;
+    notes: string;
+  };
+}
 
 export interface WasteAnalysisApiResponse {
   success: boolean;
