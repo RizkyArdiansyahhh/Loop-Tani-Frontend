@@ -36,11 +36,13 @@ export function Footer() {
               <img
                 src="/images/logo-putih.png"
                 alt="LoopTani Logo"
-                className="h-10 brightness-0 dark:brightness-100 transition-all duration-300"
+                className="h-10"
               />
             </Link>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
-              Marketplace digital sirkular terpadu yang memberdayakan petani, industri pengolahan organik, dan melacak emisi lingkungan secara real-time.
+              Marketplace digital sirkular terpadu yang memberdayakan petani,
+              industri pengolahan organik, dan melacak emisi lingkungan secara
+              real-time.
             </p>
           </div>
 
@@ -49,7 +51,8 @@ export function Footer() {
               Berlangganan Buletin Sirkular Tani
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Dapatkan update mingguan tren pasar limbah pertanian, harga jual, dan kiat budidaya hijau.
+              Dapatkan update mingguan tren pasar limbah pertanian, harga jual,
+              dan kiat budidaya hijau.
             </p>
 
             <form
@@ -91,7 +94,9 @@ export function Footer() {
                 LoopTani Ecosystem
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Membangun masa depan agrikultur lestari dari Riau untuk Indonesia. Mengubah ampas kopi, jerami, dan sekam menjadi komoditas berkelanjutan.
+                Membangun masa depan agrikultur lestari dari Riau untuk
+                Indonesia. Mengubah ampas kopi, jerami, dan sekam menjadi
+                komoditas berkelanjutan.
               </p>
             </div>
 
@@ -127,9 +132,18 @@ export function Footer() {
             <ul className="space-y-2.5 text-xs">
               {[
                 { href: "/marketplace", label: "Semua Produk" },
-                { href: "/marketplace?category=agricultural-waste", label: "Limbah Pertanian" },
-                { href: "/marketplace?category=processed-product", label: "Produk Olahan" },
-                { href: "/marketplace?category=secondhand", label: "Alat Secondhand" },
+                {
+                  href: "/marketplace?category=agricultural-waste",
+                  label: "Limbah Pertanian",
+                },
+                {
+                  href: "/marketplace?category=processed-product",
+                  label: "Produk Olahan",
+                },
+                {
+                  href: "/marketplace?category=secondhand",
+                  label: "Alat Secondhand",
+                },
               ].map((link, i) => (
                 <li key={i}>
                   <Link
@@ -180,8 +194,12 @@ export function Footer() {
                   <Phone className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">Telepon</p>
-                  <p className="text-slate-500 dark:text-slate-400">+62 812-3456-7890</p>
+                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                    Telepon
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400">
+                    +62 812-3456-7890
+                  </p>
                 </div>
               </div>
 
@@ -190,8 +208,12 @@ export function Footer() {
                   <Mail className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">Email Resmi</p>
-                  <p className="text-slate-500 dark:text-slate-400">hello@looptani.id</p>
+                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                    Email Resmi
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400">
+                    hello@looptani.id
+                  </p>
                 </div>
               </div>
 
@@ -200,8 +222,12 @@ export function Footer() {
                   <MapPin className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">Alamat Kantor</p>
-                  <p className="text-slate-500 dark:text-slate-400">Pekanbaru, Riau, Indonesia</p>
+                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                    Alamat Kantor
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400">
+                    Pekanbaru, Riau, Indonesia
+                  </p>
                 </div>
               </div>
             </div>
@@ -214,8 +240,10 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 md:flex-row">
           <p className="flex items-center gap-1">
             <span>© {new Date().getFullYear()}</span>
-            <strong className="text-slate-700 dark:text-slate-200">LoopTani</strong>.
-            <span>Made with</span>
+            <strong className="text-slate-700 dark:text-slate-200">
+              LoopTani
+            </strong>
+            .<span>Made with</span>
             <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500 animate-pulse shrink-0" />
             <span>for Sustainable Agriculture.</span>
           </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -21,11 +21,19 @@ import {
   CheckCircle2,
   ChevronRight,
 } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  useInView,
+  useScroll,
+  useMotionValueEvent,
+} from "motion/react";
 import Navbar from "@/components/shared/navbar";
 import { InfoBar } from "@/components/shared/info-bar";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
+import { ScrollFeaturesSection } from "../components/scroll-features";
+import { cn } from "@/lib/utils";
 
 const HomePage = () => {
   // Tabs state for Notion-style interactive features section
@@ -250,16 +258,13 @@ const HomePage = () => {
 
   return (
     <>
-      <header className="relative z-50">
+      <header className="absolute top-0 left-0 w-full z-50">
         <InfoBar />
         <Navbar />
       </header>
-      <main className="w-full bg-[#fcfdfa] dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden relative transition-colors duration-300">
+      <main className="w-full bg-[#fcfdfa] dark:bg-gray-950 text-gray-900 dark:text-gray-100 relative transition-colors duration-300">
         {/* ── Visual Banner Slideshow Carousel at the very top ── */}
-        <div
-          className="w-full relative z-10"
-          style={{ height: "calc(100vh - 104px)" }}
-        >
+        <div className="w-full relative z-10" style={{ height: "100vh" }}>
           <CarouselHomePage />
         </div>
 
@@ -431,6 +436,9 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+
+        {/* ── SECTION: Scroll-Driven LoopTani Features Showcase ── */}
+        <ScrollFeaturesSection />
 
         {/* ── SECTION: Circular Roadmap process steps ── */}
         <section className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">
@@ -649,5 +657,6 @@ function Badge({
     </span>
   );
 }
+
 
 export default HomePage;
