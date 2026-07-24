@@ -42,6 +42,7 @@
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);
   --font-fraunces: var(--font-fraunces);
+  --font-poppins: var(--font-poppins);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -101,6 +102,7 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-serif: "Georgia", serif;
   --font-mono: "JetBrains Mono", monospace;
+  --font-poppins: var(--font-poppins), sans-serif;
   --radius: 0.5rem;
   --shadow-x: 0px;
   --shadow-y: 4px;
@@ -161,6 +163,7 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-serif: "Georgia", serif;
   --font-mono: "JetBrains Mono", monospace;
+  --font-poppins: var(--font-poppins), sans-serif;
   --radius: 0.5rem;
   --shadow-x: 0px;
   --shadow-y: 10px;

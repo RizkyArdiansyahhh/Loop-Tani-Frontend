@@ -2,6 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,7 +13,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Globe } from "lucide-react";
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ isTransparent }: { isTransparent?: boolean }) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -32,7 +33,14 @@ export function LanguageSwitcher() {
     <NavigationMenu viewport={false}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="h-8 gap-1.5 px-2.5 text-sm">
+          <NavigationMenuTrigger
+            className={cn(
+              "h-8 gap-1.5 px-2.5 text-sm transition-colors duration-300",
+              isTransparent
+                ? "text-white bg-transparent hover:bg-white/10 hover:text-white data-[state=open]:text-white/80"
+                : "bg-transparent"
+            )}
+          >
             <Globe className="size-4" />
             {active?.label}
           </NavigationMenuTrigger>

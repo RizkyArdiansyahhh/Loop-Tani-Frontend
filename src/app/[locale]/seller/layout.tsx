@@ -7,7 +7,7 @@ export default function SellerLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-muted/20">
+    <div className="flex min-h-screen bg-muted/20 font-poppins">
       <SellerSidebar />
       <main className="flex-1 min-w-0 p-8 overflow-y-auto">
         <SellerStatusGate>

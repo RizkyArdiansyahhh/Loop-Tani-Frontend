@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
+import { Plus_Jakarta_Sans, Fraunces, Poppins } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -18,6 +18,12 @@ const fontFraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   display: "swap",
+});
+
+const fontPoppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -43,7 +49,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${fontSans.variable} ${fontFraunces.variable} antialiased`}
+        className={`${fontSans.variable} ${fontFraunces.variable} ${fontPoppins.variable} antialiased`}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>

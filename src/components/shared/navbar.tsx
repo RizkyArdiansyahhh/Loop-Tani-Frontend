@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
+import { usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/features/cart/hooks/use-cart";
@@ -87,7 +88,7 @@ function ListItem({
   );
 }
 
-function NavbarContent() {
+function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
   const t = useTranslations("auth");
   const t_navbar = useTranslations("navbar");
   const { data: session } = authClient.useSession();
@@ -122,7 +123,15 @@ function NavbarContent() {
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger asChild className="bg-transparent font-semibold">
+              <NavigationMenuTrigger
+                asChild
+                className={cn(
+                  "bg-transparent font-semibold transition-colors duration-300",
+                  isTransparent
+                    ? "text-white hover:text-white/80 hover:bg-white/10 data-[state=open]:text-white/80"
+                    : "text-gray-900 hover:text-primary"
+                )}
+              >
                 <Link href="/marketplace">
                   <span>{t_navbar("marketplace.title")}</span>
                   <ChevronDown
@@ -275,7 +284,14 @@ function NavbarContent() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent font-semibold">
+              <NavigationMenuTrigger
+                className={cn(
+                  "bg-transparent font-semibold transition-colors duration-300",
+                  isTransparent
+                    ? "text-white hover:text-white/80 hover:bg-white/10 data-[state=open]:text-white/80"
+                    : "text-gray-900 hover:text-primary"
+                )}
+              >
                 AI Agri-Consultant
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -298,7 +314,10 @@ function NavbarContent() {
                 asChild
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent font-semibold",
+                  "bg-transparent font-semibold transition-colors duration-300",
+                  isTransparent
+                    ? "text-white hover:text-white/80 hover:bg-white/10"
+                    : "text-gray-900 hover:text-primary"
                 )}
               >
                 <Link href="/panduan-tani">Panduan Tani</Link>
@@ -310,7 +329,10 @@ function NavbarContent() {
                 asChild
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent font-semibold",
+                  "bg-transparent font-semibold transition-colors duration-300",
+                  isTransparent
+                    ? "text-white hover:text-white/80 hover:bg-white/10"
+                    : "text-gray-900 hover:text-primary"
                 )}
               >
                 <Link href="/jejak-lestari">Jejak Lestari</Link>
@@ -321,7 +343,10 @@ function NavbarContent() {
                 asChild
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  "bg-transparent font-semibold",
+                  "bg-transparent font-semibold transition-colors duration-300",
+                  isTransparent
+                    ? "text-white hover:text-white/80 hover:bg-white/10"
+                    : "text-gray-900 hover:text-primary"
                 )}
               >
                 <Link href="/docs">Tentang Kami</Link>
@@ -333,11 +358,16 @@ function NavbarContent() {
 
       {/* Desktop actions — right */}
       <div className="hidden shrink-0 items-center gap-3 lg:flex">
-        <LanguageSwitcher />
+        <LanguageSwitcher isTransparent={isTransparent} />
         {session ? (
           <>
-            <CartBadge />
-            <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
+            <CartBadge isTransparent={isTransparent} />
+            <div
+              className={cn(
+                "h-6 w-px mx-1 transition-colors duration-300",
+                isTransparent ? "bg-white/25" : "bg-gray-200 dark:bg-gray-800"
+              )}
+            />
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setProfileDropdownOpen((prev) => !prev)}
@@ -385,7 +415,7 @@ function NavbarContent() {
                       </Link>
                     </div>
 
-                    <div className="border-t border-gray-100 dark:border-gray-805/80 my-1" />
+                    <div className="border-t border-gray-100 dark:border-gray-800/80 my-1" />
 
                     <div className="px-1">
                       <button
@@ -405,13 +435,26 @@ function NavbarContent() {
           </>
         ) : (
           <>
-            <Button variant="ghost" size="sm" asChild>
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className={cn(
+                "transition-colors duration-300",
+                isTransparent
+                  ? "text-white hover:bg-white/10 hover:text-white"
+                  : ""
+              )}
+            >
               <Link href="/login">{t("login.button")}</Link>
             </Button>
             <Button
               size="sm"
               asChild
-              className="bg-primary text-background px-6 py-4 font-semibold"
+              className={cn(
+                "bg-primary text-background px-6 py-4 font-semibold hover:bg-emerald-700 transition-colors duration-300",
+                isTransparent ? "text-white" : ""
+              )}
             >
               <Link href="/register">{t("register.button")}</Link>
             </Button>
@@ -424,7 +467,10 @@ function NavbarContent() {
         variant="ghost"
         size="icon"
         onClick={() => setMobileOpen((prev) => !prev)}
-        className="shrink-0 lg:hidden"
+        className={cn(
+          "shrink-0 lg:hidden transition-colors duration-300",
+          isTransparent ? "text-white hover:bg-white/10" : ""
+        )}
         aria-label="Toggle menu"
       >
         {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -546,14 +592,22 @@ function useNavbarObserver(ref: RefObject<HTMLElement | null>): boolean {
 export default function Navbar() {
   const floatingRef = useRef<HTMLElement>(null);
   const isSticky = useNavbarObserver(floatingRef);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const isTransparent = isHome && !isSticky;
 
   return (
     <>
       <nav
         ref={floatingRef}
-        className="relative z-50 w-full border-b border-gray-200 bg-white"
+        className={cn(
+          "relative z-50 w-full transition-all duration-300",
+          isTransparent
+            ? "border-b border-transparent bg-transparent"
+            : "border-b border-gray-200 bg-white"
+        )}
       >
-        <NavbarContent />
+        <NavbarContent isTransparent={isTransparent} />
       </nav>
 
       <AnimatePresence>
@@ -565,7 +619,7 @@ export default function Navbar() {
             exit={{ y: "-100%", opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            <NavbarContent />
+            <NavbarContent isTransparent={false} />
           </motion.nav>
         )}
       </AnimatePresence>
@@ -573,14 +627,19 @@ export default function Navbar() {
   );
 }
 
-function CartBadge() {
+function CartBadge({ isTransparent }: { isTransparent?: boolean }) {
   const { data } = useCart();
   const count = data?.summary?.totalItems ?? 0;
 
   return (
     <Link
       href="/cart"
-      className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-all duration-300 hover:bg-gray-100 hover:scale-105 dark:text-gray-300 dark:hover:bg-gray-800"
+      className={cn(
+        "relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-105",
+        isTransparent
+          ? "text-white hover:bg-white/10"
+          : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+      )}
     >
       <ShoppingCart className="h-5 w-5" />
       {count > 0 && (
