@@ -148,26 +148,9 @@ const LoopiChat = () => {
       {/* Main Chat Area */}
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-border/70 bg-card/95 shadow-xl shadow-primary/5 backdrop-blur-md transition-all duration-300">
         {/* Header */}
-        <div className="shrink-0 border-b border-border px-6 py-5">
+        <div className="shrink-0 border-b border-border/70 px-5 py-3 bg-card/50">
           <LoopiHeader onNewChat={handleNewChat} isLoggedIn={isLoggedIn} />
         </div>
-
-        {/* Suggestion Cards - Hide when chat starts */}
-        {!hasMessages && (
-          <div className="shrink-0 border-b border-border px-6 py-4 bg-muted/20 animate-fade-in">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-              {suggestions.map((s, i) => (
-                <SuggestionCard
-                  key={i}
-                  icon={s.icon}
-                  title={s.title}
-                  description={s.description}
-                  onClick={() => handleSend(s.title)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Messages or Empty State */}
         {!hasMessages ? (

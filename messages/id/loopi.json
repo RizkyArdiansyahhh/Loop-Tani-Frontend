@@ -1,0 +1,30 @@
+{
+  "loopi": {
+    "quickLabel": "Tanya Cepat:",
+    "placeholder": "Tanyakan sesuatu kepada Loopi...",
+    "welcomeTitle": "Halo, Saya Loopi 👋",
+    "welcomeSubtitle": "Asisten AI pintar LoopTani. Pilihlah pertanyaan di bawah atau tuliskan pertanyaan Anda seputar limbah pertanian, pupuk, alat farming, dan transaksi!",
+    "questions": {
+      "q1": {
+        "title": "Untung Jual Limbah Sawit",
+        "question": "Limbah sawit saya selama ini dibakar, apa untungnya kalau saya jual di sini?"
+      },
+      "q2": {
+        "title": "Rekomendasi & Modal Pupuk",
+        "question": "Saya baru mulai bertani, pupuk apa yang cocok dan berapa modalnya?"
+      },
+      "q3": {
+        "title": "Olahan Jerami Padi",
+        "question": "Limbah jerami padi saya bisa diolah jadi apa?"
+      },
+      "q4": {
+        "title": "Keamanan Transaksi",
+        "question": "Bagaimana cara bertransaksi aman antara pembeli dan penjual limbah?"
+      },
+      "q5": {
+        "title": "Pengiriman Muatan Besar",
+        "question": "Apakah ada layanan pengiriman khusus untuk limbah pertanian berkapasitas besar?"
+      }
+    }
+  }
+}

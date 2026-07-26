@@ -58,6 +58,7 @@ export interface Product {
   description: string;
   price: number;
   stock: number;
+  unit?: string;
   condition: ProductCondition;
   status: ProductStatus;
   isFeatured: boolean;
@@ -97,6 +98,7 @@ export interface GetProductsParams {
   favoriteOnly?: boolean;
   sellerId?: string;
   storeSlug?: string;
+  includeOutOfStock?: boolean;
 }
 
 export interface PublicStoreProfile {
@@ -111,6 +113,8 @@ export interface PublicStoreProfile {
   postalCode: string | null;
   phone: string | null;
   logoUrl: string | null;
+  bannerUrl: string | null;
+  socialMedia?: SellerSocialMedia[];
   status: string;
   createdAt: string;
   user: {
@@ -122,6 +126,12 @@ export interface PublicStoreProfile {
     totalProducts: number;
     totalReview: number;
     averageRating: number | null;
+  };
+  impactStats?: {
+    wasteProcessedKg: number;
+    organicProductsCount: number;
+    farmersHelpedCount: number;
+    isUpcomingFeature: boolean;
   };
 }
 
@@ -148,6 +158,7 @@ export interface CreateProductPayload {
   description: string;
   price: number;
   stock: number;
+  unit?: string;
   condition: ProductCondition;
   status?: ProductStatus;
   isFeatured?: boolean;
@@ -225,6 +236,23 @@ export interface UpdateCartItemPayload {
 
 export type SellerStatus = 'PENDING' | 'ACTIVE' | 'REJECTED' | 'SUSPENDED';
 
+export type SocialPlatformType =
+  | 'INSTAGRAM'
+  | 'TIKTOK'
+  | 'YOUTUBE'
+  | 'FACEBOOK'
+  | 'X'
+  | 'WHATSAPP'
+  | 'WEBSITE'
+  | 'TELEGRAM';
+
+export interface SellerSocialMedia {
+  id: string;
+  sellerId: string;
+  platform: SocialPlatformType;
+  url: string;
+}
+
 export interface UserSellerProfile {
   id: string;
   storeName: string;
@@ -236,6 +264,8 @@ export interface UserSellerProfile {
   postalCode: string | null;
   phone: string | null;
   logoUrl: string | null;
+  bannerUrl: string | null;
+  socialMedia?: SellerSocialMedia[];
   status: SellerStatus;
   createdAt: string;
 }
@@ -313,7 +343,8 @@ export interface SellerDashboardResponse {
   lowStockCount: number;
   lowStockProducts: LowStockProduct[];
   recentOrders: RecentOrder[];
-  recentReviews: RecentReview[];
+  recentReviews?: RecentReview[];
+  chartSeries?: Array<{ date: string; revenue: number; orders: number }>;
 }
 
 // ─────────────────────────────────────────────

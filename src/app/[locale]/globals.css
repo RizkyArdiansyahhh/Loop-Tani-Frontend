@@ -237,3 +237,33 @@ html.font-dyslexic,
 html.font-dyslexic * {
   font-family: "Comic Sans MS", "Comic Neue", cursive, sans-serif !important;
 }
+
+/* ── Profile Typography Rules (Poppins for Headings, Plus Jakarta Sans for Body) ── */
+.profile-typography-container {
+  font-family: var(--font-sans), sans-serif;
+}
+
+.profile-typography-container h1,
+.profile-typography-container h2,
+.profile-typography-container h3,
+.profile-typography-container h4,
+.profile-typography-container h5,
+.profile-typography-container h6,
+.profile-typography-container .font-heading,
+.profile-typography-container [data-slot="heading"],
+.profile-typography-container [data-slot="card-title"],
+.profile-typography-container [data-slot="alert-dialog-title"] {
+  font-family: var(--font-poppins), sans-serif !important;
+}
+
+.profile-typography-container p,
+.profile-typography-container span,
+.profile-typography-container label,
+.profile-typography-container input,
+.profile-typography-container textarea,
+.profile-typography-container select,
+.profile-typography-container button,
+.profile-typography-container a {
+  font-family: var(--font-sans), sans-serif;
+}
+

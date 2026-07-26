@@ -9,7 +9,7 @@ import {
   Phone,
   Search,
   Star,
-  Sparkles,
+  Sprout,
   Inbox,
   AlertTriangle,
   ArrowLeft,
@@ -17,6 +17,9 @@ import {
   ChevronRight,
   ShieldCheck,
   ShoppingBag,
+  Leaf,
+  Recycle,
+  Building2,
 } from "lucide-react";
 import Image from "next/image";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -46,37 +49,28 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
   const t = useTranslations("seller");
   const router = useRouter();
 
-  // Tabs state: "home" | "products" | "about"
-  const [activeTab, setActiveTab] = useState<"home" | "products" | "about">("home");
+  // Tabs state: "home" | "products" | "about" | "impact"
+  const [activeTab, setActiveTab] = useState<"home" | "products" | "about" | "impact">("home");
 
-  // Products Tab states
+  // Products Tab filter states
   const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedSort, setSelectedSort] = useState<string>("recommended");
+  const [selectedStockFilter, setSelectedStockFilter] = useState<"all" | "in_stock" | "out_of_stock">("all");
   const [page, setPage] = useState(1);
 
-  // Fetch public store data
+  // Fetch public store data via TanStack Query
   const { data: store, isLoading: isStoreLoading, isError: isStoreError } = useStore(slug);
 
-  // Debounce search query
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedSearch(searchQuery);
-      setPage(1);
-    }, 400);
-
-    return () => clearTimeout(handler);
-  }, [searchQuery]);
-
-  // Fetch store products for Products Tab
+  // Fetch store products for Products Tab via TanStack Query
   const productsParams = {
     storeSlug: slug,
     page,
     limit: 6,
-    search: debouncedSearch || undefined,
+    search: searchQuery || undefined,
     category: selectedCategory === "all" ? undefined : (selectedCategory as any),
     sort: selectedSort as any,
+    includeOutOfStock: true,
   };
 
   const { data: productsData, isLoading: isProductsLoading } = useProducts({
@@ -95,7 +89,12 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
     queryConfig: { enabled: !!store && activeTab === "home" },
   });
 
-  const storeProducts = productsData?.data ?? [];
+  const rawStoreProducts = productsData?.data ?? [];
+  const storeProducts = rawStoreProducts.filter((p) => {
+    if (selectedStockFilter === "in_stock") return p.stock > 0;
+    if (selectedStockFilter === "out_of_stock") return p.stock === 0;
+    return true;
+  });
   const totalPages = productsData?.meta.totalPages ?? 1;
   const latestProducts = latestProductsData?.data ?? [];
 
@@ -201,9 +200,20 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
         {/* ── STORE HEADER BANNER ── */}
         <Card className="overflow-hidden border border-gray-150 rounded-xl dark:border-gray-800 dark:bg-gray-900 shadow-2xs">
           {/* Banner cover background */}
-          <div className="h-32 sm:h-44 bg-linear-to-r from-emerald-800 via-primary to-emerald-950 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(253,224,71,0.1),transparent)]" />
-            <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-white/5 blur-2xl" />
+          <div
+            className="h-32 sm:h-44 bg-linear-to-r from-emerald-800 via-primary to-emerald-950 relative overflow-hidden bg-cover bg-center transition-all"
+            style={{
+              backgroundImage: store.bannerUrl
+                ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url("${store.bannerUrl}")`
+                : undefined,
+            }}
+          >
+            {!store.bannerUrl && (
+              <>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(253,224,71,0.1),transparent)]" />
+                <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-white/5 blur-2xl" />
+              </>
+            )}
           </div>
 
           <CardContent className="relative p-6 pt-0">
@@ -334,6 +344,20 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
             <ShieldCheck className="h-4 w-4" />
             {t("storefront.aboutTab")}
           </button>
+          <button
+            onClick={() => setActiveTab("impact")}
+            className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+              activeTab === "impact"
+                ? "bg-white text-primary shadow-sm dark:bg-gray-850 dark:text-primary"
+                : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            <Sprout className="h-4 w-4 text-primary" />
+            {t("storefront.impactTab")}
+            <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full">
+              {t("storefront.comingSoon")}
+            </Badge>
+          </button>
         </div>
 
         {/* ── TAB CONTENT ── */}
@@ -358,7 +382,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               <Card className="rounded-xl border border-emerald-100/50 p-6 bg-emerald-50/10 dark:border-emerald-950/20 dark:bg-emerald-950/5">
                 <CardContent className="p-0 space-y-4">
                   <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-sm">
-                    <Sparkles className="h-5 w-5 fill-current" />
+                    <Sprout className="h-5 w-5 fill-current" />
                     Circular Badge
                   </div>
                   <p className="text-xs text-muted-foreground leading-relaxed">
@@ -371,7 +395,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
             {/* Right main panel - Latest Products */}
             <div className="lg:col-span-8 space-y-6">
               <h3 className="font-fraunces text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-amber-500 fill-current" />
+                <ShoppingBag className="h-5 w-5 text-emerald-600" />
                 {t("storefront.latestProducts")}
               </h3>
               
@@ -453,6 +477,28 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                     }`}
                   >
                     {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Stock Filter Pills */}
+              <div className="flex flex-wrap gap-2 items-center pt-1 border-t border-gray-100 dark:border-gray-800">
+                <span className="text-xs font-bold text-gray-500 mr-2">Status Stok:</span>
+                {[
+                  { value: "all", label: "Semua Produk" },
+                  { value: "in_stock", label: "Tersedia (Stok > 0)" },
+                  { value: "out_of_stock", label: "Stok Habis (Stok 0)" },
+                ].map((st) => (
+                  <button
+                    key={st.value}
+                    onClick={() => { setSelectedStockFilter(st.value as any); setPage(1); }}
+                    className={`px-3.5 py-1 text-xs font-semibold rounded-lg border transition-all cursor-pointer ${
+                      selectedStockFilter === st.value
+                        ? "bg-emerald-600 text-white border-emerald-600 font-bold shadow-2xs"
+                        : "border-gray-200 bg-gray-50/60 text-gray-600 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
+                    }`}
+                  >
+                    {st.label}
                   </button>
                 ))}
               </div>
@@ -567,7 +613,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-400 font-bold">
-                        <Sparkles className="h-5 w-5 fill-current text-emerald-600" />
+                        <Sprout className="h-5 w-5 fill-current text-emerald-600" />
                         {t("storefront.circularImpact")}
                       </div>
                       <p className="text-xs text-muted-foreground leading-relaxed max-w-lg">
@@ -633,6 +679,117 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               </Card>
             </div>
 
+          </div>
+        )}
+
+        {/* 4. IMPACT TAB (Dampak Sirkular Pertanian) */}
+        {activeTab === "impact" && (
+          <div className="space-y-6 pt-2">
+            <Card className="rounded-2xl border border-primary/30 shadow-md overflow-hidden bg-white dark:bg-gray-900">
+              <CardContent className="p-6 sm:p-8 space-y-8">
+                {/* Top Header */}
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-6">
+                  <div className="space-y-1 max-w-2xl">
+                    <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
+                      <Sprout className="w-4 h-4" />
+                      <span>Eco Contribution</span>
+                    </div>
+                    <h2 className="font-fraunces text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                      {t("storefront.circularImpact")}
+                    </h2>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      {t("storefront.circularImpactDesc")}
+                    </p>
+                  </div>
+
+                  <Badge className="bg-primary text-primary-foreground font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-xs">
+                    {t("storefront.comingSoon")}
+                  </Badge>
+                </div>
+
+                {/* 3 Metric Highlight Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Card 1: Limbah Diolah */}
+                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
+                        <Recycle className="w-6 h-6 text-primary" />
+                      </div>
+                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
+                        {t("storefront.comingSoon")}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
+                        {store.impactStats?.wasteProcessedKg ?? 0} <span className="text-lg font-bold text-muted-foreground">Kg</span>
+                      </p>
+                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Limbah Diolah</p>
+                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
+                        Total estimasi bobot limbah organik & pertanian yang telah didaur ulang menjadi komoditas bernilai tinggi.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Card 2: Produk Organik */}
+                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
+                        <Leaf className="w-6 h-6 text-primary" />
+                      </div>
+                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
+                        {t("storefront.comingSoon")}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
+                        {store.impactStats?.organicProductsCount ?? store.stats.totalProducts} <span className="text-lg font-bold text-muted-foreground">Unit</span>
+                      </p>
+                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Produk Organik</p>
+                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
+                        Jumlah katalog produk ramah lingkungan & pupuk organik yang aktif di etalase toko ini.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Card 3: Petani Terbantu */}
+                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
+                        <Building2 className="w-6 h-6 text-primary" />
+                      </div>
+                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
+                        {t("storefront.comingSoon")}
+                      </Badge>
+                    </div>
+                    <div>
+                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
+                        {store.impactStats?.farmersHelpedCount ?? 0} <span className="text-lg font-bold text-muted-foreground">Mitra</span>
+                      </p>
+                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Petani Terbantu</p>
+                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
+                        Mitra petani & pelanggan yang telah didukung melalui rantai pasok sirkular pertanian.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Eco Highlight Banner */}
+                <div className="relative rounded-2xl bg-linear-to-r from-emerald-950 via-primary to-emerald-900 text-white p-6 sm:p-8 shadow-lg overflow-hidden border border-primary/30 space-y-3">
+                  <div className="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 rounded-full bg-white/5 blur-2xl pointer-events-none" />
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shrink-0">
+                      <Sprout className="w-5 h-5 text-emerald-200" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-extrabold font-poppins text-white">
+                      Komitmen Pertanian Berkelanjutan & Eco-Sirkular
+                    </h3>
+                  </div>
+                  <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-3xl">
+                    Toko ini secara aktif mendukung daur ulang limbah pertanian dan mengurangi emisi lingkungan dengan menyalurkan hasil sisa panen menjadi produk bernilai ekonomis bagi komunitas tani.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 

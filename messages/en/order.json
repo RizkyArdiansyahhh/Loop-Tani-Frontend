@@ -1,0 +1,57 @@
+{
+  "order": {
+    "list": {
+      "title": "My Orders",
+      "subtitle": "Manage and track all your purchase transactions on Loop Tani",
+      "tabs": {
+        "all": "All",
+        "pending": "Pending Payment",
+        "paid": "Paid",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "emptyTitle": "No Orders Yet",
+      "emptyDesc": "You don't have any order transactions under this status. Explore marketplace products now!",
+      "exploreMarketplace": "Explore Marketplace"
+    },
+    "card": {
+      "orderNumber": "Order No.",
+      "store": "Store",
+      "totalPayment": "Total Payment",
+      "detailBtn": "Order Details",
+      "payNowBtn": "Pay Now",
+      "comingSoonPayment": "Payment Coming Soon",
+      "moreItems": "+{count} more items"
+    },
+    "detail": {
+      "title": "Order Details",
+      "backToList": "Back to My Orders",
+      "timelineTitle": "Order Progress",
+      "addressTitle": "Shipping Address",
+      "storeTitle": "Purchased Products",
+      "summaryTitle": "Payment Summary",
+      "subtotal": "Products Subtotal",
+      "shippingCost": "Shipping Cost",
+      "serviceFee": "Service Fee",
+      "discount": "Discount",
+      "insuranceFee": "Insurance Fee",
+      "applicationFee": "Application Fee",
+      "totalPrice": "Total Amount",
+      "payNowBtn": "Pay Now",
+      "comingSoonPayment": "Payment Coming Soon",
+      "totalWeight": "Total Weight"
+    },
+    "status": {
+      "PENDING_PAYMENT": "Pending Payment",
+      "PAID": "Paid",
+      "PROCESSING": "Processing",
+      "SHIPPED": "Shipped",
+      "DELIVERED": "Delivered",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled",
+      "EXPIRED": "Expired"
+    }
+  }
+}

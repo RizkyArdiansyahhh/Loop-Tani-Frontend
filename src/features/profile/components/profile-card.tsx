@@ -58,7 +58,7 @@ export function ProfileCard({ profile }: ProfileCardProps) {
     <div className="space-y-6">
       <Card className="w-full ring-0 border border-gray-200 rounded-xl dark:border-gray-800 dark:bg-gray-900 shadow-3xs overflow-hidden">
         <CardHeader className="bg-gray-50/50 dark:bg-gray-850/40 p-6 border-b border-gray-200 dark:border-gray-800/80">
-          <CardTitle className="text-lg font-bold text-gray-900 dark:text-white font-fraunces">
+          <CardTitle className="text-lg font-bold text-gray-900 dark:text-white font-poppins">
             {t("title")}
           </CardTitle>
           <CardDescription className="text-xs">
@@ -159,7 +159,7 @@ export function ProfileCard({ profile }: ProfileCardProps) {
               <Store className="h-6 w-6 animate-pulse" />
             </div>
             <div>
-              <h4 className="font-fraunces text-base font-bold text-gray-900 dark:text-white leading-tight">
+              <h4 className="font-poppins text-base font-bold text-gray-900 dark:text-white leading-tight">
                 Mulai Berjualan di LoopTani
               </h4>
               <p className="text-xs text-muted-foreground mt-1.5 max-w-lg leading-relaxed">

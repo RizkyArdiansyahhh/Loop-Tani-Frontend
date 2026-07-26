@@ -1,8 +1,10 @@
+import { SettingsPage } from "@/features/profile/pages/settings-page";
+
+export const metadata = {
+  title: "Pengaturan Akun - Loop Tani",
+  description: "Kelola tema tampilan, keamanan kata sandi, dan preferensi notifikasi akun Loop Tani",
+};
+
 export default function Page() {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Settings</h1>
-      <p className="text-muted-foreground">Halaman ini belum diimplementasi.</p>
-    </div>
-  );
+  return <SettingsPage />;
 }

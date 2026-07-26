@@ -1,0 +1,43 @@
+{
+  "product": {
+    "detail": {
+      "loading": "Memuat rincian produk...",
+      "loadError": "Gagal memuat produk",
+      "loadErrorDesc": "Produk mungkin sudah dihapus atau tidak tersedia.",
+      "back": "Kembali",
+      "featured": "Unggulan",
+      "stockCount": "Stok: {count} unit",
+      "outOfStock": "Stok Habis",
+      "reviews": "{count} Ulasan",
+      "soldCount": "Terjual 50+ produk",
+      "visitStore": "Kunjungi Toko",
+      "specificationsTitle": "Detail & Spesifikasi Produk",
+      "conditionLabel": "Kondisi Barang",
+      "conditionNew": "Baru (Kualitas Unggul)",
+      "conditionUsed": "Bekas",
+      "minOrderLabel": "Min. Pemesanan",
+      "minOrderValue": "1 Unit",
+      "categoryLabel": "Kategori Utama",
+      "stockLabel": "Ketersediaan Stok",
+      "stockRemaining": "{count} unit tersisa",
+      "descriptionTitle": "Deskripsi Produk",
+      "buyBoxTitle": "Atur Jumlah dan Catatan",
+      "stockLimit": "Stok: {count}",
+      "subtotal": "Subtotal",
+      "addToCart": "+ Keranjang",
+      "addingToCart": "Menambahkan...",
+      "buyNow": "Beli Langsung",
+      "outOfStockMessage": "Maaf, stok barang ini sedang kosong.",
+      "guaranteeTitle": "Garansi Kualitas & Pengiriman Aman",
+      "chatSeller": "Chat Langsung dengan Penjual",
+      "customerReviewsTitle": "Ulasan Pembeli",
+      "customerReviewsSubtitle": "Pengalaman langsung dari pembeli terverifikasi",
+      "ratingCount": "dari {count} rating ulasan",
+      "helpful": "Membantu ({count})",
+      "sameSellerTitle": "Produk Lain dari Toko Ini",
+      "viewAll": "Lihat Semua",
+      "recommendedTitle": "Rekomendasi Produk Serupa",
+      "viewMore": "Lihat Selengkapnya"
+    }
+  }
+}

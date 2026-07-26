@@ -17,6 +17,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     seller,
     about,
     home,
+    address,
+    checkout,
+    order,
+    product,
+    loopi,
   ] = await Promise.all([
     import(`../../messages/${safeLocale}/analyzer.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/admin.json`).then(m => m.default).catch(() => ({})),
@@ -28,6 +33,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../../messages/${safeLocale}/seller.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/about.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/home.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/address.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/checkout.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/order.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/product.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/loopi.json`).then(m => m.default).catch(() => ({})),
   ]);
 
   return {
@@ -43,6 +53,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...seller,
       ...about,
       ...home,
+      ...address,
+      ...checkout,
+      ...order,
+      ...product,
+      ...loopi,
     },
   };
 });

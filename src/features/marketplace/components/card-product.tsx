@@ -76,6 +76,15 @@ const CardProduct = ({ product }: CardProductProps) => {
             transitionDuration={600}
           />
 
+          {/* Out of Stock Overlay */}
+          {product.stock === 0 && (
+            <div className="absolute inset-0 z-20 bg-black/50 backdrop-blur-[2px] flex items-center justify-center">
+              <span className="bg-red-600 text-white font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                Stok Habis
+              </span>
+            </div>
+          )}
+
           {/* Category Badge */}
           <BadgeProduct category={category} />
 
@@ -127,13 +136,25 @@ const CardProduct = ({ product }: CardProductProps) => {
             {title}
           </h3>
 
-          {/* Location Badge */}
-          {location && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground pt-1">
-              <MapPin className="h-3.5 w-3.5 text-gray-400 shrink-0" />
-              <span className="truncate">{location}</span>
-            </div>
-          )}
+          {/* Location & Stock Badge */}
+          <div className="flex items-center justify-between gap-2 pt-1 text-xs">
+            {location ? (
+              <div className="flex items-center gap-1 text-muted-foreground min-w-0">
+                <MapPin className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                <span className="truncate">{location}</span>
+              </div>
+            ) : <div />}
+
+            {product.stock > 0 ? (
+              <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
+                Stok: {product.stock}
+              </span>
+            ) : (
+              <span className="text-[11px] font-bold text-red-500 shrink-0">
+                Habis
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -145,7 +166,7 @@ const CardProduct = ({ product }: CardProductProps) => {
           </p>
         </div>
         <Button
-          className="px-6 rounded-full font-semibold h-9 text-xs"
+          className="px-5 rounded-full font-semibold h-9 text-xs"
           disabled={product.stock === 0 || addToCartMutation.isPending}
           onClick={(e) => {
             e.preventDefault();
@@ -153,7 +174,7 @@ const CardProduct = ({ product }: CardProductProps) => {
             addToCartMutation.mutate({ productId: id, quantity: 1 });
           }}
         >
-          {addToCartMutation.isPending ? "..." : "Beli"}
+          {product.stock === 0 ? "Stok Habis" : addToCartMutation.isPending ? "..." : "Beli"}
         </Button>
       </div>
     </Link>

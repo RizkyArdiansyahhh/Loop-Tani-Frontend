@@ -68,7 +68,7 @@ const CollectionsProduct = ({ params, onResetFilters }: CollectionsProductProps)
     );
   }
 
-  const products = data?.data ?? [];
+  const products = (data?.data ?? []).filter((product) => product.stock > 0);
 
   if (products.length === 0) {
     return (

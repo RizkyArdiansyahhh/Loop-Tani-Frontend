@@ -1,8 +1,5 @@
+import { SellerProductsPage } from "@/features/seller/pages/seller-products-page";
+
 export default function Page() {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Produk</h1>
-      <p className="text-muted-foreground">Halaman ini belum diimplementasi.</p>
-    </div>
-  );
+  return <SellerProductsPage />;
 }

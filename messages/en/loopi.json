@@ -1,0 +1,30 @@
+{
+  "loopi": {
+    "quickLabel": "Quick Questions:",
+    "placeholder": "Ask Loopi anything...",
+    "welcomeTitle": "Hello, I am Loopi 👋",
+    "welcomeSubtitle": "LoopTani smart AI assistant. Choose a question below or ask anything about agricultural waste, fertilizers, farming tools, and transactions!",
+    "questions": {
+      "q1": {
+        "title": "Profit Selling Palm Waste",
+        "question": "My palm oil waste has been burned, what are the benefits if I sell it here?"
+      },
+      "q2": {
+        "title": "Fertilizer & Capital Recommendation",
+        "question": "I just started farming, which fertilizer is suitable and how much capital do I need?"
+      },
+      "q3": {
+        "title": "Rice Straw Processing",
+        "question": "What can my rice straw waste be processed into?"
+      },
+      "q4": {
+        "title": "Transaction Security",
+        "question": "How to ensure safe transactions between buyers and sellers of agricultural waste?"
+      },
+      "q5": {
+        "title": "Bulk Shipping Service",
+        "question": "Is there a specialized delivery service for large capacity agricultural waste?"
+      }
+    }
+  }
+}
