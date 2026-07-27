@@ -57,6 +57,7 @@ const LoopiMessageArea = ({
                 role={msg.role === "user" ? "user" : "bot"}
                 content={msg.content}
                 timestamp={timestamp}
+                isLatest={index === messages.length - 1 && msg.role !== "user"}
               />
             </motion.div>
           );

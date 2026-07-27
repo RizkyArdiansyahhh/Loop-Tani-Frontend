@@ -2,57 +2,10 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import {
-  Wheat,
-  Sprout,
-  Tractor,
-  BookOpen,
-  Recycle,
-  MessageCircle,
-} from "lucide-react";
 
 interface LoopiEmptyProps {
   onSelectSuggestion: (text: string) => void;
 }
-
-const TOPIC_SUGGESTIONS = [
-  {
-    icon: Wheat,
-    title: "Cari Limbah Pertanian",
-    description: "Temukan limbah pertanian terdekat",
-    query: "Bagaimana cara mencari limbah pertanian terdekat di LoopTani?",
-  },
-  {
-    icon: Sprout,
-    title: "Produk Olahan",
-    description: "Jelajahi produk olahan pertanian",
-    query: "Apa saja produk olahan pertanian hasil olahan limbah di marketplace?",
-  },
-  {
-    icon: Tractor,
-    title: "Alat Secondhand",
-    description: "Peralatan farming bekas berkualitas",
-    query: "Bagaimana cara membeli atau menjual peralatan pertanian secondhand?",
-  },
-  {
-    icon: BookOpen,
-    title: "Belajar Kompos",
-    description: "Panduan pembuatan kompos",
-    query: "Bagaimana panduan langkah pembuatan pupuk kompos dari limbah?",
-  },
-  {
-    icon: Recycle,
-    title: "Circular Economy",
-    description: "Ekonomi sirkular pertanian",
-    query: "Apa manfaat ekonomi sirkular limbah pertanian bagi petani?",
-  },
-  {
-    icon: MessageCircle,
-    title: "Tanya Marketplace",
-    description: "Bantuan seputar marketplace",
-    query: "Bagaimana cara kerja transaksi dan garansi di LoopTani?",
-  },
-];
 
 const LoopiEmpty = ({ onSelectSuggestion }: LoopiEmptyProps) => {
   const t = useTranslations("loopi");
@@ -109,55 +62,23 @@ const LoopiEmpty = ({ onSelectSuggestion }: LoopiEmptyProps) => {
           </div>
         </div>
 
-        {/* Right Column: 6 Topic Cards & 5 Quick Questions */}
+        {/* Right Column: Quick Questions (Tanya Cepat) */}
         <div className="md:col-span-8 space-y-4 w-full">
-          {/* Section 1: 6 Topic Cards */}
-          <div className="space-y-2">
-            <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-0.5">
-              Topik Populer
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 w-full">
-              {TOPIC_SUGGESTIONS.map((topic, i) => {
-                const Icon = topic.icon;
-                return (
-                  <button
-                    key={i}
-                    onClick={() => onSelectSuggestion(topic.query)}
-                    className="flex flex-col items-start gap-2 rounded-2xl border border-border/80 bg-card p-3 text-left shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 cursor-pointer group"
-                  >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground shrink-0">
-                      <Icon className="h-3.5 w-3.5" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-foreground font-poppins group-hover:text-primary transition-colors line-clamp-1">
-                        {topic.title}
-                      </p>
-                      <p className="text-[10px] text-muted-foreground line-clamp-1">
-                        {topic.description}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Section 2: 5 Quick Questions (Tanya Cepat) */}
           <div className="space-y-2">
             <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider px-0.5">
               {t("quickLabel")}
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full">
               {quickQuestions.map((s, i) => (
                 <button
                   key={i}
                   onClick={() => onSelectSuggestion(s.question)}
-                  className="flex flex-col gap-0.5 rounded-xl border border-border/70 bg-muted/30 p-2.5 text-left transition-all duration-200 hover:border-primary/40 hover:bg-primary/5 cursor-pointer group"
+                  className="flex flex-col gap-1 rounded-2xl border border-border/80 bg-card p-3.5 text-left shadow-2xs transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 cursor-pointer group"
                 >
-                  <p className="font-bold text-foreground font-poppins text-[11px] group-hover:text-primary transition-colors">
+                  <p className="font-bold text-foreground font-poppins text-xs group-hover:text-primary transition-colors">
                     {s.title}
                   </p>
-                  <p className="text-[10px] text-muted-foreground line-clamp-1">
+                  <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
                     "{s.question}"
                   </p>
                 </button>

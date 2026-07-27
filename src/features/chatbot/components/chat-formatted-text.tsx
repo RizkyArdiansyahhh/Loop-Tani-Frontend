@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+import { ArrowUpRight, ShoppingBag, Leaf } from "lucide-react";
 
 interface ChatFormattedTextProps {
   text: string;
@@ -12,8 +14,10 @@ export const ChatFormattedText = ({ text }: ChatFormattedTextProps) => {
   let inList = false;
 
   const parseInline = (inlineText: string) => {
-    // Regex matches bold markers: **text**
-    const parts = inlineText.split(/(\*\*.*?\*\*)/g);
+    // Regex matches bold **text** and markdown links [text](url)
+    const regex = /(\*\*.*?\*\*|\[.*?\]\(.*?\))/g;
+    const parts = inlineText.split(regex);
+
     return parts.map((part, index) => {
       if (part.startsWith("**") && part.endsWith("**")) {
         return (
@@ -22,6 +26,77 @@ export const ChatFormattedText = ({ text }: ChatFormattedTextProps) => {
           </strong>
         );
       }
+
+      const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (linkMatch) {
+        const linkText = linkMatch[1];
+        const href = linkMatch[2];
+        const isExternal = href.startsWith("http");
+
+        if (isExternal) {
+          return (
+            <a
+              key={index}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+            >
+              {linkText}
+              <ArrowUpRight className="h-3 w-3 inline" />
+            </a>
+          );
+        }
+
+        // Check if it's a Feature Redirect Link
+        const isFeatureLink =
+          href.includes("/limbah-analyzer") ||
+          href.includes("/fertilizer-calculator") ||
+          href.includes("/panduan-tani") ||
+          href.includes("/jejak-lestari");
+
+        if (isFeatureLink) {
+          return (
+            <Link
+              key={index}
+              href={href}
+              className="my-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary/10 hover:bg-primary border border-primary/30 text-primary hover:text-primary-foreground font-bold text-xs transition-all duration-200 shadow-2xs group cursor-pointer"
+            >
+              <Leaf className="h-3.5 w-3.5" />
+              <span>{linkText}</span>
+              <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </Link>
+          );
+        }
+
+        // Check if it's a Marketplace Product Link
+        const isProductLink = href.includes("/marketplace/");
+
+        if (isProductLink) {
+          return (
+            <Link
+              key={index}
+              href={href}
+              className="my-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-card hover:bg-accent border border-border text-foreground font-bold text-xs transition-all duration-200 shadow-2xs group cursor-pointer"
+            >
+              <ShoppingBag className="h-3.5 w-3.5 text-primary" />
+              <span className="group-hover:text-primary transition-colors">{linkText}</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </Link>
+          );
+        }
+
+        return (
+          <Link
+            key={index}
+            href={href}
+            className="inline-flex items-center gap-1 font-semibold text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+          >
+            {linkText}
+          </Link>
+        );
+      }
+
       return part;
     });
   };

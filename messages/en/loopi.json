@@ -6,16 +6,16 @@
     "welcomeSubtitle": "LoopTani smart AI assistant. Choose a question below or ask anything about agricultural waste, fertilizers, farming tools, and transactions!",
     "questions": {
       "q1": {
-        "title": "Profit Selling Palm Waste",
-        "question": "My palm oil waste has been burned, what are the benefits if I sell it here?"
-      },
-      "q2": {
-        "title": "Fertilizer & Capital Recommendation",
-        "question": "I just started farming, which fertilizer is suitable and how much capital do I need?"
-      },
-      "q3": {
         "title": "Rice Straw Processing",
         "question": "What can my rice straw waste be processed into?"
+      },
+      "q2": {
+        "title": "Fertilizer Dosage Calculator",
+        "question": "What is the exact fertilizer dosage for my rice field?"
+      },
+      "q3": {
+        "title": "Sell Palm Waste Nearby",
+        "question": "Where can I sell palm oil waste near me?"
       },
       "q4": {
         "title": "Transaction Security",

@@ -25,5 +25,39 @@
       "description": "Transparently track reduced CO₂ emissions, protected groundwater, and easily export CSR reports on LoopTani.",
       "actionText": "View Your Impact"
     }
+  },
+  "faq": {
+    "badge": "LoopTani FAQ",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find complete answers about transactions, seller registration, using Loopi AI Assistant, and LoopTani circular features.",
+    "supportTitle": "Still Have Questions?",
+    "supportSubtitle": "Can't find the answer you're looking for? Consult directly with Loopi AI Assistant or our team.",
+    "supportCta": "Ask Loopi AI",
+    "items": {
+      "apaItuLooptani": {
+        "question": "What is LoopTani?",
+        "answer": "LoopTani is Indonesia's AI-based Circular Agriculture Marketplace. LoopTani connects farmers, processing industries, and buyers to trade agricultural waste (rice husks, straw, palm fronds), processed organic products (compost, maggot/got, silage), and secondhand farming equipment."
+      },
+      "kenapaLooptani": {
+        "question": "Why Use LoopTani?",
+        "answer": "LoopTani turns crop residues that are usually burned into new income streams. In addition, LoopTani is equipped with Loopi AI Assistant for farming consultation, precision Fertilizer Dosage Calculator, SNI-standard Waste Analyzer, and environmental emission impact certification (Jejak Lestari)."
+      },
+      "caraJadiSeller": {
+        "question": "How to Become a Seller on LoopTani?",
+        "answer": "It's very easy! Create a LoopTani account -> go to your profile -> select 'Register Store / Seller' -> fill in your store name and shipping location address. Once active, you can immediately upload your waste or agricultural product catalog to the marketplace."
+      },
+      "apaItuLoopiAi": {
+        "question": "What is Loopi AI & How Does It Work?",
+        "answer": "Loopi AI is LoopTani's integrated artificial intelligence assistant. Loopi can analyze the feasibility of your waste processing, calculate precise nutrient fertilization dosages, and provide nearby product or seller recommendations."
+      },
+      "limbahAnalyzerKalkulator": {
+        "question": "What is the Purpose of Waste Analyzer & Fertilizer Calculator?",
+        "answer": "Waste Analyzer provides straw/palm processing guidelines based on SNI standards along with projected selling prices. Fertilizer Dosage Calculator helps calculate precise amounts of NPK, Urea, and Organic fertilizer based on your land area."
+      },
+      "keamananTransaksi": {
+        "question": "Are Transactions and Payments Safe on LoopTani?",
+        "answer": "Yes, 100% safe. All payments are processed automatically via verified Payment Gateway (Xendit) supporting Bank Virtual Accounts, QRIS, and E-Wallets with real-time transaction status updates."
+      }
+    }
   }
 }
