@@ -33,6 +33,7 @@ import { InfoBar } from "@/components/shared/info-bar";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
 import { ScrollFeaturesSection } from "../components/scroll-features";
+import { FaqSection } from "../components/faq-section";
 import { cn } from "@/lib/utils";
 
 const HomePage = () => {
@@ -534,6 +535,9 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+
+        {/* ── SECTION: Frequently Asked Questions (FAQ) ── */}
+        <FaqSection />
 
         {/* ── SECTION: Premium Clean Bottom CTA Card ── */}
         <section className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 md:py-28">

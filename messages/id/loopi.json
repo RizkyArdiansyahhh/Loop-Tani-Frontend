@@ -6,16 +6,16 @@
     "welcomeSubtitle": "Asisten AI pintar LoopTani. Pilihlah pertanyaan di bawah atau tuliskan pertanyaan Anda seputar limbah pertanian, pupuk, alat farming, dan transaksi!",
     "questions": {
       "q1": {
-        "title": "Untung Jual Limbah Sawit",
-        "question": "Limbah sawit saya selama ini dibakar, apa untungnya kalau saya jual di sini?"
-      },
-      "q2": {
-        "title": "Rekomendasi & Modal Pupuk",
-        "question": "Saya baru mulai bertani, pupuk apa yang cocok dan berapa modalnya?"
-      },
-      "q3": {
         "title": "Olahan Jerami Padi",
         "question": "Limbah jerami padi saya bisa diolah jadi apa?"
+      },
+      "q2": {
+        "title": "Kalkulator Dosis Pupuk",
+        "question": "Berapa dosis pupuk yang tepat untuk lahan sawah saya?"
+      },
+      "q3": {
+        "title": "Jual Limbah Sawit",
+        "question": "Ke mana saya bisa jual limbah sawit di sekitar saya?"
       },
       "q4": {
         "title": "Keamanan Transaksi",

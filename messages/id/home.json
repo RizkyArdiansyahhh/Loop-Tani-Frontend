@@ -25,5 +25,39 @@
       "description": "Transparan melacak emisi CO₂ yang dikurangi, air tanah dilindungi, dan ekspor laporan CSR dengan mudah di LoopTani.",
       "actionText": "Lihat Dampak Anda"
     }
+  },
+  "faq": {
+    "badge": "FAQ LoopTani",
+    "title": "Pertanyaan Yang Sering Diajukan",
+    "subtitle": "Temukan jawaban lengkap seputar cara bertransaksi, pendaftaran seller, penggunaan Asisten AI Loopi, dan fitur sirkular LoopTani.",
+    "supportTitle": "Masih Punya Pertanyaan?",
+    "supportSubtitle": "Tidak menemukan jawaban yang Anda cari? Konsultasikan langsung dengan Asisten AI Loopi atau tim kami.",
+    "supportCta": "Tanyakan Pada Loopi AI",
+    "items": {
+      "apaItuLooptani": {
+        "question": "Apa itu LoopTani?",
+        "answer": "LoopTani adalah Marketplace Sirkular Pertanian Indonesia berbasis AI. LoopTani menghubungkan petani, industri pengolahan, dan pembeli untuk bertransaksi limbah pertanian (sekam padi, jerami, tandan sawit), produk olahan organik (kompos, kasgot, silase), serta peralatan tani bekas."
+      },
+      "kenapaLooptani": {
+        "question": "Kenapa Harus Menggunakan LoopTani?",
+        "answer": "LoopTani mengubah sisa panen yang tadinya dibakar menjadi sumber pendapatan baru. Selain itu, LoopTani dilengkapi Asisten AI Loopi untuk konsultasi tani, Kalkulator Dosis Pupuk presisi, Limbah Analyzer berstandar SNI, serta sertifikasi dampak emisi lingkungan (Jejak Lestari)."
+      },
+      "caraJadiSeller": {
+        "question": "Bagaimana Cara Menjadi Seller / Penjual di LoopTani?",
+        "answer": "Sangat mudah! Buat akun LoopTani -> masuk ke menu profil Anda -> pilih 'Daftar Toko / Seller' -> lengkapi nama toko dan lokasi alamat Anda. Setelah aktif, Anda bisa langsung mengunggah katalog limbah atau produk pertanian Anda ke marketplace."
+      },
+      "apaItuLoopiAi": {
+        "question": "Apa itu Loopi AI & Bagaimana Cara Kerjanya?",
+        "answer": "Loopi AI adalah asisten kecerdasan buatan terpadu milik LoopTani. Loopi dapat menganalisis kelayakan olahan limbah Anda, menghitung dosis pemupukan hara yang pas, dan memberikan rekomendasi produk atau penjual terdekat."
+      },
+      "limbahAnalyzerKalkulator": {
+        "question": "Apa Fungsi Limbah Analyzer & Kalkulator Dosis Pupuk?",
+        "answer": "Limbah Analyzer memberikan rekomendasi pengolahan jerami/sawit berbasis standar SNI beserta proyeksi harga jualnya. Kalkulator Dosis Pupuk membantu menghitung takaran pupuk NPK, Urea, dan Organik yang presisi berdasarkan luas lahan Anda."
+      },
+      "keamananTransaksi": {
+        "question": "Apakah Transaksi dan Pembayaran di LoopTani Aman?",
+        "answer": "Ya, 100% aman. Seluruh pembayaran diproses secara otomatis melalui Payment Gateway terverifikasi (Xendit) mendukung Virtual Account Bank, QRIS, dan E-Wallet dengan pembaruan status transaksi real-time."
+      }
+    }
   }
 }
