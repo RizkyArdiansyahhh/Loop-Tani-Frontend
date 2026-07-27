@@ -1,6 +1,6 @@
-import { Plus } from "lucide-react";
+"use client";
+
 import LoopiAvatar from "./loopi-avatar";
-import { Button } from "@/components/ui/button";
 
 interface LoopiHeaderProps {
   onNewChat?: () => void;
@@ -9,36 +9,21 @@ interface LoopiHeaderProps {
 
 const LoopiHeader = ({ onNewChat, isLoggedIn }: LoopiHeaderProps) => {
   return (
-    <div className="flex items-center justify-between gap-6">
-      <div className="space-y-2">
-        <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Loopi AI Assistant
-          </h1>
-          <span className="rounded-full bg-secondary/40 px-3 py-0.5 text-xs font-semibold text-primary">
-            Beta
-          </span>
-        </div>
-        <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-          Tanyakan apa saja seputar pertanian, limbah pertanian, marketplace,
-          produk, dan ekonomi sirkular.
-        </p>
-      </div>
-
+    <div className="flex items-center justify-between gap-4 font-sans">
       <div className="flex items-center gap-3">
-        {isLoggedIn && onNewChat && (
-          <Button
-            onClick={onNewChat}
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-2 rounded-xl border-primary/20 text-primary hover:bg-primary/10"
-          >
-            <Plus className="h-4 w-4" />
-            <span>Percakapan Baru</span>
-          </Button>
-        )}
-        <div className="hidden sm:block">
-          <LoopiAvatar size="lg" />
+        <LoopiAvatar size="sm" />
+        <div className="space-y-0.5">
+          <div className="flex items-center gap-2">
+            <h1 className="text-base sm:text-lg font-bold tracking-tight text-foreground font-poppins">
+              Loopi AI Assistant
+            </h1>
+            <span className="rounded-full bg-primary/10 border border-primary/20 px-2 py-0.5 text-[10px] font-bold text-primary">
+              Beta
+            </span>
+          </div>
+          <p className="text-xs text-muted-foreground line-clamp-1">
+            Asisten AI pintar untuk pertanian, limbah, dan marketplace.
+          </p>
         </div>
       </div>
     </div>

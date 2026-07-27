@@ -1,0 +1,84 @@
+{
+  "address": {
+    "page": {
+      "title": "Address Book",
+      "description": "Manage your shipping addresses for shipping fee calculations and checkout processes.",
+      "addAddress": "Add New Address",
+      "editAddress": "Edit Address",
+      "backToList": "Back to Address Book",
+      "errorLoading": "Failed to load address. Please try again later.",
+      "successCreate": "New address successfully added!",
+      "successUpdate": "Address successfully updated!",
+      "successDelete": "Address successfully deleted!",
+      "successSetDefault": "Primary address successfully updated!"
+    },
+    "card": {
+      "defaultBadge": "Primary",
+      "setDefaultBtn": "Set as Primary",
+      "editBtn": "Edit",
+      "deleteBtn": "Delete",
+      "phonePrefix": "Phone:"
+    },
+    "form": {
+      "recipientName": "Recipient Name",
+      "recipientPhone": "Recipient Phone Number",
+      "typeLabel": "Address Type",
+      "labelLabel": "Address Label",
+      "province": "Province",
+      "city": "City/Regency",
+      "district": "District",
+      "subDistrict": "Sub-District/Village",
+      "postalCode": "Postal Code",
+      "street": "Street Address",
+      "notes": "Notes for Courier (Optional)",
+      "latitude": "Latitude (Optional)",
+      "longitude": "Longitude (Optional)",
+      "placeId": "Google Place ID (Optional)",
+      "isDefault": "Set as Primary Address",
+      "isDefaultDescription": "This address will automatically be selected as the primary shipping destination during checkout.",
+      "typeHome": "Home",
+      "typeOffice": "Office",
+      "typeOther": "Other",
+      "sections": {
+        "recipientContact": "Recipient Contact",
+        "addressDetail": "Address Detail",
+        "shippingLocation": "Shipping Location",
+        "addressSettings": "Address Settings"
+      },
+      "placeholder": {
+        "recipientName": "Enter recipient's full name",
+        "recipientPhone": "Enter recipient's phone (e.g. 0812xxxx)",
+        "label": "e.g. Main Home, Branch Store",
+        "selectType": "Select address type",
+        "province": "Select Province",
+        "city": "Select City/Regency",
+        "district": "Select District",
+        "subDistrict": "Select Sub-District/Village",
+        "selectProvinceFirst": "Select Province first",
+        "selectCityFirst": "Select City/Regency first",
+        "selectDistrictFirst": "Select District first",
+        "loadingProvinces": "Loading provinces...",
+        "loadingRegencies": "Loading regencies...",
+        "loadingDistricts": "Loading districts...",
+        "loadingVillages": "Loading villages...",
+        "postalCode": "e.g. 15412",
+        "street": "Street Name, House No., RT/RW, Block, or nearby landmark",
+        "notes": "e.g. Leave with security, black gate"
+      },
+      "submitAdd": "Add Address",
+      "submitEdit": "Save Changes",
+      "loading": "Saving..."
+    },
+    "deleteDialog": {
+      "title": "Delete Address?",
+      "description": "Are you sure you want to delete this address? This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Yes, Delete"
+    },
+    "empty": {
+      "title": "No Shipping Address Found",
+      "description": "You haven't saved any shipping address yet. Please add a new address to make checkout and shipping calculations easier.",
+      "btnText": "Add New Address"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "order": {
+    "list": {
+      "title": "Daftar Pesanan",
+      "subtitle": "Kelola dan pantau seluruh transaksi pembelian Anda di Loop Tani",
+      "tabs": {
+        "all": "Semua",
+        "pending": "Menunggu Pembayaran",
+        "paid": "Sudah Dibayar",
+        "processing": "Diproses",
+        "shipped": "Dikirim",
+        "completed": "Selesai",
+        "cancelled": "Dibatalkan"
+      },
+      "emptyTitle": "Belum Ada Pesanan",
+      "emptyDesc": "Anda belum memiliki transaksi pesanan pada status ini. Cari produk kebutuhan tani Anda sekarang!",
+      "exploreMarketplace": "Jelajahi Marketplace"
+    },
+    "card": {
+      "orderNumber": "No. Order",
+      "store": "Toko",
+      "totalPayment": "Total Pembayaran",
+      "detailBtn": "Detail Pesanan",
+      "payNowBtn": "Bayar Sekarang",
+      "comingSoonPayment": "Pembayaran Segera Hadir",
+      "moreItems": "+{count} produk lainnya"
+    },
+    "detail": {
+      "title": "Detail Pesanan",
+      "backToList": "Kembali ke Daftar Pesanan",
+      "timelineTitle": "Status Pesanan",
+      "addressTitle": "Alamat Pengiriman",
+      "storeTitle": "Rincian Produk",
+      "summaryTitle": "Ringkasan Pembayaran",
+      "subtotal": "Subtotal Produk",
+      "shippingCost": "Total Ongkos Kirim",
+      "serviceFee": "Biaya Layanan",
+      "discount": "Diskon",
+      "insuranceFee": "Biaya Asuransi",
+      "applicationFee": "Biaya Aplikasi",
+      "totalPrice": "Total Belanja",
+      "payNowBtn": "Bayar Sekarang",
+      "comingSoonPayment": "Pembayaran Segera Hadir",
+      "totalWeight": "Total Berat"
+    },
+    "status": {
+      "PENDING_PAYMENT": "Menunggu Pembayaran",
+      "PAID": "Sudah Dibayar",
+      "PROCESSING": "Diproses Seller",
+      "SHIPPED": "Dalam Pengiriman",
+      "DELIVERED": "Sampai Tujuan",
+      "COMPLETED": "Selesai",
+      "CANCELLED": "Dibatalkan",
+      "EXPIRED": "Kadaluarsa"
+    }
+  }
+}

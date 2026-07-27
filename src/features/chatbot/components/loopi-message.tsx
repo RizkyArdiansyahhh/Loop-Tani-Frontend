@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import ChatBubble from "./chat-bubble";
@@ -15,14 +17,23 @@ const LoopiMessageArea = ({
   isPending,
   errorMessage,
 }: LoopiMessageAreaProps) => {
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Smooth scroll ONLY inside the inner chat container (NEVER scroll the browser window)
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages, isPending, errorMessage]);
 
   return (
-    <div className="flex-1 overflow-y-auto px-6 py-6">
+    <div
+      ref={containerRef}
+      className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 scrollbar-thin scrollbar-thumb-muted-foreground/20"
+    >
       <div className="mx-auto max-w-3xl space-y-6">
         {messages.map((msg, index) => {
           const timestamp = msg.createdAt
@@ -40,7 +51,7 @@ const LoopiMessageArea = ({
               key={msg.id || index}
               initial={{ opacity: 0, y: 12, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
             >
               <ChatBubble
                 role={msg.role === "user" ? "user" : "bot"}
@@ -55,7 +66,7 @@ const LoopiMessageArea = ({
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
             <TypingIndicator />
           </motion.div>
@@ -65,7 +76,7 @@ const LoopiMessageArea = ({
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25 }}
           >
             <ChatBubble
               role="bot"
@@ -77,8 +88,6 @@ const LoopiMessageArea = ({
             />
           </motion.div>
         )}
-
-        <div ref={bottomRef} />
       </div>
     </div>
   );

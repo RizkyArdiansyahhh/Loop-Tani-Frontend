@@ -1,0 +1,53 @@
+{
+  "checkout": {
+    "page": {
+      "title": "Shipping & Payment",
+      "backToCart": "Back to Cart",
+      "backToMarketplace": "Back to Marketplace"
+    },
+    "address": {
+      "title": "Shipping Address",
+      "changeBtn": "Change Address",
+      "addAddressBtn": "+ Add New Address",
+      "selectAddressTitle": "Select Shipping Address",
+      "selectAddressDesc": "Select an address to be used as your primary shipping destination.",
+      "noAddressTitle": "No Shipping Address Found",
+      "noAddressDesc": "Please add a new shipping address first to proceed with checkout.",
+      "primaryBadge": "Primary"
+    },
+    "store": {
+      "storeLabel": "Order From Store",
+      "itemCount": "{count} Items"
+    },
+    "shipping": {
+      "title": "Shipping Option",
+      "courierLabel": "Shipping Courier",
+      "standardShipping": "Standard Shipping (Rp0)",
+      "placeholderInfo": "Courier options will be calculated automatically upon logistics integration."
+    },
+    "summary": {
+      "title": "Shopping Summary",
+      "subtotalItems": "Items Subtotal",
+      "shippingCost": "Total Shipping Cost",
+      "serviceFee": "Service Fee",
+      "discount": "Discount",
+      "insuranceFee": "Insurance Fee",
+      "applicationFee": "Application Fee",
+      "totalPayment": "Total Payment",
+      "placeOrderBtn": "Pay Now",
+      "disabledTooltipNoAddress": "Please add a shipping address first to proceed.",
+      "disabledTooltipInvalidStock": "One or more products are unavailable or out of stock."
+    },
+    "empty": {
+      "emptyCartTitle": "Checkout Cart is Empty",
+      "emptyCartDesc": "Please select the items you wish to purchase from your shopping cart first.",
+      "outOfStockTitle": "Product Unavailable",
+      "outOfStockDesc": "The product you selected is inactive or currently out of stock.",
+      "noAddressTitle": "Shipping Address Not Selected",
+      "noAddressDesc": "Please set your shipping address to calculate total checkout costs.",
+      "errorTitle": "Failed to Load Checkout",
+      "errorDesc": "An error occurred while processing your checkout data. Please try again later.",
+      "backToShopping": "Back to Shopping"
+    }
+  }
+}

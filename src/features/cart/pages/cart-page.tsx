@@ -21,6 +21,8 @@ import { useCart } from "../hooks/use-cart";
 import { useUpdateCartItem } from "../hooks/use-update-cart-item";
 import { useDeleteCartItem } from "../hooks/use-delete-cart-item";
 import { useClearCart } from "../hooks/use-clear-cart";
+import { useRouter } from "next/navigation";
+import { useCheckoutStore } from "@/features/checkout/store/checkout.store";
 
 function formatPrice(price: number): string {
   return new Intl.NumberFormat("id-ID", {
@@ -159,8 +161,17 @@ export function CartPage() {
     }
   };
 
+  const router = useRouter();
+
   const handleCheckout = () => {
-    toast.success("Mengarahkan ke Checkout... (Fitur ini akan diimplementasikan pada modul berikutnya)");
+    if (selectedIds.size === 0) {
+      toast.error("Pilih minimal 1 item untuk diproses checkout");
+      return;
+    }
+    useCheckoutStore.getState().setCartCheckout({
+      cartItemIds: Array.from(selectedIds),
+    });
+    router.push("/checkout");
   };
 
   // ─────────────────────────────────────────────

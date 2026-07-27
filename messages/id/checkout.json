@@ -1,0 +1,53 @@
+{
+  "checkout": {
+    "page": {
+      "title": "Pengiriman & Pembayaran",
+      "backToCart": "Kembali ke Keranjang",
+      "backToMarketplace": "Kembali ke Marketplace"
+    },
+    "address": {
+      "title": "Alamat Pengiriman",
+      "changeBtn": "Ubah Alamat",
+      "addAddressBtn": "+ Tambah Alamat Baru",
+      "selectAddressTitle": "Pilih Alamat Pengiriman",
+      "selectAddressDesc": "Pilih alamat yang ingin digunakan sebagai tujuan pengiriman.",
+      "noAddressTitle": "Belum Ada Alamat Pengiriman",
+      "noAddressDesc": "Silakan tambahkan alamat pengiriman baru terlebih dahulu agar bisa melakukan checkout.",
+      "primaryBadge": "Utama"
+    },
+    "store": {
+      "storeLabel": "Pesanan Dari Toko",
+      "itemCount": "{count} Barang"
+    },
+    "shipping": {
+      "title": "Pilihan Pengiriman",
+      "courierLabel": "Kurir Pengiriman",
+      "standardShipping": "Pengiriman Standar (Rp0)",
+      "placeholderInfo": "Opsi kurir otomatis dihitung setelah integrasi layanan logistik."
+    },
+    "summary": {
+      "title": "Ringkasan Belanja",
+      "subtotalItems": "Subtotal Barang",
+      "shippingCost": "Total Ongkos Kirim",
+      "serviceFee": "Biaya Layanan",
+      "discount": "Diskon",
+      "insuranceFee": "Biaya Asuransi",
+      "applicationFee": "Biaya Aplikasi",
+      "totalPayment": "Total Pembayaran",
+      "placeOrderBtn": "Bayar Sekarang",
+      "disabledTooltipNoAddress": "Tambahkan alamat pengiriman terlebih dahulu untuk melanjutkan.",
+      "disabledTooltipInvalidStock": "Satu atau lebih produk tidak tersedia atau stok habis."
+    },
+    "empty": {
+      "emptyCartTitle": "Keranjang Checkout Kosong",
+      "emptyCartDesc": "Pilih produk yang ingin dibeli dari keranjang belanja Anda terlebih dahulu.",
+      "outOfStockTitle": "Produk Tidak Tersedia",
+      "outOfStockDesc": "Produk yang Anda pilih sudah tidak aktif atau stoknya telah habis.",
+      "noAddressTitle": "Alamat Pengiriman Belum Dipilih",
+      "noAddressDesc": "Silakan atur alamat pengiriman Anda untuk menghitung total biaya checkout.",
+      "errorTitle": "Gagal Memuat Checkout",
+      "errorDesc": "Terjadi kesalahan saat memproses data checkout Anda. Silakan coba beberapa saat lagi.",
+      "backToShopping": "Kembali Belanja"
+    }
+  }
+}

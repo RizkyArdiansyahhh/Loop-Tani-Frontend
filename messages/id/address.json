@@ -1,0 +1,84 @@
+{
+  "address": {
+    "page": {
+      "title": "Buku Alamat",
+      "description": "Kelola daftar alamat pengiriman Anda untuk keperluan belanja dan pengiriman barang.",
+      "addAddress": "Tambah Alamat Baru",
+      "editAddress": "Ubah Alamat",
+      "backToList": "Kembali ke Buku Alamat",
+      "errorLoading": "Gagal memuat alamat. Silakan coba beberapa saat lagi.",
+      "successCreate": "Alamat baru berhasil ditambahkan!",
+      "successUpdate": "Alamat berhasil diperbarui!",
+      "successDelete": "Alamat berhasil dihapus!",
+      "successSetDefault": "Alamat utama berhasil diubah!"
+    },
+    "card": {
+      "defaultBadge": "Utama",
+      "setDefaultBtn": "Jadikan Alamat Utama",
+      "editBtn": "Ubah",
+      "deleteBtn": "Hapus",
+      "phonePrefix": "Telepon:"
+    },
+    "form": {
+      "recipientName": "Nama Penerima",
+      "recipientPhone": "Nomor HP Penerima",
+      "typeLabel": "Tipe Alamat",
+      "labelLabel": "Label Alamat",
+      "province": "Provinsi",
+      "city": "Kabupaten/Kota",
+      "district": "Kecamatan",
+      "subDistrict": "Kelurahan/Desa",
+      "postalCode": "Kode Pos",
+      "street": "Alamat Lengkap",
+      "notes": "Catatan untuk Kurir (Opsional)",
+      "latitude": "Garis Lintang (Latitude)",
+      "longitude": "Garis Bujur (Longitude)",
+      "placeId": "ID Lokasi Maps",
+      "isDefault": "Jadikan Alamat Utama",
+      "isDefaultDescription": "Alamat ini akan otomatis dipilih sebagai tujuan pengiriman utama saat checkout.",
+      "typeHome": "Rumah",
+      "typeOffice": "Kantor",
+      "typeOther": "Lainnya",
+      "sections": {
+        "recipientContact": "Kontak Penerima",
+        "addressDetail": "Detail Alamat",
+        "shippingLocation": "Lokasi Pengiriman",
+        "addressSettings": "Pengaturan Alamat"
+      },
+      "placeholder": {
+        "recipientName": "Masukkan nama penerima",
+        "recipientPhone": "Masukkan nomor HP penerima (contoh: 0812xxxx)",
+        "label": "Contoh: Rumah Utama, Toko Cabang",
+        "selectType": "Pilih tipe alamat",
+        "province": "Pilih Provinsi",
+        "city": "Pilih Kabupaten/Kota",
+        "district": "Pilih Kecamatan",
+        "subDistrict": "Pilih Kelurahan/Desa",
+        "selectProvinceFirst": "Pilih Provinsi terlebih dahulu",
+        "selectCityFirst": "Pilih Kabupaten/Kota terlebih dahulu",
+        "selectDistrictFirst": "Pilih Kecamatan terlebih dahulu",
+        "loadingProvinces": "Memuat provinsi...",
+        "loadingRegencies": "Memuat kabupaten/kota...",
+        "loadingDistricts": "Memuat kecamatan...",
+        "loadingVillages": "Memuat kelurahan/desa...",
+        "postalCode": "Contoh: 15412",
+        "street": "Nama Jalan, No. Rumah, RT/RW, Blok, atau Patokan terdekat",
+        "notes": "Contoh: Titipkan di satpam, pagar warna hitam"
+      },
+      "submitAdd": "Tambah Alamat",
+      "submitEdit": "Simpan Perubahan",
+      "loading": "Menyimpan..."
+    },
+    "deleteDialog": {
+      "title": "Hapus Alamat?",
+      "description": "Apakah Anda yakin ingin menghapus alamat ini? Tindakan ini tidak dapat dibatalkan.",
+      "cancel": "Batal",
+      "confirm": "Ya, Hapus"
+    },
+    "empty": {
+      "title": "Belum Ada Alamat Pengiriman",
+      "description": "Anda belum menyimpan alamat pengiriman. Silakan tambah alamat baru untuk mempermudah proses belanja dan perhitungan ongkos kirim.",
+      "btnText": "Tambah Alamat Baru"
+    }
+  }
+}

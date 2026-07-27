@@ -1,0 +1,43 @@
+{
+  "product": {
+    "detail": {
+      "loading": "Loading product details...",
+      "loadError": "Failed to load product",
+      "loadErrorDesc": "The product might have been removed or is unavailable.",
+      "back": "Back",
+      "featured": "Featured",
+      "stockCount": "Stock: {count} units",
+      "outOfStock": "Out of Stock",
+      "reviews": "{count} Reviews",
+      "soldCount": "Sold 50+ items",
+      "visitStore": "Visit Store",
+      "specificationsTitle": "Product Details & Specifications",
+      "conditionLabel": "Condition",
+      "conditionNew": "New (Premium Quality)",
+      "conditionUsed": "Used",
+      "minOrderLabel": "Min. Order",
+      "minOrderValue": "1 Unit",
+      "categoryLabel": "Main Category",
+      "stockLabel": "Stock Availability",
+      "stockRemaining": "{count} units left",
+      "descriptionTitle": "Product Description",
+      "buyBoxTitle": "Set Quantity & Notes",
+      "stockLimit": "Stock: {count}",
+      "subtotal": "Subtotal",
+      "addToCart": "+ Cart",
+      "addingToCart": "Adding...",
+      "buyNow": "Buy Now",
+      "outOfStockMessage": "Sorry, this product is currently out of stock.",
+      "guaranteeTitle": "Quality Guarantee & Safe Delivery",
+      "chatSeller": "Direct Chat with Seller",
+      "customerReviewsTitle": "Customer Reviews",
+      "customerReviewsSubtitle": "Direct experiences from verified buyers",
+      "ratingCount": "from {count} review ratings",
+      "helpful": "Helpful ({count})",
+      "sameSellerTitle": "Other Products from This Store",
+      "viewAll": "View All",
+      "recommendedTitle": "Similar Product Recommendations",
+      "viewMore": "View More"
+    }
+  }
+}
