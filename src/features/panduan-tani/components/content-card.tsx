@@ -1,9 +1,7 @@
-"use client";
-
 import React, { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Play, Sparkles, Clock, BookOpen, User } from "lucide-react";
+import { Play, Award, Clock, BookOpen, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { KnowledgeContent } from "@/types/api";
@@ -47,13 +45,13 @@ export function ContentCard({ content }: ContentCardProps) {
     return (
       <Link
         href={detailUrl}
-        className="group flex items-start justify-between gap-6 py-6 border-b border-gray-100 dark:border-gray-800 last:border-0 hover:bg-gray-50/50 dark:hover:bg-gray-900/20 px-4 rounded-3xl transition-all duration-300"
+        className="group flex items-start justify-between gap-6 py-6 border-b border-gray-100 dark:border-gray-800 last:border-0 hover:bg-gray-50/50 dark:hover:bg-gray-900/20 px-4 rounded-3xl transition-all duration-300 font-poppins"
       >
         {/* Left Side: Article Information */}
         <div className="flex-1 min-w-0 flex flex-col justify-between h-full min-h-[110px] md:min-h-[130px]">
           <div>
             {/* Top Meta: Author & Badges */}
-            <div className="flex flex-wrap items-center gap-2 mb-2 text-2xs md:text-xs">
+            <div className="flex flex-wrap items-center gap-2 mb-2 text-2xs md:text-xs font-poppins">
               {content.uploader.avatarUrl ? (
                 <img
                   src={content.uploader.avatarUrl}
@@ -65,32 +63,32 @@ export function ContentCard({ content }: ContentCardProps) {
                   <User className="h-3 w-3" />
                 </div>
               )}
-              <span className="font-semibold text-gray-700 dark:text-gray-300">
+              <span className="font-semibold text-gray-700 dark:text-gray-300 font-poppins">
                 {content.uploader.name}
               </span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
-              <Badge className="bg-primary/10 hover:bg-primary/20 text-primary border-0 font-semibold px-2 py-0.5 rounded-lg text-[10px]">
+              <Badge className="bg-primary/10 hover:bg-primary/20 text-primary border-0 font-semibold px-2 py-0.5 rounded-lg text-[10px] font-poppins">
                 {t("categoryLabel." + content.category?.toLowerCase())}
               </Badge>
-              <Badge variant="secondary" className="font-semibold px-2 py-0.5 rounded-lg text-[10px] bg-gray-100 text-gray-600 dark:bg-gray-850 dark:text-gray-400">
+              <Badge variant="secondary" className="font-semibold px-2 py-0.5 rounded-lg text-[10px] bg-gray-100 text-gray-600 dark:bg-gray-850 dark:text-gray-400 font-poppins">
                 {t("difficultyLabel." + content.difficulty?.toLowerCase())}
               </Badge>
             </div>
 
-            {/* Title */}
-            <h3 className="font-fraunces text-base md:text-xl font-bold leading-snug text-gray-900 group-hover:text-primary dark:text-gray-100 transition-colors duration-350 mb-1 md:mb-1.5">
+            {/* Title (Poppins Header) */}
+            <h3 className="font-poppins text-base md:text-xl font-bold leading-snug text-gray-900 group-hover:text-primary dark:text-gray-100 transition-colors duration-350 mb-1 md:mb-1.5">
               {content.title}
             </h3>
 
-            {/* Summary Snippet */}
-            <p className="hidden sm:block text-xs md:text-sm text-muted-foreground leading-relaxed line-clamp-2">
+            {/* Summary Snippet (Poppins Paragraph) */}
+            <p className="hidden sm:block text-xs md:text-sm text-muted-foreground leading-relaxed line-clamp-2 font-poppins">
               {summarySnippet}
             </p>
           </div>
 
           {/* Bottom Footer Info */}
-          <div className="mt-3 flex items-center gap-4 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-2xs md:text-xs text-muted-foreground font-medium">
+          <div className="mt-3 flex items-center gap-4 flex-wrap font-poppins">
+            <span className="inline-flex items-center gap-1 text-2xs md:text-xs text-muted-foreground font-medium font-poppins">
               <BookOpen className="h-3.5 w-3.5" />
               {t("readDuration", {
                 duration: content.duration.replace(" baca", ""),
@@ -98,8 +96,8 @@ export function ContentCard({ content }: ContentCardProps) {
             </span>
 
             {/* Reward Points */}
-            <div className="inline-flex items-center gap-1 rounded-full bg-amber-50 dark:bg-amber-950/20 px-2.5 py-0.5 text-[10px] md:text-xs font-semibold text-amber-700 dark:text-amber-400 ring-1 ring-amber-600/10">
-              <Sparkles className="h-3 w-3 fill-current text-amber-500" />
+            <div className="inline-flex items-center gap-1 rounded-full bg-amber-50 dark:bg-amber-950/20 px-2.5 py-0.5 text-[10px] md:text-xs font-semibold text-amber-700 dark:text-amber-400 ring-1 ring-amber-600/10 font-poppins">
+              <Award className="h-3 w-3 text-amber-500" />
               <span>
                 {session
                   ? t("pointsReward", { points: content.points })
@@ -129,7 +127,7 @@ export function ContentCard({ content }: ContentCardProps) {
   return (
     <Link
       href={detailUrl}
-      className="group flex flex-col h-full overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xs transition-all duration-350 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md dark:border-gray-800 dark:bg-gray-900"
+      className="group flex flex-col h-full overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-2xs transition-all duration-350 hover:-translate-y-1 hover:border-primary/20 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 font-poppins"
     >
       {/* Media Cover / Image Section */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-muted">
@@ -142,11 +140,11 @@ export function ContentCard({ content }: ContentCardProps) {
         />
 
         {/* Badges Overlay */}
-        <div className="absolute top-3 left-3 flex gap-1.5 z-10">
-          <Badge className="bg-white/95 text-gray-900 shadow-2xs backdrop-blur-xs font-semibold hover:bg-white border-0 dark:bg-gray-850 dark:text-white text-[10px] px-2 py-0.5 rounded-lg">
+        <div className="absolute top-3 left-3 flex gap-1.5 z-10 font-poppins">
+          <Badge className="bg-white/95 text-gray-900 shadow-2xs backdrop-blur-xs font-semibold hover:bg-white border-0 dark:bg-gray-850 dark:text-white text-[10px] px-2 py-0.5 rounded-lg font-poppins">
             {t("categoryLabel." + content.category?.toLowerCase())}
           </Badge>
-          <Badge className="bg-primary/90 text-white shadow-2xs backdrop-blur-xs font-semibold hover:bg-primary border-0 text-[10px] px-2 py-0.5 rounded-lg">
+          <Badge className="bg-primary/90 text-white shadow-2xs backdrop-blur-xs font-semibold hover:bg-primary border-0 text-[10px] px-2 py-0.5 rounded-lg font-poppins">
             {t("difficultyLabel." + content.difficulty?.toLowerCase())}
           </Badge>
         </div>
@@ -159,31 +157,31 @@ export function ContentCard({ content }: ContentCardProps) {
         </div>
 
         {/* Video Duration Badge */}
-        <div className="absolute bottom-3 right-3 rounded-md bg-black/65 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-2xs flex items-center gap-1">
+        <div className="absolute bottom-3 right-3 rounded-md bg-black/65 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-2xs flex items-center gap-1 font-poppins">
           <Clock className="h-3.5 w-3.5" />
           {t("videoDuration", { duration: content.duration })}
         </div>
       </div>
 
       {/* Content Details */}
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-5 font-poppins">
         {/* Points & Type */}
         <div className="mb-3 flex items-center justify-between">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-950/20 px-2.5 py-1 text-[10px] font-semibold text-amber-700 dark:text-amber-400 ring-1 ring-amber-600/10">
-            <Sparkles className="h-3.5 w-3.5 fill-current animate-pulse text-amber-500" />
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-950/20 px-2.5 py-1 text-[10px] font-semibold text-amber-700 dark:text-amber-400 ring-1 ring-amber-600/10 font-poppins">
+            <Award className="h-3.5 w-3.5 text-amber-500" />
             <span>
               {session
                 ? t("pointsReward", { points: content.points })
                 : t("pointsRewardLocked", { points: content.points })}
             </span>
           </div>
-          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest font-poppins">
             Video
           </span>
         </div>
 
-        {/* Title */}
-        <h3 className="mb-4 line-clamp-2 text-sm md:text-base font-bold leading-snug text-gray-900 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 min-h-10 md:min-h-12">
+        {/* Title (Poppins Header) */}
+        <h3 className="mb-4 line-clamp-2 text-sm md:text-base font-bold leading-snug text-gray-900 group-hover:text-primary transition-colors duration-300 dark:text-gray-100 min-h-10 md:min-h-12 font-poppins">
           {content.title}
         </h3>
 

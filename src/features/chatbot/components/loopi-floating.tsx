@@ -1,9 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+
+const HIDDEN_ROUTES = [
+  "/loopi",
+  "/checkout",
+  "/admin",
+  "/login",
+  "/register",
+  "/seller",
+];
 
 const LoopiFloating = () => {
+  const pathname = usePathname();
+  const normalizedPathname = pathname.replace(/^\/(id|en)(\/|$)/, "$2") || "/";
+
+  const isHidden = HIDDEN_ROUTES.some(
+    (route) =>
+      normalizedPathname === route ||
+      normalizedPathname.startsWith(`${route}/`),
+  );
+
+  if (isHidden) return null;
+
   return (
     <Link
       href="/loopi"

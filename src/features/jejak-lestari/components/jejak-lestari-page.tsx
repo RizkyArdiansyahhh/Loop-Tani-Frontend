@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Sprout, ChevronDown, TrendingUp } from "lucide-react";
+import { Sprout, ChevronDown, TrendingUp, Info } from "lucide-react";
 import { ImpactCard } from "./impact-card";
 import { TransactionList } from "./transaction-list";
 import { ExportPanel } from "./export-panel";
+import { DemoModal } from "./demo-modal";
 import {
   dummyTransactions,
   computeSustainabilityTotals,
@@ -25,6 +26,7 @@ const CATEGORY_OPTIONS: { value: FilterCategory; label: string }[] = [
 
 export default function JejakLestariPage() {
   const [filterCategory, setFilterCategory] = useState<FilterCategory>("semua");
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(true);
 
   const filteredTransactions = useMemo(() => {
     if (filterCategory === "semua") return dummyTransactions;
@@ -39,7 +41,13 @@ export default function JejakLestariPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50/60 pb-28 dark:bg-gray-950">
+    <div className="min-h-screen bg-gray-50/60 pb-28 dark:bg-gray-950 font-poppins">
+      {/* Demo Modal for Competition Evaluation */}
+      <DemoModal
+        isOpen={isDemoModalOpen}
+        onClose={() => setIsDemoModalOpen(false)}
+      />
+
       {/* ── Hero Header ──────────────────────────────────────────────────────── */}
       <div className="relative overflow-hidden bg-white dark:bg-gray-900">
         {/* Gradient mesh background */}
@@ -50,12 +58,22 @@ export default function JejakLestariPage() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 py-14 md:py-20">
-          {/* Eyebrow */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 dark:border-primary/30 dark:bg-primary/20">
-            <Sprout className="h-3.5 w-3.5 text-primary" />
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">
-              LoopTani · Dampak Nyata
-            </span>
+          {/* Eyebrow & Demo Info Trigger Button */}
+          <div className="mb-4 flex flex-wrap items-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 dark:border-primary/30 dark:bg-primary/20">
+              <Sprout className="h-3.5 w-3.5 text-primary" />
+              <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                LoopTani · Dampak Nyata
+              </span>
+            </div>
+
+            <button
+              onClick={() => setIsDemoModalOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-50 dark:bg-amber-950/20 px-3.5 py-1 text-xs font-semibold text-amber-700 dark:text-amber-400 hover:bg-amber-100 transition-colors cursor-pointer"
+            >
+              <Info className="h-3.5 w-3.5 text-amber-600" />
+              <span>Info Demo Penilaian</span>
+            </button>
           </div>
 
           {/* Title */}

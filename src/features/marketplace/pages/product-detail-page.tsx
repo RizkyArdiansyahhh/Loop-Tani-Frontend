@@ -37,10 +37,17 @@ import { useCheckoutStore } from "@/features/checkout/store/checkout.store";
 import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/shared/utils/currency.util";
 
+import { getCategoryKey } from "@/constants/category-map";
+
 export default function ProductDetailPage({ id }: { id: string }) {
   const t = useTranslations("product.detail");
+  const tCat = useTranslations("product.categories");
   const router = useRouter();
   const { data: product, isLoading, isError } = useProductById({ id });
+  const categoryKey = getCategoryKey(product?.category);
+  const categoryLabel = categoryKey
+    ? tCat(categoryKey)
+    : product?.category || "";
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { toggleFavorite } = useFavorite();
@@ -123,7 +130,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
           items={[
             { label: "Marketplace", href: "/marketplace" },
             {
-              label: product.category,
+              label: categoryLabel,
               href: `/marketplace?category=${product.category}`,
             },
             { label: product.title },
@@ -353,7 +360,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
                   {t("categoryLabel")}
                 </div>
                 <div className="font-semibold text-primary capitalize text-right sm:text-left">
-                  {product.category.replace("-", " ")}
+                  {categoryLabel}
                 </div>
 
                 <div className="text-muted-foreground font-medium">

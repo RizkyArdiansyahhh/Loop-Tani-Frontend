@@ -88,14 +88,6 @@ const CardProduct = ({ product }: CardProductProps) => {
           {/* Category Badge */}
           <BadgeProduct category={category} />
 
-          {/* Featured badge */}
-          {isFeatured && (
-            <div className="absolute top-3 right-16 z-20 flex items-center gap-1 rounded-full bg-yellow-400 px-2.5 py-1 text-xs font-bold text-yellow-900 shadow-sm border border-yellow-300">
-              <Star className="h-3 w-3 fill-yellow-900" />
-              Unggulan
-            </div>
-          )}
-
           {/* Favorite button */}
           <button
             className="absolute right-3 top-3 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 backdrop-blur-md transition-all duration-300 hover:scale-115 shadow-md active:scale-95"

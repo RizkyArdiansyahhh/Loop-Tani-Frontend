@@ -21,9 +21,17 @@
     },
     "shipping": {
       "title": "Pilihan Pengiriman",
+      "selectTitle": "Pilih Opsi Pengiriman",
       "courierLabel": "Kurir Pengiriman",
       "standardShipping": "Pengiriman Standar (Rp0)",
-      "placeholderInfo": "Opsi kurir otomatis dihitung setelah integrasi layanan logistik."
+      "placeholderInfo": "Opsi kurir otomatis dihitung setelah integrasi layanan logistik.",
+      "loadErrorTitle": "Gagal memuat opsi pengiriman",
+      "loadErrorDesc": "Silakan coba muat ulang untuk mendapatkan daftar tarif ongkos kirim.",
+      "retryBtn": "Coba Lagi",
+      "recommendedBadge": "Recommended",
+      "cheapestBadge": "Termurah",
+      "etdDays": "{etd} hari",
+      "estimationPrefix": "Estimasi"
     },
     "summary": {
       "title": "Ringkasan Belanja",

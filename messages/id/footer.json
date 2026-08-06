@@ -1,0 +1,31 @@
+{
+  "footer": {
+    "brandDescription": "Marketplace digital sirkular terpadu yang memberdayakan petani, industri pengolahan organik, dan melacak emisi lingkungan secara real-time.",
+    "newsletterTitle": "Berlangganan Buletin Sirkular Tani",
+    "newsletterDesc": "Dapatkan update mingguan tren pasar limbah pertanian, harga jual, dan kiat budidaya hijau.",
+    "emailPlaceholder": "Alamat email Anda...",
+    "subscribeBtn": "Subscribe",
+    "subscribedBtn": "Berhasil!",
+    "ecosystemTitle": "LoopTani Ecosystem",
+    "ecosystemDesc": "Membangun masa depan agrikultur lestari dari Riau untuk Indonesia. Mengubah ampas kopi, jerami, dan sekam menjadi komoditas berkelanjutan.",
+    "marketplaceTitle": "Marketplace Sirkular",
+    "allProducts": "Semua Produk",
+    "agriculturalWaste": "Limbah Pertanian",
+    "processedProduct": "Produk Olahan",
+    "secondhand": "Alat Secondhand",
+    "helpTitle": "Bantuan & Panduan",
+    "aboutUs": "Tentang Kami",
+    "faqHelp": "FAQ & Pusat Bantuan",
+    "privacyPolicy": "Kebijakan Privasi",
+    "terms": "Syarat & Ketentuan",
+    "contactTitle": "Hubungi LoopTani",
+    "phoneLabel": "Telepon",
+    "emailLabel": "Email Resmi",
+    "addressLabel": "Alamat Kantor",
+    "officeAddress": "Pekanbaru, Riau, Indonesia",
+    "madeWith": "Made with",
+    "forSustainableAgri": "for Sustainable Agriculture.",
+    "privacy": "Kebijakan Privasi",
+    "termsOfUse": "Syarat Penggunaan"
+  }
+}

@@ -1,13 +1,11 @@
-"use client";
-
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
-  Sparkles,
   ArrowLeft,
   Clock,
   Award,
+  Leaf,
   ShoppingBag,
   User,
   CheckCircle2,
@@ -92,6 +90,8 @@ export default function VideoDetail({ video }: VideoDetailProps) {
     completeSent,
     watchedPercentage,
     video.id,
+    completeMutation,
+    refetchProgress,
   ]);
 
   const handleClaim = () => {
@@ -121,10 +121,8 @@ export default function VideoDetail({ video }: VideoDetailProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white pb-24 dark:bg-gray-950 transition-colors duration-300">
-      
-      {/* Top Banner Navigation */}
-      <div className="mx-auto max-w-4xl px-4 pt-8">
+    <div className="min-h-screen bg-white pb-24 dark:bg-gray-950 transition-colors duration-300 font-poppins">
+      <div className="mx-auto max-w-4xl px-4 pt-6">
         <Breadcrumbs
           items={[
             { label: "Panduan Tani", href: "/panduan-tani" },
@@ -132,19 +130,19 @@ export default function VideoDetail({ video }: VideoDetailProps) {
             { label: video.title },
           ]}
         />
-        
-        <button
+
+        <Button
+          variant="ghost"
           onClick={() => router.back()}
-          className="group mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary transition-colors dark:text-gray-400 dark:hover:text-primary cursor-pointer"
+          className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground font-poppins"
         >
-          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Kembali ke Panduan
-        </button>
+          <ArrowLeft className="h-4 w-4" />
+          Kembali ke Panduan Tani
+        </Button>
       </div>
 
       {/* Main Container */}
-      <article className="mx-auto max-w-4xl px-4 mt-8">
-        
+      <article className="mx-auto max-w-4xl px-4 mt-6 font-poppins">
         {/* Video Player Box */}
         <div className="relative aspect-video w-full bg-black rounded-3xl border border-gray-150 dark:border-gray-800 shadow-lg overflow-hidden group mb-8">
           {isCloudinary ? (
@@ -164,20 +162,20 @@ export default function VideoDetail({ video }: VideoDetailProps) {
               className="h-full w-full border-0"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-white bg-gray-900">
-              <p className="font-medium text-gray-400">Video tidak ditemukan.</p>
+            <div className="flex h-full w-full items-center justify-center text-white bg-gray-900 font-poppins">
+              <p className="font-medium text-gray-400 font-poppins">Video tidak ditemukan.</p>
             </div>
           )}
         </div>
 
         {/* Video Details */}
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-3xl mx-auto space-y-6 font-poppins">
           {/* Category & Difficulty Badges */}
-          <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary dark:bg-primary/20">
+          <div className="flex flex-wrap gap-2 font-poppins">
+            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary font-poppins">
               {t("categoryLabel." + video.category?.toLowerCase())}
             </span>
-            <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-bold text-gray-700 dark:text-gray-300">
+            <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-bold text-gray-700 dark:text-gray-300 font-poppins">
               {t("difficultyLabel." + video.difficulty?.toLowerCase())}
             </span>
           </div>
@@ -188,7 +186,7 @@ export default function VideoDetail({ video }: VideoDetailProps) {
           </h1>
 
           {/* Meta Header */}
-          <div className="flex items-center gap-4 py-4 border-y border-gray-100 dark:border-gray-850">
+          <div className="flex items-center gap-4 py-4 border-y border-gray-100 dark:border-gray-850 font-poppins">
             <img
               src={
                 video.uploader.avatarUrl ||
@@ -197,34 +195,34 @@ export default function VideoDetail({ video }: VideoDetailProps) {
               alt={video.uploader.name}
               className="h-10 w-10 rounded-full object-cover ring-2 ring-gray-50 dark:ring-gray-850"
             />
-            <div className="flex flex-col flex-1 min-w-0">
-              <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+            <div className="flex flex-col flex-1 min-w-0 font-poppins">
+              <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5 font-poppins">
                 {video.uploader.name}
                 {video.uploader.role === "Petani Ahli" && (
                   <Award className="h-4 w-4 text-yellow-500 fill-current" />
                 )}
               </span>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5">
-                <span className="flex items-center gap-1">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5 font-poppins">
+                <span className="flex items-center gap-1 font-poppins">
                   <Clock className="h-3.5 w-3.5" />
                   {video.duration}
                 </span>
                 <span>•</span>
-                <span className="flex items-center gap-1 text-amber-700 dark:text-amber-400 font-medium">
-                  <Sparkles className="h-3.5 w-3.5 fill-current text-amber-500" />
+                <span className="flex items-center gap-1 text-amber-700 dark:text-amber-400 font-medium font-poppins">
+                  <Award className="h-3.5 w-3.5 text-amber-500" />
                   +{video.points} LP Reward
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Video Description */}
-          <div className="space-y-6 pt-4">
+          {/* Video Description (Poppins Paragraph) */}
+          <div className="space-y-6 pt-4 font-poppins">
             <div>
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">
+              <h3 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2 font-poppins">
                 Deskripsi Praktik
               </h3>
-              <p className="text-base leading-relaxed text-gray-800 dark:text-gray-250">
+              <p className="text-base leading-relaxed text-gray-800 dark:text-gray-250 font-poppins">
                 {video.content}
               </p>
             </div>
@@ -359,7 +357,7 @@ export default function VideoDetail({ video }: VideoDetailProps) {
                     strokeDashoffset={87.96 - (Math.min(watchedPercentage / 80, 1)) * 87.96}
                   />
                 </svg>
-                <Sparkles className="h-5 w-5 fill-current text-amber-500 animate-pulse z-10" />
+                <Award className="h-5 w-5 text-amber-500 animate-pulse z-10" />
               </button>
             )}
           </div>
