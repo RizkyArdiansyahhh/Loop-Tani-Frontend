@@ -14,7 +14,7 @@ export function MegaMenuItem({ href, label }: MegaMenuItemProps) {
       <NavigationMenuLink asChild>
         <Link
           href={href}
-          className="animation-link-background block w-fit py-1 text-sm font-medium transition-colors hover:text-primary"
+          className="animation-link-background block w-fit py-1 text-sm font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
         >
           {label}
         </Link>

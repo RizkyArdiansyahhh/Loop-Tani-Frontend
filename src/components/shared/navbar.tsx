@@ -5,23 +5,13 @@ import { useRef, useEffect, useState, type RefObject } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  Menu,
-  X,
-  CircleCheckIcon,
-  CircleHelpIcon,
-  CircleIcon,
-  ShoppingCart,
-  User,
-  ChevronDown,
-} from "lucide-react";
+import { Menu, X, ShoppingCart, User, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import { usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/features/cart/hooks/use-cart";
-// Sheet removed from navbar
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -78,7 +68,7 @@ function ListItem({
     <li {...props}>
       <NavigationMenuLink asChild>
         <Link href={href}>
-          <div className="text-sm leading-none font-medium">{title}</div>
+          <div className="text-sm leading-none font-medium text-gray-900 dark:text-white">{title}</div>
           <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
             {children}
           </p>
@@ -99,7 +89,10 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setProfileDropdownOpen(false);
       }
     }
@@ -111,11 +104,12 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
 
   return (
     <div className="relative mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
-      <Link
-        href="/"
-        className="shrink-0 text-xl font-bold tracking-tight text-gray-900"
-      >
-        <img src="/images/logo-putih.png" alt="logo" className="h-10" />
+      <Link href="/" className="shrink-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <img
+          src="/images/logo-putih.png"
+          alt="LoopTani Logo"
+          className="h-10"
+        />
       </Link>
 
       {/* Desktop nav — center */}
@@ -129,7 +123,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
                     ? "text-white hover:text-white/80 hover:bg-white/10 data-[state=open]:text-white/80"
-                    : "text-gray-900 hover:text-primary"
+                    : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
                 <Link href="/marketplace">
@@ -155,28 +149,24 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                           href="/marketplace/agricultural-waste"
                           label={t_navbar("marketplace.agriculturalWaste.all")}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/agricultural-waste/rice-straw"
                           label={t_navbar(
                             "marketplace.agriculturalWaste.riceStraw",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/agricultural-waste/rice-husk"
                           label={t_navbar(
                             "marketplace.agriculturalWaste.riceHusk",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/agricultural-waste/oil-palm-efb"
                           label={t_navbar(
                             "marketplace.agriculturalWaste.oilPalmEFB",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/agricultural-waste/manure"
                           label={t_navbar(
@@ -197,28 +187,24 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                           href="/marketplace/processed-products"
                           label={t_navbar("marketplace.processedProducts.all")}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/processed-products/compost"
                           label={t_navbar(
                             "marketplace.processedProducts.compost",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/processed-products/briquettes"
                           label={t_navbar(
                             "marketplace.processedProducts.biomassBriquettes",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/processed-products/liquid-fertilizer"
                           label={t_navbar(
                             "marketplace.processedProducts.liquidOrganicFertilizer",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/processed-products/silica-ash"
                           label={t_navbar(
@@ -241,35 +227,30 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                             "marketplace.secondhandEquipment.all",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/equipment/tractors"
                           label={t_navbar(
                             "marketplace.secondhandEquipment.tractors",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/equipment/planting-tools"
                           label={t_navbar(
                             "marketplace.secondhandEquipment.plantingTools",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/equipment/harvesting-tools"
                           label={t_navbar(
                             "marketplace.secondhandEquipment.harvestingTools",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/equipment/sprayers"
                           label={t_navbar(
                             "marketplace.secondhandEquipment.sprayers",
                           )}
                         />
-
                         <MegaMenuItem
                           href="/marketplace/equipment/irrigation"
                           label={t_navbar(
@@ -289,13 +270,13 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
                     ? "text-white hover:text-white/80 hover:bg-white/10 data-[state=open]:text-white/80"
-                    : "text-gray-900 hover:text-primary"
+                    : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
                 AI Agri-Consultant
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {components.map((component) => (
                     <ListItem
                       key={component.title}
@@ -317,7 +298,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
                     ? "text-white hover:text-white/80 hover:bg-white/10"
-                    : "text-gray-900 hover:text-primary"
+                    : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
                 <Link href="/panduan-tani">Panduan Tani</Link>
@@ -332,12 +313,13 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
                     ? "text-white hover:text-white/80 hover:bg-white/10"
-                    : "text-gray-900 hover:text-primary"
+                    : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
                 <Link href="/jejak-lestari">Jejak Lestari</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
@@ -346,7 +328,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
                     ? "text-white hover:text-white/80 hover:bg-white/10"
-                    : "text-gray-900 hover:text-primary"
+                    : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
                 <Link href="/docs">Tentang Kami</Link>
@@ -365,7 +347,9 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
             <div
               className={cn(
                 "h-6 w-px mx-1 transition-colors duration-300",
-                isTransparent ? "bg-white/25" : "bg-gray-200 dark:bg-gray-800"
+                isTransparent
+                  ? "bg-white/25"
+                  : "bg-gray-200 dark:bg-gray-800",
               )}
             />
             <div className="relative" ref={dropdownRef}>
@@ -443,7 +427,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                 "transition-colors duration-300",
                 isTransparent
                   ? "text-white hover:bg-white/10 hover:text-white"
-                  : ""
+                  : "text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800",
               )}
             >
               <Link href="/login">{t("login.button")}</Link>
@@ -453,7 +437,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
               asChild
               className={cn(
                 "bg-primary text-background px-6 py-4 font-semibold hover:bg-emerald-700 transition-colors duration-300",
-                isTransparent ? "text-white" : ""
+                isTransparent ? "text-white" : "",
               )}
             >
               <Link href="/register">{t("register.button")}</Link>
@@ -469,14 +453,16 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
         onClick={() => setMobileOpen((prev) => !prev)}
         className={cn(
           "shrink-0 lg:hidden transition-colors duration-300",
-          isTransparent ? "text-white hover:bg-white/10" : ""
+          isTransparent
+            ? "text-white hover:bg-white/10"
+            : "text-gray-900 dark:text-white",
         )}
         aria-label="Toggle menu"
       >
         {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </Button>
 
-      {/* Dropdown Modal style menu (not full screen height, slides down below navbar) */}
+      {/* Dropdown Modal style menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -553,7 +539,11 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                       {t("login.button")}
                     </Link>
                   </Button>
-                  <Button size="lg" asChild className="rounded-2xl h-11">
+                  <Button
+                    size="lg"
+                    asChild
+                    className="rounded-2xl h-11"
+                  >
                     <Link href="/register" onClick={() => setMobileOpen(false)}>
                       {t("register.button")}
                     </Link>
@@ -604,7 +594,7 @@ export default function Navbar() {
           "relative z-50 w-full transition-all duration-300",
           isTransparent
             ? "border-b border-transparent bg-transparent"
-            : "border-b border-gray-200 bg-white"
+            : "border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950",
         )}
       >
         <NavbarContent isTransparent={isTransparent} />
@@ -613,7 +603,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isSticky && (
           <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 bg-white shadow-sm"
+            className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 shadow-sm"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             exit={{ y: "-100%", opacity: 0 }}
@@ -638,7 +628,7 @@ function CartBadge({ isTransparent }: { isTransparent?: boolean }) {
         "relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-105",
         isTransparent
           ? "text-white hover:bg-white/10"
-          : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800",
       )}
     >
       <ShoppingCart className="h-5 w-5" />
