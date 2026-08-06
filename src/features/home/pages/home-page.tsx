@@ -33,10 +33,41 @@ import { FeaturedSolutionSection } from "../components/featured-solution-section
 import { FamousQuoteSection } from "../components/famous-quote-section";
 import { MovementImpactSection } from "../components/movement-impact-section";
 
+import { useProducts } from "@/features/marketplace/hooks/use-products";
+
+const getCategorySubtitle = (category?: string) => {
+  switch (category) {
+    case "agricultural-waste":
+      return "Koleksi Limbah Utama";
+    case "processed-product":
+      return "Formula Pupuk Organik";
+    case "secondhand":
+      return "Alat Tani Presisi";
+    default:
+      return "Produk Sirkular";
+  }
+};
+
+const formatProductPrice = (price: number, unit?: string) => {
+  const formatted = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(price);
+  return unit ? `${formatted} / ${unit}` : formatted;
+};
+
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState<
     "marketplace" | "ai" | "edukasi" | "lestari"
   >("marketplace");
+
+  // Fetch real dynamic products from backend API
+  const { data: productsData, isLoading: isProductsLoading } = useProducts({
+    params: { limit: 4 },
+  });
+
+  const backendProducts = productsData?.data ?? [];
 
   // Longines-style Ultra-Smooth Snap Scroll with requestAnimationFrame & easeOutQuart easing
   useEffect(() => {
@@ -386,10 +417,10 @@ const HomePage = () => {
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50">
           <div className="flex items-end justify-between mb-12">
             <div className="space-y-1 text-left">
-              <span className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest font-poppins">
+              <span className="text-xs font-bold text-primary uppercase tracking-widest font-poppins">
                 Standard Penjualan Terverifikasi
               </span>
-              <h2 className="font-fraunces text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+              <h2 className="font-poppins text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
                 Koleksi Unggulan LoopTani
               </h2>
             </div>
@@ -397,7 +428,7 @@ const HomePage = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full border-amber-500/30 h-10 w-10 hover:bg-secondary cursor-pointer"
+                className="rounded-full border-border h-10 w-10 hover:bg-secondary cursor-pointer"
                 aria-label="Previous"
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -405,7 +436,7 @@ const HomePage = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full border-amber-500/30 h-10 w-10 hover:bg-secondary cursor-pointer"
+                className="rounded-full border-border h-10 w-10 hover:bg-secondary cursor-pointer"
                 aria-label="Next"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -413,50 +444,88 @@ const HomePage = () => {
             </div>
           </div>
 
-          {/* Longines Style Luxury Product Cards */}
+          {/* Longines Style Dynamic Backend Product Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {luxuryCollections.map((prod) => (
-              <Link
-                key={prod.id}
-                href={prod.link}
-                className="group flex flex-col justify-between bg-card border border-amber-500/20 rounded-2xl overflow-hidden hover:border-amber-500/60 hover:shadow-2xl transition-all duration-500 text-left"
-              >
-                <div className="relative h-72 w-full overflow-hidden bg-muted/20">
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    className="h-full w-full object-cover group-hover:scale-108 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-md text-foreground font-bold text-[9px] uppercase px-3 py-1 rounded-full border border-amber-500/30 font-poppins tracking-wider">
-                    {prod.tag}
-                  </span>
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest font-poppins">
-                      {prod.subtitle}
-                    </p>
-                    <h3 className="font-fraunces text-lg font-bold text-foreground group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors line-clamp-1">
-                      {prod.name}
-                    </h3>
-                    <p className="text-[11px] text-muted-foreground">
-                      {prod.location}
-                    </p>
+            {isProductsLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="bg-card border border-border rounded-lg overflow-hidden h-96 animate-pulse"
+                  >
+                    <div className="h-72 bg-muted/40" />
+                    <div className="p-6 space-y-3">
+                      <div className="h-3 bg-muted rounded w-1/3" />
+                      <div className="h-4 bg-muted rounded w-3/4" />
+                      <div className="h-3 bg-muted rounded w-1/2" />
+                    </div>
                   </div>
+                ))
+              : (backendProducts.length > 0 ? backendProducts : luxuryCollections).map((prod: any) => {
+                  const isBackendItem = "title" in prod;
+                  const prodId = isBackendItem ? prod.id : prod.id;
+                  const name = isBackendItem ? prod.title : prod.name;
+                  const priceStr = isBackendItem
+                    ? formatProductPrice(prod.price, prod.unit)
+                    : prod.price;
+                  const locationStr = isBackendItem
+                    ? ([prod.city, prod.province].filter(Boolean).join(", ") || prod.location || "Indonesia")
+                    : prod.location;
+                  const tagStr = isBackendItem
+                    ? (prod.condition === "NEW" ? "Baru" : "Terverifikasi")
+                    : prod.tag;
+                  const subtitleStr = isBackendItem
+                    ? getCategorySubtitle(prod.category)
+                    : prod.subtitle;
+                  const imageSrc = isBackendItem
+                    ? (prod.images?.[0]?.imageUrl || prod.thumbnail || "/images/bento-farmer-tech.png")
+                    : prod.image;
+                  const linkHref = isBackendItem
+                    ? `/marketplace/${prod.id}`
+                    : prod.link;
 
-                  <div className="flex items-center justify-between pt-4 border-t border-amber-500/15">
-                    <span className="font-fraunces text-base font-bold text-foreground">
-                      {prod.price}
-                    </span>
-                    <span className="text-xs font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                      Beli <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                  return (
+                    <Link
+                      key={prodId}
+                      href={linkHref}
+                      className="group flex flex-col justify-between bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 hover:shadow-2xl transition-all duration-500 text-left font-poppins"
+                    >
+                      <div className="relative h-72 w-full overflow-hidden bg-muted/20">
+                        <img
+                          src={imageSrc}
+                          alt={name}
+                          className="h-full w-full object-cover group-hover:scale-108 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                        <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-md text-foreground font-bold text-[9px] uppercase px-3 py-1 rounded-full border border-border font-poppins tracking-wider">
+                          {tagStr}
+                        </span>
+                      </div>
+
+                      <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-poppins">
+                        <div className="space-y-1.5 font-poppins">
+                          <p className="text-[10px] font-bold text-primary uppercase tracking-widest font-poppins">
+                            {subtitleStr}
+                          </p>
+                          <h3 className="font-poppins text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                            {name}
+                          </h3>
+                          <p className="text-[11px] text-muted-foreground font-poppins">
+                            {locationStr}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-4 border-t border-border font-poppins">
+                          <span className="font-poppins text-base font-bold text-foreground">
+                            {priceStr}
+                          </span>
+                          <span className="text-xs font-bold text-primary font-poppins flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            Beli <ArrowRight className="h-3.5 w-3.5" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
           </div>
         </section>
 
