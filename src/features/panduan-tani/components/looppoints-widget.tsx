@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Sparkles, Award, ShoppingBag, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Award, ShoppingBag, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -82,7 +82,7 @@ export function LoopPointsWidget({ points, onRedeem }: LoopPointsWidgetProps) {
   };
 
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
+    <div className="grid gap-6 lg:grid-cols-3 font-poppins">
       {/* Wallet / Point Balance Highlight - Pulsing Glow */}
       <div className="relative overflow-hidden rounded-3xl bg-radial from-emerald-600 via-primary to-emerald-950 p-6 text-white shadow-xl dark:shadow-emerald-950/20 col-span-1 lg:col-span-1 flex flex-col justify-between min-h-[220px]">
         {/* Glow effect */}
@@ -91,24 +91,24 @@ export function LoopPointsWidget({ points, onRedeem }: LoopPointsWidgetProps) {
 
         <div className="relative z-10">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-emerald-100/90 tracking-wide uppercase">
+            <span className="text-sm font-medium font-poppins text-emerald-100/90 tracking-wide uppercase">
               {t("pointsBalance")}
             </span>
             <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-xs text-yellow-300">
-              <Sparkles className="h-5 w-5 fill-current animate-pulse" />
+              <Award className="h-5 w-5 animate-pulse" />
             </div>
           </div>
           
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-fraunces text-5xl font-bold tracking-tight text-white drop-shadow-xs">
+            <span className="font-poppins text-5xl font-bold tracking-tight text-white drop-shadow-xs">
               {animatedPoints}
             </span>
-            <span className="text-lg font-medium text-emerald-200">LP</span>
+            <span className="text-lg font-medium text-emerald-200 font-poppins">LP</span>
           </div>
         </div>
 
         {/* Tier status indicator */}
-        <div className="relative z-10 mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+        <div className="relative z-10 mt-6 pt-4 border-t border-white/10 flex items-center justify-between font-poppins">
           <div className="flex items-center gap-2">
             <div className={cn(
               "flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold ring-2 ring-white/20",
@@ -130,13 +130,13 @@ export function LoopPointsWidget({ points, onRedeem }: LoopPointsWidgetProps) {
       </div>
 
       {/* Tier Progress Card */}
-      <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs dark:border-gray-800 dark:bg-gray-900 col-span-1 lg:col-span-1 flex flex-col justify-between min-h-[220px]">
+      <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-xs dark:border-gray-800 dark:bg-gray-900 col-span-1 lg:col-span-1 flex flex-col justify-between min-h-[220px] font-poppins">
         <div>
           <div className="flex items-center gap-2.5 text-gray-900 dark:text-gray-100">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary dark:bg-primary/20">
               <Award className="h-5 w-5" />
             </div>
-            <h4 className="font-fraunces text-base font-bold">
+            <h4 className="font-poppins text-base font-bold">
               Progress & Target Reward
             </h4>
           </div>

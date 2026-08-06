@@ -3,15 +3,32 @@
 import { useTranslations } from "next-intl";
 import { CheckoutStore } from "../types/checkout.type";
 import { CheckoutItemCard } from "./checkout-item-card";
-import { formatCurrency } from "@/shared/utils/currency.util";
 import { Card, CardContent } from "@/components/ui/card";
+import { useCheckoutStore } from "../store/checkout.store";
+import { SelectedShippingOption } from "@/features/shipping/types/shipping.type";
+import { ShippingRadioGroup } from "@/features/shipping/components/shipping-radio-group";
 
 interface CheckoutStoreCardProps {
   store: CheckoutStore;
+  destinationId?: number;
 }
 
-export function CheckoutStoreCard({ store }: CheckoutStoreCardProps) {
+export function CheckoutStoreCard({
+  store,
+  destinationId = 54,
+}: CheckoutStoreCardProps) {
   const t = useTranslations("checkout");
+
+  const selectedShippingByStore = useCheckoutStore(
+    (s) => s.selectedShippingByStore
+  );
+  const setStoreShipping = useCheckoutStore((s) => s.setStoreShipping);
+
+  const selectedShipping = selectedShippingByStore[store.sellerId] || null;
+
+  const handleSelectShipping = (option: SelectedShippingOption) => {
+    setStoreShipping(store.sellerId, option);
+  };
 
   return (
     <Card className="border border-border/60 rounded-2xl overflow-hidden shadow-xs bg-card font-sans">
@@ -35,17 +52,13 @@ export function CheckoutStoreCard({ store }: CheckoutStoreCardProps) {
           ))}
         </div>
 
-        {/* Courier & Store Subtotal Block */}
-        <div className="bg-secondary/15 rounded-xl p-3.5 border border-border/50 space-y-1.5 text-xs">
-          <div className="flex items-center justify-between font-semibold text-foreground">
-            <span>{t("shipping.courierLabel")}</span>
-            <span className="text-primary font-bold">
-              {formatCurrency(0)}
-            </span>
-          </div>
-          <p className="text-[11px] text-muted-foreground leading-snug">
-            {t("shipping.standardShipping")} — {t("shipping.placeholderInfo")}
-          </p>
+        {/* Inline Standard Radio Shipping Options */}
+        <div className="pt-2 border-t border-border/40">
+          <ShippingRadioGroup
+            destinationId={destinationId}
+            selectedOption={selectedShipping}
+            onSelectOption={handleSelectShipping}
+          />
         </div>
       </CardContent>
     </Card>

@@ -1,5 +1,12 @@
 {
   "product": {
+    "categories": {
+      "all": "Semua",
+      "agricultural-waste": "Limbah Pertanian",
+      "processed-product": "Produk Olahan",
+      "secondhand": "Alat Secondhand",
+      "favorites": "Favorit Saya"
+    },
     "detail": {
       "loading": "Memuat rincian produk...",
       "loadError": "Gagal memuat produk",

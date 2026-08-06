@@ -1,0 +1,31 @@
+{
+  "footer": {
+    "brandDescription": "An integrated circular digital marketplace empowering farmers, organic processing industries, and tracking environmental emissions in real-time.",
+    "newsletterTitle": "Subscribe to Circular Agri Newsletter",
+    "newsletterDesc": "Get weekly updates on agricultural waste market trends, selling prices, and green farming tips.",
+    "emailPlaceholder": "Your email address...",
+    "subscribeBtn": "Subscribe",
+    "subscribedBtn": "Subscribed!",
+    "ecosystemTitle": "LoopTani Ecosystem",
+    "ecosystemDesc": "Building the future of sustainable agriculture from Riau for Indonesia. Transforming coffee grounds, straw, and husk into sustainable commodities.",
+    "marketplaceTitle": "Circular Marketplace",
+    "allProducts": "All Products",
+    "agriculturalWaste": "Agricultural Waste",
+    "processedProduct": "Processed Product",
+    "secondhand": "Secondhand Equipment",
+    "helpTitle": "Help & Guidance",
+    "aboutUs": "About Us",
+    "faqHelp": "FAQ & Help Center",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "contactTitle": "Contact LoopTani",
+    "phoneLabel": "Phone",
+    "emailLabel": "Official Email",
+    "addressLabel": "Office Address",
+    "officeAddress": "Pekanbaru, Riau, Indonesia",
+    "madeWith": "Made with",
+    "forSustainableAgri": "for Sustainable Agriculture.",
+    "privacy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
+  }
+}

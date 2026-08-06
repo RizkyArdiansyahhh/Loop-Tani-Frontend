@@ -5,6 +5,7 @@ import {
   CartCheckoutPayload,
   CheckoutResponse,
 } from "../types/checkout.type";
+import type { SelectedShippingOption } from "@/features/shipping/types/shipping.type";
 
 export type CheckoutType = "BUY_NOW" | "CART" | null;
 
@@ -15,6 +16,8 @@ interface CheckoutState {
   selectedAddressId: string | null;
   checkoutResponse: CheckoutResponse | null;
 
+  selectedShippingByStore: Record<string, SelectedShippingOption>;
+  setStoreShipping: (sellerId: string, shipping: SelectedShippingOption) => void;
   setBuyNowCheckout: (payload: BuyNowCheckoutPayload) => void;
   setCartCheckout: (payload: CartCheckoutPayload) => void;
   setSelectedAddressId: (addressId: string) => void;
@@ -30,6 +33,15 @@ export const useCheckoutStore = create<CheckoutState>()(
       cartPayload: null,
       selectedAddressId: null,
       checkoutResponse: null,
+      selectedShippingByStore: {},
+
+      setStoreShipping: (sellerId, shipping) =>
+        set((state) => ({
+          selectedShippingByStore: {
+            ...state.selectedShippingByStore,
+            [sellerId]: shipping,
+          },
+        })),
 
       setBuyNowCheckout: (payload) =>
         set({
@@ -64,6 +76,7 @@ export const useCheckoutStore = create<CheckoutState>()(
           cartPayload: null,
           selectedAddressId: null,
           checkoutResponse: null,
+          selectedShippingByStore: {},
         }),
     }),
     {

@@ -1,7 +1,8 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { Hammer, Leaf, Wheat, Tag } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { getCategoryKey } from "@/constants/category-map";
+import { LiquidGlassCard } from "@/components/ui/liquid-glass";
 import clsx from "clsx";
 
 interface BadgeProductProps {
@@ -9,49 +10,30 @@ interface BadgeProductProps {
   className?: string;
 }
 
-const badgeConfig: Record<string, { label: string; icon: React.ElementType; className: string }> = {
-  "Limbah Pertanian": {
-    label: "Limbah Pertanian",
-    icon: Wheat,
-    className:
-      "bg-white/95 text-amber-700 border-amber-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-amber-500 dark:border-amber-900/50",
-  },
-  "Produk Olahan": {
-    label: "Produk Olahan",
-    icon: Leaf,
-    className:
-      "bg-white/95 text-green-700 border-green-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-green-500 dark:border-green-900/50",
-  },
-  "Alat Secondhand": {
-    label: "Alat Secondhand",
-    icon: Hammer,
-    className:
-      "bg-white/95 text-blue-700 border-blue-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-blue-500 dark:border-blue-900/50",
-  },
-};
-
 const BadgeProduct = ({ category, className }: BadgeProductProps) => {
-  const config = badgeConfig[category] || {
-    label: category,
-    icon: Tag,
-    className:
-      "bg-white/95 text-gray-700 border-gray-300 shadow-md hover:bg-white dark:bg-black/90 dark:text-gray-500 dark:border-gray-800",
-  };
-  
-  const Icon = config.icon;
+  const t = useTranslations("product.categories");
+  const categoryKey = getCategoryKey(category);
+  const label = categoryKey ? t(categoryKey) : category;
 
   return (
-    <Badge
-      variant="outline"
-      className={clsx(
-        "absolute left-3 top-3 z-30 flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-md transition-colors duration-300",
-        config.className,
-        className,
-      )}
-    >
-      <Icon className="h-3.5 w-3.5" />
-      {config.label}
-    </Badge>
+    <div className="absolute left-3 top-3 z-30">
+      <LiquidGlassCard
+        draggable={false}
+        expandable={false}
+        blurIntensity="lg"
+        shadowIntensity="sm"
+        glowIntensity="xs"
+        borderRadius="9999px"
+        className={clsx(
+          "inline-flex items-center justify-center px-3.5 py-1 text-xs font-bold tracking-wide text-foreground bg-white/40 dark:bg-black/40 border border-white/40 dark:border-white/20 select-none shadow-sm",
+          className
+        )}
+      >
+        <span className="relative z-30 text-gray-900 dark:text-white">
+          {label}
+        </span>
+      </LiquidGlassCard>
+    </div>
   );
 };
 

@@ -593,7 +593,7 @@ export default function Navbar() {
   const floatingRef = useRef<HTMLElement>(null);
   const isSticky = useNavbarObserver(floatingRef);
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname === "/id" || pathname === "/en";
   const isTransparent = isHome && !isSticky;
 
   return (

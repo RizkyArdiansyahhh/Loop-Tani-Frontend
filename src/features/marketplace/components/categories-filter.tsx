@@ -1,6 +1,6 @@
 "use client";
 
-import { useCategories } from "../hooks/use-categories";
+import { useTranslations } from "next-intl";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
@@ -25,13 +25,7 @@ export default function CategoryFilter({
   value,
   onValueChange,
 }: CategoryFilterProps) {
-  const { data: categories, isLoading } = useCategories();
-
-  // Find counts for each category
-  const getCount = (slug: string) => {
-    const cat = categories?.find((c) => c.slug === slug);
-    return cat?._count?.products ?? 0;
-  };
+  const t = useTranslations("product.categories");
 
   return (
     <RadioGroup
@@ -39,10 +33,10 @@ export default function CategoryFilter({
       onValueChange={onValueChange}
       className="flex flex-nowrap lg:flex-wrap items-center gap-3"
     >
-      {/* 1. All (Semua) */}
+      {/* 1. All */}
       <label htmlFor="cat-all" className="flex">
         <RadioGroupItem id="cat-all" value="all" className="peer sr-only" />
-        <div className={chipClass}>Semua</div>
+        <div className={chipClass}>{t("all")}</div>
       </label>
 
       {/* 2. Agricultural Waste */}
@@ -52,14 +46,7 @@ export default function CategoryFilter({
           value="agricultural-waste"
           className="peer sr-only"
         />
-        <div className={chipClass}>
-          Limbah Pertanian
-          {!isLoading && (
-            <span className="text-xs opacity-75 font-normal">
-              ({getCount("agricultural-waste")})
-            </span>
-          )}
-        </div>
+        <div className={chipClass}>{t("agricultural-waste")}</div>
       </label>
 
       {/* 3. Processed Product */}
@@ -69,14 +56,7 @@ export default function CategoryFilter({
           value="processed-product"
           className="peer sr-only"
         />
-        <div className={chipClass}>
-          Produk Olahan
-          {!isLoading && (
-            <span className="text-xs opacity-75 font-normal">
-              ({getCount("processed-product")})
-            </span>
-          )}
-        </div>
+        <div className={chipClass}>{t("processed-product")}</div>
       </label>
 
       {/* 4. Secondhand */}
@@ -86,14 +66,7 @@ export default function CategoryFilter({
           value="secondhand"
           className="peer sr-only"
         />
-        <div className={chipClass}>
-          Alat Secondhand
-          {!isLoading && (
-            <span className="text-xs opacity-75 font-normal">
-              ({getCount("secondhand")})
-            </span>
-          )}
-        </div>
+        <div className={chipClass}>{t("secondhand")}</div>
       </label>
 
       {/* Divider */}
@@ -113,7 +86,7 @@ export default function CategoryFilter({
           )}
         >
           <Heart className="h-4 w-4 shrink-0 fill-current" />
-          Favorit Saya
+          {t("favorites")}
         </div>
       </label>
     </RadioGroup>

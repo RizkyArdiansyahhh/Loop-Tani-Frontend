@@ -1,8 +1,6 @@
-"use client";
-
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Plus, BookOpen, Video, Search, SlidersHorizontal, Sparkles } from "lucide-react";
+import { Plus, BookOpen, Video, Search, SlidersHorizontal, Award, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoopPointsWidget } from "./looppoints-widget";
@@ -118,22 +116,22 @@ export default function PanduanTani() {
             <div className="rounded-3xl border border-emerald-100 bg-emerald-50/40 p-6 sm:p-10 shadow-xs dark:border-emerald-950/20 dark:bg-emerald-950/10 flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="flex flex-col md:flex-row gap-6 items-start text-left">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
-                  <Sparkles className="h-7 w-7 fill-current animate-pulse" />
+                  <Award className="h-7 w-7 animate-pulse" />
                 </div>
                 <div>
-                  <span className="text-3xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest leading-none">
+                  <span className="text-3xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest leading-none font-poppins">
                     Mode Belajar Tamu
                   </span>
-                  <h3 className="font-fraunces text-2xl font-bold text-gray-900 dark:text-white mt-1 mb-2">
+                  <h3 className="font-poppins text-2xl font-bold text-gray-900 dark:text-white mt-1 mb-2">
                     {t("guestCTA.title")}
                   </h3>
-                  <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+                  <p className="text-sm text-muted-foreground max-w-2xl leading-relaxed font-poppins">
                     {t("guestCTA.description")}
                   </p>
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-3.5 w-full md:w-auto shrink-0">
+              <div className="flex flex-col sm:flex-row gap-3.5 w-full md:w-auto shrink-0 font-poppins">
                 <Link href="/login" className="w-full sm:w-auto">
                   <Button className="w-full sm:w-auto rounded-2xl bg-primary hover:bg-emerald-700 text-white font-bold px-6 py-5.5 shadow-md flex items-center justify-center gap-2 text-sm">
                     {t("guestCTA.loginButton")}
@@ -287,9 +285,9 @@ export default function PanduanTani() {
               
               {/* Popular Articles Widget (Medium-style Recommendation) */}
               {contents.length > 0 && (
-                <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-6 rounded-3xl space-y-4 shadow-2xs">
-                  <h4 className="font-fraunces text-base font-bold text-gray-900 dark:text-white flex items-center gap-1.5 border-b border-gray-50 dark:border-gray-855 pb-3">
-                    <Sparkles className="h-4.5 w-4.5 text-amber-500 fill-current" />
+                <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-6 rounded-3xl space-y-4 shadow-2xs font-poppins">
+                  <h4 className="font-poppins text-base font-bold text-gray-900 dark:text-white flex items-center gap-1.5 border-b border-gray-50 dark:border-gray-855 pb-3">
+                    <Award className="h-4.5 w-4.5 text-amber-500" />
                     Panduan Terpopuler
                   </h4>
                   <div className="space-y-4 divide-y divide-gray-50 dark:divide-gray-850">
@@ -304,7 +302,7 @@ export default function PanduanTani() {
                           <span>•</span>
                           <span className="text-amber-700 dark:text-amber-400">+{item.points} LP</span>
                         </div>
-                        <h5 className="font-fraunces text-xs md:text-sm font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                        <h5 className="font-poppins text-xs md:text-sm font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
                           {item.title}
                         </h5>
                       </Link>

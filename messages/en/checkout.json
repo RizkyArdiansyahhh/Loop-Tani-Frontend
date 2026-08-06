@@ -21,9 +21,17 @@
     },
     "shipping": {
       "title": "Shipping Option",
+      "selectTitle": "Select Shipping Option",
       "courierLabel": "Shipping Courier",
       "standardShipping": "Standard Shipping (Rp0)",
-      "placeholderInfo": "Courier options will be calculated automatically upon logistics integration."
+      "placeholderInfo": "Courier options will be calculated automatically upon logistics integration.",
+      "loadErrorTitle": "Failed to load shipping options",
+      "loadErrorDesc": "Please retry to load available shipping rates.",
+      "retryBtn": "Try Again",
+      "recommendedBadge": "Recommended",
+      "cheapestBadge": "Cheapest",
+      "etdDays": "{etd} days",
+      "estimationPrefix": "Est."
     },
     "summary": {
       "title": "Shopping Summary",

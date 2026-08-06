@@ -1,5 +1,12 @@
 {
   "product": {
+    "categories": {
+      "all": "All",
+      "agricultural-waste": "Agricultural Waste",
+      "processed-product": "Processed Products",
+      "secondhand": "Secondhand Tools",
+      "favorites": "My Favorites"
+    },
     "detail": {
       "loading": "Loading product details...",
       "loadError": "Failed to load product",

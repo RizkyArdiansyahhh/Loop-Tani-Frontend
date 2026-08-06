@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +32,6 @@ import {
   RotateCcw,
   Star,
   SlidersHorizontal,
-  Tags,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
@@ -41,6 +41,7 @@ const PROVINCES = [
   "Jawa Tengah",
   "Jawa Timur",
   "DKI Jakarta",
+  "Banten",
   "DI Yogyakarta",
   "Sumatera Utara",
   "Riau",
@@ -49,6 +50,7 @@ const PROVINCES = [
 const RATINGS = [5, 4.5, 4];
 
 function FilterContent({ onApply }: { onApply?: () => void }) {
+  const tCat = useTranslations("product.categories");
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -79,7 +81,7 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("minPrice", val[0].toString());
     params.set("maxPrice", val[1].toString());
-    params.set("page", "1");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`);
     if (onApply) onApply();
   };
@@ -91,7 +93,7 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
     } else {
       params.set("category", val);
     }
-    params.set("page", "1");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`);
     if (onApply) onApply();
   };
@@ -103,7 +105,7 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
     } else {
       params.set("province", val);
     }
-    params.set("page", "1");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`);
     if (onApply) onApply();
   };
@@ -115,7 +117,7 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
     } else {
       params.set("minSellerRating", val);
     }
-    params.set("page", "1");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`);
     if (onApply) onApply();
   };
@@ -146,25 +148,25 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="all" id="side-all" />
                   <label htmlFor="side-all" className="text-sm cursor-pointer font-medium">
-                    Semua Kategori
+                    {tCat("all")}
                   </label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="agricultural-waste" id="side-agricultural-waste" />
                   <label htmlFor="side-agricultural-waste" className="text-sm cursor-pointer font-medium">
-                    Limbah Pertanian
+                    {tCat("agricultural-waste")}
                   </label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="processed-product" id="side-processed-product" />
                   <label htmlFor="side-processed-product" className="text-sm cursor-pointer font-medium">
-                    Produk Olahan
+                    {tCat("processed-product")}
                   </label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="secondhand" id="side-secondhand" />
                   <label htmlFor="side-secondhand" className="text-sm cursor-pointer font-medium">
-                    Alat Secondhand
+                    {tCat("secondhand")}
                   </label>
                 </div>
               </RadioGroup>

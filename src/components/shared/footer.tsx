@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Separator } from "@/components/ui/separator";
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { PiTiktokLogo } from "react-icons/pi";
@@ -9,6 +10,7 @@ import { Mail, MapPin, Phone, ArrowRight, Send, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
+  const t = useTranslations("footer");
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -22,7 +24,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative mt-28 border-t border-emerald-100 bg-gradient-to-b from-white via-emerald-50/10 to-emerald-50/20 dark:from-slate-950 dark:via-slate-950/90 dark:to-emerald-950/10 overflow-hidden transition-colors duration-300">
+    <footer className="relative  border-t border-slate-100 bg-gradient-to-b from-white via-emerald-50/10 to-emerald-50/20 dark:from-slate-950 dark:via-slate-950/90 dark:to-emerald-950/10 overflow-hidden transition-colors duration-300 font-sans">
       {/* ── Background Glow & Patterns ── */}
       <div className="absolute inset-0 bg-[radial-gradient(#10b981_0.75px,transparent_0.75px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-emerald-400/5 dark:bg-emerald-500/3 blur-3xl pointer-events-none" />
@@ -40,28 +42,25 @@ export function Footer() {
               />
             </Link>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
-              Marketplace digital sirkular terpadu yang memberdayakan petani,
-              industri pengolahan organik, dan melacak emisi lingkungan secara
-              real-time.
+              {t("brandDescription")}
             </p>
           </div>
 
           <div className="lg:col-span-7 text-left lg:text-right space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              Berlangganan Buletin Sirkular Tani
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider font-poppins">
+              {t("newsletterTitle")}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Dapatkan update mingguan tren pasar limbah pertanian, harga jual,
-              dan kiat budidaya hijau.
+              {t("newsletterDesc")}
             </p>
 
             <form
               onSubmit={handleSubscribe}
-              className="flex max-w-md ml-auto mr-0 rounded-xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-800 p-1.5 shadow-sm focus-within:ring-2 focus-within:ring-primary/45 transition-all duration-300"
+              className="flex max-w-md ml-auto mr-0 rounded-xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-800 p-1.5 shadow-xs focus-within:ring-2 focus-within:ring-primary/45 transition-all duration-300"
             >
               <input
                 type="email"
-                placeholder="Alamat email Anda..."
+                placeholder={t("emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -73,10 +72,10 @@ export function Footer() {
                 className="bg-primary hover:bg-emerald-700 text-white rounded-lg h-9 px-4 font-bold text-xs shadow-xs"
               >
                 {subscribed ? (
-                  "Berhasil!"
+                  t("subscribedBtn")
                 ) : (
                   <>
-                    Subscribe
+                    {t("subscribeBtn")}
                     <Send className="ml-1.5 h-3.5 w-3.5" />
                   </>
                 )}
@@ -90,13 +89,11 @@ export function Footer() {
           {/* Brand Info & Social Media */}
           <div className="space-y-6">
             <div>
-              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4">
-                LoopTani Ecosystem
+              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+                {t("ecosystemTitle")}
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                Membangun masa depan agrikultur lestari dari Riau untuk
-                Indonesia. Mengubah ampas kopi, jerami, dan sekam menjadi
-                komoditas berkelanjutan.
+                {t("ecosystemDesc")}
               </p>
             </div>
 
@@ -126,23 +123,23 @@ export function Footer() {
 
           {/* Column 2: Marketplace Navigation */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4">
-              Marketplace Sirkular
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+              {t("marketplaceTitle")}
             </h4>
             <ul className="space-y-2.5 text-xs">
               {[
-                { href: "/marketplace", label: "Semua Produk" },
+                { href: "/marketplace", label: t("allProducts") },
                 {
                   href: "/marketplace?category=agricultural-waste",
-                  label: "Limbah Pertanian",
+                  label: t("agriculturalWaste"),
                 },
                 {
                   href: "/marketplace?category=processed-product",
-                  label: "Produk Olahan",
+                  label: t("processedProduct"),
                 },
                 {
                   href: "/marketplace?category=secondhand",
-                  label: "Alat Secondhand",
+                  label: t("secondhand"),
                 },
               ].map((link, i) => (
                 <li key={i}>
@@ -160,15 +157,15 @@ export function Footer() {
 
           {/* Column 3: Help & Terms */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4">
-              Bantuan & Panduan
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+              {t("helpTitle")}
             </h4>
             <ul className="space-y-2.5 text-xs">
               {[
-                { href: "/about", label: "Tentang Kami" },
-                { href: "#", label: "FAQ & Pusat Bantuan" },
-                { href: "#", label: "Kebijakan Privasi" },
-                { href: "#", label: "Syarat & Ketentuan" },
+                { href: "/about", label: t("aboutUs") },
+                { href: "#", label: t("faqHelp") },
+                { href: "#", label: t("privacyPolicy") },
+                { href: "#", label: t("terms") },
               ].map((link, i) => (
                 <li key={i}>
                   <Link
@@ -185,8 +182,8 @@ export function Footer() {
 
           {/* Column 4: Contact Details */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4">
-              Hubungi LoopTani
+            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+              {t("contactTitle")}
             </h4>
             <div className="space-y-4 text-xs">
               <div className="flex items-start gap-3">
@@ -195,7 +192,7 @@ export function Footer() {
                 </span>
                 <div>
                   <p className="font-semibold text-slate-700 dark:text-slate-200">
-                    Telepon
+                    {t("phoneLabel")}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400">
                     +62 812-3456-7890
@@ -209,7 +206,7 @@ export function Footer() {
                 </span>
                 <div>
                   <p className="font-semibold text-slate-700 dark:text-slate-200">
-                    Email Resmi
+                    {t("emailLabel")}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400">
                     hello@looptani.id
@@ -223,10 +220,10 @@ export function Footer() {
                 </span>
                 <div>
                   <p className="font-semibold text-slate-700 dark:text-slate-200">
-                    Alamat Kantor
+                    {t("addressLabel")}
                   </p>
                   <p className="text-slate-500 dark:text-slate-400">
-                    Pekanbaru, Riau, Indonesia
+                    {t("officeAddress")}
                   </p>
                 </div>
               </div>
@@ -240,21 +237,21 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 md:flex-row">
           <p className="flex items-center gap-1">
             <span>© {new Date().getFullYear()}</span>
-            <strong className="text-slate-700 dark:text-slate-200">
+            <strong className="text-slate-700 dark:text-slate-200 font-poppins">
               LoopTani
             </strong>
-            .<span>Made with</span>
+            .<span>{t("madeWith")}</span>
             <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500 animate-pulse shrink-0" />
-            <span>for Sustainable Agriculture.</span>
+            <span>{t("forSustainableAgri")}</span>
           </p>
 
           <div className="flex gap-4 sm:gap-6 font-medium">
             <Link href="#" className="hover:text-primary transition-colors">
-              Kebijakan Privasi
+              {t("privacy")}
             </Link>
             <span className="text-slate-300 dark:text-slate-700">•</span>
             <Link href="#" className="hover:text-primary transition-colors">
-              Syarat Penggunaan
+              {t("termsOfUse")}
             </Link>
           </div>
         </div>

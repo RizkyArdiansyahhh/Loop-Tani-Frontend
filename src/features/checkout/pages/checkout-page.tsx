@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, Link } from "@/i18n/navigation";
 import { useCheckoutStore } from "../store/checkout.store";
@@ -38,6 +38,7 @@ export function CheckoutPage() {
     cartPayload,
     selectedAddressId,
     checkoutResponse,
+    selectedShippingByStore,
     setSelectedAddressId,
     clearCheckout,
   } = useCheckoutStore();
@@ -164,6 +165,27 @@ export function CheckoutPage() {
     total: 0,
   };
 
+  const totalShippingCost = useMemo(() => {
+    return Object.values(selectedShippingByStore).reduce(
+      (sum, item) => sum + (item?.cost || 0),
+      0
+    );
+  }, [selectedShippingByStore]);
+
+  const computedPricing = useMemo(() => {
+    const subtotal = pricing.subtotal;
+    const shippingCost = totalShippingCost;
+    const serviceFee = pricing.serviceFee || 0;
+    const discount = pricing.discount || 0;
+    const total = Math.max(0, subtotal + shippingCost + serviceFee - discount);
+
+    return {
+      ...pricing,
+      shippingCost,
+      total,
+    };
+  }, [pricing, totalShippingCost]);
+
   return (
     <div className="min-h-screen bg-muted/30 dark:bg-gray-950 font-sans pb-28 md:pb-16">
       {/* Clean Top Header Bar */}
@@ -208,7 +230,7 @@ export function CheckoutPage() {
           {/* Right Column: Order Summary (Sticky Desktop) */}
           <div className="lg:col-span-1 lg:sticky lg:top-20">
             <CheckoutSummary
-              pricing={pricing}
+              pricing={computedPricing}
               hasAddress={Boolean(address)}
               onPlaceOrder={handlePlaceOrder}
               isLoading={isLoading}
@@ -220,7 +242,7 @@ export function CheckoutPage() {
 
       {/* Mobile Sticky Bottom Footer */}
       <CheckoutFooter
-        total={pricing.total}
+        total={computedPricing.total}
         hasAddress={Boolean(address)}
         onPlaceOrder={handlePlaceOrder}
         isLoading={isLoading}

@@ -4,9 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { CldVideoPlayer } from "next-cloudinary";
+import "next-cloudinary/dist/cld-video-player.css";
 
 const TICK = 50;
 
@@ -22,7 +26,7 @@ interface SlideStaticData {
 const SLIDES: SlideStaticData[] = [
   {
     type: "video",
-    src: "https://res.cloudinary.com/dy9gtwsh7/video/upload/v1783266018/5104194-uhd_3840_2160_30fps_oa3dpo.mp4",
+    src: "https://res.cloudinary.com/dy9gtwsh7/video/upload/q_auto,f_auto/v1783266018/5104194-uhd_3840_2160_30fps_oa3dpo.mp4",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -56,12 +60,15 @@ export const CarouselHomePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
 
+  // Parallax Scroll Effect for Carousel Text (Moves text downward on scroll)
+  const { scrollY } = useScroll();
+  const textY = useTransform(scrollY, [0, 600], [0, 180]);
+  const textOpacity = useTransform(scrollY, [0, 450], [1, 0]);
+
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentSlideData = SLIDES[activeIndex];
-  const duration = currentSlideData.duration;
 
-  // Resolve translated texts dynamically
   const currentSlide = {
     ...currentSlideData,
     eyebrow: t(`${currentSlideData.key}.eyebrow`),
@@ -75,54 +82,74 @@ export const CarouselHomePage = () => {
 
   useEffect(() => {
     setProgress(0);
+    if (timeoutRef.current) clearInterval(timeoutRef.current);
 
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => Math.min(prev + (TICK / duration) * 100, 100));
-    }, TICK);
+    const intervalTime = TICK;
+    const totalSteps = currentSlideData.duration / intervalTime;
+    let stepCount = 0;
 
-    timeoutRef.current = setTimeout(() => {
-      setActiveIndex((prev) => (prev + 1) % SLIDES.length);
-    }, duration);
+    timeoutRef.current = setInterval(() => {
+      stepCount++;
+      const currentProgress = (stepCount / totalSteps) * 100;
+
+      if (currentProgress >= 100) {
+        setProgress(100);
+        clearInterval(timeoutRef.current!);
+        setActiveIndex((prev) => (prev + 1) % SLIDES.length);
+      } else {
+        setProgress(currentProgress);
+      }
+    }, intervalTime);
 
     return () => {
-      clearInterval(progressInterval);
-
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      if (timeoutRef.current) clearInterval(timeoutRef.current);
     };
-  }, [activeIndex, duration]);
+  }, [activeIndex, currentSlideData.duration]);
+
+  const handlePrevSlide = () => {
+    setActiveIndex((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1));
+  };
+
+  const handleNextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % SLIDES.length);
+  };
+
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: window.innerHeight - 20,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <section className="relative h-full w-full overflow-hidden bg-black">
+    <section className="relative h-full w-full overflow-hidden bg-black text-white">
+      {/* Background Media */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -10 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
           className="absolute inset-0 h-full w-full"
         >
-          {/* Main Media (Video or Image) */}
-          {currentSlide.type === "image" ? (
-            <Image
-              src={currentSlide.src}
-              alt="hero-banner"
-              fill
-              className="object-cover"
-              priority
-            />
-          ) : (
+          {currentSlide.type === "video" ? (
             <video
               src={currentSlide.src}
               autoPlay
               muted
+              loop
               playsInline
               className="h-full w-full object-cover"
-              onEnded={() =>
-                setActiveIndex((prev) => (prev + 1) % SLIDES.length)
-              }
+            />
+          ) : (
+            <Image
+              src={currentSlide.src}
+              alt={currentSlide.title}
+              fill
+              priority={activeIndex === 0}
+              className="object-cover"
+              sizes="100vw"
             />
           )}
 
@@ -132,7 +159,10 @@ export const CarouselHomePage = () => {
           {/* Interactive Text Overlay Content */}
           <div className="absolute inset-0 flex items-center">
             <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
-              <div className="max-w-2xl space-y-4 md:space-y-6">
+              <motion.div
+                style={{ y: textY, opacity: textOpacity }}
+                className="max-w-2xl space-y-4 md:space-y-6"
+              >
                 {/* Eyebrow */}
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
@@ -194,16 +224,52 @@ export const CarouselHomePage = () => {
                     </Button>
                   )}
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Progress Dots Nav */}
-      <div className="absolute bottom-10 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+      {/* ── SCROLL DOWN VERTICAL LINE ANIMATION (EXACT BOTTOM FLUSH) ── */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+        <button
+          onClick={handleScrollDown}
+          className="group flex flex-col items-center gap-1 text-white/80 hover:text-white transition-colors cursor-pointer"
+          aria-label="Scroll Down"
+        >
+          {/* English Uppercase Text Above Line */}
+          <span className="text-[9px] font-bold uppercase tracking-[0.3em] font-poppins text-white/80 group-hover:text-white transition-colors">
+            {t("scrollDown", { defaultValue: "SCROLL DOWN" })}
+          </span>
+
+          {/* Vertical Line: Continuous Circular Fill-Down & Drain-Down Loop */}
+          <div className="w-0.5 h-12 bg-white/20 relative overflow-hidden rounded-t-full">
+            <motion.div
+              animate={{
+                top: ["0%", "0%", "100%", "0%"],
+                bottom: ["100%", "0%", "0%", "100%"],
+              }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.45, 0.9, 1],
+              }}
+              className="absolute left-0 w-full bg-white shadow-[0_0_8px_rgba(255,255,255,1)]"
+            />
+          </div>
+        </button>
+      </div>
+
+      {/* ── ORIGINAL CIRCULAR SVG PROGRESS DOTS AT RIGHT CENTER ── */}
+      <div className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-3">
         {SLIDES.map((_, index) => (
-          <button key={index} onClick={() => setActiveIndex(index)}>
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className="cursor-pointer p-1"
+            aria-label={`Slide ${index + 1}`}
+          >
             <DotProgress
               active={index === activeIndex}
               progress={index === activeIndex ? progress : 0}

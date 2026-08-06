@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Accessibility, Type, Eye, Check, X, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { usePathname } from "@/i18n/navigation";
 
 type TextZoom = "sm" | "md" | "lg";
 
@@ -20,10 +21,28 @@ const DEFAULT_SETTINGS: AccessibilitySettings = {
   grayscale: false,
 };
 
+const HIDDEN_ROUTES = [
+  "/loopi",
+  "/checkout",
+  "/admin",
+  "/login",
+  "/register",
+  "/seller",
+];
+
 export default function AccessibilityWidget() {
+  const pathname = usePathname();
+  const normalizedPathname = pathname.replace(/^\/(id|en)(\/|$)/, "$2") || "/";
+
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState<AccessibilitySettings>(DEFAULT_SETTINGS);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const isHidden = HIDDEN_ROUTES.some(
+    (route) =>
+      normalizedPathname === route ||
+      normalizedPathname.startsWith(`${route}/`),
+  );
 
   // Load settings from localStorage and apply them to HTML root on mount
   useEffect(() => {
@@ -48,6 +67,8 @@ export default function AccessibilityWidget() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  if (isHidden) return null;
 
   // Update localStorage and classes on change
   const updateSetting = <K extends keyof AccessibilitySettings>(
