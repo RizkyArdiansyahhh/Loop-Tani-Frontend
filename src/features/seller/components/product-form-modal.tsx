@@ -172,9 +172,9 @@ export function ProductFormModal({ open, onOpenChange, product }: ProductFormMod
 
     const payload = {
       ...values,
+      status: (values.status || "ACTIVE") as ProductStatus,
       category: values.category as ProductCategory,
       condition: values.condition as ProductCondition,
-      status: values.status as ProductStatus,
       images,
     };
 
@@ -461,13 +461,13 @@ export function ProductFormModal({ open, onOpenChange, product }: ProductFormMod
             <Field>
               <FieldLabel className="text-xs font-semibold text-foreground">{t("sec4")}</FieldLabel>
               <RadioGroup
-                value={form.watch("status")}
-                onValueChange={(val) => form.setValue("status", val)}
-                className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1"
+                value={form.watch("status") || "ACTIVE"}
+                onValueChange={(val) => form.setValue("status", val, { shouldValidate: true, shouldDirty: true })}
+                className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1 font-poppins"
               >
                 <label className="flex items-center gap-2 text-xs cursor-pointer font-medium p-2.5 rounded-xl border border-border/60 hover:bg-muted/30 transition-all flex-1">
                   <RadioGroupItem value="ACTIVE" id="status-active" />
-                  <span>{t("statusActiveLabel")}</span>
+                  <span className="font-semibold text-foreground">{t("statusActiveLabel")}</span>
                 </label>
                 <label className="flex items-center gap-2 text-xs cursor-pointer font-medium text-muted-foreground p-2.5 rounded-xl border border-border/60 hover:bg-muted/30 transition-all flex-1">
                   <RadioGroupItem value="DRAFT" id="status-draft" />

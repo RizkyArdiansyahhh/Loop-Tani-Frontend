@@ -162,9 +162,13 @@ export function SellerDashboardPage() {
           <div className="text-lg font-bold font-mono text-foreground">
             {formatCurrency(dashboard.todayRevenue)}
           </div>
-          <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-            <ArrowUpRight className="w-3.5 h-3.5" />
-            <span>+12.5% vs kemarin</span>
+          <div className={`flex items-center gap-1 text-[11px] font-medium ${(dashboard.todayGrowthPct ?? 0) >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}`}>
+            {(dashboard.todayGrowthPct ?? 0) >= 0 ? (
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            ) : (
+              <ArrowDownRight className="w-3.5 h-3.5" />
+            )}
+            <span>{dashboard.todayGrowthText || "0% vs kemarin"}</span>
           </div>
         </Card>
 
@@ -177,9 +181,13 @@ export function SellerDashboardPage() {
           <div className="text-lg font-bold font-mono text-foreground">
             {formatCurrency(dashboard.monthlyRevenue)}
           </div>
-          <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-600 dark:text-emerald-400">
-            <ArrowUpRight className="w-3.5 h-3.5" />
-            <span>+8.2% vs bulan lalu</span>
+          <div className={`flex items-center gap-1 text-[11px] font-medium ${(dashboard.monthlyGrowthPct ?? 0) >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}`}>
+            {(dashboard.monthlyGrowthPct ?? 0) >= 0 ? (
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            ) : (
+              <ArrowDownRight className="w-3.5 h-3.5" />
+            )}
+            <span>{dashboard.monthlyGrowthText || "0% vs bulan lalu"}</span>
           </div>
         </Card>
 
@@ -192,9 +200,13 @@ export function SellerDashboardPage() {
           <div className="text-lg font-bold font-mono text-foreground">
             {dashboard.ordersCount} Transaksi
           </div>
-          <div className="flex items-center gap-1 text-[11px] font-medium text-rose-500">
-            <ArrowDownRight className="w-3.5 h-3.5" />
-            <span>-2.4% vs bulan lalu</span>
+          <div className={`flex items-center gap-1 text-[11px] font-medium ${(dashboard.ordersGrowthPct ?? 0) >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500"}`}>
+            {(dashboard.ordersGrowthPct ?? 0) >= 0 ? (
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            ) : (
+              <ArrowDownRight className="w-3.5 h-3.5" />
+            )}
+            <span>{dashboard.ordersGrowthText || "0% vs bulan lalu"}</span>
           </div>
         </Card>
 

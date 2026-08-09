@@ -1,268 +1,437 @@
 {
   "seller": {
     "sidebar": {
-    "dashboard": "Dashboard",
-    "products": "Products",
-    "orders": "Orders",
-    "revenue": "Revenue",
-    "analytics": "Analytics",
-    "reviews": "Reviews",
-    "settings": "Store Settings",
-    "backToProfile": "Back to Profile"
-  },
-  "gate": {
-    "notRegisteredTitle": "Start Selling on Loop Tani",
-    "notRegisteredDescription": "Join thousands of other farmers and sellers. Reach buyers across Indonesia by opening your own store.",
-    "backButton": "Back to Home",
-    "registerButton": "Open Store Now",
-    "accessDenied": "Access Denied",
-    "statusMessage": "Your current store status is: {status}",
-    "pendingDescription": "Your store application is currently under review. Please wait for further information from our team."
-  },
-  "register": {
-    "badge": "Open Store Free in 3 Steps",
-    "title": "Open Your Store",
-    "description": "Fill out the form below to start selling on Loop Tani.",
-    "steps": {
-      "1": {
-        "title": "Store Info",
-        "description": "Name and identity of your store"
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "orders": "Orders",
+      "revenue": "Revenue",
+      "analytics": "Analytics",
+      "reviews": "Reviews",
+      "settings": "Store Settings",
+      "backToProfile": "Back to Profile"
+    },
+    "gate": {
+      "notRegisteredTitle": "Start Selling on Loop Tani",
+      "notRegisteredDescription": "Join thousands of other farmers and sellers. Reach buyers across Indonesia by opening your own store.",
+      "backButton": "Back to Home",
+      "registerButton": "Open Store Now",
+      "accessDenied": "Access Denied",
+      "statusMessage": "Your current store status is: {status}",
+      "pendingDescription": "Your store application is currently under review. Please wait for further information from our team."
+    },
+    "register": {
+      "badge": "Open Store Free in 3 Steps",
+      "title": "Open Your Store",
+      "description": "Fill out the form below to start selling on Loop Tani.",
+      "steps": {
+        "1": {
+          "title": "Store Info",
+          "description": "Name and identity of your store"
+        },
+        "2": {
+          "title": "Contact & Address",
+          "description": "Contact info and shipping address"
+        },
+        "3": {
+          "title": "Store Details",
+          "description": "Description and extra info"
+        }
       },
-      "2": {
-        "title": "Contact & Address",
-        "description": "Contact info and shipping address"
+      "form": {
+        "storeNameLabel": "Store Name",
+        "storeSlugLabel": "Store URL Slug",
+        "storeSlugDescription": "This will be your store profile URL (e.g. looptani.com/store/store-slug)",
+        "phoneLabel": "WhatsApp/Phone Number",
+        "provinceLabel": "Province",
+        "cityLabel": "City",
+        "postalCodeLabel": "Postal Code",
+        "addressLabel": "Full Address",
+        "almostDone": "Almost Done!",
+        "almostDoneDescription": "Tell buyers about your store to increase trust.",
+        "descriptionLabel": "Store Description",
+        "descriptionPlaceholder": "Tell us about your store, products, and your unique value...",
+        "descriptionHint": "Optional, but highly recommended."
       },
-      "3": {
-        "title": "Store Details",
-        "description": "Description and extra info"
+      "buttons": {
+        "back": "Back",
+        "next": "Next",
+        "submit": "Submit Application"
       }
     },
-    "form": {
-      "storeNameLabel": "Store Name",
-      "storeSlugLabel": "Store URL Slug",
-      "storeSlugDescription": "This will be your store profile URL (e.g. looptani.com/store/store-slug)",
-      "phoneLabel": "WhatsApp/Phone Number",
-      "provinceLabel": "Province",
-      "cityLabel": "City",
-      "postalCodeLabel": "Postal Code",
-      "addressLabel": "Full Address",
-      "almostDone": "Almost Done!",
-      "almostDoneDescription": "Tell buyers about your store to increase trust.",
-      "descriptionLabel": "Store Description",
-      "descriptionPlaceholder": "Tell us about your store, products, and your unique value...",
-      "descriptionHint": "Optional, but highly recommended."
+    "dashboard": {
+      "title": "Seller Center",
+      "description": "Overview of your store performance",
+      "error": "Failed to load dashboard. Please try again.",
+      "stats": {
+        "todayRevenue": "Today's Revenue",
+        "monthlyRevenue": "Monthly Revenue",
+        "ordersCount": "This Month Orders",
+        "visitorsCount": "Store Visitors",
+        "vsYesterday": "vs yesterday",
+        "vsLastMonth": "vs last month",
+        "conversion": "Conversion rate: {rate}%"
+      },
+      "recentOrders": {
+        "title": "Recent Orders",
+        "description": "List of newly arrived orders",
+        "empty": "No recent orders yet."
+      },
+      "lowStock": {
+        "title": "Low Stock",
+        "description": "Products with less than 5 stock",
+        "items": "Items",
+        "empty": "All product stocks are safe."
+      }
     },
-    "buttons": {
-      "back": "Back",
-      "next": "Next",
-      "submit": "Submit Application"
-    }
-  },
-  "dashboard": {
-    "title": "Seller Center",
-    "description": "Overview of your store performance",
-    "error": "Failed to load dashboard. Please try again.",
-    "stats": {
-      "todayRevenue": "Today's Revenue",
-      "monthlyRevenue": "Monthly Revenue",
-      "ordersCount": "This Month Orders",
-      "visitorsCount": "Store Visitors",
-      "vsYesterday": "vs yesterday",
-      "vsLastMonth": "vs last month",
-      "conversion": "Conversion rate: {rate}%"
+    "storefront": {
+      "notFound": "Store not found or inactive",
+      "backToMarketplace": "Back to Marketplace",
+      "verified": "Verified Seller",
+      "joined": "Joined {date}",
+      "productsCount": "{count} Products",
+      "soldCount": "{count} Sold",
+      "location": "Location",
+      "products": "Products",
+      "homeTab": "Home",
+      "productsTab": "Products",
+      "aboutTab": "About Store",
+      "latestProducts": "Latest Products",
+      "noProducts": "No active products in this store yet.",
+      "aboutTitle": "Store Information",
+      "contact": "Contact Seller",
+      "circularImpact": "Circular Agriculture Impact",
+      "circularImpactDesc": "Metric of the store's contribution to recycling agricultural waste and supporting eco-friendly farming.",
+      "comingSoon": "Coming Soon",
+      "impactTab": "Circular Impact",
+      "searchPlaceholder": "Search products in this store...",
+      "sortBy": "Sort By",
+      "reviews": "Store Reviews",
+      "noReviews": "No reviews for this store yet.",
+      "reviewsTab": "Reviews"
     },
-    "recentOrders": {
-      "title": "Recent Orders",
-      "description": "List of newly arrived orders",
-      "empty": "No recent orders yet."
+    "products": {
+      "title": "Manage Store Products",
+      "subtitle": "Agricultural Waste Catalog",
+      "description": "Manage stock, prices, photos, and publication status of your agricultural waste products in marketplace",
+      "createButton": "Add New Product",
+      "tabs": {
+        "all": "All ({count})",
+        "active": "Active ({count})",
+        "lowStock": "Low Stock ({count})",
+        "draft": "Draft ({count})"
+      },
+      "searchPlaceholder": "Search store products...",
+      "table": {
+        "product": "Product",
+        "category": "Category",
+        "price": "Selling Price",
+        "perUnit": "per {unit}",
+        "stock": "Stock",
+        "lowStockBadge": "(Low Stock)",
+        "status": "Status",
+        "statusActive": "Active",
+        "statusDraft": "Draft",
+        "actions": "Actions",
+        "edit": "Edit Product",
+        "setDraft": "Set Draft",
+        "setActive": "Activate",
+        "delete": "Delete Product",
+        "showing": "Showing {showing} of {total} products",
+        "previous": "Previous",
+        "next": "Next",
+        "emptyTitle": "No products found.",
+        "emptyDesc": "Try changing your search keyword or add a new product.",
+        "loading": "Loading products list...",
+        "deleteConfirm": "Are you sure you want to delete this product?",
+        "deleteSuccess": "Product deleted successfully",
+        "deleteError": "Failed to delete product",
+        "statusUpdated": "Product status updated successfully",
+        "statusUpdateError": "Failed to update product status"
+      },
+      "modal": {
+        "createTitle": "Add New Product",
+        "editTitle": "Edit Store Product",
+        "createDesc": "Fill in agricultural waste product data to start selling on Loop Tani marketplace",
+        "editDesc": "Update your agricultural waste product information below",
+        "badge": "Seller Catalog",
+        "sec1": "1. Photos & Product Identity",
+        "sec2": "2. Price, Unit & Inventory Stock",
+        "sec3": "3. Shipping Origin & Product Description",
+        "sec4": "4. Product Publication Status",
+        "photoLabel": "Product Photos",
+        "photoUploaded": "{count}/5 photos uploaded",
+        "photoHint": "JPG/PNG/WEBP format, max 5MB per photo. First photo automatically becomes the main photo in marketplace.",
+        "titleLabel": "Product Name",
+        "titlePlaceholder": "Example: Super Organic Dry Rice Straw 10kg",
+        "categoryLabel": "Product Category",
+        "conditionLabel": "Item Condition",
+        "priceLabel": "Selling Price (Rp)",
+        "unitLabel": "Sales Unit",
+        "stockLabel": "Stock Amount",
+        "weightLabel": "Package Weight (grams)",
+        "weightHint": "Physical weight + packaging to calculate shipping cost (1000g = 1kg)",
+        "descriptionLabel": "Full Product Description",
+        "descriptionPlaceholder": "Write product specifications, moisture content, nutrient value, advantages, or waste delivery rules...",
+        "statusActiveLabel": "Active (Show in Store & Marketplace)",
+        "statusDraftLabel": "Draft (Save as draft only)",
+        "cancel": "Cancel",
+        "submitCreate": "Publish Product",
+        "submitEdit": "Save Changes",
+        "submitting": "Saving..."
+      }
     },
-    "lowStock": {
-      "title": "Low Stock",
-      "description": "Products with less than 5 stock",
-      "items": "Items",
-      "empty": "All product stocks are safe."
-    }
-  },
-  "storefront": {
-    "notFound": "Store not found or inactive",
-    "backToMarketplace": "Back to Marketplace",
-    "verified": "Verified Seller",
-    "joined": "Joined {date}",
-    "productsCount": "{count} Products",
-    "soldCount": "{count} Sold",
-    "location": "Location",
-    "products": "Products",
-    "homeTab": "Home",
-    "productsTab": "Products",
-    "aboutTab": "About Store",
-    "latestProducts": "Latest Products",
-    "noProducts": "No active products in this store yet.",
-    "aboutTitle": "Store Information",
-    "contact": "Contact Seller",
-    "circularImpact": "Circular Agriculture Impact",
-    "circularImpactDesc": "Metric of the store's contribution to recycling agricultural waste and supporting eco-friendly farming.",
-    "comingSoon": "Coming Soon",
-    "impactTab": "Circular Impact",
-    "searchPlaceholder": "Search products in this store...",
-    "sortBy": "Sort By",
-    "reviews": "Store Reviews",
-    "noReviews": "No reviews for this store yet.",
-    "reviewsTab": "Reviews"
-  },
-  "products": {
-    "title": "Manage Store Products",
-    "subtitle": "Agricultural Waste Catalog",
-    "description": "Manage stock, prices, photos, and publication status of your agricultural waste products in marketplace",
-    "createButton": "Add New Product",
-    "tabs": {
-      "all": "All ({count})",
-      "active": "Active ({count})",
-      "lowStock": "Low Stock ({count})",
-      "draft": "Draft ({count})"
-    },
-    "searchPlaceholder": "Search store products...",
-    "table": {
-      "product": "Product",
-      "category": "Category",
-      "price": "Selling Price",
-      "perUnit": "per {unit}",
-      "stock": "Stock",
-      "lowStockBadge": "(Low Stock)",
-      "status": "Status",
-      "statusActive": "Active",
-      "statusDraft": "Draft",
-      "actions": "Actions",
-      "edit": "Edit Product",
-      "setDraft": "Set Draft",
-      "setActive": "Activate",
-      "delete": "Delete Product",
-      "showing": "Showing {showing} of {total} products",
+    "orders": {
+      "title": "Store Orders",
+      "description": "Manage buyer orders, product processing, and shipping.",
+      "refresh": "Refresh Data",
+      "searchPlaceholder": "Search order number, buyer name, or product title...",
+      "tabs": {
+        "all": "All Orders",
+        "paid": "To Process",
+        "processing": "Processing",
+        "shipped": "Shipped",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "status": {
+        "pendingPayment": "Pending Payment",
+        "paid": "Paid (Needs Processing)",
+        "processing": "Processing",
+        "shipped": "In Shipping",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "actions": {
+        "details": "Order Details",
+        "process": "Process Order",
+        "ship": "Ship Order",
+        "complete": "Mark Completed"
+      },
+      "emptyTitle": "No Orders Found",
+      "emptyDescSearch": "No orders matched your search keyword or filters.",
+      "emptyDescAll": "Your store has no incoming order transactions from buyers yet.",
+      "pagination": "Showing Page {page} of {totalPages} (Total {total} Orders)",
       "previous": "Previous",
       "next": "Next",
-      "emptyTitle": "No products found.",
-      "emptyDesc": "Try changing your search keyword or add a new product.",
-      "loading": "Loading products list...",
-      "deleteConfirm": "Are you sure you want to delete this product?"
+      "modal": {
+        "title": "Order Details #{orderNumber}",
+        "time": "Transaction Time: {date}",
+        "addressTitle": "Buyer Shipping Address",
+        "itemsTitle": "Product Items ({count})",
+        "subtotal": "Products Subtotal:",
+        "shippingCost": "Shipping Cost:",
+        "serviceFee": "Service Fee:",
+        "grandTotal": "Total Payment:",
+        "close": "Close"
+      },
+      "toastSuccess": "Order status updated to {status}",
+      "toastError": "Failed to update order status"
     },
-    "modal": {
-      "createTitle": "Add New Product",
-      "editTitle": "Edit Store Product",
-      "createDesc": "Fill in agricultural waste product data to start selling on Loop Tani marketplace",
-      "editDesc": "Update your agricultural waste product information below",
-      "badge": "Seller Catalog",
-      "sec1": "1. Photos & Product Identity",
-      "sec2": "2. Price, Unit & Inventory Stock",
-      "sec3": "3. Shipping Origin & Product Description",
-      "sec4": "4. Product Publication Status",
-      "photoLabel": "Product Photos",
-      "photoUploaded": "{count}/5 photos uploaded",
-      "photoHint": "JPG/PNG/WEBP format, max 5MB per photo. First photo automatically becomes the main photo in marketplace.",
-      "titleLabel": "Product Name",
-      "titlePlaceholder": "Example: Super Organic Dry Rice Straw 10kg",
-      "categoryLabel": "Product Category",
-      "conditionLabel": "Item Condition",
-      "priceLabel": "Selling Price (Rp)",
-      "unitLabel": "Sales Unit",
-      "stockLabel": "Stock Amount",
-      "weightLabel": "Package Weight (grams)",
-      "weightHint": "Physical weight + packaging to calculate shipping cost (1000g = 1kg)",
-      "descriptionLabel": "Full Product Description",
-      "descriptionPlaceholder": "Write product specifications, moisture content, nutrient value, advantages, or waste delivery rules...",
-      "statusActiveLabel": "Active (Show in Store & Marketplace)",
-      "statusDraftLabel": "Draft (Save as draft only)",
-      "cancel": "Cancel",
-      "submitCreate": "Publish Product",
-      "submitEdit": "Save Changes",
-      "submitting": "Saving..."
+    "revenue": {
+      "title": "Store Revenue & Balance",
+      "description": "Monitor sales cash flow, withdrawable balance, and payout request history.",
+      "refresh": "Refresh Balance",
+      "stats": {
+        "availableBalance": "WITHDRAWABLE BALANCE",
+        "availableSubtitle": "Balance from completed sales orders",
+        "totalRevenue": "TOTAL REVENUE",
+        "totalSubtitle": "Accumulated total sales earnings",
+        "pendingBalance": "PENDING BALANCE",
+        "pendingSubtitle": "Orders in processing / shipping",
+        "withdrawnTotal": "TOTAL WITHDRAWN",
+        "withdrawnSubtitle": "Total balance successfully transferred to bank",
+        "withdrawCta": "Withdraw to Bank"
+      },
+      "table": {
+        "title": "Transaction & Balance History",
+        "description": "List of income entries and store withdrawal history.",
+        "searchPlaceholder": "Search transactions by reference number or product...",
+        "tabs": {
+          "all": "All",
+          "income": "Income",
+          "withdrawal": "Withdrawal"
+        },
+        "emptyTitle": "No Transaction History",
+        "emptyDescSearch": "No transactions matched your search keyword.",
+        "emptyDescAll": "No income or withdrawal transactions recorded yet.",
+        "statusCompleted": "Completed",
+        "statusPending": "Pending",
+        "statusCancelled": "Cancelled"
+      },
+      "modal": {
+        "title": "Withdraw Store Balance",
+        "description": "Transfer store earnings directly to your registered bank account.",
+        "bankAccountTitle": "Destination Bank Account",
+        "verified": "Verified",
+        "amountLabel": "Withdrawal Amount",
+        "availableHint": "Available: {amount}",
+        "withdrawAll": "Withdraw All",
+        "cancel": "Cancel",
+        "submit": "Confirm Withdrawal",
+        "submitting": "Processing...",
+        "toastSuccess": "Payout request submitted successfully",
+        "toastError": "Failed to request payout",
+        "minError": "Minimum withdrawal amount is Rp 10.000",
+        "maxError": "Withdrawal amount exceeds available balance"
+      }
+    },
+    "analytics": {
+      "title": "Store Business & Analytics",
+      "description": "Sales metrics, top products, visitor conversions, and circular eco impact.",
+      "refresh": "Refresh Analytics",
+      "period": {
+        "7days": "Last 7 Days",
+        "30days": "Last 30 Days",
+        "6months": "Last 6 Months",
+        "1year": "This Year"
+      },
+      "stats": {
+        "totalRevenue": "TOTAL REVENUE SALES",
+        "revenueSubtitle": "Earnings from completed orders",
+        "totalOrders": "TOTAL COMPLETED ORDERS",
+        "ordersSubtitle": "Delivered merchandise orders",
+        "itemsSold": "PRODUCTS SOLD",
+        "itemsSubtitle": "Total volume of commodity items",
+        "wasteRecycled": "RECYCLED WASTE",
+        "wasteSubtitle": "Estimated processed waste"
+      },
+      "topProducts": {
+        "title": "Top 5 Best-Selling Products",
+        "subtitle": "Products contributing highest revenue & sales volume",
+        "empty": "No top selling product data yet."
+      },
+      "traffic": {
+        "title": "Traffic & Conversion",
+        "views": "Store Profile Visits",
+        "conversion": "Purchase Conversion Rate"
+      }
+    },
+    "reviews": {
+      "title": "Buyer Reviews & Satisfaction",
+      "description": "Monitor buyer feedback, service satisfaction rates, and respond to store product reviews.",
+      "refresh": "Refresh Reviews",
+      "summary": {
+        "title": "Store Satisfaction Summary",
+        "averageRating": "Satisfaction Score",
+        "satisfactionRate": "Satisfaction Rate",
+        "totalReviews": "{count} Buyer Reviews",
+        "ratingStars": "{count} Score Points"
+      },
+      "tabs": {
+        "all": "All Reviews",
+        "star5": "Score 5",
+        "star4": "Score 4",
+        "star3": "Score 3",
+        "star2": "Score 2",
+        "star1": "Score 1"
+      },
+      "card": {
+        "replyButton": "Reply Review",
+        "sellerReplyTitle": "Your Store Response:",
+        "productTitle": "Reviewed Product:",
+        "orderNumber": "Order #{orderNumber}"
+      },
+      "modal": {
+        "title": "Reply to Buyer Review",
+        "description": "Write a friendly and professional response to buyer feedback.",
+        "replyLabel": "Store Response Message",
+        "replyPlaceholder": "Write a thank you note or response to buyer feedback...",
+        "cancel": "Cancel",
+        "submit": "Submit Reply",
+        "submitting": "Submitting...",
+        "toastSuccess": "Review response sent successfully",
+        "toastError": "Failed to send review response"
+      },
+      "emptyTitle": "No Buyer Reviews Yet",
+      "emptyDesc": "No feedback or reviews received for your store products yet."
+    },
+    "settings": {
+      "title": "Store Settings",
+      "subtitle": "Seller Center",
+      "headerBadge": "Official Seller Center",
+      "previewButton": "View Store Front",
+      "tabs": {
+        "info": "Basic Information",
+        "location": "Address & Shipping",
+        "social": "Social Media & Web",
+        "policy": "Hours & Policy",
+        "impact": "Circular Impact"
+      },
+      "impactTab": {
+        "badge": "Circular Eco Contribution",
+        "title": "Circular Agriculture Impact",
+        "description": "Store contribution metrics in recycling agricultural waste and supporting eco-friendly farming.",
+        "comingSoonBadge": "Coming Soon",
+        "recycledWaste": "Processed Waste",
+        "recycledWasteDesc": "Total estimated weight of organic & agricultural waste recycled into high-value commodities.",
+        "organicProducts": "Organic Products",
+        "organicProductsDesc": "Number of eco-friendly & organic fertilizer product catalogs active in your storefront.",
+        "farmersHelped": "Farmers Helped",
+        "farmersHelpedDesc": "Farmer partners & customers supported through the circular agricultural supply chain.",
+        "unitKg": "Kg",
+        "unitItems": "Units",
+        "unitPartners": "Partners",
+        "highlightBannerTitle": "Sustainable & Eco-Circular Farming Mission",
+        "highlightBannerDesc": "Your store actively reduces carbon emissions & discarded waste by turning crop residue into high economic value products for farming communities."
+      },
+      "infoTab": {
+        "badge": "Basic Information",
+        "title": "Store Main Identity & Information",
+        "description": "Configure official logo, display name, domain slug URL, and public store bio",
+        "logoLabel": "Store Logo / Profile Photo",
+        "uploadLogo": "Select Logo Image",
+        "removeLogo": "Remove Photo",
+        "logoHint": "JPG, PNG, or WEBP format (max 5MB). Square 1:1 ratio logo works best.",
+        "storeNameLabel": "Store Name",
+        "storeSlugLabel": "Store Unique Slug / URL",
+        "storeSlugHint": "Lowercase letters, numbers, and hyphens (-) without spaces.",
+        "descriptionLabel": "Store Description & Bio",
+        "descriptionPlaceholder": "Describe your store's commitment, agricultural commodities, or processed waste products..."
+      },
+      "locationTab": {
+        "badge": "Shipping Origin & Contact",
+        "title": "Contact & Shipping Origin Address",
+        "description": "Warehouse or physical store location used by shipping couriers to calculate delivery rates",
+        "phoneLabel": "Operational Store Phone / WhatsApp",
+        "phoneHint": "Active contact number for order confirmation and courier pickup coordination",
+        "addressLabel": "Full Warehouse / Item Pickup Address",
+        "addressPlaceholder": "Street name, building number, RT/RW, District, Village",
+        "postalCodeLabel": "Postal Code"
+      },
+      "socialTab": {
+        "badge": "Social Media & Web Channels",
+        "title": "Social Media & External Links",
+        "description": "Connect your promotion channels & social accounts to increase buyer trust",
+        "whatsappLabel": "Direct WhatsApp Business Number",
+        "whatsappHint": "WhatsApp number used when buyers click Chat Seller",
+        "instagramLabel": "Store Instagram Handle",
+        "instagramHint": "Official Instagram profile link of your store",
+        "tiktokLabel": "TikTok Shop / Handle",
+        "tiktokHint": "TikTok account for product demo videos & agricultural education",
+        "websiteLabel": "Store Website / Linktree",
+        "websiteHint": "Official website or farm portfolio link",
+        "youtubeLabel": "Store YouTube Channel",
+        "youtubeHint": "Link to farm, orchard, or waste processing channel videos"
+      },
+      "policyTab": {
+        "badge": "Store Service & Policy",
+        "title": "Operating Hours & Service Standards",
+        "description": "Store operational schedule and agricultural product quality commitments",
+        "hoursTitle": "Store Operating Hours",
+        "hoursDesc": "Store actively processes orders Monday - Saturday 08.00 - 17.00 WIB. Orders after operating hours are processed next business day.",
+        "packagingTitle": "Safe Packaging Standard",
+        "packagingDesc": "All commodities and processed goods are securely packaged using moisture-resistant and protective distribution packaging.",
+        "guaranteeTitle": "Product Quality Guarantee Commitment",
+        "guaranteeDesc": "Your store is protected by Loop Tani escrow. Buyers get return guarantee if products do not match specifications."
+      },
+      "actions": {
+        "hint": "Ensure store identity and location data are correct before saving.",
+        "reset": "Reset",
+        "submit": "Save Profile Changes",
+        "submitting": "Saving...",
+        "successToast": "Store profile settings saved successfully",
+        "cancelToast": "Changes have been cancelled"
+      }
     }
-  },
-  "settings": {
-    "title": "Store Settings",
-    "subtitle": "Seller Center",
-    "headerBadge": "Official Seller Center",
-    "previewButton": "View Store Front",
-    "tabs": {
-      "info": "Basic Information",
-      "location": "Address & Shipping",
-      "social": "Social Media & Web",
-      "policy": "Hours & Policy",
-      "impact": "Circular Impact"
-    },
-    "impactTab": {
-      "badge": "Circular Eco Contribution",
-      "title": "Circular Agriculture Impact",
-      "description": "Store contribution metrics in recycling agricultural waste and supporting eco-friendly farming.",
-      "comingSoonBadge": "Coming Soon",
-      "recycledWaste": "Processed Waste",
-      "recycledWasteDesc": "Total estimated weight of organic & agricultural waste recycled into high-value commodities.",
-      "organicProducts": "Organic Products",
-      "organicProductsDesc": "Number of eco-friendly & organic fertilizer product catalogs active in your storefront.",
-      "farmersHelped": "Farmers Helped",
-      "farmersHelpedDesc": "Farmer partners & customers supported through the circular agricultural supply chain.",
-      "unitKg": "Kg",
-      "unitItems": "Units",
-      "unitPartners": "Partners",
-      "highlightBannerTitle": "Sustainable & Eco-Circular Farming Mission",
-      "highlightBannerDesc": "Your store actively reduces carbon emissions & discarded waste by turning crop residue into high economic value products for farming communities."
-    },
-    "infoTab": {
-      "badge": "Basic Information",
-      "title": "Store Main Identity & Information",
-      "description": "Configure official logo, display name, domain slug URL, and public store bio",
-      "logoLabel": "Store Logo / Profile Photo",
-      "uploadLogo": "Select Logo Image",
-      "removeLogo": "Remove Photo",
-      "logoHint": "JPG, PNG, or WEBP format (max 5MB). Square 1:1 ratio logo works best.",
-      "storeNameLabel": "Store Name",
-      "storeSlugLabel": "Store Unique Slug / URL",
-      "storeSlugHint": "Lowercase letters, numbers, and hyphens (-) without spaces.",
-      "descriptionLabel": "Store Description & Bio",
-      "descriptionPlaceholder": "Describe your store's commitment, agricultural commodities, or processed waste products..."
-    },
-    "locationTab": {
-      "badge": "Shipping Origin & Contact",
-      "title": "Contact & Shipping Origin Address",
-      "description": "Warehouse or physical store location used by shipping couriers to calculate delivery rates",
-      "phoneLabel": "Operational Store Phone / WhatsApp",
-      "phoneHint": "Active contact number for order confirmation and courier pickup coordination",
-      "addressLabel": "Full Warehouse / Item Pickup Address",
-      "addressPlaceholder": "Street name, building number, RT/RW, District, Village",
-      "postalCodeLabel": "Postal Code"
-    },
-    "socialTab": {
-      "badge": "Social Media & Web Channels",
-      "title": "Social Media & External Links",
-      "description": "Connect your promotion channels & social accounts to increase buyer trust",
-      "whatsappLabel": "Direct WhatsApp Business Number",
-      "whatsappHint": "WhatsApp number used when buyers click Chat Seller",
-      "instagramLabel": "Store Instagram Handle",
-      "instagramHint": "Official Instagram profile link of your store",
-      "tiktokLabel": "TikTok Shop / Handle",
-      "tiktokHint": "TikTok account for product demo videos & agricultural education",
-      "websiteLabel": "Store Website / Linktree",
-      "websiteHint": "Official website or farm portfolio link",
-      "youtubeLabel": "Store YouTube Channel",
-      "youtubeHint": "Link to farm, orchard, or waste processing channel videos"
-    },
-    "policyTab": {
-      "badge": "Store Service & Policy",
-      "title": "Operating Hours & Service Standards",
-      "description": "Store operational schedule and agricultural product quality commitments",
-      "hoursTitle": "Store Operating Hours",
-      "hoursDesc": "Store actively processes orders Monday - Saturday 08.00 - 17.00 WIB. Orders after operating hours are processed next business day.",
-      "packagingTitle": "Safe Packaging Standard",
-      "packagingDesc": "All commodities and processed goods are securely packaged using moisture-resistant and protective distribution packaging.",
-      "guaranteeTitle": "Product Quality Guarantee Commitment",
-      "guaranteeDesc": "Your store is protected by Loop Tani escrow. Buyers get return guarantee if products do not match specifications."
-    },
-    "actions": {
-      "hint": "Ensure store identity and location data are correct before saving.",
-      "reset": "Reset",
-      "submit": "Save Profile Changes",
-      "submitting": "Saving...",
-      "successToast": "Store profile settings saved successfully",
-      "cancelToast": "Changes have been cancelled"
-    }
-  }
   }
 }

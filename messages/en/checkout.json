@@ -56,6 +56,43 @@
       "errorTitle": "Failed to Load Checkout",
       "errorDesc": "An error occurred while processing your checkout data. Please try again later.",
       "backToShopping": "Back to Shopping"
+    },
+    "paymentModal": {
+      "encryptedTitle": "Xendit Encrypted Payment",
+      "orderNumber": "Order #{orderNumber}",
+      "totalAmountLabel": "Total Payment Amount",
+      "selectChannelTitle": "Select Bank / Payment Channel:",
+      "category": {
+        "va": "Virtual Account",
+        "qris": "QRIS",
+        "ewallet": "E-Wallet",
+        "paylater": "PayLater"
+      },
+      "qris": {
+        "scanTitle": "Scan QRIS Code Below",
+        "instructions": "Open your GoPay, OVO, DANA, BCA Mobile, ShopeePay, or m-Banking app to scan the QR code."
+      },
+      "va": {
+        "vaNumberLabel": "{bank} Virtual Account Number",
+        "timeLimit": "24 Hours Limit",
+        "copy": "Copy",
+        "copied": "Copied"
+      },
+      "ewallet": {
+        "redirectHint": "Click the button below to proceed payment in {channel} app.",
+        "openBtn": "Open {channel} App",
+        "readyHint": "{channel} payment session ready. Please make payment."
+      },
+      "actions": {
+        "polling": "Checking payment status automatically...",
+        "closePayLater": "Close & Pay Later",
+        "proceed": "Proceed Payment"
+      },
+      "successOverlay": {
+        "title": "Payment Successful!",
+        "description": "Thank you, your payment has been confirmed and your order is processing.",
+        "redirecting": "Redirecting to order details..."
+      }
     }
   }
 }
