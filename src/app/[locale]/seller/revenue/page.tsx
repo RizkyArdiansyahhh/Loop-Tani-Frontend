@@ -1,8 +1,5 @@
+import { SellerRevenuePage } from "@/features/seller/pages/seller-revenue-page";
+
 export default function Page() {
-  return (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Pendapatan</h1>
-      <p className="text-muted-foreground">Halaman ini belum diimplementasi.</p>
-    </div>
-  );
+  return <SellerRevenuePage />;
 }

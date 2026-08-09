@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import {
-  Store,
   MapPin,
   Calendar,
   Phone,
   Search,
   Star,
-  Sprout,
   Inbox,
   AlertTriangle,
   ArrowLeft,
@@ -17,12 +15,9 @@ import {
   ChevronRight,
   ShieldCheck,
   ShoppingBag,
-  Leaf,
-  Recycle,
-  Building2,
 } from "lucide-react";
 import Image from "next/image";
-import { Link, useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -47,7 +42,6 @@ interface StorefrontPageProps {
 
 export default function StorefrontPage({ slug }: StorefrontPageProps) {
   const t = useTranslations("seller");
-  const router = useRouter();
 
   // Tabs state: "home" | "products" | "about" | "impact"
   const [activeTab, setActiveTab] = useState<"home" | "products" | "about" | "impact">("home");
@@ -62,7 +56,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
   // Fetch public store data via TanStack Query
   const { data: store, isLoading: isStoreLoading, isError: isStoreError } = useStore(slug);
 
-  // Fetch store products for Products Tab via TanStack Query
+  // Fetch store products for Products Tab
   const productsParams = {
     storeSlug: slug,
     page,
@@ -83,7 +77,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
     params: {
       storeSlug: slug,
       page: 1,
-      limit: 3,
+      limit: 6,
       sort: "newest" as any,
     },
     queryConfig: { enabled: !!store && activeTab === "home" },
@@ -100,38 +94,23 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
 
   if (isStoreLoading) {
     return (
-      <div className="min-h-screen bg-gray-50/30 pb-24 dark:bg-gray-950 transition-colors duration-300">
+      <div className="min-h-screen bg-background pb-20 transition-colors font-sans">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
           <Skeleton className="h-6 w-48 rounded-lg" />
-          
-          {/* Header Skeleton */}
-          <div className="bg-white border border-gray-150 rounded-xl p-6 dark:bg-gray-900 dark:border-gray-800 space-y-6">
+          <div className="bg-card border border-border rounded-2xl p-6 space-y-6">
             <div className="flex flex-col md:flex-row gap-6 items-center">
               <Skeleton className="h-24 w-24 rounded-full" />
               <div className="space-y-3 flex-1">
                 <Skeleton className="h-8 w-64 rounded-lg" />
                 <Skeleton className="h-4 w-40 rounded-lg" />
-                <div className="flex gap-4 pt-2">
-                  <Skeleton className="h-5 w-24 rounded-md" />
-                  <Skeleton className="h-5 w-24 rounded-md" />
-                  <Skeleton className="h-5 w-24 rounded-md" />
-                </div>
               </div>
             </div>
           </div>
-
-          <div className="flex gap-4">
-            <Skeleton className="h-12 w-28 rounded-lg" />
-            <Skeleton className="h-12 w-28 rounded-lg" />
-            <Skeleton className="h-12 w-28 rounded-lg" />
-          </div>
-
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white border border-gray-150 rounded-xl p-4 dark:bg-gray-900 dark:border-gray-800 space-y-4">
+              <div key={i} className="bg-card border border-border rounded-xl p-4 space-y-4">
                 <Skeleton className="aspect-square w-full rounded-lg" />
                 <Skeleton className="h-4 w-3/4 rounded-lg" />
-                <Skeleton className="h-6 w-1/4 rounded-lg" />
               </div>
             ))}
           </div>
@@ -142,16 +121,16 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
 
   if (isStoreError || !store) {
     return (
-      <div className="min-h-screen bg-gray-50/30 flex flex-col items-center justify-center p-6 dark:bg-gray-950">
-        <div className="max-w-md w-full text-center bg-white border border-gray-100 rounded-xl p-8 dark:bg-gray-900 dark:border-gray-800 shadow-xl space-y-6">
-          <div className="h-16 w-16 bg-red-50 dark:bg-red-950/30 text-red-500 rounded-full flex items-center justify-center mx-auto">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-sans">
+        <div className="max-w-md w-full text-center bg-card border border-border rounded-2xl p-8 shadow-xs space-y-6">
+          <div className="h-16 w-16 bg-destructive/10 text-destructive rounded-full flex items-center justify-center mx-auto">
             <AlertTriangle className="h-8 w-8" />
           </div>
-          <h2 className="font-fraunces text-2xl font-bold text-gray-900 dark:text-white">
+          <h2 className="font-poppins text-2xl font-bold text-foreground">
             {t("storefront.notFound")}
           </h2>
-          <p className="text-sm text-muted-foreground">
-            Toko yang Anda cari mungkin telah dinonaktifkan sementara atau URL slug tidak sesuai.
+          <p className="text-sm text-muted-foreground font-sans">
+            Toko yang Anda cari mungkin tidak aktif atau URL slug tidak sesuai.
           </p>
           <Button asChild className="w-full rounded-xl py-6 font-bold cursor-pointer">
             <Link href="/marketplace">
@@ -164,7 +143,6 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
     );
   }
 
-  // Format date helper
   const formattedJoinedDate = () => {
     try {
       const date = new Date(store.createdAt);
@@ -186,7 +164,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/30 pb-24 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-background pb-20 transition-colors font-sans select-none">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
         
         {/* Breadcrumbs */}
@@ -197,30 +175,23 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
           ]}
         />
 
-        {/* ── STORE HEADER BANNER ── */}
-        <Card className="overflow-hidden border border-gray-150 rounded-xl dark:border-gray-800 dark:bg-gray-900 shadow-2xs">
-          {/* Banner cover background */}
+        {/* ── TOKOPEDIA STYLE STORE HEADER BANNER ── */}
+        <Card className="overflow-hidden border border-border/70 rounded-2xl bg-card shadow-xs">
+          {/* Subtle Banner Header */}
           <div
-            className="h-32 sm:h-44 bg-linear-to-r from-emerald-800 via-primary to-emerald-950 relative overflow-hidden bg-cover bg-center transition-all"
+            className="h-28 sm:h-36 bg-linear-to-r from-primary/80 via-primary to-primary/95 relative overflow-hidden bg-cover bg-center"
             style={{
               backgroundImage: store.bannerUrl
-                ? `linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url("${store.bannerUrl}")`
+                ? `linear-gradient(to right, rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url("${store.bannerUrl}")`
                 : undefined,
             }}
-          >
-            {!store.bannerUrl && (
-              <>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(253,224,71,0.1),transparent)]" />
-                <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-white/5 blur-2xl" />
-              </>
-            )}
-          </div>
+          />
 
-          <CardContent className="relative p-6 pt-0">
-            {/* Store logo positioning */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between -mt-12 sm:-mt-16 gap-6">
+          <CardContent className="relative p-6 pt-0 font-sans">
+            {/* Store Logo & Essential Info */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between -mt-12 sm:-mt-14 gap-6">
               <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-end text-center sm:text-left">
-                <div className="relative h-24 w-24 sm:h-28 sm:w-28 rounded-full border-4 border-white dark:border-gray-900 bg-white overflow-hidden shadow-md shrink-0">
+                <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-2xl border-4 border-background bg-card overflow-hidden shadow-md shrink-0">
                   <Image
                     src={store.logoUrl || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&h=150&q=80"}
                     alt={store.storeName}
@@ -229,36 +200,37 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                   />
                 </div>
                 
-                <div className="space-y-2 pt-1 pb-1">
+                <div className="space-y-1.5 pt-1">
                   <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                    <h1 className="font-fraunces text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+                    <h1 className="font-poppins text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                       {store.storeName}
                     </h1>
-                    <Badge className="bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 font-bold border-0 flex items-center gap-1 text-[10px] py-1 px-2.5 rounded-full shrink-0">
-                      <ShieldCheck className="h-3.5 w-3.5 fill-emerald-100 dark:fill-emerald-900/50" />
+                    <Badge className="bg-primary/10 text-primary hover:bg-primary/20 font-bold border-0 flex items-center gap-1 text-[11px] py-0.5 px-2.5 rounded-full shrink-0">
+                      <ShieldCheck className="h-3.5 w-3.5" />
                       {t("storefront.verified")}
                     </Badge>
                   </div>
 
-                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1.5 text-xs text-muted-foreground font-medium">
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-1 text-xs text-muted-foreground font-medium">
                     <span className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4 text-gray-400" />
+                      <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
                       {store.city || "Lokasi"}, {store.province || ""}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4 text-gray-400" />
+                      <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
                       {t("storefront.joined", { date: formattedJoinedDate() })}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* WhatsApp Contact Button */}
+              {/* WhatsApp Contact Action */}
               {store.phone && (
                 <div className="flex w-full sm:w-auto shrink-0 pb-1">
                   <Button
                     asChild
-                    className="w-full sm:w-auto rounded-xl h-11 bg-emerald-600 hover:bg-emerald-700 font-bold text-xs px-6 text-white shadow-xs cursor-pointer"
+                    size="sm"
+                    className="w-full sm:w-auto rounded-xl h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs px-5 shadow-xs cursor-pointer"
                   >
                     <a
                       href={getWhatsAppLink(store.phone)}
@@ -266,42 +238,41 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2"
                     >
-                      <Phone className="h-4.5 w-4.5" />
-                      Hubungi via WhatsApp
+                      <Phone className="h-4 w-4" />
+                      Hubungi Penjual
                     </a>
                   </Button>
                 </div>
               )}
             </div>
 
-            <Separator className="my-6 border-gray-100 dark:border-gray-800/80" />
+            <Separator className="my-5 border-border/50" />
 
-            {/* Aggregated Stats Metrics */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-              <div className="space-y-1">
-                <span className="text-3xs font-bold text-muted-foreground uppercase tracking-widest block">Rating Toko</span>
+            {/* Clean Key Metrics */}
+            <div className="grid grid-cols-3 gap-4 text-center md:text-left max-w-xl font-sans">
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-semibold text-muted-foreground block">Rating Toko</span>
                 <div className="flex items-center justify-center md:justify-start gap-1">
-                  <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                  <span className="text-base font-extrabold text-gray-900 dark:text-white">
+                  <Star className="h-4 w-4 text-amber-400 fill-amber-400" />
+                  <span className="text-sm font-bold text-foreground">
                     {hasReviews ? store.stats.averageRating : "-"}
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    ({store.stats.totalReview} {t("storefront.reviews")})
+                  <span className="text-[11px] text-muted-foreground">
+                    ({store.stats.totalReview})
                   </span>
                 </div>
               </div>
 
-              <div className="space-y-1">
-                <span className="text-3xs font-bold text-muted-foreground uppercase tracking-widest block">Semua Produk</span>
-                <span className="text-base font-extrabold text-gray-900 dark:text-white flex items-center justify-center md:justify-start gap-1">
-                  <ShoppingBag className="h-4.5 w-4.5 text-primary" />
-                  {store.stats.totalProducts}
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-semibold text-muted-foreground block">Semua Produk</span>
+                <span className="text-sm font-bold text-foreground block">
+                  {store.stats.totalProducts} Produk
                 </span>
               </div>
 
-              <div className="space-y-1">
-                <span className="text-3xs font-bold text-muted-foreground uppercase tracking-widest block">Status Toko</span>
-                <Badge className="bg-emerald-500/10 text-emerald-600 border-0 font-bold text-[10px] rounded-md px-2 py-0.5 mt-0.5 w-max mx-auto md:mx-0">
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-semibold text-muted-foreground block">Status Toko</span>
+                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 font-bold text-[10px] rounded-md px-2 py-0.5">
                   Toko Aktif
                 </Badge>
               </div>
@@ -309,115 +280,105 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
           </CardContent>
         </Card>
 
-        {/* ── STORE NAVIGATION TABS ── */}
-        <div className="flex p-1 rounded-xl bg-gray-50 border border-gray-100 dark:bg-gray-900 dark:border-gray-800 w-full md:w-auto shadow-3xs">
+        {/* ── TOKOPEDIA STYLE TAB NAVIGATION ── */}
+        <div className="flex border-b border-border/70 gap-2 sm:gap-6 font-poppins text-xs sm:text-sm font-semibold">
           <button
             onClick={() => setActiveTab("home")}
-            className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+            className={`pb-3 px-2 transition-all cursor-pointer border-b-2 -mb-px ${
               activeTab === "home"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
-                : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                ? "border-primary text-primary font-bold"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
-            <Store className="h-4 w-4" />
             {t("storefront.homeTab")}
           </button>
           <button
             onClick={() => setActiveTab("products")}
-            className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+            className={`pb-3 px-2 transition-all cursor-pointer border-b-2 -mb-px ${
               activeTab === "products"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
-                : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                ? "border-primary text-primary font-bold"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
-            <ShoppingBag className="h-4 w-4" />
             {t("storefront.productsTab")} ({store.stats.totalProducts})
           </button>
           <button
             onClick={() => setActiveTab("about")}
-            className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+            className={`pb-3 px-2 transition-all cursor-pointer border-b-2 -mb-px ${
               activeTab === "about"
-                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
-                : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                ? "border-primary text-primary font-bold"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
-            <ShieldCheck className="h-4 w-4" />
             {t("storefront.aboutTab")}
           </button>
           <button
             onClick={() => setActiveTab("impact")}
-            className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 cursor-pointer ${
+            className={`pb-3 px-2 transition-all cursor-pointer border-b-2 -mb-px flex items-center gap-1.5 ${
               activeTab === "impact"
-                ? "bg-white text-primary shadow-sm dark:bg-gray-850 dark:text-primary"
-                : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
+                ? "border-primary text-primary font-bold"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
-            <Sprout className="h-4 w-4 text-primary" />
-            {t("storefront.impactTab")}
-            <Badge className="bg-primary/10 text-primary border-primary/20 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full">
+            <span>{t("storefront.impactTab")}</span>
+            <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 text-[9px] font-extrabold px-1.5 py-0">
               {t("storefront.comingSoon")}
             </Badge>
           </button>
         </div>
 
-        {/* ── TAB CONTENT ── */}
+        {/* ── TAB CONTENTS ── */}
 
         {/* 1. HOME TAB */}
         {activeTab === "home" && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-            {/* Left sidebar info */}
-            <div className="lg:col-span-4 space-y-6">
-              <Card className="rounded-xl border border-gray-100 p-6 dark:border-gray-850 dark:bg-gray-900/50">
-                <CardContent className="p-0 space-y-4">
-                  <h3 className="font-fraunces text-lg font-bold text-gray-900 dark:text-white">
-                    Deskripsi Toko
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {store.description || "Belum ada deskripsi untuk toko ini."}
-                  </p>
-                </CardContent>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2 font-sans">
+            {/* Left Sidebar Description Card */}
+            <div className="lg:col-span-4 space-y-4">
+              <Card className="rounded-2xl border border-border/70 bg-card p-5 space-y-3">
+                <h3 className="font-poppins text-sm font-bold text-foreground">
+                  Deskripsi Toko
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {store.description || "Belum ada deskripsi untuk toko ini."}
+                </p>
               </Card>
 
-              {/* Circular Achievement highlight */}
-              <Card className="rounded-xl border border-emerald-100/50 p-6 bg-emerald-50/10 dark:border-emerald-950/20 dark:bg-emerald-950/5">
-                <CardContent className="p-0 space-y-4">
-                  <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-sm">
-                    <Sprout className="h-5 w-5 fill-current" />
-                    Circular Badge
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Penjual ini mendukung gerakan pengolahan kembali limbah pertanian menjadi pupuk ramah lingkungan.
-                  </p>
-                </CardContent>
+              {/* Clean Circular Agriculture Highlight Badge */}
+              <Card className="rounded-2xl border border-primary/30 bg-primary/5 p-5 space-y-2">
+                <span className="text-xs font-bold text-primary block font-poppins">
+                  Mitra Pertanian Sirkular
+                </span>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Penjual ini mendukung gerakan pengolahan kembali limbah pertanian menjadi pupuk ramah lingkungan.
+                </p>
               </Card>
             </div>
 
-            {/* Right main panel - Latest Products */}
-            <div className="lg:col-span-8 space-y-6">
-              <h3 className="font-fraunces text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <ShoppingBag className="h-5 w-5 text-emerald-600" />
+            {/* Right Feed - Latest Products */}
+            <div className="lg:col-span-8 space-y-4">
+              <h3 className="font-poppins text-base font-bold text-foreground">
                 {t("storefront.latestProducts")}
               </h3>
               
               {isLatestLoading ? (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white border border-gray-150 rounded-xl p-4 dark:bg-gray-900 dark:border-gray-800 space-y-4 animate-pulse">
-                      <div className="aspect-square bg-gray-200 rounded-lg dark:bg-gray-800" />
-                      <div className="h-4 w-3/4 bg-gray-200 rounded-lg dark:bg-gray-800" />
+                    <div key={i} className="bg-card border border-border/60 rounded-2xl p-4 space-y-3 animate-pulse">
+                      <div className="aspect-square bg-muted rounded-xl" />
+                      <div className="h-4 w-3/4 bg-muted rounded-lg" />
                     </div>
                   ))}
                 </div>
               ) : latestProducts.length > 0 ? (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {latestProducts.map((product) => (
                     <CardProduct key={product.id} product={product} />
                   ))}
                 </div>
               ) : (
-                <div className="rounded-xl border border-dashed border-gray-200 py-16 text-center dark:border-gray-800">
-                  <Inbox className="h-10 w-10 text-muted-foreground/60 mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">{t("storefront.noProducts")}</p>
+                <div className="rounded-2xl border border-dashed border-border/70 py-12 text-center bg-card">
+                  <Inbox className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                  <p className="text-xs text-muted-foreground font-medium">{t("storefront.noProducts")}</p>
                 </div>
               )}
             </div>
@@ -426,41 +387,36 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
 
         {/* 2. PRODUCTS TAB */}
         {activeTab === "products" && (
-          <div className="space-y-6 pt-2">
-            
-            {/* Search, Category Filters, Sort Bar */}
-            <div className="bg-white border border-gray-100 p-5 rounded-xl dark:bg-gray-900 dark:border-gray-800 shadow-2xs space-y-4">
+          <div className="space-y-6 pt-2 font-sans">
+            {/* Filter Bar */}
+            <Card className="p-4 rounded-2xl border border-border/70 bg-card space-y-4">
               <div className="flex flex-col sm:flex-row gap-3">
-                {/* Search */}
                 <div className="relative flex-1">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-455 h-4.5 w-4.5" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
                   <Input
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={t("storefront.searchPlaceholder")}
-                    className="w-full pl-10.5 rounded-xl border-gray-200"
+                    className="w-full pl-10 rounded-xl h-10 text-xs border-border/70"
                   />
                 </div>
                 
-                {/* Sorting */}
-                <div className="flex gap-2">
-                  <Select value={selectedSort} onValueChange={(val) => { setSelectedSort(val); setPage(1); }}>
-                    <SelectTrigger className="w-full sm:w-48 h-10 rounded-xl border-gray-200 text-xs font-semibold">
-                      <SelectValue placeholder={t("storefront.sortBy")} />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-lg">
-                      <SelectItem value="recommended">Terpopuler</SelectItem>
-                      <SelectItem value="newest">Terbaru</SelectItem>
-                      <SelectItem value="price-asc">Harga Terendah</SelectItem>
-                      <SelectItem value="price-desc">Harga Tertinggi</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                <Select value={selectedSort} onValueChange={(val) => { setSelectedSort(val); setPage(1); }}>
+                  <SelectTrigger className="w-full sm:w-48 h-10 rounded-xl text-xs font-medium border-border/70">
+                    <SelectValue placeholder={t("storefront.sortBy")} />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl text-xs">
+                    <SelectItem value="recommended">Terpopuler</SelectItem>
+                    <SelectItem value="newest">Terbaru</SelectItem>
+                    <SelectItem value="price-asc">Harga Terendah</SelectItem>
+                    <SelectItem value="price-desc">Harga Tertinggi</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* Category Pills */}
-              <div className="flex flex-wrap gap-2 items-center pt-2">
-                <span className="text-xs font-bold text-gray-500 mr-2">Kategori:</span>
+              <div className="flex flex-wrap gap-2 items-center text-xs">
+                <span className="font-semibold text-muted-foreground mr-1">Kategori:</span>
                 {[
                   { value: "all", label: "Semua" },
                   { value: "agricultural-waste", label: "Limbah Pertanian" },
@@ -470,62 +426,40 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                   <button
                     key={cat.value}
                     onClick={() => { setSelectedCategory(cat.value); setPage(1); }}
-                    className={`px-4 py-1.5 text-xs font-semibold rounded-full border transition-all cursor-pointer ${
+                    className={`px-3 py-1 text-xs rounded-lg transition-all cursor-pointer font-medium ${
                       selectedCategory === cat.value
-                        ? "bg-primary text-white border-primary font-bold shadow-xs"
-                        : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
+                        ? "bg-primary text-primary-foreground font-bold"
+                        : "bg-muted/60 text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {cat.label}
                   </button>
                 ))}
               </div>
-
-              {/* Stock Filter Pills */}
-              <div className="flex flex-wrap gap-2 items-center pt-1 border-t border-gray-100 dark:border-gray-800">
-                <span className="text-xs font-bold text-gray-500 mr-2">Status Stok:</span>
-                {[
-                  { value: "all", label: "Semua Produk" },
-                  { value: "in_stock", label: "Tersedia (Stok > 0)" },
-                  { value: "out_of_stock", label: "Stok Habis (Stok 0)" },
-                ].map((st) => (
-                  <button
-                    key={st.value}
-                    onClick={() => { setSelectedStockFilter(st.value as any); setPage(1); }}
-                    className={`px-3.5 py-1 text-xs font-semibold rounded-lg border transition-all cursor-pointer ${
-                      selectedStockFilter === st.value
-                        ? "bg-emerald-600 text-white border-emerald-600 font-bold shadow-2xs"
-                        : "border-gray-200 bg-gray-50/60 text-gray-600 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300"
-                    }`}
-                  >
-                    {st.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+            </Card>
 
             {/* Product Feed Grid */}
             {isProductsLoading ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="bg-white border border-gray-150 rounded-xl p-4 dark:bg-gray-900 dark:border-gray-800 space-y-4 animate-pulse">
-                    <div className="aspect-square bg-gray-200 rounded-lg dark:bg-gray-800" />
-                    <div className="h-4 w-3/4 bg-gray-200 rounded-lg dark:bg-gray-800" />
+                  <div key={i} className="bg-card border border-border/60 rounded-2xl p-4 space-y-3 animate-pulse">
+                    <div className="aspect-square bg-muted rounded-xl" />
+                    <div className="h-4 w-3/4 bg-muted rounded-lg" />
                   </div>
                 ))}
               </div>
             ) : storeProducts.length > 0 ? (
-              <div className="space-y-8">
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="space-y-6">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {storeProducts.map((product) => (
                     <CardProduct key={product.id} product={product} />
                   ))}
                 </div>
 
-                {/* Pagination Controls */}
+                {/* Pagination */}
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-between p-4 border border-gray-100 rounded-xl bg-white dark:bg-gray-900 dark:border-gray-800">
-                    <span className="text-xs text-muted-foreground font-semibold">
+                  <div className="flex items-center justify-between p-4 border border-border/70 rounded-2xl bg-card">
+                    <span className="text-xs text-muted-foreground font-medium">
                       Halaman {page} dari {totalPages}
                     </span>
                     <div className="flex gap-2">
@@ -534,7 +468,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                         variant="outline"
                         disabled={page === 1}
                         onClick={() => setPage(page - 1)}
-                        className="rounded-lg px-4 py-5 h-auto cursor-pointer"
+                        className="rounded-xl px-3 text-xs cursor-pointer"
                       >
                         <ChevronLeft className="h-4 w-4 mr-1" />
                         Sebelumnya
@@ -544,7 +478,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                         variant="outline"
                         disabled={page === totalPages}
                         onClick={() => setPage(page + 1)}
-                        className="rounded-lg px-4 py-5 h-auto cursor-pointer"
+                        className="rounded-xl px-3 text-xs cursor-pointer"
                       >
                         Selanjutnya
                         <ChevronRight className="h-4 w-4 ml-1" />
@@ -554,9 +488,9 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
                 )}
               </div>
             ) : (
-              <div className="rounded-xl border border-dashed border-gray-200 py-20 text-center dark:border-gray-800 bg-gray-50/10">
-                <Inbox className="h-10 w-10 text-muted-foreground/65 mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">Tidak ada produk ditemukan.</p>
+              <div className="rounded-2xl border border-dashed border-border/70 py-16 text-center bg-card">
+                <Inbox className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-xs text-muted-foreground font-medium">Tidak ada produk ditemukan.</p>
               </div>
             )}
           </div>
@@ -564,231 +498,118 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
 
         {/* 3. ABOUT TAB */}
         {activeTab === "about" && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
-            
-            {/* Store Information Detail (8 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-2 font-sans">
             <div className="lg:col-span-8 space-y-6">
-              <Card className="rounded-xl border border-gray-100 p-6 sm:p-8 dark:border-gray-850 dark:bg-gray-900/50 space-y-6">
+              <Card className="rounded-2xl border border-border/70 bg-card p-6 space-y-5">
                 <div className="space-y-2">
-                  <h3 className="font-fraunces text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="font-poppins text-base font-bold text-foreground">
                     {t("storefront.aboutTitle")}
                   </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                  <p className="text-xs text-muted-foreground leading-relaxed whitespace-pre-line">
                     {store.description || "Belum ada deskripsi untuk toko ini."}
                   </p>
                 </div>
 
-                <Separator className="border-gray-100 dark:border-gray-850" />
+                <Separator className="border-border/50" />
 
-                <div className="space-y-4">
-                  <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    Detail Kontak & Lokasi
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold text-foreground uppercase tracking-wider font-poppins">
+                    Detail Lokasi & Kontak
                   </h4>
-                  <div className="grid gap-4 sm:grid-cols-2 text-sm text-gray-700 dark:text-gray-300">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-gray-400 shrink-0 mt-0.5" />
+                  <div className="grid gap-3 sm:grid-cols-2 text-xs text-muted-foreground">
+                    <div className="flex items-start gap-2.5">
+                      <MapPin className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-semibold block text-gray-900 dark:text-white">Alamat Toko</span>
+                        <span className="font-semibold text-foreground block">Alamat Toko</span>
                         <span>
                           {store.address || ""}, {store.city || ""}, {store.province || ""} {store.postalCode || ""}
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-3">
-                      <Phone className="h-5 w-5 text-gray-400 shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2.5">
+                      <Phone className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
                       <div>
-                        <span className="font-semibold block text-gray-900 dark:text-white">WhatsApp/Telepon</span>
+                        <span className="font-semibold text-foreground block">WhatsApp / Telepon</span>
                         <span>{store.phone || "-"}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </Card>
-
-              {/* LoopTani Circular Agriculture Differentiator Widget */}
-              <Card className="rounded-xl border border-emerald-100 bg-emerald-50/15 p-6 sm:p-8 dark:border-emerald-950/20 dark:bg-emerald-950/5 relative overflow-hidden">
-                <div className="absolute -top-16 -right-16 h-36 w-36 rounded-full bg-emerald-500/5 blur-2xl" />
-                <CardContent className="p-0 space-y-6 relative z-10">
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-400 font-bold">
-                        <Sprout className="h-5 w-5 fill-current text-emerald-600" />
-                        {t("storefront.circularImpact")}
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed max-w-lg">
-                        {t("storefront.circularImpactDesc")}
-                      </p>
-                    </div>
-                    <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold border-0 rounded-full px-3 py-1 text-3xs shrink-0">
-                      {t("storefront.comingSoon")}
-                    </Badge>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <div className="border border-emerald-100/50 bg-white/60 dark:bg-gray-900/40 dark:border-emerald-950/30 p-4 rounded-xl text-center space-y-1">
-                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Limbah Diolah</span>
-                      <span className="text-lg font-black text-emerald-800 dark:text-emerald-400">0 Kg</span>
-                    </div>
-
-                    <div className="border border-emerald-100/50 bg-white/60 dark:bg-gray-900/40 dark:border-emerald-950/30 p-4 rounded-xl text-center space-y-1">
-                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Produk Organik</span>
-                      <span className="text-lg font-black text-emerald-800 dark:text-emerald-400">0 Unit</span>
-                    </div>
-
-                    <div className="border border-emerald-100/50 bg-white/60 dark:bg-gray-900/40 dark:border-emerald-950/30 p-4 rounded-xl text-center space-y-1">
-                      <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block">Petani Terbantu</span>
-                      <span className="text-lg font-black text-emerald-800 dark:text-emerald-400">0 Mitra</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
-            {/* Gamification / Badges section (4 cols) */}
-            <div className="lg:col-span-4 space-y-6">
-              <Card className="rounded-xl border border-gray-100 p-6 dark:border-gray-850 dark:bg-gray-900/50 space-y-4">
-                <h3 className="font-fraunces text-base font-bold text-gray-900 dark:text-white">
-                  Lencana Mitra Tani
+            {/* Side Card Badges */}
+            <div className="lg:col-span-4 space-y-4">
+              <Card className="rounded-2xl border border-border/70 bg-card p-5 space-y-3">
+                <h3 className="font-poppins text-sm font-bold text-foreground">
+                  Status Verifikasi & Komitmen
                 </h3>
-                <div className="space-y-3.5">
-                  <div className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-50 bg-gray-50/20 dark:border-gray-855 dark:bg-gray-900">
-                    <span className="h-10 w-10 flex items-center justify-center rounded-lg bg-amber-50 text-amber-600 text-sm font-black dark:bg-amber-950/30 dark:text-amber-400 select-none">🌱</span>
+                <div className="space-y-3 text-xs">
+                  <div className="flex items-center gap-3 p-2.5 rounded-xl bg-muted/40 border border-border/40">
+                    <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
                     <div>
-                      <span className="text-xs font-bold text-gray-950 dark:text-white block">Eco Partner</span>
-                      <span className="text-[10px] text-muted-foreground">Mendukung praktek hijau ramah lingkungan.</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-50 bg-gray-50/20 dark:border-gray-855 dark:bg-gray-900">
-                    <span className="h-10 w-10 flex items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 text-sm font-black dark:bg-emerald-950/30 dark:text-emerald-400 select-none">♻️</span>
-                    <div>
-                      <span className="text-xs font-bold text-gray-950 dark:text-white block">Circular Seller</span>
-                      <span className="text-[10px] text-muted-foreground">Mendaur ulang limbah tani menjadi produk baru.</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3.5 p-3 rounded-xl border border-gray-50 bg-gray-50/20 dark:border-gray-855 dark:bg-gray-900">
-                    <span className="h-10 w-10 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600 text-sm font-black dark:bg-blue-950/30 dark:text-blue-400 select-none">🏆</span>
-                    <div>
-                      <span className="text-xs font-bold text-gray-950 dark:text-white block">Trusted Seller</span>
-                      <span className="text-[10px] text-muted-foreground">Memiliki rating pelayanan pembeli terbaik.</span>
+                      <span className="font-bold text-foreground block">Penjual Terverifikasi</span>
+                      <span className="text-[11px] text-muted-foreground">Telah memenuhi verifikasi legalitas LoopTani.</span>
                     </div>
                   </div>
                 </div>
               </Card>
             </div>
-
           </div>
         )}
 
-        {/* 4. IMPACT TAB (Dampak Sirkular Pertanian) */}
+        {/* 4. IMPACT TAB */}
         {activeTab === "impact" && (
-          <div className="space-y-6 pt-2">
-            <Card className="rounded-2xl border border-primary/30 shadow-md overflow-hidden bg-white dark:bg-gray-900">
-              <CardContent className="p-6 sm:p-8 space-y-8">
-                {/* Top Header */}
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-6">
-                  <div className="space-y-1 max-w-2xl">
-                    <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-wider">
-                      <Sprout className="w-4 h-4" />
-                      <span>Eco Contribution</span>
-                    </div>
-                    <h2 className="font-fraunces text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                      {t("storefront.circularImpact")}
-                    </h2>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      {t("storefront.circularImpactDesc")}
-                    </p>
-                  </div>
-
-                  <Badge className="bg-primary text-primary-foreground font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-xs">
-                    {t("storefront.comingSoon")}
-                  </Badge>
-                </div>
-
-                {/* 3 Metric Highlight Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Card 1: Limbah Diolah */}
-                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
-                        <Recycle className="w-6 h-6 text-primary" />
-                      </div>
-                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
-                        {t("storefront.comingSoon")}
-                      </Badge>
-                    </div>
-                    <div>
-                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
-                        {store.impactStats?.wasteProcessedKg ?? 0} <span className="text-lg font-bold text-muted-foreground">Kg</span>
-                      </p>
-                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Limbah Diolah</p>
-                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
-                        Total estimasi bobot limbah organik & pertanian yang telah didaur ulang menjadi komoditas bernilai tinggi.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Card 2: Produk Organik */}
-                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
-                        <Leaf className="w-6 h-6 text-primary" />
-                      </div>
-                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
-                        {t("storefront.comingSoon")}
-                      </Badge>
-                    </div>
-                    <div>
-                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
-                        {store.impactStats?.organicProductsCount ?? store.stats.totalProducts} <span className="text-lg font-bold text-muted-foreground">Unit</span>
-                      </p>
-                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Produk Organik</p>
-                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
-                        Jumlah katalog produk ramah lingkungan & pupuk organik yang aktif di etalase toko ini.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Card 3: Petani Terbantu */}
-                  <div className="relative rounded-2xl border border-primary/20 bg-linear-to-b from-primary/5 to-primary/10 p-6 space-y-4 shadow-xs hover:border-primary/40 transition-all">
-                    <div className="flex items-center justify-between">
-                      <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center">
-                        <Building2 className="w-6 h-6 text-primary" />
-                      </div>
-                      <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border-primary/30 text-[10px] font-bold">
-                        {t("storefront.comingSoon")}
-                      </Badge>
-                    </div>
-                    <div>
-                      <p className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight font-poppins">
-                        {store.impactStats?.farmersHelpedCount ?? 0} <span className="text-lg font-bold text-muted-foreground">Mitra</span>
-                      </p>
-                      <p className="text-xs font-bold text-gray-900 dark:text-white pt-1">Petani Terbantu</p>
-                      <p className="text-[11px] text-muted-foreground pt-1 leading-snug">
-                        Mitra petani & pelanggan yang telah didukung melalui rantai pasok sirkular pertanian.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Eco Highlight Banner */}
-                <div className="relative rounded-2xl bg-linear-to-r from-emerald-950 via-primary to-emerald-900 text-white p-6 sm:p-8 shadow-lg overflow-hidden border border-primary/30 space-y-3">
-                  <div className="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 rounded-full bg-white/5 blur-2xl pointer-events-none" />
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shrink-0">
-                      <Sprout className="w-5 h-5 text-emerald-200" />
-                    </div>
-                    <h3 className="text-base sm:text-lg font-extrabold font-poppins text-white">
-                      Komitmen Pertanian Berkelanjutan & Eco-Sirkular
-                    </h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-3xl">
-                    Toko ini secara aktif mendukung daur ulang limbah pertanian dan mengurangi emisi lingkungan dengan menyalurkan hasil sisa panen menjadi produk bernilai ekonomis bagi komunitas tani.
+          <div className="space-y-6 pt-2 font-sans">
+            <Card className="rounded-2xl border border-primary/30 bg-card p-6 space-y-6 shadow-xs">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/50 pb-5">
+                <div className="space-y-1">
+                  <h2 className="font-poppins text-lg font-bold text-foreground">
+                    {t("storefront.circularImpact")}
+                  </h2>
+                  <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+                    {t("storefront.circularImpactDesc")}
                   </p>
                 </div>
-              </CardContent>
+
+                <Badge className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                  {t("storefront.comingSoon")}
+                </Badge>
+              </div>
+
+              {/* Clean 3 Metric Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 space-y-2">
+                  <span className="text-[11px] font-semibold text-muted-foreground uppercase block">Limbah Diolah</span>
+                  <p className="text-2xl font-bold font-poppins text-foreground">
+                    {store.impactStats?.wasteProcessedKg ?? 0} <span className="text-sm font-normal text-muted-foreground">Kg</span>
+                  </p>
+                  <p className="text-[11px] text-muted-foreground">
+                    Estimasi limbah organik yang didaur ulang.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 space-y-2">
+                  <span className="text-[11px] font-semibold text-muted-foreground uppercase block">Produk Organik</span>
+                  <p className="text-2xl font-bold font-poppins text-foreground">
+                    {store.impactStats?.organicProductsCount ?? store.stats.totalProducts} <span className="text-sm font-normal text-muted-foreground">Unit</span>
+                  </p>
+                  <p className="text-[11px] text-muted-foreground">
+                    Katalog produk ramah lingkungan aktif.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 space-y-2">
+                  <span className="text-[11px] font-semibold text-muted-foreground uppercase block">Petani Terbantu</span>
+                  <p className="text-2xl font-bold font-poppins text-foreground">
+                    {store.impactStats?.farmersHelpedCount ?? 0} <span className="text-sm font-normal text-muted-foreground">Mitra</span>
+                  </p>
+                  <p className="text-[11px] text-muted-foreground">
+                    Mitra tani dalam rantai pasok sirkular.
+                  </p>
+                </div>
+              </div>
             </Card>
           </div>
         )}

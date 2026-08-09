@@ -16,7 +16,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import type { Product } from "@/types/api";
-import { Search, MoreVertical, Edit2, Trash2, Eye, EyeOff, Package, Plus } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Search, MoreVertical, Edit2, Trash2, Eye, EyeOff, Power, Package, Plus } from "lucide-react";
 
 interface SellerProductsTableProps {
   products: Product[];
@@ -60,7 +61,7 @@ export function SellerProductsTable({
           const thumbnail = product.images?.[0]?.imageUrl;
 
           return (
-            <div className="flex items-center gap-3 py-1">
+            <div className="flex items-center gap-3 py-1 font-poppins">
               <div className="w-11 h-11 rounded-xl overflow-hidden bg-muted/40 border border-border/60 shrink-0 flex items-center justify-center">
                 {thumbnail ? (
                   <img src={thumbnail} alt={product.title} className="w-full h-full object-cover" />
@@ -84,7 +85,7 @@ export function SellerProductsTable({
         accessorKey: "category",
         header: "Kategori",
         cell: ({ row }) => (
-          <Badge variant="outline" className="text-[10px] font-medium rounded-lg bg-muted/40 border-border/60">
+          <Badge variant="outline" className="text-[10px] font-semibold rounded-lg bg-primary/10 text-primary border-primary/20 font-poppins">
             {row.original.category}
           </Badge>
         ),
@@ -95,8 +96,8 @@ export function SellerProductsTable({
         cell: ({ row }) => {
           const unit = row.original.unit || "kg";
           return (
-            <div className="space-y-0.5">
-              <span className="font-bold text-xs font-mono text-foreground">
+            <div className="space-y-0.5 font-poppins">
+              <span className="font-bold text-xs font-mono text-foreground block">
                 {formatCurrency(Number(row.original.price))}
               </span>
               <span className="text-[10px] text-muted-foreground block font-sans">
@@ -116,9 +117,9 @@ export function SellerProductsTable({
           return (
             <Badge
               variant="outline"
-              className={`text-[10px] font-mono font-bold rounded-md ${
+              className={`text-[10px] font-mono font-bold rounded-md font-poppins ${
                 isLow
-                  ? "bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-400 border-rose-200/60"
+                  ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
                   : "bg-muted/40 text-foreground border-border/60"
               }`}
             >
@@ -135,10 +136,10 @@ export function SellerProductsTable({
           return (
             <Badge
               variant="outline"
-              className={`text-[10px] font-bold rounded-md px-2 py-0.5 ${
+              className={`text-[10px] font-bold rounded-full px-2.5 py-0.5 font-poppins ${
                 isActive
-                  ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400 border-emerald-200/60"
-                  : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 border-slate-200/60"
+                  ? "bg-primary/10 text-primary border-primary/20"
+                  : "bg-muted text-muted-foreground border-border/60"
               }`}
             >
               {isActive ? "Aktif" : "Draft"}
@@ -151,8 +152,24 @@ export function SellerProductsTable({
         header: "Aksi",
         cell: ({ row }) => {
           const product = row.original;
+          const isActive = product.status === "ACTIVE";
+
           return (
             <div className="flex items-center gap-1">
+              {/* Preview product on marketplace */}
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                title="Lihat Produk di Marketplace"
+                className="h-8 w-8 rounded-lg cursor-pointer text-muted-foreground hover:text-primary"
+              >
+                <Link href={`/marketplace/${product.id}`} target="_blank" rel="noopener noreferrer">
+                  <Eye className="w-3.5 h-3.5" />
+                </Link>
+              </Button>
+
+              {/* Edit product */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -163,20 +180,22 @@ export function SellerProductsTable({
                 <Edit2 className="w-3.5 h-3.5" />
               </Button>
 
+              {/* Toggle status (Active / Draft) */}
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => onToggleStatus(product)}
-                title={product.status === "ACTIVE" ? "Set Draft" : "Aktifkan"}
-                className="h-8 w-8 rounded-lg cursor-pointer text-muted-foreground hover:text-foreground"
+                title={isActive ? "Ubah ke Draft (Sembunyikan)" : "Aktifkan Produk (Publikasi)"}
+                className={`h-8 w-8 rounded-lg cursor-pointer ${
+                  isActive
+                    ? "text-emerald-600 hover:text-amber-600"
+                    : "text-amber-600 hover:text-emerald-600"
+                }`}
               >
-                {product.status === "ACTIVE" ? (
-                  <EyeOff className="w-3.5 h-3.5 text-amber-600" />
-                ) : (
-                  <Eye className="w-3.5 h-3.5 text-emerald-600" />
-                )}
+                <Power className="w-3.5 h-3.5" />
               </Button>
 
+              {/* Delete product */}
               <Button
                 variant="ghost"
                 size="icon"

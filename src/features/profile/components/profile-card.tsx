@@ -19,8 +19,8 @@ import {
   FieldDescription,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button as UIButton } from "@/components/ui/button";
-import { Loader2, Store, ArrowRight, Mail, Phone, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2, Store, ArrowRight, Mail, Phone, User, ShieldCheck } from "lucide-react";
 
 interface ProfileCardProps {
   profile: UserProfile;
@@ -55,90 +55,143 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="w-full ring-0 border border-gray-200 rounded-xl dark:border-gray-800 dark:bg-gray-900 shadow-3xs overflow-hidden">
-        <CardHeader className="bg-gray-50/50 dark:bg-gray-850/40 p-6 border-b border-gray-200 dark:border-gray-800/80">
-          <CardTitle className="text-lg font-bold text-gray-900 dark:text-white font-poppins">
-            {t("title")}
+    <div className="space-y-6 font-sans">
+      {/* ── Active / Pending Seller Store Card Widget ── */}
+      {profile.sellerProfile && (
+        <Card className="border border-border/70 bg-card rounded-2xl p-5 shadow-xs overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="h-11 w-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <Store className="h-5 w-5" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="font-poppins font-bold text-sm text-foreground">
+                    {profile.sellerProfile.storeName || "Toko Anda"}
+                  </span>
+                  <SellerStatusBadge status={profile.sellerProfile.status} />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {profile.sellerProfile.status === "ACTIVE"
+                    ? "Kelola katalog produk, pesanan pembeli, dan grafik performa toko Anda."
+                    : profile.sellerProfile.status === "PENDING"
+                    ? "Pendaftaran toko Anda sedang diverifikasi oleh tim admin LoopTani."
+                    : "Pendaftaran toko belum disetujui. Silakan periksa kembali profil registrasi Anda."}
+                </p>
+              </div>
+            </div>
+
+            {profile.sellerProfile.status === "ACTIVE" && (
+              <Button
+                asChild
+                size="sm"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs rounded-xl h-9 px-4 shrink-0 shadow-xs cursor-pointer"
+              >
+                <Link href="/seller" className="flex items-center gap-1.5 font-poppins">
+                  Ke Dashboard Toko <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </Button>
+            )}
+
+            {profile.sellerProfile.status === "REJECTED" && (
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+                className="rounded-xl h-9 px-4 text-xs font-bold shrink-0 cursor-pointer"
+              >
+                <Link href="/seller/register">
+                  Daftar Ulang
+                </Link>
+              </Button>
+            )}
+          </div>
+        </Card>
+      )}
+
+      {/* ── Main Profile Edit Card ── */}
+      <Card className="w-full border border-border/70 rounded-2xl bg-card shadow-xs overflow-hidden">
+        <CardHeader className="bg-muted/30 p-5 sm:p-6 border-b border-border/50">
+          <CardTitle className="text-base font-bold text-foreground font-poppins">
+            {t("title") || "Informasi Profil"}
           </CardTitle>
-          <CardDescription className="text-xs">
-            {t("description")}
+          <CardDescription className="text-xs text-muted-foreground">
+            {t("description") || "Kelola informasi biodata akun Anda"}
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6 sm:p-8">
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
+          <div className="flex flex-col lg:flex-row gap-8 items-start">
             
-            {/* Left side: Avatar section (inside a clean soft border card) */}
-            <div className="w-full lg:w-64 shrink-0 flex flex-col items-center p-5 border border-gray-200 rounded-xl bg-gray-50/20 dark:border-gray-800 dark:bg-gray-900/40 space-y-4">
+            {/* Avatar Section */}
+            <div className="w-full lg:w-56 shrink-0 flex flex-col items-center p-5 border border-border/60 rounded-2xl bg-muted/20 space-y-3.5">
               <AvatarUploader 
                 currentAvatar={profile.image} 
                 name={profile.name} 
               />
               
               {profile.sellerProfile ? (
-                <div className="w-full pt-2 flex flex-col items-center">
-                  <span className="text-4xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Status Mitra</span>
-                  <SellerStatusBadge status={profile.sellerProfile.status} />
-                </div>
+                <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 font-bold text-[11px] px-3 py-0.5 rounded-full">
+                  Mitra Penjual
+                </Badge>
               ) : (
-                <Badge className="bg-gray-100 text-gray-600 border-0 font-semibold text-[10px] px-2.5 py-1">
+                <Badge variant="outline" className="bg-muted text-muted-foreground border-border/60 font-medium text-[11px] px-3 py-0.5 rounded-full">
                   Akun Pembeli
                 </Badge>
               )}
             </div>
 
-            {/* Right side: Biodata Edit Form */}
-            <div className="flex-1 w-full space-y-6">
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            {/* Biodata Form */}
+            <div className="flex-1 w-full space-y-5">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 font-sans">
                 
-                {/* Full name input */}
+                {/* Full Name */}
                 <Field>
-                  <FieldLabel htmlFor="name" className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                    {t("nameLabel")}
+                  <FieldLabel htmlFor="name" className="text-xs font-bold text-foreground">
+                    {t("nameLabel") || "Nama Lengkap"}
                   </FieldLabel>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input id="name" placeholder="Nama Lengkap Anda" className="pl-9.5 rounded-lg border-gray-200" {...form.register("name")} />
+                    <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="name" placeholder="Nama Lengkap Anda" className="pl-10 rounded-xl text-xs border-border/70" {...form.register("name")} />
                   </div>
                   <FieldError errors={[form.formState.errors.name as any]} />
                 </Field>
 
                 {/* Email (Disabled) */}
                 <Field>
-                  <FieldLabel htmlFor="email" className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                    {t("emailLabel")}
+                  <FieldLabel htmlFor="email" className="text-xs font-bold text-foreground">
+                    {t("emailLabel") || "Alamat Email"}
                   </FieldLabel>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input id="email" value={profile.email} disabled className="pl-9.5 rounded-lg bg-gray-50 border-gray-200 cursor-not-allowed dark:bg-gray-850 dark:border-gray-800" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="email" value={profile.email} disabled className="pl-10 rounded-xl text-xs bg-muted/50 border-border/70 cursor-not-allowed text-muted-foreground" />
                   </div>
-                  <FieldDescription className="text-3xs">{t("emailDescription")}</FieldDescription>
+                  <FieldDescription className="text-[11px] text-muted-foreground">{t("emailDescription") || "Email terhubung dengan sistem login akun."}</FieldDescription>
                 </Field>
 
-                {/* Phone number input */}
+                {/* Phone Number */}
                 <Field>
-                  <FieldLabel htmlFor="phone" className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                    {t("phoneLabel")}
+                  <FieldLabel htmlFor="phone" className="text-xs font-bold text-foreground">
+                    {t("phoneLabel") || "Nomor Telepon / WA"}
                   </FieldLabel>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input id="phone" placeholder="08123456789" className="pl-9.5 rounded-lg border-gray-200" {...form.register("phone")} />
+                    <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="phone" placeholder="08123456789" className="pl-10 rounded-xl text-xs border-border/70" {...form.register("phone")} />
                   </div>
                   <FieldError errors={[form.formState.errors.phone as any]} />
                 </Field>
 
-                {/* Save changes button */}
-                <div className="flex justify-end pt-4">
-                  <UIButton 
+                {/* Submit button */}
+                <div className="flex justify-end pt-3">
+                  <Button 
                     type="submit" 
                     disabled={updateProfile.isPending || !form.formState.isDirty}
-                    className="rounded-lg px-6 bg-primary hover:bg-emerald-700 text-white font-bold text-xs h-10 shadow-xs cursor-pointer"
+                    className="rounded-xl px-5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs h-9 shadow-xs cursor-pointer"
                   >
                     {updateProfile.isPending && (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
                     )}
-                    {t("saveButton")}
-                  </UIButton>
+                    {t("saveButton") || "Simpan Perubahan"}
+                  </Button>
                 </div>
               </form>
             </div>
@@ -147,36 +200,32 @@ export function ProfileCard({ profile }: ProfileCardProps) {
         </CardContent>
       </Card>
 
-      {/* Seller Registration CTA for Buyers */}
+      {/* Seller Registration Banner CTA for Non-Sellers */}
       {!profile.sellerProfile && (
-        <div className="relative overflow-hidden rounded-xl border border-emerald-100 bg-linear-to-r from-emerald-50/50 to-teal-50/30 p-6 shadow-3xs dark:border-emerald-950/20 dark:from-emerald-950/10 dark:to-teal-950/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          {/* Background glowing blobs */}
-          <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-emerald-400/10 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-teal-400/10 blur-3xl pointer-events-none" />
-
-          <div className="relative z-10 flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
-              <Store className="h-6 w-6 animate-pulse" />
+        <Card className="border border-primary/30 bg-primary/5 p-6 rounded-2xl shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <div className="flex items-start gap-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <Store className="h-5 w-5" />
             </div>
-            <div>
-              <h4 className="font-poppins text-base font-bold text-gray-900 dark:text-white leading-tight">
+            <div className="space-y-1">
+              <h4 className="font-poppins text-sm font-bold text-foreground">
                 Mulai Berjualan di LoopTani
               </h4>
-              <p className="text-xs text-muted-foreground mt-1.5 max-w-lg leading-relaxed">
-                Daftar sebagai mitra penjual untuk membuka akses jual beli hasil pertanian, mengolah limbah organik, dan berkontribusi menulis Panduan Tani demi mengumpulkan reward LoopPoints menarik.
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+                Daftar sebagai mitra penjual untuk mengolah & memasarkan produk pertanian sirkular, pupuk organik, dan alat pertanian.
               </p>
             </div>
           </div>
 
-          <UIButton
+          <Button
             asChild
-            className="relative z-10 shrink-0 rounded-lg bg-primary hover:bg-emerald-700 text-white font-bold text-xs px-6 py-5.5 shadow-xs transition-all hover:scale-102 duration-300 cursor-pointer"
+            className="shrink-0 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs px-5 h-10 shadow-xs cursor-pointer"
           >
-            <Link href="/seller/register" className="flex items-center gap-1.5">
+            <Link href="/seller/register" className="flex items-center gap-1.5 font-poppins">
               Daftar Jadi Seller <ArrowRight className="h-4 w-4" />
             </Link>
-          </UIButton>
-        </div>
+          </Button>
+        </Card>
       )}
     </div>
   );

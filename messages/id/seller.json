@@ -1,268 +1,437 @@
 {
   "seller": {
     "sidebar": {
-    "dashboard": "Dashboard",
-    "products": "Produk",
-    "orders": "Pesanan",
-    "revenue": "Pendapatan",
-    "analytics": "Analitik",
-    "reviews": "Ulasan",
-    "settings": "Pengaturan Toko",
-    "backToProfile": "Kembali ke Profil"
-  },
-  "gate": {
-    "notRegisteredTitle": "Mulai Berjualan di Loop Tani",
-    "notRegisteredDescription": "Bergabunglah dengan ribuan petani dan penjual lainnya. Jangkau pembeli di seluruh Indonesia dengan membuka toko Anda sendiri.",
-    "backButton": "Kembali ke Beranda",
-    "registerButton": "Buka Toko Sekarang",
-    "accessDenied": "Akses Ditolak",
-    "statusMessage": "Status toko Anda saat ini: {status}",
-    "pendingDescription": "Pendaftaran toko Anda sedang dalam proses peninjauan. Mohon tunggu informasi selanjutnya dari tim kami."
-  },
-  "register": {
-    "badge": "Buka Toko Gratis dalam 3 Langkah",
-    "title": "Buka Toko Anda",
-    "description": "Lengkapi formulir di bawah ini untuk mulai berjualan di Loop Tani.",
-    "steps": {
-      "1": {
-        "title": "Informasi Toko",
-        "description": "Nama dan identitas toko Anda"
+      "dashboard": "Dashboard",
+      "products": "Produk",
+      "orders": "Pesanan",
+      "revenue": "Pendapatan",
+      "analytics": "Analitik",
+      "reviews": "Ulasan",
+      "settings": "Pengaturan Toko",
+      "backToProfile": "Kembali ke Profil"
+    },
+    "gate": {
+      "notRegisteredTitle": "Mulai Berjualan di Loop Tani",
+      "notRegisteredDescription": "Bergabunglah dengan ribuan petani dan penjual lainnya. Jangkau pembeli di seluruh Indonesia dengan membuka toko Anda sendiri.",
+      "backButton": "Kembali ke Beranda",
+      "registerButton": "Buka Toko Sekarang",
+      "accessDenied": "Akses Ditolak",
+      "statusMessage": "Status toko Anda saat ini: {status}",
+      "pendingDescription": "Pendaftaran toko Anda sedang dalam proses peninjauan. Mohon tunggu informasi selanjutnya dari tim kami."
+    },
+    "register": {
+      "badge": "Buka Toko Gratis dalam 3 Langkah",
+      "title": "Buka Toko Anda",
+      "description": "Lengkapi formulir di bawah ini untuk mulai berjualan di Loop Tani.",
+      "steps": {
+        "1": {
+          "title": "Informasi Toko",
+          "description": "Nama dan identitas toko Anda"
+        },
+        "2": {
+          "title": "Kontak & Alamat",
+          "description": "Informasi kontak dan alamat pengiriman"
+        },
+        "3": {
+          "title": "Detail Toko",
+          "description": "Deskripsi dan informasi tambahan"
+        }
       },
-      "2": {
-        "title": "Kontak & Alamat",
-        "description": "Informasi kontak dan alamat pengiriman"
+      "form": {
+        "storeNameLabel": "Nama Toko",
+        "storeSlugLabel": "Slug URL Toko",
+        "storeSlugDescription": "Ini akan menjadi URL profil toko Anda (contoh: looptani.com/toko/slug-toko)",
+        "phoneLabel": "Nomor WhatsApp/Telepon",
+        "provinceLabel": "Provinsi",
+        "cityLabel": "Kota/Kabupaten",
+        "postalCodeLabel": "Kode Pos",
+        "addressLabel": "Alamat Lengkap",
+        "almostDone": "Hampir Selesai!",
+        "almostDoneDescription": "Beritahu pembeli tentang toko Anda untuk meningkatkan kepercayaan.",
+        "descriptionLabel": "Deskripsi Toko",
+        "descriptionPlaceholder": "Ceritakan tentang toko Anda, produk yang dijual, dan keunggulan Anda...",
+        "descriptionHint": "Opsional, namun sangat disarankan."
       },
-      "3": {
-        "title": "Detail Toko",
-        "description": "Deskripsi dan informasi tambahan"
+      "buttons": {
+        "back": "Kembali",
+        "next": "Selanjutnya",
+        "submit": "Ajukan Pendaftaran"
       }
     },
-    "form": {
-      "storeNameLabel": "Nama Toko",
-      "storeSlugLabel": "Slug URL Toko",
-      "storeSlugDescription": "Ini akan menjadi URL profil toko Anda (contoh: looptani.com/toko/slug-toko)",
-      "phoneLabel": "Nomor WhatsApp/Telepon",
-      "provinceLabel": "Provinsi",
-      "cityLabel": "Kota/Kabupaten",
-      "postalCodeLabel": "Kode Pos",
-      "addressLabel": "Alamat Lengkap",
-      "almostDone": "Hampir Selesai!",
-      "almostDoneDescription": "Beritahu pembeli tentang toko Anda untuk meningkatkan kepercayaan.",
-      "descriptionLabel": "Deskripsi Toko",
-      "descriptionPlaceholder": "Ceritakan tentang toko Anda, produk yang dijual, dan keunggulan Anda...",
-      "descriptionHint": "Opsional, namun sangat disarankan."
+    "dashboard": {
+      "title": "Seller Center",
+      "description": "Ringkasan performa toko Anda",
+      "error": "Gagal memuat dashboard. Silakan coba lagi.",
+      "stats": {
+        "todayRevenue": "Pendapatan Hari Ini",
+        "monthlyRevenue": "Pendapatan Bulan Ini",
+        "ordersCount": "Pesanan Bulan Ini",
+        "visitorsCount": "Pengunjung Toko",
+        "vsYesterday": "vs kemarin",
+        "vsLastMonth": "vs bulan lalu",
+        "conversion": "Tingkat konversi: {rate}%"
+      },
+      "recentOrders": {
+        "title": "Pesanan Terbaru",
+        "description": "Daftar pesanan yang baru masuk",
+        "empty": "Belum ada pesanan terbaru."
+      },
+      "lowStock": {
+        "title": "Stok Menipis",
+        "description": "Produk dengan stok kurang dari 5",
+        "items": "Item",
+        "empty": "Semua stok produk aman."
+      }
     },
-    "buttons": {
-      "back": "Kembali",
-      "next": "Selanjutnya",
-      "submit": "Ajukan Pendaftaran"
-    }
-  },
-  "dashboard": {
-    "title": "Seller Center",
-    "description": "Ringkasan performa toko Anda",
-    "error": "Gagal memuat dashboard. Silakan coba lagi.",
-    "stats": {
-      "todayRevenue": "Pendapatan Hari Ini",
-      "monthlyRevenue": "Pendapatan Bulan Ini",
-      "ordersCount": "Pesanan Bulan Ini",
-      "visitorsCount": "Pengunjung Toko",
-      "vsYesterday": "vs kemarin",
-      "vsLastMonth": "vs bulan lalu",
-      "conversion": "Tingkat konversi: {rate}%"
+    "storefront": {
+      "notFound": "Toko tidak ditemukan atau tidak aktif",
+      "backToMarketplace": "Kembali ke Marketplace",
+      "verified": "Penjual Terverifikasi",
+      "joined": "Bergabung {date}",
+      "productsCount": "{count} Produk",
+      "soldCount": "{count} Terjual",
+      "location": "Lokasi",
+      "products": "Produk",
+      "homeTab": "Beranda",
+      "productsTab": "Produk",
+      "aboutTab": "Tentang Toko",
+      "latestProducts": "Produk Terbaru",
+      "noProducts": "Belum ada produk aktif di toko ini.",
+      "aboutTitle": "Informasi Toko",
+      "contact": "Hubungi Penjual",
+      "circularImpact": "Dampak Sirkular Pertanian",
+      "circularImpactDesc": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
+      "comingSoon": "Segera Hadir",
+      "impactTab": "Dampak Sirkular",
+      "searchPlaceholder": "Cari produk di toko ini...",
+      "sortBy": "Urutkan",
+      "reviews": "Ulasan Toko",
+      "noReviews": "Belum ada ulasan untuk toko ini.",
+      "reviewsTab": "Ulasan"
     },
-    "recentOrders": {
-      "title": "Pesanan Terbaru",
-      "description": "Daftar pesanan yang baru masuk",
-      "empty": "Belum ada pesanan terbaru."
+    "products": {
+      "title": "Kelola Produk Toko",
+      "subtitle": "Katalog Limbah Pertanian",
+      "description": "Kelola stok, harga, foto, dan status publikasi produk limbah pertanian Anda di marketplace",
+      "createButton": "Tambah Produk Baru",
+      "tabs": {
+        "all": "Semua ({count})",
+        "active": "Aktif ({count})",
+        "lowStock": "Stok Rendah ({count})",
+        "draft": "Draft ({count})"
+      },
+      "searchPlaceholder": "Cari produk toko...",
+      "table": {
+        "product": "Produk",
+        "category": "Kategori",
+        "price": "Harga Jual",
+        "perUnit": "per {unit}",
+        "stock": "Stok",
+        "lowStockBadge": "(Stok Rendah)",
+        "status": "Status",
+        "statusActive": "Aktif",
+        "statusDraft": "Draft",
+        "actions": "Aksi",
+        "edit": "Edit Produk",
+        "setDraft": "Set Draft",
+        "setActive": "Aktifkan",
+        "delete": "Hapus Produk",
+        "showing": "Menampilkan {showing} dari {total} produk",
+        "previous": "Sebelumnya",
+        "next": "Selanjutnya",
+        "emptyTitle": "Tidak ada produk ditemukan.",
+        "emptyDesc": "Coba ubah kata kunci pencarian atau tambahkan produk baru.",
+        "loading": "Memuat daftar produk...",
+        "deleteConfirm": "Apakah Anda yakin ingin menghapus produk ini?",
+        "deleteSuccess": "Produk berhasil dihapus",
+        "deleteError": "Gagal menghapus produk",
+        "statusUpdated": "Status produk berhasil diperbarui",
+        "statusUpdateError": "Gagal mengubah status produk"
+      },
+      "modal": {
+        "createTitle": "Tambah Produk Baru",
+        "editTitle": "Edit Produk Toko",
+        "createDesc": "Lengkapi data produk limbah pertanian untuk mulai menjual di marketplace Loop Tani",
+        "editDesc": "Perbarui informasi produk limbah pertanian Anda di bawah ini",
+        "badge": "Katalog Seller",
+        "sec1": "1. Foto & Identitas Produk",
+        "sec2": "2. Harga, Satuan & Stok Persediaan",
+        "sec3": "3. Asal Pengiriman & Deskripsi Produk",
+        "sec4": "4. Status Publikasi Produk",
+        "photoLabel": "Foto Produk",
+        "photoUploaded": "{count}/5 foto terunggah",
+        "photoHint": "Format JPG/PNG/WEBP, maksimal 5MB per foto. Foto pertama otomatis dijadikan foto utama di marketplace.",
+        "titleLabel": "Nama Produk",
+        "titlePlaceholder": "Contoh: Jerami Padi Kering Organik Super 10kg",
+        "categoryLabel": "Kategori Produk",
+        "conditionLabel": "Kondisi Barang",
+        "priceLabel": "Harga Jual (Rp)",
+        "unitLabel": "Satuan Penjualan",
+        "stockLabel": "Jumlah Stok",
+        "weightLabel": "Berat Paket (gram)",
+        "weightHint": "Berat fisik + kemasan untuk hitung ongkir (1000g = 1kg)",
+        "descriptionLabel": "Deskripsi Lengkap Produk",
+        "descriptionPlaceholder": "Tuliskan spesifikasi produk, kadar air, kandungan nutrisi, keunggulan, atau aturan pengiriman limbah...",
+        "statusActiveLabel": "Aktif (Tampil di Toko & Marketplace)",
+        "statusDraftLabel": "Draft (Simpan saja sebagai draf)",
+        "cancel": "Batal",
+        "submitCreate": "Publikasikan Produk",
+        "submitEdit": "Simpan Perubahan",
+        "submitting": "Menyimpan..."
+      }
     },
-    "lowStock": {
-      "title": "Stok Menipis",
-      "description": "Produk dengan stok kurang dari 5",
-      "items": "Item",
-      "empty": "Semua stok produk aman."
-    }
-  },
-  "storefront": {
-    "notFound": "Toko tidak ditemukan atau tidak aktif",
-    "backToMarketplace": "Kembali ke Marketplace",
-    "verified": "Penjual Terverifikasi",
-    "joined": "Bergabung {date}",
-    "productsCount": "{count} Produk",
-    "soldCount": "{count} Terjual",
-    "location": "Lokasi",
-    "products": "Produk",
-    "homeTab": "Beranda",
-    "productsTab": "Produk",
-    "aboutTab": "Tentang Toko",
-    "latestProducts": "Produk Terbaru",
-    "noProducts": "Belum ada produk aktif di toko ini.",
-    "aboutTitle": "Informasi Toko",
-    "contact": "Hubungi Penjual",
-    "circularImpact": "Dampak Sirkular Pertanian",
-    "circularImpactDesc": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
-    "comingSoon": "Segera Hadir",
-    "impactTab": "Dampak Sirkular",
-    "searchPlaceholder": "Cari produk di toko ini...",
-    "sortBy": "Urutkan",
-    "reviews": "Ulasan Toko",
-    "noReviews": "Belum ada ulasan untuk toko ini.",
-    "reviewsTab": "Ulasan"
-  },
-  "products": {
-    "title": "Kelola Produk Toko",
-    "subtitle": "Katalog Limbah Pertanian",
-    "description": "Kelola stok, harga, foto, dan status publikasi produk limbah pertanian Anda di marketplace",
-    "createButton": "Tambah Produk Baru",
-    "tabs": {
-      "all": "Semua ({count})",
-      "active": "Aktif ({count})",
-      "lowStock": "Stok Rendah ({count})",
-      "draft": "Draft ({count})"
-    },
-    "searchPlaceholder": "Cari produk toko...",
-    "table": {
-      "product": "Produk",
-      "category": "Kategori",
-      "price": "Harga Jual",
-      "perUnit": "per {unit}",
-      "stock": "Stok",
-      "lowStockBadge": "(Stok Rendah)",
-      "status": "Status",
-      "statusActive": "Aktif",
-      "statusDraft": "Draft",
-      "actions": "Aksi",
-      "edit": "Edit Produk",
-      "setDraft": "Set Draft",
-      "setActive": "Aktifkan",
-      "delete": "Hapus Produk",
-      "showing": "Menampilkan {showing} dari {total} produk",
+    "orders": {
+      "title": "Pesanan Toko",
+      "description": "Kelola pesanan pembeli, pemrosesan produk, hingga pengiriman barang.",
+      "refresh": "Segarkan Data",
+      "searchPlaceholder": "Cari nomor pesanan, nama pembeli, atau nama produk...",
+      "tabs": {
+        "all": "Semua Pesanan",
+        "paid": "Perlu Diproses",
+        "processing": "Diproses",
+        "shipped": "Dikirim",
+        "completed": "Selesai",
+        "cancelled": "Dibatalkan"
+      },
+      "status": {
+        "pendingPayment": "Menunggu Pembayaran",
+        "paid": "Sudah Dibayar (Perlu Diproses)",
+        "processing": "Sedang Diproses",
+        "shipped": "Dalam Pengiriman",
+        "completed": "Selesai",
+        "cancelled": "Dibatalkan"
+      },
+      "actions": {
+        "details": "Detail Pesanan",
+        "process": "Proses Pesanan",
+        "ship": "Kirim Pesanan",
+        "complete": "Tandai Selesai"
+      },
+      "emptyTitle": "Tidak Ada Pesanan Ditemukan",
+      "emptyDescSearch": "Tidak ada pesanan yang sesuai dengan filter atau kata kunci pencarian Anda.",
+      "emptyDescAll": "Toko Anda belum memiliki transaksi pesanan masuk dari pembeli.",
+      "pagination": "Menampilkan Halaman {page} dari {totalPages} (Total {total} Pesanan)",
       "previous": "Sebelumnya",
-      "next": "Selanjutnya",
-      "emptyTitle": "Tidak ada produk ditemukan.",
-      "emptyDesc": "Coba ubah kata kunci pencarian atau tambahkan produk baru.",
-      "loading": "Memuat daftar produk...",
-      "deleteConfirm": "Apakah Anda yakin ingin menghapus produk ini?"
+      "next": "Berikutnya",
+      "modal": {
+        "title": "Rincian Pesanan #{orderNumber}",
+        "time": "Waktu Transaksi: {date}",
+        "addressTitle": "Alamat Pengiriman Pembeli",
+        "itemsTitle": "Item Produk ({count})",
+        "subtotal": "Subtotal Produk:",
+        "shippingCost": "Ongkos Pengiriman:",
+        "serviceFee": "Biaya Layanan:",
+        "grandTotal": "Total Pembayaran:",
+        "close": "Tutup"
+      },
+      "toastSuccess": "Pesanan berhasil diubah ke status {status}",
+      "toastError": "Gagal memperbarui status pesanan"
     },
-    "modal": {
-      "createTitle": "Tambah Produk Baru",
-      "editTitle": "Edit Produk Toko",
-      "createDesc": "Lengkapi data produk limbah pertanian untuk mulai menjual di marketplace Loop Tani",
-      "editDesc": "Perbarui informasi produk limbah pertanian Anda di bawah ini",
-      "badge": "Katalog Seller",
-      "sec1": "1. Foto & Identitas Produk",
-      "sec2": "2. Harga, Satuan & Stok Persediaan",
-      "sec3": "3. Asal Pengiriman & Deskripsi Produk",
-      "sec4": "4. Status Publikasi Produk",
-      "photoLabel": "Foto Produk",
-      "photoUploaded": "{count}/5 foto terunggah",
-      "photoHint": "Format JPG/PNG/WEBP, maksimal 5MB per foto. Foto pertama otomatis dijadikan foto utama di marketplace.",
-      "titleLabel": "Nama Produk",
-      "titlePlaceholder": "Contoh: Jerami Padi Kering Organik Super 10kg",
-      "categoryLabel": "Kategori Produk",
-      "conditionLabel": "Kondisi Barang",
-      "priceLabel": "Harga Jual (Rp)",
-      "unitLabel": "Satuan Penjualan",
-      "stockLabel": "Jumlah Stok",
-      "weightLabel": "Berat Paket (gram)",
-      "weightHint": "Berat fisik + kemasan untuk hitung ongkir (1000g = 1kg)",
-      "descriptionLabel": "Deskripsi Lengkap Produk",
-      "descriptionPlaceholder": "Tuliskan spesifikasi produk, kadar air, kandungan nutrisi, keunggulan, atau aturan pengiriman limbah...",
-      "statusActiveLabel": "Aktif (Tampil di Toko & Marketplace)",
-      "statusDraftLabel": "Draft (Simpan saja sebagai draf)",
-      "cancel": "Batal",
-      "submitCreate": "Publikasikan Produk",
-      "submitEdit": "Simpan Perubahan",
-      "submitting": "Menyimpan..."
+    "revenue": {
+      "title": "Pendapatan & Saldo Toko",
+      "description": "Pantau arus kas penjualan produk, saldo yang dapat ditarik, dan riwayat klaim pencairan dana.",
+      "refresh": "Segarkan Saldo",
+      "stats": {
+        "availableBalance": "SALDO SIAP DITARIK",
+        "availableSubtitle": "Saldo hasil penjualan produk yang sudah selesai",
+        "totalRevenue": "TOTAL PENDAPATAN",
+        "totalSubtitle": "Akumulasi total pendapatan penjualan",
+        "pendingBalance": "SALDO TERTAHAN",
+        "pendingSubtitle": "Pesanan sedang diproses / dalam pengiriman",
+        "withdrawnTotal": "TELAH DITARIK",
+        "withdrawnSubtitle": "Total saldo yang berhasil ditransfer ke bank",
+        "withdrawCta": "Tarik Saldo ke Bank"
+      },
+      "table": {
+        "title": "Riwayat Transaksi & Saldo",
+        "description": "Daftar pemasukan dari hasil penjualan dan riwayat penarikan saldo toko.",
+        "searchPlaceholder": "Cari transaksi berdasarkan nomor referensi / produk...",
+        "tabs": {
+          "all": "Semua",
+          "income": "Pemasukan",
+          "withdrawal": "Penarikan"
+        },
+        "emptyTitle": "Tidak Ada Riwayat Transaksi",
+        "emptyDescSearch": "Tidak ditemukan transaksi sesuai kata kunci pencarian.",
+        "emptyDescAll": "Belum ada transaksi pemasukan atau penarikan saldo.",
+        "statusCompleted": "Selesai",
+        "statusPending": "Tertahan",
+        "statusCancelled": "Batal"
+      },
+      "modal": {
+        "title": "Tarik Saldo Toko",
+        "description": "Transfer saldo pendapatan toko Anda secara langsung ke rekening bank terdaftar.",
+        "bankAccountTitle": "Rekening Bank Tujuan",
+        "verified": "Terverifikasi",
+        "amountLabel": "Nominal Penarikan",
+        "availableHint": "Tersedia: {amount}",
+        "withdrawAll": "Tarik Semua",
+        "cancel": "Batal",
+        "submit": "Konfirmasi Penarikan",
+        "submitting": "Memproses...",
+        "toastSuccess": "Permintaan penarikan saldo berhasil diajukan",
+        "toastError": "Gagal mengajukan penarikan saldo",
+        "minError": "Penarikan saldo minimal Rp 10.000",
+        "maxError": "Jumlah penarikan melebihi saldo yang tersedia"
+      }
+    },
+    "analytics": {
+      "title": "Analitik & Performa Bisnis Toko",
+      "description": "Metrik penjualan, barang terlaris, konversi pengunjung, dan dampak lingkungan sirkular.",
+      "refresh": "Segarkan Analitik",
+      "period": {
+        "7days": "7 Hari Terakhir",
+        "30days": "30 Hari Terakhir",
+        "6months": "6 Bulan Terakhir",
+        "1year": "Tahun Ini"
+      },
+      "stats": {
+        "totalRevenue": "TOTAL OMZET PENJUALAN",
+        "revenueSubtitle": "Hasil dari transaksi selesai",
+        "totalOrders": "TOTAL PESANAN SELESAI",
+        "ordersSubtitle": "Transaksi barang terkirim",
+        "itemsSold": "PRODUK TERJUAL",
+        "itemsSubtitle": "Total volume item komoditas",
+        "wasteRecycled": "LIMBAH DIDAUR ULANG",
+        "wasteSubtitle": "Estimasi limbah terolah"
+      },
+      "topProducts": {
+        "title": "5 Produk Terlaris Toko",
+        "subtitle": "Katalog komoditas dengan kontribusi omzet & volume tertinggi",
+        "empty": "Belum ada data penjualan produk terlaris."
+      },
+      "traffic": {
+        "title": "Pengunjung & Konversi",
+        "views": "Kunjungan Profil Toko",
+        "conversion": "Tingkat Konversi Pembelian"
+      }
+    },
+    "reviews": {
+      "title": "Ulasan & Kepuasan Pembeli",
+      "description": "Pantau tanggapan pembeli, tingkat kepuasan layanan, dan beri balasan pada ulasan produk toko.",
+      "refresh": "Segarkan Ulasan",
+      "summary": {
+        "title": "Ringkasan Kepuasan Toko",
+        "averageRating": "Skor Kepuasan",
+        "satisfactionRate": "Tingkat Kepuasan",
+        "totalReviews": "{count} Ulasan Pembeli",
+        "ratingStars": "{count} Poin Kepuasan"
+      },
+      "tabs": {
+        "all": "Semua Ulasan",
+        "star5": "Skor 5",
+        "star4": "Skor 4",
+        "star3": "Skor 3",
+        "star2": "Skor 2",
+        "star1": "Skor 1"
+      },
+      "card": {
+        "replyButton": "Balas Ulasan",
+        "sellerReplyTitle": "Balasan Toko Anda:",
+        "productTitle": "Produk Terulas:",
+        "orderNumber": "Pesanan #{orderNumber}"
+      },
+      "modal": {
+        "title": "Balas Ulasan Pembeli",
+        "description": "Tuliskan tanggapan ramah dan profesional atas ulasan pembeli.",
+        "replyLabel": "Pesan Balasan Toko",
+        "replyPlaceholder": "Tuliskan ucapan terima kasih atau tanggapan atas umpan balik pembeli...",
+        "cancel": "Batal",
+        "submit": "Kirim Balasan",
+        "submitting": "Mengirim...",
+        "toastSuccess": "Balasan ulasan berhasil dikirimkan",
+        "toastError": "Gagal mengirimkan balasan ulasan"
+      },
+      "emptyTitle": "Belum Ada Ulasan Pembeli",
+      "emptyDesc": "Belum ada umpan balik atau ulasan yang masuk untuk produk toko Anda."
+    },
+    "settings": {
+      "title": "Pengaturan Toko",
+      "subtitle": "Seller Center",
+      "headerBadge": "Official Seller Center",
+      "previewButton": "Lihat Tampilan Toko",
+      "tabs": {
+        "info": "Informasi Dasar",
+        "location": "Alamat & Ekspedisi",
+        "social": "Media Sosial & Web",
+        "policy": "Jam & Kebijakan",
+        "impact": "Dampak Sirkular"
+      },
+      "impactTab": {
+        "badge": "Circular Eco Contribution",
+        "title": "Dampak Sirkular Pertanian",
+        "description": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
+        "comingSoonBadge": "Segera Hadir",
+        "recycledWaste": "Limbah Diolah",
+        "recycledWasteDesc": "Total estimasi bobot limbah organik & pertanian yang telah didaur ulang menjadi komoditas bernilai tinggi.",
+        "organicProducts": "Produk Organik",
+        "organicProductsDesc": "Jumlah katalog produk ramah lingkungan & pupuk organik yang aktif di etalase toko Anda.",
+        "farmersHelped": "Petani Terbantu",
+        "farmersHelpedDesc": "Mitra petani & pelanggan yang telah didukung melalui rantai pasok sirkular pertanian.",
+        "unitKg": "Kg",
+        "unitItems": "Unit",
+        "unitPartners": "Mitra",
+        "highlightBannerTitle": "Misi Pertanian Berkelanjutan & Eco-Sirkular",
+        "highlightBannerDesc": "Toko Anda secara aktif mengurangi emisi karbon & limbah terbuang dengan mengubah sisa panen menjadi produk bernilai ekonomis tinggi bagi komunitas tani."
+      },
+      "infoTab": {
+        "badge": "Basic Information",
+        "title": "Informasi & Identitas Utama Toko",
+        "description": "Pengaturan logo resmi, nama tampilan toko, URL slug domain, serta deskripsi profil publik",
+        "logoLabel": "Logo / Foto Profil Toko",
+        "uploadLogo": "Pilih Gambar Logo",
+        "removeLogo": "Hapus Foto",
+        "logoHint": "Format gambar JPG, PNG, atau WEBP (maksimal 5MB). Logo rasio 1:1 memberikan tampilan terbaik.",
+        "storeNameLabel": "Nama Toko",
+        "storeSlugLabel": "Slug / URL Unik Toko",
+        "storeSlugHint": "Huruf kecil, angka, dan tanda hubung (-) tanpa spasi.",
+        "descriptionLabel": "Deskripsi & Slogan Profil Toko",
+        "descriptionPlaceholder": "Tuliskan komitmen layanan toko Anda, jenis komoditas pertanian atau limbah olahan unggulan..."
+      },
+      "locationTab": {
+        "badge": "Shipping Origin & Contact",
+        "title": "Kontak & Alamat Asal Pengiriman",
+        "description": "Lokasi gudang atau toko fisik yang digunakan kurir logistik untuk menghitung tarif biaya pengiriman pesanan",
+        "phoneLabel": "Nomor Telepon / WhatsApp Operasional Toko",
+        "phoneHint": "Nomor kontak aktif untuk konfirmasi koordinasi pengiriman barang oleh kurir ekspedisi",
+        "addressLabel": "Alamat Lengkap Gudang / Penjemputan Barang",
+        "addressPlaceholder": "Nama jalan, nomor rumah/gudang, RT/RW, Kecamatan, Desa/Kelurahan",
+        "postalCodeLabel": "Kode Pos"
+      },
+      "socialTab": {
+        "badge": "Social Media & Web Channels",
+        "title": "Media Sosial & Tautan Eksternal Toko",
+        "description": "Hubungkan kanal promosi & media sosial toko Anda untuk meningkatkan kepercayaan pembeli",
+        "whatsappLabel": "Nomor WhatsApp Bisnis Direct",
+        "whatsappHint": "Nomor WhatsApp yang digunakan pembeli saat menekan tombol Chat Seller",
+        "instagramLabel": "Instagram Handle Toko",
+        "instagramHint": "Tautan profil Instagram resmi toko Anda",
+        "tiktokLabel": "TikTok Shop / Handle",
+        "tiktokHint": "Akun TikTok untuk video produk & demo edukasi komoditas",
+        "websiteLabel": "Website / Linktree Toko",
+        "websiteHint": "Situs web resmi atau portofolio usaha tani Anda",
+        "youtubeLabel": "YouTube Channel Toko",
+        "youtubeHint": "Tautan video profil peternakan, perkebunan, atau pengolahan limbah"
+      },
+      "policyTab": {
+        "badge": "Store Service & Policy",
+        "title": "Jam Operasional & Standar Pelayanan Toko",
+        "description": "Informasi jadwal operasional toko serta komitmen kualitas produk komoditas pertanian Anda",
+        "hoursTitle": "Jam Operasional Toko",
+        "hoursDesc": "Toko aktif melayani pesanan setiap hari Senin - Sabtu pukul 08.00 - 17.00 WIB. Pesanan masuk di atas jam operasional diproses hari kerja berikutnya.",
+        "packagingTitle": "Standar Pengemasan Aman",
+        "packagingDesc": "Semua komoditas dan hasil pengolahan dikemas aman menggunakan kemasan tahan lembab dan pelindung fisik standar distribusi pertanian.",
+        "guaranteeTitle": "Komitmen Penjaminan Kualitas Produk",
+        "guaranteeDesc": "Toko Anda secara otomatis terlindungi dengan sistem rekening bersama Loop Tani. Pembeli mendapatkan jaminan pengembalian jika produk yang diterima tidak sesuai spesifikasi."
+      },
+      "actions": {
+        "hint": "Pastikan data alamat dan identitas toko sudah sesuai sebelum menyimpan.",
+        "reset": "Reset",
+        "submit": "Simpan Perubahan Profil",
+        "submitting": "Menyimpan...",
+        "successToast": "Pengaturan profil toko berhasil disimpan",
+        "cancelToast": "Perubahan telah dibatalkan"
+      }
     }
-  },
-  "settings": {
-    "title": "Pengaturan Toko",
-    "subtitle": "Seller Center",
-    "headerBadge": "Official Seller Center",
-    "previewButton": "Lihat Tampilan Toko",
-    "tabs": {
-      "info": "Informasi Dasar",
-      "location": "Alamat & Ekspedisi",
-      "social": "Media Sosial & Web",
-      "policy": "Jam & Kebijakan",
-      "impact": "Dampak Sirkular"
-    },
-    "impactTab": {
-      "badge": "Circular Eco Contribution",
-      "title": "Dampak Sirkular Pertanian",
-      "description": "Metrik kontribusi toko dalam mendaur ulang limbah pertanian dan mendukung pertanian ramah lingkungan.",
-      "comingSoonBadge": "Segera Hadir",
-      "recycledWaste": "Limbah Diolah",
-      "recycledWasteDesc": "Total estimasi bobot limbah organik & pertanian yang telah didaur ulang menjadi komoditas bernilai tinggi.",
-      "organicProducts": "Produk Organik",
-      "organicProductsDesc": "Jumlah katalog produk ramah lingkungan & pupuk organik yang aktif di etalase toko Anda.",
-      "farmersHelped": "Petani Terbantu",
-      "farmersHelpedDesc": "Mitra petani & pelanggan yang telah didukung melalui rantai pasok sirkular pertanian.",
-      "unitKg": "Kg",
-      "unitItems": "Unit",
-      "unitPartners": "Mitra",
-      "highlightBannerTitle": "Misi Pertanian Berkelanjutan & Eco-Sirkular",
-      "highlightBannerDesc": "Toko Anda secara aktif mengurangi emisi karbon & limbah terbuang dengan mengubah sisa panen menjadi produk bernilai ekonomis tinggi bagi komunitas tani."
-    },
-    "infoTab": {
-      "badge": "Basic Information",
-      "title": "Informasi & Identitas Utama Toko",
-      "description": "Pengaturan logo resmi, nama tampilan toko, URL slug domain, serta deskripsi profil publik",
-      "logoLabel": "Logo / Foto Profil Toko",
-      "uploadLogo": "Pilih Gambar Logo",
-      "removeLogo": "Hapus Foto",
-      "logoHint": "Format gambar JPG, PNG, atau WEBP (maksimal 5MB). Logo rasio 1:1 memberikan tampilan terbaik.",
-      "storeNameLabel": "Nama Toko",
-      "storeSlugLabel": "Slug / URL Unik Toko",
-      "storeSlugHint": "Huruf kecil, angka, dan tanda hubung (-) tanpa spasi.",
-      "descriptionLabel": "Deskripsi & Slogan Profil Toko",
-      "descriptionPlaceholder": "Tuliskan komitmen layanan toko Anda, jenis komoditas pertanian atau limbah olahan unggulan..."
-    },
-    "locationTab": {
-      "badge": "Shipping Origin & Contact",
-      "title": "Kontak & Alamat Asal Pengiriman",
-      "description": "Lokasi gudang atau toko fisik yang digunakan kurir logistik untuk menghitung tarif biaya pengiriman pesanan",
-      "phoneLabel": "Nomor Telepon / WhatsApp Operasional Toko",
-      "phoneHint": "Nomor kontak aktif untuk konfirmasi koordinasi pengiriman barang oleh kurir ekspedisi",
-      "addressLabel": "Alamat Lengkap Gudang / Penjemputan Barang",
-      "addressPlaceholder": "Nama jalan, nomor rumah/gudang, RT/RW, Kecamatan, Desa/Kelurahan",
-      "postalCodeLabel": "Kode Pos"
-    },
-    "socialTab": {
-      "badge": "Social Media & Web Channels",
-      "title": "Media Sosial & Tautan Eksternal Toko",
-      "description": "Hubungkan kanal promosi & media sosial toko Anda untuk meningkatkan kepercayaan pembeli",
-      "whatsappLabel": "Nomor WhatsApp Bisnis Direct",
-      "whatsappHint": "Nomor WhatsApp yang digunakan pembeli saat menekan tombol Chat Seller",
-      "instagramLabel": "Instagram Handle Toko",
-      "instagramHint": "Tautan profil Instagram resmi toko Anda",
-      "tiktokLabel": "TikTok Shop / Handle",
-      "tiktokHint": "Akun TikTok untuk video produk & demo edukasi komoditas",
-      "websiteLabel": "Website / Linktree Toko",
-      "websiteHint": "Situs web resmi atau portofolio usaha tani Anda",
-      "youtubeLabel": "YouTube Channel Toko",
-      "youtubeHint": "Tautan video profil peternakan, perkebunan, atau pengolahan limbah"
-    },
-    "policyTab": {
-      "badge": "Store Service & Policy",
-      "title": "Jam Operasional & Standar Pelayanan Toko",
-      "description": "Informasi jadwal operasional toko serta komitmen kualitas produk komoditas pertanian Anda",
-      "hoursTitle": "Jam Operasional Toko",
-      "hoursDesc": "Toko aktif melayani pesanan setiap hari Senin - Sabtu pukul 08.00 - 17.00 WIB. Pesanan masuk di atas jam operasional diproses hari kerja berikutnya.",
-      "packagingTitle": "Standar Pengemasan Aman",
-      "packagingDesc": "Semua komoditas dan hasil pengolahan dikemas aman menggunakan kemasan tahan lembab dan pelindung fisik standar distribusi pertanian.",
-      "guaranteeTitle": "Komitmen Penjaminan Kualitas Produk",
-      "guaranteeDesc": "Toko Anda secara otomatis terlindungi dengan sistem rekening bersama Loop Tani. Pembeli mendapatkan jaminan pengembalian jika produk yang diterima tidak sesuai spesifikasi."
-    },
-    "actions": {
-      "hint": "Pastikan data alamat dan identitas toko sudah sesuai sebelum menyimpan.",
-      "reset": "Reset",
-      "submit": "Simpan Perubahan Profil",
-      "submitting": "Menyimpan...",
-      "successToast": "Pengaturan profil toko berhasil disimpan",
-      "cancelToast": "Perubahan telah dibatalkan"
-    }
-  }
   }
 }

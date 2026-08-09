@@ -336,6 +336,7 @@ export interface SellerDashboardResponse {
   todayRevenue: number;
   monthlyRevenue: number;
   ordersCount: number;
+  monthlyOrdersCount?: number;
   visitorsCount: number;
   conversionRate: string;
   totalProducts: number;
@@ -345,6 +346,12 @@ export interface SellerDashboardResponse {
   recentOrders: RecentOrder[];
   recentReviews?: RecentReview[];
   chartSeries?: Array<{ date: string; revenue: number; orders: number }>;
+  todayGrowthPct?: number;
+  monthlyGrowthPct?: number;
+  ordersGrowthPct?: number;
+  todayGrowthText?: string;
+  monthlyGrowthText?: string;
+  ordersGrowthText?: string;
 }
 
 // ─────────────────────────────────────────────
