@@ -31,8 +31,7 @@ export function FaqSection() {
           <div className="lg:col-span-5 space-y-6 text-left font-poppins">
             <div className="space-y-4">
               <h2 className="font-poppins text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-stone-950 dark:text-white leading-[1.15]">
-                Ada pertanyaan?<br />
-                Kami siap membantu.
+                {t("title")}
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed font-poppins max-w-sm">
                 {t("subtitle")}

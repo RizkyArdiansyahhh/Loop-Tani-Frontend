@@ -24,39 +24,34 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative  border-t border-slate-100 bg-gradient-to-b from-white via-emerald-50/10 to-emerald-50/20 dark:from-slate-950 dark:via-slate-950/90 dark:to-emerald-950/10 overflow-hidden transition-colors duration-300 font-sans">
-      {/* ── Background Glow & Patterns ── */}
-      <div className="absolute inset-0 bg-[radial-gradient(#10b981_0.75px,transparent_0.75px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-      <div className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-emerald-400/5 dark:bg-emerald-500/3 blur-3xl pointer-events-none" />
-      <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/5 dark:bg-primary/3 blur-3xl pointer-events-none" />
-
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 relative z-10">
+    <footer className="relative border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-300 font-sans select-none">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 relative z-10 font-poppins">
         {/* ── Top Section: Brand & Newsletter Subscription ── */}
-        <div className="grid gap-8 lg:grid-cols-12 items-center border-b border-emerald-100/50 dark:border-slate-800/60 pb-12 mb-12">
+        <div className="grid gap-8 lg:grid-cols-12 items-center border-b border-stone-200 dark:border-stone-800 pb-12 mb-12">
           <div className="lg:col-span-5 space-y-3">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="inline-block">
               <img
                 src="/images/logo-putih.png"
                 alt="LoopTani Logo"
-                className="h-10"
+                className="h-10 w-auto object-contain"
               />
             </Link>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
+            <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed max-w-md font-poppins">
               {t("brandDescription")}
             </p>
           </div>
 
           <div className="lg:col-span-7 text-left lg:text-right space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider font-poppins">
+            <h3 className="text-xs sm:text-sm font-extrabold text-stone-950 dark:text-white uppercase tracking-wider font-poppins">
               {t("newsletterTitle")}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-stone-500 dark:text-stone-400 font-poppins">
               {t("newsletterDesc")}
             </p>
 
             <form
               onSubmit={handleSubscribe}
-              className="flex max-w-md ml-auto mr-0 rounded-xl bg-white dark:bg-slate-900 border border-emerald-100 dark:border-slate-800 p-1.5 shadow-xs focus-within:ring-2 focus-within:ring-primary/45 transition-all duration-300"
+              className="flex max-w-md ml-auto mr-0 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 shadow-xs focus-within:ring-2 focus-within:ring-primary/30 transition-all duration-300"
             >
               <input
                 type="email"
@@ -64,12 +59,12 @@ export function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 bg-transparent px-3 text-xs text-slate-800 dark:text-slate-200 outline-none placeholder:text-slate-400"
+                className="flex-1 bg-transparent px-3 text-xs text-stone-900 dark:text-stone-100 outline-none placeholder:text-stone-400 font-poppins"
               />
               <Button
                 type="submit"
                 size="sm"
-                className="bg-primary hover:bg-emerald-700 text-white rounded-lg h-9 px-4 font-bold text-xs shadow-xs"
+                className="bg-primary hover:bg-emerald-700 text-white rounded-lg h-9 px-4 font-bold text-xs shadow-xs cursor-pointer"
               >
                 {subscribed ? (
                   t("subscribedBtn")
@@ -85,14 +80,14 @@ export function Footer() {
         </div>
 
         {/* ── Main Footer Grid ── */}
-        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-left">
+        <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-left font-poppins">
           {/* Brand Info & Social Media */}
           <div className="space-y-6">
             <div>
-              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+              <h4 className="text-xs font-extrabold text-stone-950 dark:text-white uppercase tracking-widest mb-4 font-poppins">
                 {t("ecosystemTitle")}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-poppins">
                 {t("ecosystemDesc")}
               </p>
             </div>
@@ -111,7 +106,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-100 bg-white text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 shadow-3xs transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-white hover:shadow-md hover:shadow-emerald-500/20 cursor-pointer"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 text-stone-700 dark:text-stone-300 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-white hover:shadow-md cursor-pointer"
                     aria-label={social.name}
                   >
                     <IconComp className="h-4.5 w-4.5" />
@@ -123,10 +118,10 @@ export function Footer() {
 
           {/* Column 2: Marketplace Navigation */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+            <h4 className="text-xs font-extrabold text-stone-950 dark:text-white uppercase tracking-widest mb-4 font-poppins">
               {t("marketplaceTitle")}
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2.5 text-xs font-poppins">
               {[
                 { href: "/marketplace", label: t("allProducts") },
                 {
@@ -145,9 +140,9 @@ export function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="flex items-center text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors group w-fit"
+                    className="flex items-center text-stone-600 hover:text-primary dark:text-stone-400 dark:hover:text-primary transition-colors group w-fit font-poppins"
                   >
-                    <ArrowRight className="h-3 w-3 mr-1.5 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                    <ArrowRight className="h-3 w-3 mr-1.5 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary" />
                     <span>{link.label}</span>
                   </Link>
                 </li>
@@ -157,10 +152,10 @@ export function Footer() {
 
           {/* Column 3: Help & Terms */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+            <h4 className="text-xs font-extrabold text-stone-950 dark:text-white uppercase tracking-widest mb-4 font-poppins">
               {t("helpTitle")}
             </h4>
-            <ul className="space-y-2.5 text-xs">
+            <ul className="space-y-2.5 text-xs font-poppins">
               {[
                 { href: "/about", label: t("aboutUs") },
                 { href: "#", label: t("faqHelp") },
@@ -170,9 +165,9 @@ export function Footer() {
                 <li key={i}>
                   <Link
                     href={link.href}
-                    className="flex items-center text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-primary transition-colors group w-fit"
+                    className="flex items-center text-stone-600 hover:text-primary dark:text-stone-400 dark:hover:text-primary transition-colors group w-fit font-poppins"
                   >
-                    <ArrowRight className="h-3 w-3 mr-1.5 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
+                    <ArrowRight className="h-3 w-3 mr-1.5 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300 text-primary" />
                     <span>{link.label}</span>
                   </Link>
                 </li>
@@ -182,47 +177,47 @@ export function Footer() {
 
           {/* Column 4: Contact Details */}
           <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-poppins">
+            <h4 className="text-xs font-extrabold text-stone-950 dark:text-white uppercase tracking-widest mb-4 font-poppins">
               {t("contactTitle")}
             </h4>
-            <div className="space-y-4 text-xs">
+            <div className="space-y-4 text-xs font-poppins">
               <div className="flex items-start gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-primary shrink-0">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 dark:border-emerald-800/40 text-primary shrink-0">
                   <Phone className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                  <p className="font-bold text-stone-900 dark:text-stone-200">
                     {t("phoneLabel")}
                   </p>
-                  <p className="text-slate-500 dark:text-slate-400">
+                  <p className="text-stone-600 dark:text-stone-400">
                     +62 812-3456-7890
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-primary shrink-0">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 dark:border-emerald-800/40 text-primary shrink-0">
                   <Mail className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                  <p className="font-bold text-stone-900 dark:text-stone-200">
                     {t("emailLabel")}
                   </p>
-                  <p className="text-slate-500 dark:text-slate-400">
+                  <p className="text-stone-600 dark:text-stone-400">
                     hello@looptani.id
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/30 text-primary shrink-0">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/60 dark:border-emerald-800/40 text-primary shrink-0">
                   <MapPin className="h-4 w-4" />
                 </span>
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">
+                  <p className="font-bold text-stone-900 dark:text-stone-200">
                     {t("addressLabel")}
                   </p>
-                  <p className="text-slate-500 dark:text-slate-400">
+                  <p className="text-stone-600 dark:text-stone-400">
                     {t("officeAddress")}
                   </p>
                 </div>
@@ -231,17 +226,17 @@ export function Footer() {
           </div>
         </div>
 
-        <Separator className="my-10 bg-emerald-100/50 dark:bg-slate-800/60" />
+        <Separator className="my-10 bg-stone-200 dark:bg-stone-800" />
 
         {/* ── Bottom Section: Copyright & Legal Link ── */}
-        <div className="flex flex-col items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 md:flex-row">
-          <p className="flex items-center gap-1">
+        <div className="flex flex-col items-center justify-between gap-4 text-xs text-stone-500 dark:text-stone-400 md:flex-row font-poppins">
+          <p className="flex items-center gap-1.5">
             <span>© {new Date().getFullYear()}</span>
-            <strong className="text-slate-700 dark:text-slate-200 font-poppins">
+            <strong className="text-stone-900 dark:text-white font-poppins font-bold">
               LoopTani
             </strong>
             .<span>{t("madeWith")}</span>
-            <Heart className="h-3.5 w-3.5 fill-red-500 text-red-500 animate-pulse shrink-0" />
+            <Heart className="h-3.5 w-3.5 fill-emerald-600 text-emerald-600 animate-pulse shrink-0" />
             <span>{t("forSustainableAgri")}</span>
           </p>
 
@@ -249,7 +244,7 @@ export function Footer() {
             <Link href="#" className="hover:text-primary transition-colors">
               {t("privacy")}
             </Link>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span className="text-stone-300 dark:text-stone-700">•</span>
             <Link href="#" className="hover:text-primary transition-colors">
               {t("termsOfUse")}
             </Link>

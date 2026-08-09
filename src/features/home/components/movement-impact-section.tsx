@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export function MovementImpactSection() {
+  const t = useTranslations("movementImpact");
+
   return (
-    <section className="w-full bg-emerald-50/40 dark:bg-emerald-950/20 text-stone-900 dark:text-stone-100 py-12 px-4 sm:px-6 lg:px-12 transition-colors select-none">
+    <section className="w-full bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 py-16 px-4 sm:px-6 lg:px-12 transition-colors select-none font-poppins">
       <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
         {/* ── TOP HEADER AREA ── */}
         <div className="text-center space-y-6 max-w-4xl mx-auto font-poppins">
@@ -37,25 +40,22 @@ export function MovementImpactSection() {
                 />
               </div>
             </div>
-            <span>Ribuan Petani Terbantu • Gerakan Sirkular Bersama</span>
+            <span>{t("badge")}</span>
           </div>
 
           {/* Main Emotional Headline */}
           <div className="space-y-2">
             <span className="block text-xs font-poppins font-bold tracking-widest text-primary dark:text-emerald-400 uppercase">
-              UNTUK MEREKA. UNTUK EKONOMI INDONESIA
+              {t("eyebrow")}
             </span>
             <h2 className="font-poppins font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-stone-950 dark:text-white leading-[1.12]">
-              Satu Inovasi. Satu Harapan. Untuk Pertanian Indonesia yang
-              Berdaya.
+              {t("title")}
             </h2>
           </div>
 
           {/* Subtitle Paragraph */}
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed max-w-2xl mx-auto font-poppins">
-            Mentransformasi setiap tantangan &amp; sisa panen menjadi peluang
-            ekonomi riil bagi petani lokal. Karena setiap kg limbah yang kita
-            kelola adalah satu senyuman baru untuk masa depan tanah air kita.
+            {t("subtitle")}
           </p>
 
           {/* CTA Buttons */}
@@ -64,20 +64,20 @@ export function MovementImpactSection() {
               href="/register"
               className="inline-flex items-center justify-center bg-primary text-primary-foreground rounded-full px-7 py-3.5 text-xs sm:text-sm font-poppins font-bold shadow-md cursor-pointer"
             >
-              Gabung Gerakan Sekarang
+              {t("ctaJoin")}
             </Link>
             <Link
               href="/marketplace"
               className="inline-flex items-center justify-center bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 rounded-full px-7 py-3.5 text-xs sm:text-sm font-poppins font-bold shadow-xs cursor-pointer"
             >
-              Pelajari Cara Kerja
+              {t("ctaLearn")}
             </Link>
           </div>
         </div>
 
-        {/* ── 5-COLUMN STEPPED HEIGHT GRID (NO HOVER & PRIMARY GREEN PALETTE) ── */}
+        {/* ── 5-COLUMN STEPPED HEIGHT GRID ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 items-end">
-          {/* COLUMN 1 (FAR LEFT - TALLEST: 500px) */}
+          {/* COLUMN 1 */}
           <div className="flex flex-col gap-3 h-115 sm:h-125">
             <div className="relative rounded-sm overflow-hidden shadow-md bg-stone-950 flex-1">
               <Image
@@ -87,20 +87,17 @@ export function MovementImpactSection() {
                 className="object-cover"
               />
             </div>
-
-            {/* Bottom Accent Green Box (Hijau Primary) */}
             <div className="bg-primary text-primary-foreground p-4.5 space-y-1 shadow-sm shrink-0 rounded-sm font-poppins">
               <span className="text-[10px] font-poppins font-bold uppercase tracking-wider text-emerald-100 block">
-                UNTUK MEREKA
+                {t("box1Title")}
               </span>
               <p className="text-xs font-poppins font-bold leading-snug">
-                Membantu 4.200+ Petani Lokal Meraih Kemandirian Pupuk &amp;
-                Pakan.
+                {t("box1Desc")}
               </p>
             </div>
           </div>
 
-          {/* COLUMN 2 (LEFT MIDDLE - MEDIUM: 420px) */}
+          {/* COLUMN 2 */}
           <div className="flex flex-col h-95 sm:h-105">
             <div className="relative rounded-sm overflow-hidden shadow-sm bg-stone-950 h-full">
               <Image
@@ -112,7 +109,7 @@ export function MovementImpactSection() {
             </div>
           </div>
 
-          {/* COLUMN 3 (CENTER - SHORTEST / V-DIP: 340px) */}
+          {/* COLUMN 3 */}
           <div className="flex flex-col h-75 sm:h-85">
             <div className="relative rounded-sm overflow-hidden shadow-md bg-stone-950 h-full">
               <Image
@@ -124,7 +121,7 @@ export function MovementImpactSection() {
             </div>
           </div>
 
-          {/* COLUMN 4 (RIGHT MIDDLE - MEDIUM: 420px) */}
+          {/* COLUMN 4 */}
           <div className="flex flex-col h-95 sm:h-105">
             <div className="relative rounded-sm overflow-hidden shadow-sm bg-stone-950 h-full">
               <Image
@@ -136,7 +133,7 @@ export function MovementImpactSection() {
             </div>
           </div>
 
-          {/* COLUMN 5 (FAR RIGHT - TALLEST: 500px) */}
+          {/* COLUMN 5 */}
           <div className="flex flex-col gap-3 h-115 sm:h-125">
             <div className="relative rounded-sm overflow-hidden shadow-md bg-stone-950 flex-1">
               <Image
@@ -146,14 +143,12 @@ export function MovementImpactSection() {
                 className="object-cover"
               />
             </div>
-
-            {/* Bottom Accent Green Box (Hijau Primary) */}
             <div className="bg-primary text-primary-foreground p-4.5 space-y-1 shadow-sm shrink-0 rounded-sm font-poppins">
               <span className="text-[10px] font-poppins font-bold uppercase tracking-wider text-emerald-100 block">
-                UNTUK INDONESIA &amp; EKONOMI
+                {t("box2Title")}
               </span>
               <p className="text-xs font-poppins font-bold leading-snug">
-                Menciptakan Pertumbuhan Sirkular Berkelanjutan di Nusantara.
+                {t("box2Desc")}
               </p>
             </div>
           </div>

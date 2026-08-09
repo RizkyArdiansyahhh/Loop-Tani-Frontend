@@ -27,6 +27,67 @@
       "actionText": "View Your Impact"
     }
   },
+  "sections": {
+    "whyLooptani": "Why LoopTani?",
+    "heroHeadline": "Dedicating precision & AI technology innovation to transform agricultural waste into sustainable circular value.",
+    "masterCollectionsTitle": "LoopTani Featured Collections",
+    "masterCollectionsSubtitle": "Verified Sales Standard • Circular Precision",
+    "exploreCatalog": "Explore Entire Catalog",
+    "viewProductDetail": "View Product Details",
+    "tabs": {
+      "all": "All Products",
+      "agriculturalWaste": "Agricultural Waste",
+      "processedProduct": "Organic Processed",
+      "secondhand": "Farming Tools & Machinery"
+    },
+    "subtitles": {
+      "agriculturalWaste": "Main Waste Collection",
+      "processedProduct": "Organic Fertilizer Formula",
+      "secondhand": "Precision Farming Tools",
+      "default": "Circular Product"
+    }
+  },
+  "velocity": {
+    "item1": "Indonesia Agricultural Green Economy",
+    "item2": "Zero Emission Farming Ecosystem",
+    "item3": "Measurable Carbon Footprint Reduction",
+    "item4": "Integrated Circular Technology"
+  },
+  "featuredSolution": {
+    "bento1Label": "Integrated Circular Ecosystem",
+    "bento1Title": "Holistic Agricultural Solution: AI Innovation, Circular Processing, & Connected Community.",
+    "bento1Desc": "LoopTani bridges farmers, livestock breeders, and industrial partners to sustainably transform organic harvest residues into bio-fertilizer and high economic value feed.",
+    "bento1Cta": "Explore Ecosystem",
+    "bento2Label": "VERIFIED PRECISION",
+    "bento2Title": "Loopi AI Precision Technology in Real Field Action.",
+    "bento3Label": "IMPACT HIGHLIGHTS",
+    "bento3Title": "Real Achievements & Impact of LoopTani Ecosystem.",
+    "bento3Desc": "Growth metrics and transparent contributions from the entire network of farming partners, livestock breeders, and circular facilities across regions in Indonesia.",
+    "stat1": "Processed Waste",
+    "stat2": "Connected Farmers",
+    "stat3": "Emission Reduction",
+    "ton": "Tons"
+  },
+  "famousQuote": {
+    "title": "Interconnection of Trade & Agriculture",
+    "banner": "TRADE • AGRICULTURE • SUSTAINABILITY • GROW TOGETHER • CIRCULAR ECONOMY",
+    "quote": "It is a mistake to separate trade and business from agriculture. We must prosper together, or we will perish together.",
+    "author": "— Otto von Bismarck",
+    "role": "Statesman & Historical Figure (1815 – 1898)",
+    "cta": "Explore LoopTani Ecosystem"
+  },
+  "movementImpact": {
+    "badge": "Thousands of Farmers Assisted • Shared Circular Movement",
+    "eyebrow": "FOR THEM. FOR INDONESIA'S ECONOMY",
+    "title": "One Innovation. One Hope. For Empowered Indonesian Agriculture.",
+    "subtitle": "Transforming every challenge & crop residue into real economic opportunities for local farmers. Because every kg of waste we manage is a new smile for the future of our homeland.",
+    "ctaJoin": "Join the Movement Now",
+    "ctaLearn": "Learn How It Works",
+    "box1Title": "FOR THEM",
+    "box1Desc": "Helping 4,200+ Local Farmers Achieve Fertilizer & Feed Independence.",
+    "box2Title": "FOR INDONESIA & ECONOMY",
+    "box2Desc": "Creating Sustainable Circular Growth Across the Archipelago."
+  },
   "faq": {
     "badge": "LoopTani FAQ",
     "title": "Frequently Asked Questions",

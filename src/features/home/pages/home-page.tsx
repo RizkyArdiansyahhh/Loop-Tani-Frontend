@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -32,21 +32,31 @@ import { FullWidthVideoSection } from "../components/fullwidth-video-section";
 import { FeaturedSolutionSection } from "../components/featured-solution-section";
 import { FamousQuoteSection } from "../components/famous-quote-section";
 import { MovementImpactSection } from "../components/movement-impact-section";
+import { cn } from "@/lib/utils";
 
 import { useProducts } from "@/features/marketplace/hooks/use-products";
 
-const getCategorySubtitle = (category?: string) => {
+import { useTranslations } from "next-intl";
+
+const getCategorySubtitle = (category?: string, t?: any) => {
   switch (category) {
     case "agricultural-waste":
-      return "Koleksi Limbah Utama";
+      return t ? t("subtitles.agriculturalWaste") : "Koleksi Limbah Utama";
     case "processed-product":
-      return "Formula Pupuk Organik";
+      return t ? t("subtitles.processedProduct") : "Formula Pupuk Organik";
     case "secondhand":
-      return "Alat Tani Presisi";
+      return t ? t("subtitles.secondhand") : "Alat Tani Presisi";
     default:
-      return "Produk Sirkular";
+      return t ? t("subtitles.default") : "Produk Sirkular";
   }
 };
+
+const CATEGORY_TABS = [
+  { id: "all", label: "Semua Produk" },
+  { id: "agricultural-waste", label: "Limbah Pertanian" },
+  { id: "processed-product", label: "Hasil Olahan Organik" },
+  { id: "secondhand", label: "Alat & Mesin Tani" },
+];
 
 const formatProductPrice = (price: number, unit?: string) => {
   const formatted = new Intl.NumberFormat("id-ID", {
@@ -57,14 +67,213 @@ const formatProductPrice = (price: number, unit?: string) => {
   return unit ? `${formatted} / ${unit}` : formatted;
 };
 
+interface LonginesProductCardProps {
+  prod: any;
+  onScrollLeft: () => void;
+  onScrollRight: () => void;
+}
+
+const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
+  prod,
+  onScrollLeft,
+  onScrollRight,
+}) => {
+  const t = useTranslations("sections");
+  const isBackendItem = "title" in prod;
+  const name = isBackendItem ? prod.title : prod.name;
+  const priceStr = isBackendItem
+    ? formatProductPrice(prod.price, prod.unit)
+    : prod.price;
+  const locationStr = isBackendItem
+    ? [prod.city, prod.province].filter(Boolean).join(", ") ||
+      prod.location ||
+      "Indonesia"
+    : prod.location;
+  const tagStr = isBackendItem
+    ? prod.condition === "NEW"
+      ? "New"
+      : "Verified"
+    : prod.tag;
+  const subtitleStr = isBackendItem
+    ? getCategorySubtitle(prod.category, t)
+    : prod.subtitle;
+
+  // Gather list of images (support multiple photos)
+  const imageList: string[] = isBackendItem
+    ? prod.images?.map((img: any) => img.imageUrl).filter(Boolean).length > 0
+      ? prod.images.map((img: any) => img.imageUrl)
+      : [prod.thumbnail || "/images/bento-farmer-tech.png"]
+    : [
+        prod.image,
+        "/images/auth-carousel-2.jpg",
+        "/images/auth-carousel-3.jpg",
+        "/images/auth-carousel-1.jpg",
+      ];
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const currentImage = imageList[activeImageIndex] || imageList[0];
+  const linkHref = isBackendItem ? `/marketplace/${prod.id}` : prod.link;
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start group flex flex-col text-left font-poppins"
+    >
+      {/* Clean Full-Bleed Product Image Frame */}
+      <div className="relative aspect-[4/5] w-full rounded-lg overflow-hidden bg-muted/20 flex items-center justify-center transition-all duration-500">
+        <img
+          src={currentImage}
+          alt={name}
+          className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+        />
+
+        {/* Top-left clean rectangular badge */}
+        <span className="absolute top-3 left-3 bg-background text-foreground font-bold text-[9px] uppercase px-2.5 py-1 rounded-xs tracking-wider shadow-2xs font-poppins">
+          {tagStr}
+        </span>
+
+        {/* Hover Navigation Arrows */}
+        {imageList.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveImageIndex((prev) =>
+                  prev === 0 ? imageList.length - 1 : prev - 1
+                );
+              }}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-background/90 text-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:scale-110 cursor-pointer"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveImageIndex((prev) =>
+                  prev === imageList.length - 1 ? 0 : prev + 1
+                );
+              }}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-background/90 text-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:scale-110 cursor-pointer"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Miniature Photo Variant Row below Image Container (Left aligned, Slide down animation from top) */}
+      <div className="h-9 flex items-center justify-start gap-1.5 pt-2 overflow-hidden">
+        {imageList.length > 1 && (
+          <div
+            className={cn(
+              "flex items-center justify-start gap-1.5 transition-all duration-300 ease-out transform",
+              isHovered
+                ? "translate-y-0 opacity-100"
+                : "-translate-y-4 opacity-0 pointer-events-none"
+            )}
+          >
+            {imageList.slice(0, 4).map((img, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setActiveImageIndex(idx);
+                }}
+                className={cn(
+                  "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background",
+                  activeImageIndex === idx
+                    ? "border-foreground shadow-xs ring-1 ring-foreground/20"
+                    : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
+                )}
+              >
+                <img
+                  src={img}
+                  alt={`Variant ${idx + 1}`}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Product Meta Below Image & Thumbnails */}
+      <div className="space-y-1 text-left pt-1 font-poppins">
+        <h3 className="font-poppins text-sm sm:text-base font-bold text-foreground uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-1">
+          {name}
+        </h3>
+        <p className="text-xs text-muted-foreground font-medium line-clamp-1">
+          {subtitleStr} • {locationStr}
+        </p>
+        <p className="text-sm font-bold text-foreground font-poppins pt-0.5">
+          {priceStr}
+        </p>
+        <div className="pt-2">
+          <Link
+            href={linkHref}
+            className="inline-block text-xs font-bold text-foreground underline underline-offset-4 hover:text-primary transition-colors font-poppins"
+          >
+            Lihat Detail Produk
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const HomePage = () => {
+  const t = useTranslations("sections");
   const [activeTab, setActiveTab] = useState<
     "marketplace" | "ai" | "edukasi" | "lestari"
   >("marketplace");
 
-  // Fetch real dynamic products from backend API
+  const [homeCategoryTab, setHomeCategoryTab] = useState<string>("all");
+
+  const categoryTabs = [
+    { id: "all", label: t("tabs.all") },
+    { id: "agricultural-waste", label: t("tabs.agriculturalWaste") },
+    { id: "processed-product", label: t("tabs.processedProduct") },
+    { id: "secondhand", label: t("tabs.secondhand") },
+  ];
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleSliderScroll = () => {
+    if (sliderRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+      setScrollProgress(progress);
+    }
+  };
+
+  const scrollSlider = (direction: "left" | "right") => {
+    if (sliderRef.current) {
+      const scrollAmount = sliderRef.current.clientWidth * 0.75;
+      sliderRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Fetch real dynamic products from backend API with category filter
   const { data: productsData, isLoading: isProductsLoading } = useProducts({
-    params: { limit: 4 },
+    params: {
+      limit: 12,
+      category: homeCategoryTab === "all" ? undefined : (homeCategoryTab as any),
+    },
   });
 
   const backendProducts = productsData?.data ?? [];
@@ -163,7 +372,27 @@ const HomePage = () => {
       image: "/images/auth-carousel-1.jpg",
       location: "Karawang, Jawa Barat",
       tag: "Terawat Sempurna",
-      link: "/marketplace/equipment/tractors",
+      link: "/marketplace/secondhand/tractors",
+    },
+    {
+      id: 5,
+      subtitle: "Koleksi Limbah Utama",
+      name: "Jerami Padi Potong Segar",
+      price: "Rp 900 / kg",
+      image: "/images/auth-carousel-2.jpg",
+      location: "Ngawi, Jawa Timur",
+      tag: "Fresh Harvest",
+      link: "/marketplace/agricultural-waste/straw",
+    },
+    {
+      id: 6,
+      subtitle: "Formula Pupuk Organik",
+      name: "POC Pupuk Organik Cair Super",
+      price: "Rp 25.000 / Liter",
+      image: "/images/auth-carousel-3.jpg",
+      location: "Bantul, DIY",
+      tag: "Formula Hayati",
+      link: "/marketplace/processed-products/poc",
     },
   ];
 
@@ -395,16 +624,14 @@ const HomePage = () => {
             {/* Left Column: Short Question Text with Underline */}
             <div className="lg:col-span-4 pt-2 text-left">
               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider font-poppins text-foreground border-b-2 border-primary pb-1.5 inline-block">
-                Mengapa LoopTani?
+                {t("whyLooptani")}
               </span>
             </div>
 
             {/* Right Column: Longer Headline */}
             <div className="lg:col-span-8 text-left">
               <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.18]">
-                Mendedikasikan presisi & inovasi teknologi AI untuk
-                mentransformasi limbah pertanian menjadi nilai sirkular
-                berkelanjutan.
+                {t("heroHeadline")}
               </h1>
             </div>
           </div>
@@ -413,119 +640,108 @@ const HomePage = () => {
         {/* ── SINGLE ROW VELOCITY SCROLL BANNER ── */}
         <SingleVelocityBanner />
 
-        {/* ── LONGINES STYLE MASTER COLLECTIONS ("KOLEKSI UNGGULAN") ── */}
+        {/* ── LONGINES 1:1 STYLE MASTER COLLECTIONS ("KOLEKSI UNGGULAN") ── */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50">
-          <div className="flex items-end justify-between mb-12">
-            <div className="space-y-1 text-left">
-              <span className="text-xs font-bold text-primary uppercase tracking-widest font-poppins">
-                Standard Penjualan Terverifikasi
-              </span>
-              <h2 className="font-poppins text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-                Koleksi Unggulan LoopTani
-              </h2>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full border-border h-10 w-10 hover:bg-secondary cursor-pointer"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full border-border h-10 w-10 hover:bg-secondary cursor-pointer"
-                aria-label="Next"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </Button>
-            </div>
+          {/* Longines Minimalist Category Tab Bar (Centered) */}
+          <div className="flex items-center justify-center border-b border-border/40 pb-0 mb-12 overflow-x-auto scrollbar-none gap-6 sm:gap-12">
+            {categoryTabs.map((tab) => {
+              const isActive = homeCategoryTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setHomeCategoryTab(tab.id)}
+                  className={cn(
+                    "relative pb-3 text-xs sm:text-sm font-bold tracking-widest uppercase font-poppins transition-colors duration-300 whitespace-nowrap cursor-pointer",
+                    isActive
+                      ? "text-foreground font-extrabold"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {tab.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="longinesActiveTabLine"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground"
+                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Longines Style Dynamic Backend Product Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {isProductsLoading
-              ? Array.from({ length: 4 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="bg-card border border-border rounded-lg overflow-hidden h-96 animate-pulse"
-                  >
-                    <div className="h-72 bg-muted/40" />
-                    <div className="p-6 space-y-3">
-                      <div className="h-3 bg-muted rounded w-1/3" />
-                      <div className="h-4 bg-muted rounded w-3/4" />
-                      <div className="h-3 bg-muted rounded w-1/2" />
-                    </div>
-                  </div>
-                ))
-              : (backendProducts.length > 0 ? backendProducts : luxuryCollections).map((prod: any) => {
-                  const isBackendItem = "title" in prod;
-                  const prodId = isBackendItem ? prod.id : prod.id;
-                  const name = isBackendItem ? prod.title : prod.name;
-                  const priceStr = isBackendItem
-                    ? formatProductPrice(prod.price, prod.unit)
-                    : prod.price;
-                  const locationStr = isBackendItem
-                    ? ([prod.city, prod.province].filter(Boolean).join(", ") || prod.location || "Indonesia")
-                    : prod.location;
-                  const tagStr = isBackendItem
-                    ? (prod.condition === "NEW" ? "Baru" : "Terverifikasi")
-                    : prod.tag;
-                  const subtitleStr = isBackendItem
-                    ? getCategorySubtitle(prod.category)
-                    : prod.subtitle;
-                  const imageSrc = isBackendItem
-                    ? (prod.images?.[0]?.imageUrl || prod.thumbnail || "/images/bento-farmer-tech.png")
-                    : prod.image;
-                  const linkHref = isBackendItem
-                    ? `/marketplace/${prod.id}`
-                    : prod.link;
-
-                  return (
-                    <Link
-                      key={prodId}
-                      href={linkHref}
-                      className="group flex flex-col justify-between bg-card border border-border rounded-lg overflow-hidden hover:border-primary/50 hover:shadow-2xl transition-all duration-500 text-left font-poppins"
-                    >
-                      <div className="relative h-72 w-full overflow-hidden bg-muted/20">
-                        <img
-                          src={imageSrc}
-                          alt={name}
-                          className="h-full w-full object-cover group-hover:scale-108 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                        <span className="absolute top-4 left-4 bg-background/90 backdrop-blur-md text-foreground font-bold text-[9px] uppercase px-3 py-1 rounded-full border border-border font-poppins tracking-wider">
-                          {tagStr}
-                        </span>
+          {/* Longines Single Row Scrollable Product Carousel with AnimatePresence */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={homeCategoryTab}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              <div
+                ref={sliderRef}
+                onScroll={handleSliderScroll}
+                className="flex items-stretch overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-4 select-none"
+              >
+                {isProductsLoading
+                  ? Array.from({ length: 4 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
+                      >
+                        <div className="aspect-[4/5] w-full bg-muted/40 rounded-xs" />
+                        <div className="h-4 bg-muted rounded w-2/3" />
+                        <div className="h-3 bg-muted rounded w-1/2" />
+                        <div className="h-4 bg-muted rounded w-1/3" />
                       </div>
+                    ))
+                  : (backendProducts.length > 0
+                      ? backendProducts
+                      : luxuryCollections.filter((c) =>
+                          homeCategoryTab === "all"
+                            ? true
+                            : c.link.includes(homeCategoryTab)
+                        )
+                    ).map((prod: any) => (
+                      <LonginesProductCard
+                        key={prod.id}
+                        prod={prod}
+                        onScrollLeft={() => scrollSlider("left")}
+                        onScrollRight={() => scrollSlider("right")}
+                      />
+                    ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-                      <div className="p-6 flex-1 flex flex-col justify-between space-y-4 font-poppins">
-                        <div className="space-y-1.5 font-poppins">
-                          <p className="text-[10px] font-bold text-primary uppercase tracking-widest font-poppins">
-                            {subtitleStr}
-                          </p>
-                          <h3 className="font-poppins text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-                            {name}
-                          </h3>
-                          <p className="text-[11px] text-muted-foreground font-poppins">
-                            {locationStr}
-                          </p>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-4 border-t border-border font-poppins">
-                          <span className="font-poppins text-base font-bold text-foreground">
-                            {priceStr}
-                          </span>
-                          <span className="text-xs font-bold text-primary font-poppins flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                            Beli <ArrowRight className="h-3.5 w-3.5" />
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
+          {/* Longines Bottom Progress Line & Active Interactive Control Arrows */}
+          <div className="flex items-center justify-between pt-12 border-t border-border/40 mt-8">
+            <div className="h-0.5 bg-muted w-48 relative overflow-hidden">
+              <div
+                className="h-full bg-foreground transition-all duration-300"
+                style={{
+                  width: "35%",
+                  transform: `translateX(${scrollProgress * 1.85}%)`,
+                }}
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => scrollSlider("left")}
+                className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-muted transition-colors cursor-pointer active:scale-95"
+                aria-label="Scroll Left"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => scrollSlider("right")}
+                className="h-10 w-10 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-muted transition-colors cursor-pointer active:scale-95"
+                aria-label="Scroll Right"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </section>
 
