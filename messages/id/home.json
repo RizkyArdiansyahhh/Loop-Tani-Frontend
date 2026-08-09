@@ -27,6 +27,67 @@
       "actionText": "Lihat Dampak Anda"
     }
   },
+  "sections": {
+    "whyLooptani": "Mengapa LoopTani?",
+    "heroHeadline": "Mendedikasikan presisi & inovasi teknologi AI untuk mentransformasi limbah pertanian menjadi nilai sirkular berkelanjutan.",
+    "masterCollectionsTitle": "Koleksi Unggulan LoopTani",
+    "masterCollectionsSubtitle": "Standard Penjualan Terverifikasi • Sirkular Presisi",
+    "exploreCatalog": "Eksplor Seluruh Katalog",
+    "viewProductDetail": "Lihat Detail Produk",
+    "tabs": {
+      "all": "Semua Produk",
+      "agriculturalWaste": "Limbah Pertanian",
+      "processedProduct": "Hasil Olahan Organik",
+      "secondhand": "Alat & Mesin Tani"
+    },
+    "subtitles": {
+      "agriculturalWaste": "Koleksi Limbah Utama",
+      "processedProduct": "Formula Pupuk Organik",
+      "secondhand": "Alat Tani Presisi",
+      "default": "Produk Sirkular"
+    }
+  },
+  "velocity": {
+    "item1": "Ekonomi Hijau Pertanian Indonesia",
+    "item2": "Ekosistem Pertanian Bebas Emisi",
+    "item3": "Reduksi Jejak Karbon Terukur",
+    "item4": "Teknologi Sirkular Terpadu"
+  },
+  "featuredSolution": {
+    "bento1Label": "Ekosistem Sirkular Terpadu",
+    "bento1Title": "Solusi Holistik Pertanian: Inovasi AI, Olahan Sirkular, & Komunitas Terhubung.",
+    "bento1Desc": "LoopTani menjembatani petani, peternak, dan mitra industri untuk mentransformasi sisa panen organik menjadi pupuk bio-fertilizer dan pakan bernilai ekonomi tinggi secara berkelanjutan.",
+    "bento1Cta": "Jelajahi Ekosistem",
+    "bento2Label": "PRESISI TERVERIFIKASI",
+    "bento2Title": "Teknologi Presisi Loopi AI dalam Aksi Nyata di Lapangan.",
+    "bento3Label": "IMPACT HIGHLIGHTS",
+    "bento3Title": "Capaian & Dampak Nyata Ekosistem LoopTani.",
+    "bento3Desc": "Metrik pertumbuhan dan kontribusi transparan dari seluruh jaringan mitra tani, peternak, dan fasilitas sirkular di berbagai daerah di Indonesia.",
+    "stat1": "Limbah Terolah",
+    "stat2": "Petani Terhubung",
+    "stat3": "Reduksi Emisi",
+    "ton": "Ton"
+  },
+  "famousQuote": {
+    "title": "Keterkaitan Perdagangan & Pertanian",
+    "banner": "PERDAGANGAN • PERTANIAN • KEBERLANJUTAN • BERKEMBANG BERSAMA • EKONOMI SIRKULAR",
+    "quote": "Adalah suatu kesalahan untuk memisahkan perdagangan dan bisnis dari pertanian. Kita harus berkembang bersama, atau kita akan mati bersama.",
+    "author": "— Otto von Bismarck",
+    "role": "Negarawan & Tokoh Sejarah (1815 – 1898)",
+    "cta": "Jelajahi Ekosistem LoopTani"
+  },
+  "movementImpact": {
+    "badge": "Ribuan Petani Terbantu • Gerakan Sirkular Bersama",
+    "eyebrow": "UNTUK MEREKA. UNTUK EKONOMI INDONESIA",
+    "title": "Satu Inovasi. Satu Harapan. Untuk Pertanian Indonesia yang Berdaya.",
+    "subtitle": "Mentransformasi setiap tantangan & sisa panen menjadi peluang ekonomi riil bagi petani lokal. Sebab setiap kg limbah yang kita kelola adalah satu senyuman baru untuk masa depan tanah air kita.",
+    "ctaJoin": "Gabung Gerakan Sekarang",
+    "ctaLearn": "Pelajari Cara Kerja",
+    "box1Title": "UNTUK MEREKA",
+    "box1Desc": "Membantu 4.200+ Petani Lokal Meraih Kemandirian Pupuk & Pakan.",
+    "box2Title": "UNTUK INDONESIA & EKONOMI",
+    "box2Desc": "Menciptakan Pertumbuhan Sirkular Berkelanjutan di Nusantara."
+  },
   "faq": {
     "badge": "FAQ LoopTani",
     "title": "Pertanyaan Yang Sering Diajukan",
