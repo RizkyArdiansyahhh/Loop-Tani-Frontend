@@ -1,39 +1,55 @@
 {
   "profile": {
     "sidebar": {
-    "account": "Akun Saya",
-    "addresses": "Buku Alamat",
-    "orders": "Pesanan Saya",
-    "favorites": "Favorit",
-    "notifications": "Notifikasi",
-    "settings": "Pengaturan"
-  },
-  "card": {
-    "title": "Profil Pengguna",
-    "description": "Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun.",
-    "nameLabel": "Nama Lengkap",
-    "emailLabel": "Alamat Email",
-    "emailDescription": "Email tidak dapat diubah karena terikat dengan akun Anda.",
-    "phoneLabel": "Nomor Telepon",
-    "saveButton": "Simpan Perubahan"
-  },
-  "avatar": {
-    "upload": "Unggah Foto",
-    "formatHint": "Format: JPEG, PNG",
-    "sizeHint": "Maksimal ukuran: 5MB"
-  },
-  "sellerStatus": {
-    "active": "Toko Aktif",
-    "dashboardLink": "Ke Dashboard Toko",
-    "pending": "Menunggu Persetujuan",
-    "rejected": "Pendaftaran Ditolak",
-    "reapplyLink": "Daftar Ulang",
-    "suspended": "Toko Ditangguhkan"
-  },
-  "page": {
-    "title": "Profil Saya",
-    "description": "Kelola informasi profil dan pengaturan akun Anda",
-    "error": "Gagal memuat profil. Silakan coba lagi."
-  }
+      "account": "Akun Saya",
+      "addresses": "Buku Alamat",
+      "orders": "Pesanan Saya",
+      "favorites": "Favorit",
+      "notifications": "Notifikasi",
+      "settings": "Pengaturan"
+    },
+    "card": {
+      "title": "Profil Pengguna",
+      "description": "Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun.",
+      "nameLabel": "Nama Lengkap",
+      "emailLabel": "Alamat Email",
+      "emailDescription": "Email tidak dapat diubah karena terikat dengan akun Anda.",
+      "phoneLabel": "Nomor Telepon",
+      "saveButton": "Simpan Perubahan"
+    },
+    "avatar": {
+      "upload": "Unggah Foto",
+      "formatHint": "Format: JPEG, PNG",
+      "sizeHint": "Maksimal ukuran: 5MB"
+    },
+    "sellerStatus": {
+      "active": "Toko Aktif",
+      "dashboardLink": "Ke Dashboard Toko",
+      "pending": "Menunggu Persetujuan",
+      "rejected": "Pendaftaran Ditolak",
+      "reapplyLink": "Daftar Ulang",
+      "suspended": "Toko Ditangguhkan"
+    },
+    "page": {
+      "title": "Profil Saya",
+      "description": "Kelola informasi profil dan pengaturan akun Anda",
+      "error": "Gagal memuat profil. Silakan coba lagi."
+    },
+    "favorites": {
+      "title": "Produk Favorit Saya",
+      "subtitle": "Katalog Komoditas Tersimpan",
+      "description": "Daftar komoditas limbah pertanian & produk organik yang Anda simpan.",
+      "count": "{count} Produk Favorit",
+      "emptyTitle": "Belum Ada Produk Favorit",
+      "emptyDesc": "Anda belum menandai produk apapun sebagai favorit. Jelajahi marketplace untuk menemukan komoditas pilihan Anda.",
+      "exploreCta": "Jelajahi Marketplace"
+    },
+    "notifications": {
+      "title": "Notifikasi",
+      "description": "Pemberitahuan transaksi, pengumuman platform, dan pembaruan penting.",
+      "emptyTitle": "Belum Ada Notifikasi",
+      "emptyDesc": "Kami akan memberi tahu Anda jika ada transaksi baru atau pengumuman penting dari platform.",
+      "error": "Gagal memuat pemberitahuan. Silakan coba sesaat lagi."
+    }
   }
 }

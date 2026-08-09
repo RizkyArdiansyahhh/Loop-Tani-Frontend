@@ -170,42 +170,38 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
         )}
       </div>
 
-      {/* Miniature Photo Variant Row below Image Container (Left aligned, Slide down animation from top) */}
-      <div className="h-9 flex items-center justify-start gap-1.5 pt-2 overflow-hidden">
-        {imageList.length > 1 && (
-          <div
+      {/* Miniature Photo Variant Row below Image Container (Expands height from 0 on hover, pushing content down) */}
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-300 ease-out flex items-center justify-start gap-1.5 font-poppins",
+          isHovered && imageList.length > 1
+            ? "h-9 pt-2 opacity-100"
+            : "h-0 pt-0 opacity-0 pointer-events-none"
+        )}
+      >
+        {imageList.slice(0, 4).map((img, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setActiveImageIndex(idx);
+            }}
             className={cn(
-              "flex items-center justify-start gap-1.5 transition-all duration-300 ease-out transform",
-              isHovered
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-4 opacity-0 pointer-events-none"
+              "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background shrink-0",
+              activeImageIndex === idx
+                ? "border-foreground shadow-xs ring-1 ring-foreground/20"
+                : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
             )}
           >
-            {imageList.slice(0, 4).map((img, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setActiveImageIndex(idx);
-                }}
-                className={cn(
-                  "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background",
-                  activeImageIndex === idx
-                    ? "border-foreground shadow-xs ring-1 ring-foreground/20"
-                    : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
-                )}
-              >
-                <img
-                  src={img}
-                  alt={`Variant ${idx + 1}`}
-                  className="h-full w-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
+            <img
+              src={img}
+              alt={`Variant ${idx + 1}`}
+              className="h-full w-full object-cover"
+            />
+          </button>
+        ))}
       </div>
 
       {/* Product Meta Below Image & Thumbnails */}
@@ -671,49 +667,52 @@ const HomePage = () => {
           </div>
 
           {/* Longines Single Row Scrollable Product Carousel with AnimatePresence */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={homeCategoryTab}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              <div
-                ref={sliderRef}
-                onScroll={handleSliderScroll}
-                className="flex items-stretch overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-4 select-none"
+          <div className="h-[460px] relative overflow-hidden">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={homeCategoryTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="h-[460px]"
               >
-                {isProductsLoading
-                  ? Array.from({ length: 4 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
-                      >
-                        <div className="aspect-[4/5] w-full bg-muted/40 rounded-xs" />
-                        <div className="h-4 bg-muted rounded w-2/3" />
-                        <div className="h-3 bg-muted rounded w-1/2" />
-                        <div className="h-4 bg-muted rounded w-1/3" />
-                      </div>
-                    ))
-                  : (backendProducts.length > 0
-                      ? backendProducts
-                      : luxuryCollections.filter((c) =>
-                          homeCategoryTab === "all"
-                            ? true
-                            : c.link.includes(homeCategoryTab)
-                        )
-                    ).map((prod: any) => (
-                      <LonginesProductCard
-                        key={prod.id}
-                        prod={prod}
-                        onScrollLeft={() => scrollSlider("left")}
-                        onScrollRight={() => scrollSlider("right")}
-                      />
-                    ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                <div
+                  ref={sliderRef}
+                  onScroll={handleSliderScroll}
+                  className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-[460px]"
+                >
+                  {isProductsLoading
+                    ? Array.from({ length: 4 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
+                        >
+                          <div className="aspect-[4/5] w-full bg-muted/40 rounded-xs" />
+                          <div className="h-4 bg-muted rounded w-2/3" />
+                          <div className="h-3 bg-muted rounded w-1/2" />
+                          <div className="h-4 bg-muted rounded w-1/3" />
+                        </div>
+                      ))
+                    : (backendProducts.length > 0
+                        ? backendProducts
+                        : luxuryCollections.filter((c) =>
+                            homeCategoryTab === "all"
+                              ? true
+                              : c.link.includes(homeCategoryTab)
+                          )
+                      ).map((prod: any) => (
+                        <LonginesProductCard
+                          key={prod.id}
+                          prod={prod}
+                          onScrollLeft={() => scrollSlider("left")}
+                          onScrollRight={() => scrollSlider("right")}
+                        />
+                      ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
           {/* Longines Bottom Progress Line & Active Interactive Control Arrows */}
           <div className="flex items-center justify-between pt-12 border-t border-border/40 mt-8">
