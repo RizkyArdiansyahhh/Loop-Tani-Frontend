@@ -56,6 +56,43 @@
       "errorTitle": "Gagal Memuat Checkout",
       "errorDesc": "Terjadi kesalahan saat memproses data checkout Anda. Silakan coba beberapa saat lagi.",
       "backToShopping": "Kembali Belanja"
+    },
+    "paymentModal": {
+      "encryptedTitle": "Pembayaran Terenkripsi Xendit",
+      "orderNumber": "Pesanan #{orderNumber}",
+      "totalAmountLabel": "Total Tagihan Pembayaran",
+      "selectChannelTitle": "Pilih Bank / Saluran Pembayaran:",
+      "category": {
+        "va": "Virtual Account",
+        "qris": "QRIS",
+        "ewallet": "E-Wallet",
+        "paylater": "PayLater"
+      },
+      "qris": {
+        "scanTitle": "Scan Kode QRIS Dibawah Ini",
+        "instructions": "Buka aplikasi GoPay, OVO, DANA, BCA Mobile, ShopeePay, atau m-Banking Anda lalu pindai kode QR."
+      },
+      "va": {
+        "vaNumberLabel": "Nomor Virtual Account {bank}",
+        "timeLimit": "Batas 24 Jam",
+        "copy": "Salin",
+        "copied": "Tersalin"
+      },
+      "ewallet": {
+        "redirectHint": "Klik tombol di bawah untuk melanjutkan pembayaran di aplikasi {channel}.",
+        "openBtn": "Buka Aplikasi {channel}",
+        "readyHint": "Sesi pembayaran {channel} siap. Silakan lakukan pembayaran."
+      },
+      "actions": {
+        "polling": "Mengecek status pembayaran otomatis...",
+        "closePayLater": "Tutup & Bayar Nanti",
+        "proceed": "Lanjutkan Pembayaran"
+      },
+      "successOverlay": {
+        "title": "Pembayaran Berhasil!",
+        "description": "Terima kasih, pembayaran Anda telah terkonfirmasi dan pesanan sedang diproses.",
+        "redirecting": "Mengarahkan ke detail pesanan..."
+      }
     }
   }
 }

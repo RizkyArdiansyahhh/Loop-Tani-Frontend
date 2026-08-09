@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,8 +28,9 @@ import {
   Clock,
   CheckCircle2,
   ShieldCheck,
-  Sparkles,
   RefreshCw,
+  Lock,
+  ArrowRight,
 } from "lucide-react";
 
 interface PaymentModalProps {
@@ -50,6 +50,7 @@ export function PaymentModal({
   amount,
   orderNumber,
 }: PaymentModalProps) {
+  const t = useTranslations("checkout.paymentModal");
   const router = useRouter();
 
   const [selectedCategory, setSelectedCategory] = useState<
@@ -76,14 +77,14 @@ export function PaymentModal({
 
   useEffect(() => {
     if (isPaid) {
-      toast.success("Pembayaran Berhasil! Pesanan Anda sedang diproses.");
+      toast.success(t("successOverlay.title"));
       const timer = setTimeout(() => {
         onOpenChange(false);
         router.push(`/profile/orders/${orderId}`);
       }, 2500);
       return () => clearTimeout(timer);
     }
-  }, [isPaid, orderId, onOpenChange, router]);
+  }, [isPaid, orderId, onOpenChange, router, t]);
 
   // Handle Requesting Payment Session
   const handleGeneratePayment = (channel: PaymentChannelOption) => {
@@ -98,7 +99,7 @@ export function PaymentModal({
       {
         onSuccess: (data) => {
           setPaymentRequest(data);
-          toast.success(`Metode ${channel.name} dipilih`);
+          toast.success(`${channel.name}`);
         },
         onError: (err: any) => {
           const msg =
@@ -113,7 +114,7 @@ export function PaymentModal({
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setIsCopied(true);
-    toast.success(`${label} berhasil disalin!`);
+    toast.success(`${label} ${t("va.copied")}`);
     setTimeout(() => setIsCopied(false), 2000);
   };
 
@@ -135,186 +136,179 @@ export function PaymentModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg p-0 overflow-hidden bg-card border border-border/80 shadow-2xl rounded-2xl">
-        {/* Top Header with Glassmorphism Effect */}
-        <div className="relative bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 p-5 text-white">
+      <DialogContent className="sm:max-w-lg p-0 overflow-hidden bg-card border border-border/80 shadow-2xl rounded-3xl font-sans">
+        {/* Solid Top Header Card - NO GRADIENT */}
+        <div className="bg-primary text-primary-foreground p-6 relative space-y-3 font-poppins">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-emerald-200" />
-              <span className="text-xs font-semibold tracking-wide uppercase text-emerald-100 font-mono">
-                Pembayaran Terenkripsi
+            <div className="flex items-center gap-1.5 text-primary-foreground/90">
+              <Lock className="w-3.5 h-3.5" />
+              <span className="text-[11px] font-bold tracking-wider uppercase font-mono">
+                {t("encryptedTitle")}
               </span>
             </div>
             <Badge
               variant="outline"
-              className="bg-white/10 text-white border-white/20 text-[10px] backdrop-blur-md"
+              className="bg-primary-foreground/15 text-primary-foreground border-primary-foreground/20 text-[10px] font-bold font-mono px-2.5 py-0.5"
             >
-              Order #{orderNumber}
+              {t("orderNumber", { orderNumber })}
             </Badge>
           </div>
 
-          <div className="mt-3">
-            <span className="text-xs text-emerald-100/90 font-medium">
-              Total Tagihan Pembayaran
+          <div className="space-y-0.5 pt-1">
+            <span className="text-xs text-primary-foreground/80 font-medium block">
+              {t("totalAmountLabel")}
             </span>
-            <div className="text-2xl font-bold font-poppins text-white tracking-tight">
+            <div className="text-2xl sm:text-3xl font-extrabold font-mono text-primary-foreground tracking-tight">
               {formattedAmount}
             </div>
+          </div>
+
+          <div className="absolute right-6 bottom-5 opacity-10 pointer-events-none">
+            <ShieldCheck className="w-24 h-24 text-primary-foreground" />
           </div>
         </div>
 
         {/* Paid Success Overlay Animation */}
         {isPaid ? (
-          <div className="p-8 text-center space-y-4 bg-emerald-50/50 dark:bg-emerald-950/20">
-            <div className="w-16 h-16 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto shadow-lg animate-bounce">
+          <div className="p-8 text-center space-y-4 font-poppins">
+            <div className="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center mx-auto shadow-lg animate-bounce">
               <CheckCircle2 className="w-10 h-10" />
             </div>
             <div className="space-y-1">
-              <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-300">
-                Pembayaran Berhasil!
+              <h3 className="text-lg font-bold text-foreground">
+                {t("successOverlay.title")}
               </h3>
-              <p className="text-xs text-muted-foreground">
-                Terima kasih, pesanan Anda telah dikonfirmasi dan siap diproses oleh penjual.
+              <p className="text-xs text-muted-foreground max-w-xs mx-auto">
+                {t("successOverlay.description")}
               </p>
             </div>
-            <div className="pt-2 text-xs font-mono text-emerald-600 animate-pulse">
-              Mengarahkan ke detail pesanan...
+            <div className="pt-2 text-xs font-mono text-primary animate-pulse flex items-center justify-center gap-1.5">
+              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+              <span>{t("successOverlay.redirecting")}</span>
             </div>
           </div>
         ) : (
-          <div className="p-5 space-y-5">
-            {/* Category Tabs */}
-            <div className="grid grid-cols-4 gap-1 p-1 bg-muted/60 rounded-xl border border-border/40">
-              <button
-                type="button"
-                onClick={() => setSelectedCategory("VIRTUAL_ACCOUNT")}
-                className={`flex flex-col items-center gap-1 py-2 px-1 text-[11px] font-medium rounded-lg transition-all ${
-                  selectedCategory === "VIRTUAL_ACCOUNT"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Building2 className="w-4 h-4 text-emerald-600" />
-                Virtual Account
-              </button>
+          <div className="p-6 space-y-5 font-poppins">
+            {/* Category Filter Pills */}
+            <div className="grid grid-cols-4 gap-1.5 p-1.5 bg-muted/40 rounded-2xl border border-border/60">
+              {[
+                { id: "VIRTUAL_ACCOUNT", label: t("category.va"), icon: Building2 },
+                { id: "QRIS", label: t("category.qris"), icon: QrCode },
+                { id: "EWALLET", label: t("category.ewallet"), icon: Wallet },
+                { id: "PAYLATER", label: t("category.paylater"), icon: CreditCard },
+              ].map((cat) => {
+                const Icon = cat.icon;
+                const isActive = selectedCategory === cat.id;
 
-              <button
-                type="button"
-                onClick={() => setSelectedCategory("QRIS")}
-                className={`flex flex-col items-center gap-1 py-2 px-1 text-[11px] font-medium rounded-lg transition-all ${
-                  selectedCategory === "QRIS"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <QrCode className="w-4 h-4 text-emerald-600" />
-                QRIS
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedCategory("EWALLET")}
-                className={`flex flex-col items-center gap-1 py-2 px-1 text-[11px] font-medium rounded-lg transition-all ${
-                  selectedCategory === "EWALLET"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Wallet className="w-4 h-4 text-emerald-600" />
-                E-Wallet
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setSelectedCategory("PAYLATER")}
-                className={`flex flex-col items-center gap-1 py-2 px-1 text-[11px] font-medium rounded-lg transition-all ${
-                  selectedCategory === "PAYLATER"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <CreditCard className="w-4 h-4 text-emerald-600" />
-                PayLater
-              </button>
-            </div>
-
-            {/* Channels Selector List */}
-            <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-              <span className="text-[11px] font-medium text-muted-foreground">
-                Pilih Bank / Saluran Pembayaran:
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {filteredChannels.map((channel) => (
+                return (
                   <button
-                    key={channel.code}
+                    key={cat.id}
                     type="button"
-                    onClick={() => handleGeneratePayment(channel)}
-                    disabled={createRequestMutation.isPending}
-                    className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all ${
-                      selectedChannel.code === channel.code
-                        ? "border-emerald-500 bg-emerald-500/5 ring-1 ring-emerald-500/20"
-                        : "border-border/60 hover:border-border bg-card"
+                    onClick={() => {
+                      setSelectedCategory(cat.id as any);
+                      const firstInCat = PAYMENT_CHANNELS.find((c) => c.category === cat.id);
+                      if (firstInCat) setSelectedChannel(firstInCat);
+                    }}
+                    className={`flex flex-col items-center justify-center gap-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all cursor-pointer ${
+                      isActive
+                        ? "bg-card text-primary shadow-xs border border-primary/20"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     }`}
                   >
-                    <div>
-                      <div className="text-xs font-bold text-foreground">
-                        {channel.name}
-                      </div>
-                      <div className="text-[10px] text-muted-foreground">
-                        {channel.description}
-                      </div>
-                    </div>
-                    {selectedChannel.code === channel.code && (
-                      <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    )}
+                    <Icon className={`w-4 h-4 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
+                    <span>{cat.label}</span>
                   </button>
-                ))}
+                );
+              })}
+            </div>
+
+            {/* Channels List */}
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-foreground block">
+                {t("selectChannelTitle")}
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {filteredChannels.map((channel) => {
+                  const isSelected = selectedChannel.code === channel.code;
+
+                  return (
+                    <button
+                      key={channel.code}
+                      type="button"
+                      onClick={() => handleGeneratePayment(channel)}
+                      disabled={createRequestMutation.isPending}
+                      className={`flex items-center justify-between p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? "border-primary bg-primary/5 ring-1 ring-primary/30"
+                          : "border-border/60 hover:border-primary/40 bg-card"
+                      }`}
+                    >
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-bold text-foreground">
+                          {channel.name}
+                        </div>
+                        <div className="text-[10px] text-muted-foreground">
+                          {channel.description}
+                        </div>
+                      </div>
+                      <div
+                        className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${
+                          isSelected
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border/60"
+                        }`}
+                      >
+                        {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Action Display Area (QR Code or Copyable VA) */}
             {paymentRequest && (
-              <div className="bg-muted/40 p-4 rounded-xl border border-border/60 space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <div className="bg-muted/30 p-4.5 rounded-2xl border border-border/70 space-y-3.5 animate-in fade-in duration-300">
                 {/* QRIS Render */}
                 {selectedCategory === "QRIS" && (
                   <div className="text-center space-y-3">
-                    <span className="text-xs font-semibold text-foreground flex items-center justify-center gap-1.5">
-                      <QrCode className="w-4 h-4 text-emerald-600" />
-                      Scan Kode QRIS Dibawah Ini
+                    <span className="text-xs font-bold text-foreground flex items-center justify-center gap-1.5">
+                      <QrCode className="w-4 h-4 text-primary" />
+                      {t("qris.scanTitle")}
                     </span>
-                    <div className="bg-white p-3 inline-block rounded-2xl shadow-sm border border-gray-200">
+                    <div className="bg-white p-3.5 inline-block rounded-2xl shadow-xs border border-border/60">
                       {mainAction?.qr_code ? (
                         <img
                           src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(
                             mainAction.qr_code,
                           )}`}
                           alt="QRIS Payment Code"
-                          className="w-44 h-44 mx-auto rounded-lg"
+                          className="w-44 h-44 mx-auto rounded-xl"
                         />
                       ) : (
-                        <div className="w-44 h-44 bg-gray-100 flex items-center justify-center text-xs text-gray-500 rounded-lg">
+                        <div className="w-44 h-44 bg-gray-100 flex items-center justify-center text-xs text-gray-500 rounded-xl">
                           Simulasi QRIS Sandbox
                         </div>
                       )}
                     </div>
-                    <p className="text-[11px] text-muted-foreground">
-                      Buka aplikasi GoPay, OVO, DANA, BCA Mobile, atau e-Wallet apapun lalu pindai kode QR.
+                    <p className="text-[11px] text-muted-foreground max-w-xs mx-auto">
+                      {t("qris.instructions")}
                     </p>
                   </div>
                 )}
 
-                {/* Virtual Account / Direct Transfer Render */}
+                {/* Virtual Account Render */}
                 {selectedCategory === "VIRTUAL_ACCOUNT" && (
-                  <div className="space-y-2">
+                  <div className="space-y-2 font-poppins">
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span>Nomor Virtual Account {selectedChannel.name}</span>
-                      <span className="flex items-center gap-1 text-[11px]">
-                        <Clock className="w-3.5 h-3.5 text-amber-500" />
-                        Batas 24 Jam
+                      <span>{t("va.vaNumberLabel", { bank: selectedChannel.name })}</span>
+                      <span className="flex items-center gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-bold">
+                        <Clock className="w-3.5 h-3.5" />
+                        {t("va.timeLimit")}
                       </span>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-card border border-border rounded-xl font-mono text-sm font-bold text-foreground">
+                    <div className="flex items-center justify-between p-3.5 bg-card border border-border/70 rounded-xl font-mono text-sm font-bold text-foreground">
                       <span>
                         {paymentRequest.referenceId.replace("PAY-", "88390")}
                       </span>
@@ -325,17 +319,17 @@ export function PaymentModal({
                         onClick={() =>
                           handleCopy(
                             paymentRequest.referenceId.replace("PAY-", "88390"),
-                            "Nomor VA",
+                            selectedChannel.name,
                           )
                         }
-                        className="h-7 text-xs gap-1 text-emerald-600 hover:text-emerald-700"
+                        className="h-8 text-xs font-bold gap-1.5 text-primary hover:text-primary hover:bg-primary/10 rounded-lg cursor-pointer"
                       >
                         {isCopied ? (
                           <Check className="w-3.5 h-3.5" />
                         ) : (
                           <Copy className="w-3.5 h-3.5" />
                         )}
-                        {isCopied ? "Tersalin" : "Salin"}
+                        {isCopied ? t("va.copied") : t("va.copy")}
                       </Button>
                     </div>
                   </div>
@@ -345,35 +339,35 @@ export function PaymentModal({
                 {(selectedCategory === "EWALLET" || selectedCategory === "PAYLATER") && (
                   <div className="text-center space-y-3">
                     <p className="text-xs text-muted-foreground">
-                      Klik tombol dibawah untuk melanjutkan pembayaran di aplikasi {selectedChannel.name}.
+                      {t("ewallet.redirectHint", { channel: selectedChannel.name })}
                     </p>
                     {mainAction?.url ? (
                       <Button
                         type="button"
                         asChild
-                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white gap-2"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-10 rounded-xl font-bold text-xs gap-2 cursor-pointer shadow-xs"
                       >
                         <a
                           href={mainAction.url}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Buka {selectedChannel.name}
+                          {t("ewallet.openBtn", { channel: selectedChannel.name })}
                           <ExternalLink className="w-4 h-4" />
                         </a>
                       </Button>
                     ) : (
-                      <div className="text-xs text-amber-600 bg-amber-50 dark:bg-amber-950/30 p-2 rounded-lg">
-                        Sesi checkout {selectedChannel.name} siap. Silakan lakukan pembayaran.
+                      <div className="text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 p-2.5 rounded-xl font-bold">
+                        {t("ewallet.readyHint", { channel: selectedChannel.name })}
                       </div>
                     )}
                   </div>
                 )}
 
                 {/* Polling Indicator */}
-                <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-muted-foreground border-t border-border/40">
-                  <RefreshCw className="w-3 h-3 animate-spin text-emerald-600" />
-                  <span>Mengecek status pembayaran otomatis...</span>
+                <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-muted-foreground border-t border-border/40 font-poppins">
+                  <RefreshCw className="w-3 h-3 animate-spin text-primary" />
+                  <span>{t("actions.polling")}</span>
                 </div>
               </div>
             )}
@@ -385,9 +379,9 @@ export function PaymentModal({
                 variant="outline"
                 size="sm"
                 onClick={() => onOpenChange(false)}
-                className="text-xs"
+                className="text-xs font-bold h-9 px-4 rounded-xl border-border/60 cursor-pointer"
               >
-                Tutup & Bayar Nanti
+                {t("actions.closePayLater")}
               </Button>
 
               {!paymentRequest && (
@@ -396,14 +390,15 @@ export function PaymentModal({
                   size="sm"
                   onClick={() => handleGeneratePayment(selectedChannel)}
                   disabled={createRequestMutation.isPending}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs gap-1.5"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold h-9 px-5 rounded-xl gap-1.5 cursor-pointer shadow-xs"
                 >
                   {createRequestMutation.isPending ? (
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                   ) : (
                     <CreditCard className="w-3.5 h-3.5" />
                   )}
-                  Lanjutkan Pembayaran
+                  {t("actions.proceed")}
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </Button>
               )}
             </div>
