@@ -4,7 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
@@ -26,7 +31,7 @@ interface SlideStaticData {
 const SLIDES: SlideStaticData[] = [
   {
     type: "video",
-    src: "https://res.cloudinary.com/dy9gtwsh7/video/upload/q_auto,f_auto/v1783266018/5104194-uhd_3840_2160_30fps_oa3dpo.mp4",
+    src: "https://res.cloudinary.com/aexisrpt/video/upload/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",

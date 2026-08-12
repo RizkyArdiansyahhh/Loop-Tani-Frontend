@@ -134,10 +134,10 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
 
         {/* Badges / Meta Category */}
         <div className="flex items-center gap-2 mb-4 font-poppins">
-          <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary font-poppins">
+          <span className="rounded-full bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 px-3 py-1 text-xs font-semibold">
             {t("categoryLabel." + article.category?.toLowerCase())}
           </span>
-          <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-bold text-gray-700 dark:text-gray-300 font-poppins">
+          <span className="rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-semibold text-gray-700 dark:text-gray-300">
             {t("difficultyLabel." + article.difficulty?.toLowerCase())}
           </span>
         </div>
@@ -158,10 +158,10 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
             className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-50 dark:ring-gray-850"
           />
           <div className="flex flex-col flex-1 min-w-0 font-poppins">
-            <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5 font-poppins">
+            <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
               {article.uploader.name}
               {article.uploader.role === "Petani Ahli" && (
-                <Award className="h-4 w-4 text-yellow-500 fill-current" />
+                <Award className="h-4 w-4 text-amber-500 fill-current" />
               )}
             </span>
             <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5 font-poppins">
@@ -202,7 +202,6 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
         {/* Bottom CTA Marketplace */}
         <div className="mt-16 relative overflow-hidden rounded-3xl bg-gray-50/50 dark:bg-gray-900/30 border border-gray-100 dark:border-gray-800 p-8 sm:p-10 text-center shadow-2xs font-poppins">
           <div className="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-emerald-500/5 blur-3xl"></div>
-          <div className="absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-primary/5 blur-3xl"></div>
           
           <div className="relative z-10 space-y-4 font-poppins">
             <h3 className="font-poppins text-2xl font-bold text-gray-900 dark:text-white leading-tight">
@@ -216,7 +215,7 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto rounded-2xl bg-primary text-white font-bold flex items-center justify-center gap-2 px-8 py-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 cursor-pointer"
+                className="w-full sm:w-auto rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold flex items-center justify-center gap-2 px-8 py-6 shadow-xs transition-all hover:-translate-y-0.5 cursor-pointer"
               >
                 <Link href={`/marketplace`}>
                   <ShoppingBag className="h-5 w-5" />
