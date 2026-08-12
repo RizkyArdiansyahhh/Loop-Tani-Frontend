@@ -161,8 +161,8 @@ export function LoopPointsWidget({ points, onRedeem }: LoopPointsWidgetProps) {
 
         <div className="mt-4 text-xs text-muted-foreground">
           {remaining > 0 ? (
-            <p className="leading-normal">
-              🌟 {t("pointsToNext", { points: remaining, next: nextTier })}.
+            <p className="leading-normal font-medium">
+              {t("pointsToNext", { points: remaining, next: nextTier })}.
             </p>
           ) : (
             <p className="leading-normal flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">

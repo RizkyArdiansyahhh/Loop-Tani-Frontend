@@ -19,7 +19,11 @@ import CategoryFilter from "../components/categories-filter";
 import Breadcrumbs from "@/components/shared/breadcrumbs";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import type { GetProductsParams, ProductSortBy, ProductCategory } from "@/types/api";
+import type {
+  GetProductsParams,
+  ProductSortBy,
+  ProductCategory,
+} from "@/types/api";
 import { useProducts } from "../hooks/use-products";
 import { useFavoriteProducts } from "../hooks/use-favorite-products";
 
@@ -39,7 +43,8 @@ export default function MarketplacePage() {
   // Read URL search params directly (single source of truth)
   const categoryParam = searchParams.get("category") || "all";
   const searchParam = searchParams.get("search") || "";
-  const sortParam = (searchParams.get("sort") || "recommended") as ProductSortBy;
+  const sortParam = (searchParams.get("sort") ||
+    "recommended") as ProductSortBy;
   const pageParam = Number(searchParams.get("page") || 1);
   const minPriceParam = searchParams.get("minPrice")
     ? Number(searchParams.get("minPrice"))
@@ -78,7 +83,7 @@ export default function MarketplacePage() {
         router.push(`${pathname}?${params.toString()}`);
       }, 400); // 400ms debounce delay
     },
-    [searchParams, pathname, router]
+    [searchParams, pathname, router],
   );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,7 +162,7 @@ export default function MarketplacePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[180px] sm:h-[240px] md:h-[280px] lg:h-[320px]">
           <div className="md:col-span-2 h-full rounded-3xl relative overflow-hidden shadow-xs border border-gray-100 dark:border-gray-800">
             <Image
-              src="https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783446582/Iklan_web_lsgam6.jpg"
+              src="https://res.cloudinary.com/aexisrpt/image/upload/v1786439936/Iklan_web_2.jpg"
               alt="Marketplace Promo Banner"
               fill
               priority
@@ -166,7 +171,7 @@ export default function MarketplacePage() {
           </div>
           <div className="hidden md:block h-full relative overflow-hidden rounded-3xl shadow-xs border border-gray-100 dark:border-gray-800">
             <Image
-              src="https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783444524/26_gg4y6o.jpg"
+              src="https://res.cloudinary.com/aexisrpt/image/upload/v1786439829/26_2.jpg"
               alt="Kemitraan Mitra Tani"
               fill
               className="object-cover object-center transition-transform duration-700 hover:scale-102"

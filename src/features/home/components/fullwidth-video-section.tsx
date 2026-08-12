@@ -11,7 +11,7 @@ export function FullWidthVideoSection({
     <section className="relative w-full h-[55vh] sm:h-[70vh] min-h-96 overflow-hidden bg-slate-950 select-none">
       {/* Background Video */}
       <video
-        src="https://res.cloudinary.com/dy9gtwsh7/video/upload/v1785581010/13167577_3840_2160_30fps_vmlft1.mp4"
+        src="https://res.cloudinary.com/aexisrpt/video/upload/v1786439474/13167577_3840_2160_30fps_1.mp4"
         autoPlay
         muted
         loop

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useTranslations } from "next-intl";
-import { X, Sparkles, Plus, Image, Video, Users } from "lucide-react";
+import { X, Plus, Image, Video, Users, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -280,7 +280,7 @@ export function UploadModal({ isOpen, onClose, onUploadSuccess }: UploadModalPro
             onClick={handleSubmit}
             className="rounded-xl bg-primary text-white font-semibold flex items-center gap-1.5 px-5"
           >
-            <Sparkles className="h-4 w-4 fill-current text-yellow-300" />
+            <CheckCircle2 className="h-4 w-4 text-emerald-200" />
             {t("uploadModal.submit")}
           </Button>
         </div>
