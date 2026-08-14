@@ -584,14 +584,24 @@ export function SellerSettingsPage() {
               </Field>
 
               {/* Region Location Dropdowns */}
+              <input type="hidden" {...form.register("province")} />
+              <input type="hidden" {...form.register("city")} />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <ProvinceSelect
                   value={selectedProvince?.id}
                   onSelect={(prov: any) => {
                     setSelectedProvince(prov);
-                    form.setValue("province", prov.name);
+                    form.setValue("province", prov.name, {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                      shouldTouch: true,
+                    });
                     setSelectedRegency(null);
-                    form.setValue("city", "");
+                    form.setValue("city", "", {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                      shouldTouch: true,
+                    });
                   }}
                   error={form.formState.errors.province as any}
                 />
@@ -601,7 +611,11 @@ export function SellerSettingsPage() {
                   value={selectedRegency?.id}
                   onSelect={(reg: any) => {
                     setSelectedRegency(reg);
-                    form.setValue("city", reg.name);
+                    form.setValue("city", reg.name, {
+                      shouldValidate: true,
+                      shouldDirty: true,
+                      shouldTouch: true,
+                    });
                   }}
                   error={form.formState.errors.city as any}
                 />

@@ -11,13 +11,25 @@
       "backToProfile": "Kembali ke Profil"
     },
     "gate": {
-      "notRegisteredTitle": "Mulai Berjualan di Loop Tani",
+      "notRegisteredTitle": "Mulai Berjualan di LoopTani",
       "notRegisteredDescription": "Bergabunglah dengan ribuan petani dan penjual lainnya. Jangkau pembeli di seluruh Indonesia dengan membuka toko Anda sendiri.",
       "backButton": "Kembali ke Beranda",
       "registerButton": "Buka Toko Sekarang",
       "accessDenied": "Akses Ditolak",
       "statusMessage": "Status toko Anda saat ini: {status}",
-      "pendingDescription": "Pendaftaran toko Anda sedang dalam proses peninjauan. Mohon tunggu informasi selanjutnya dari tim kami."
+      "pendingTitle": "Pendaftaran Toko Sedang Ditinjau",
+      "pendingDescription": "Pendaftaran toko Anda sedang dalam proses peninjauan. Mohon tunggu informasi selanjutnya dari tim kami.",
+      "rejectedTitle": "Pendaftaran Toko Ditolak",
+      "rejectedDescription": "Pendaftaran toko Anda belum dapat disetujui saat ini. Silakan periksa kembali profil registrasi Anda atau ajukan pendaftaran ulang.",
+      "badgePending": "Pending",
+      "badgeRejected": "Ditolak",
+      "checkStatus": "Cek Status",
+      "reRegisterButton": "Daftar Ulang Toko",
+      "testingBoxTitle": "Kemudahan Testing (Dev Mode)",
+      "testingBoxBadge": "Demo",
+      "testingBoxDescription": "Untuk keperluan pengujian fitur toko, Anda dapat menyetujui pendaftaran toko ini secara instant.",
+      "simulateApproveButton": "Simulasi Setujui Toko (Instant Active)",
+      "processing": "Memproses..."
     },
     "register": {
       "badge": "Buka Toko Gratis dalam 3 Langkah",

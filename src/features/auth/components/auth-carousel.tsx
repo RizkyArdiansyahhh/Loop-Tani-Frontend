@@ -2,7 +2,12 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useAnimationControls, type Variants } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useAnimationControls,
+  type Variants,
+} from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +22,7 @@ const slides: SlideData[] = [
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1785570708/pexels-bayusamudro-9487664_mj5b5h.jpg",
+      "https://res.cloudinary.com/aexisrpt/image/upload/v1786718578/pexels-bayusamudro-9487664.jpg",
     title: "Hubungkan Petani & Pembeli Langsung",
     description:
       "Jual beli limbah pertanian, produk olahan organik, dan alat tani secara transparan tanpa perantara.",
@@ -25,7 +30,7 @@ const slides: SlideData[] = [
   {
     id: 2,
     image:
-      "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1785570976/edward-howell-v7G32kVgM84-unsplash_aurv6j.jpg",
+      "https://res.cloudinary.com/aexisrpt/image/upload/v1786718583/edward-howell-v7G32kVgM84-unsplash.jpg",
     title: "Analisis Nilai Limbah & AI Loopi",
     description:
       "Optimalkan potensi limbah pertanian Anda secara instan menggunakan pemrosesan gambar AI dan asisten pintar Loopi.",
@@ -33,7 +38,7 @@ const slides: SlideData[] = [
   {
     id: 3,
     image:
-      "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1785570703/ivan-bandura-nvuemQpMBes-unsplash_wzgzue.jpg",
+      "https://res.cloudinary.com/aexisrpt/image/upload/v1786718597/ivan-bandura-nvuemQpMBes-unsplash.jpg",
     title: "Dukung Pertanian Sirkular Berkelanjutan",
     description:
       "Ubah limbah menjadi nilai ekonomi baru, tingkatkan kesuburan tanah, dan pantau jejak kelestarian lingkungan.",
@@ -179,7 +184,7 @@ export function AuthCarousel({ className }: AuthCarouselProps) {
       onMouseLeave={handleMouseLeave}
       className={cn(
         "relative h-full w-full overflow-hidden rounded-3xl bg-slate-950 shadow-xl select-none flex flex-col justify-end p-6 sm:p-8",
-        className
+        className,
       )}
     >
       {/* Background Image Carousel with Cinematic Crossfade & Subtle Ken Burns Zoom */}

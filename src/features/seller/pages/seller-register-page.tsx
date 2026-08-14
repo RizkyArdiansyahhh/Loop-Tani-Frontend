@@ -303,14 +303,24 @@ export function SellerRegisterPage() {
                 </Field>
 
                 {/* Dropdown Wilayah / Daerah (ProvinceSelect & RegencySelect) */}
+                <input type="hidden" {...form.register("province")} />
+                <input type="hidden" {...form.register("city")} />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <ProvinceSelect
                     value={selectedProvince?.id}
                     onSelect={(prov) => {
                       setSelectedProvince(prov);
-                      form.setValue("province", prov.name, { shouldValidate: true });
+                      form.setValue("province", prov.name, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                        shouldTouch: true,
+                      });
                       setSelectedRegency(null);
-                      form.setValue("city", "", { shouldValidate: true });
+                      form.setValue("city", "", {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                        shouldTouch: true,
+                      });
                     }}
                     error={form.formState.errors.province as any}
                   />
@@ -320,7 +330,11 @@ export function SellerRegisterPage() {
                     value={selectedRegency?.id}
                     onSelect={(reg) => {
                       setSelectedRegency(reg);
-                      form.setValue("city", reg.name, { shouldValidate: true });
+                      form.setValue("city", reg.name, {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                        shouldTouch: true,
+                      });
                     }}
                     error={form.formState.errors.city as any}
                   />
