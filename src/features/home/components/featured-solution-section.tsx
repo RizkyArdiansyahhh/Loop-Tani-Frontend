@@ -47,7 +47,7 @@ export function FeaturedSolutionSection() {
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               <div className="relative h-64 sm:h-80 w-full rounded-lg overflow-hidden shadow-md border border-border group bg-muted">
                 <Image
-                  src="https://res.cloudinary.com/dy9gtwsh7/image/upload/v1786247535/pexels-ink-spreader-292689809-18436545_vtoymj.jpg"
+                  src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720433/pexels-ink-spreader-292689809-18436545_1.jpg"
                   alt="Petani Modern LoopTani"
                   fill
                   className="object-cover "
@@ -55,10 +55,10 @@ export function FeaturedSolutionSection() {
               </div>
               <div className="relative h-64 sm:h-80 w-full rounded-lg overflow-hidden shadow-md border border-border group bg-muted">
                 <Image
-                  src="/images/bento-circular-produce.png"
+                  src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720428/pexels-rdne-8540985.jpg"
                   alt="Hasil Olahan Organik"
                   fill
-                  className="object-cover "
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -81,7 +81,7 @@ export function FeaturedSolutionSection() {
             {/* Clean Visual Image Container */}
             <div className="relative rounded-lg overflow-hidden aspect-16/10 border border-border bg-muted group shadow-inner">
               <Image
-                src="https://res.cloudinary.com/dy9gtwsh7/image/upload/v1786247539/pexels-florence-mathiot-417781-37078680_njyqk9.jpg"
+                src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720478/pexels-florence-mathiot-417781-37078677.jpg"
                 alt="Analisis Lapangan AI LoopTani"
                 fill
                 className="object-cover "
