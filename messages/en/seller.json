@@ -11,13 +11,25 @@
       "backToProfile": "Back to Profile"
     },
     "gate": {
-      "notRegisteredTitle": "Start Selling on Loop Tani",
+      "notRegisteredTitle": "Start Selling on LoopTani",
       "notRegisteredDescription": "Join thousands of other farmers and sellers. Reach buyers across Indonesia by opening your own store.",
       "backButton": "Back to Home",
       "registerButton": "Open Store Now",
       "accessDenied": "Access Denied",
       "statusMessage": "Your current store status is: {status}",
-      "pendingDescription": "Your store application is currently under review. Please wait for further information from our team."
+      "pendingTitle": "Store Application Under Review",
+      "pendingDescription": "Your store application is currently under review. Please wait for further information from our team.",
+      "rejectedTitle": "Store Application Rejected",
+      "rejectedDescription": "Your store application could not be approved at this time. Please review your registration profile or re-apply.",
+      "badgePending": "Pending",
+      "badgeRejected": "Rejected",
+      "checkStatus": "Check Status",
+      "reRegisterButton": "Re-apply Store",
+      "testingBoxTitle": "Convenient Testing (Dev Mode)",
+      "testingBoxBadge": "Demo",
+      "testingBoxDescription": "For feature testing purposes, you can approve this store application instantly.",
+      "simulateApproveButton": "Simulate Store Approval (Instant Active)",
+      "processing": "Processing..."
     },
     "register": {
       "badge": "Open Store Free in 3 Steps",
