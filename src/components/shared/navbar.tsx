@@ -132,6 +132,8 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
 
             <NavigationMenuItem>
               <NavigationMenuTrigger
+                onPointerDown={(e) => e.preventDefault()}
+                onClick={(e) => e.preventDefault()}
                 className={cn(
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
