@@ -758,8 +758,6 @@ const HomePage = () => {
 
         {/* ── SOCIAL MOVEMENT & IMPACT SECTION (UNTUK MEREKA. UNTUK INDONESIA. UNTUK EKONOMI.) ── */}
         <MovementImpactSection />
-
-        {/* ── LONGINES STYLE BOTTOM MEMBERSHIP BANNER ── */}
       </div>
     </main>
   );
