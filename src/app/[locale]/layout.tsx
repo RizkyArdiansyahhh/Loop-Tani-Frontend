@@ -6,6 +6,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
 import LoopiFloating from "@/features/chatbot/components/loopi-floating";
 import AccessibilityWidget from "@/components/shared/accessibility-widget";
+import { FloatingIntroVideo } from "@/features/home/components/floating-intro-video";
 import { Providers } from "@/components/providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -69,6 +70,7 @@ export default async function RootLayout({
             <Toaster />
             <LoopiFloating />
             <AccessibilityWidget />
+            <FloatingIntroVideo />
           </Providers>
         </NextIntlClientProvider>
       </body>
