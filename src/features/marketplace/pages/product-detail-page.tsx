@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
   BadgeCheck,
-  Star,
+  CheckCircle2,
   MapPin,
   Heart,
   ShoppingCart,
@@ -17,7 +17,6 @@ import {
   ShieldCheck,
   ThumbsUp,
   Store,
-  Sparkles,
   ChevronRight,
   Package,
   ZoomIn,
@@ -227,9 +226,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 {product.isFeatured && (
                   <Badge
                     variant="secondary"
-                    className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-bold gap-1 text-[11px]"
+                    className="bg-emerald-500/10 text-emerald-700 border-emerald-500/20 font-bold gap-1 text-[11px]"
                   >
-                    <Star className="h-3 w-3 fill-amber-500" />
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                     {t("featured")}
                   </Badge>
                 )}
@@ -256,8 +255,8 @@ export default function ProductDetailPage({ id }: { id: string }) {
 
               {/* Rating & Sold Counter */}
               <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
-                <div className="flex items-center gap-1 font-bold text-amber-600 bg-amber-500/10 px-2 py-0.5 rounded-md">
-                  <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+                <div className="flex items-center gap-1 font-bold text-emerald-700 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                   <span>
                     {product.sellerRating > 0
                       ? product.sellerRating.toFixed(1)
@@ -522,9 +521,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
             </div>
             <Badge
               variant="outline"
-              className="text-xs font-bold text-amber-600 border-amber-500/30 bg-amber-500/10"
+              className="text-xs font-bold text-emerald-700 border-emerald-500/30 bg-emerald-500/10"
             >
-              <Star className="h-3.5 w-3.5 fill-amber-500 mr-1" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 mr-1" />
               4.9 / 5.0
             </Badge>
           </div>
@@ -535,9 +534,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
               <span className="text-4xl font-extrabold text-foreground font-poppins">
                 4.9
               </span>
-              <div className="flex justify-center gap-1 text-amber-500">
+              <div className="flex justify-center gap-1 text-emerald-600">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="h-4 w-4 fill-amber-500" />
+                  <CheckCircle2 key={s} className="h-4 w-4 text-emerald-600" />
                 ))}
               </div>
               <p className="text-xs text-muted-foreground font-medium">
@@ -557,7 +556,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 <div key={item.stars} className="flex items-center gap-3">
                   <div className="flex items-center gap-1 w-12 shrink-0 font-bold text-muted-foreground">
                     <span>{item.stars}</span>
-                    <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
+                    <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                   </div>
                   <Progress value={item.pct} className="h-2 flex-1 bg-muted" />
                   <span className="w-8 text-right text-muted-foreground font-mono">
@@ -599,9 +598,9 @@ export default function ProductDetailPage({ id }: { id: string }) {
                       <p className="text-xs font-bold text-foreground font-poppins">
                         {rev.name}
                       </p>
-                      <div className="flex gap-0.5 text-amber-500">
+                      <div className="flex gap-0.5 text-emerald-600">
                         {[...Array(rev.rating)].map((_, i) => (
-                          <Star key={i} className="h-3 w-3 fill-amber-500" />
+                          <CheckCircle2 key={i} className="h-3 w-3 text-emerald-600" />
                         ))}
                       </div>
                     </div>

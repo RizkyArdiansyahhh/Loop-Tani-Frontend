@@ -8,7 +8,6 @@ import {
   Coins,
   CircleCheck,
   Pencil,
-  Sparkles,
   RotateCcw,
   Target,
   Layers,
@@ -20,6 +19,7 @@ import {
   CheckCircle2,
   Brain,
   ArrowRight,
+  Recycle,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -280,7 +280,7 @@ const ResultStep = ({ result, preview, onReset }: ResultStepProps) => {
                 accent="teal"
               />
               <DetailCard
-                icon={Sparkles}
+                icon={Target}
                 label={t("result.confidence")}
                 value={`${confidencePercentage}%`}
                 accent="emerald"
@@ -293,7 +293,7 @@ const ResultStep = ({ result, preview, onReset }: ResultStepProps) => {
             <motion.div variants={itemVariants} className="mt-8 min-w-0 max-w-full">
               <div className="mb-3.5 flex items-center gap-2">
                 <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0">
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <Recycle className="h-3.5 w-3.5" />
                 </div>
                 <p className="text-xs font-bold uppercase tracking-wider text-foreground">
                   {t("result.processingPotential")}
@@ -417,7 +417,7 @@ const ResultStep = ({ result, preview, onReset }: ResultStepProps) => {
 
           <div className="mt-5 rounded-2xl border border-primary/20 bg-card/70 p-4 backdrop-blur-sm shadow-2xs w-full max-w-full overflow-x-hidden">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-primary shrink-0" />
+              <Leaf className="h-4 w-4 text-primary shrink-0" />
               <p className="text-xs font-bold text-primary truncate">
                 {t("summary.aiTitle")}
               </p>

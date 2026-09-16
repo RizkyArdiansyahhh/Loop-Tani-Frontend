@@ -18,6 +18,20 @@
       "change": "Change",
       "button": "Analyze Waste"
     },
+    "samples": {
+      "title": "Quick Demo Samples for Judges",
+      "subtitle": "Click any of the following waste samples for instant simulation:",
+      "orDivider": "Or Try Judge Demo Samples",
+      "clickToTest": "Test Sample",
+      "riceHusk": "Rice Husk",
+      "cornCob": "Corn Cob",
+      "riceStraw": "Rice Straw",
+      "sugarcaneBagasse": "Sugarcane Bagasse",
+      "tagBiomass": "Biomass",
+      "tagFeed": "Feed",
+      "tagOrganic": "Organic",
+      "tagFiber": "Fiber"
+    },
     "summary": {
       "title": "AI Summary",
       "description": "Upload a photo to see analysis results.",

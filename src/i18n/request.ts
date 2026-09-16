@@ -23,6 +23,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     product,
     loopi,
     footer,
+    agriConsultant,
   ] = await Promise.all([
     import(`../../messages/${safeLocale}/analyzer.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/admin.json`).then(m => m.default).catch(() => ({})),
@@ -40,6 +41,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     import(`../../messages/${safeLocale}/product.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/loopi.json`).then(m => m.default).catch(() => ({})),
     import(`../../messages/${safeLocale}/footer.json`).then(m => m.default).catch(() => ({})),
+    import(`../../messages/${safeLocale}/agri-consultant.json`).then(m => m.default).catch(() => ({})),
   ]);
 
   return {
@@ -61,6 +63,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...product,
       ...loopi,
       ...footer,
+      ...agriConsultant,
     },
   };
 });

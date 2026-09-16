@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ScanSearch, Sparkles } from "lucide-react";
+import { CircleCheck, ScanSearch } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -22,9 +23,9 @@ const LoadingStep = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setStatusIndex((prev) =>
-        prev < statusMessages.length - 1 ? prev + 1 : prev,
+        prev < statusMessages.length - 1 ? prev + 1 : prev
       );
-    }, 600);
+    }, 700);
     return () => clearInterval(interval);
   }, [statusMessages.length]);
 
@@ -32,33 +33,55 @@ const LoadingStep = () => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 95) return prev;
-        return prev + Math.random() * 15;
+        return prev + Math.random() * 8 + 3;
       });
-    }, 200);
+    }, 180);
     return () => clearInterval(interval);
   }, []);
 
+  const currentPercent = Math.min(Math.round(progress), 95);
+
   return (
-    <div className="flex flex-col lg:flex-row">
-      {/* LEFT — Loading Animation (65%) */}
-      <div className="flex flex-1 flex-col items-center justify-center border-border/40 p-10 lg:border-r lg:p-12">
-        {/* Spinner */}
-        <div className="relative mb-8 flex h-24 w-24 items-center justify-center">
+    <div className="p-6 sm:p-10 lg:p-14">
+      <div className="mx-auto max-w-md text-center">
+        {/* Mascot & Scan Animation */}
+        <div className="relative mx-auto mb-6 flex h-36 w-36 items-center justify-center">
+          {/* Animated Glow Ring */}
           <motion.div
-            className="absolute inset-0 rounded-full border-[3px] border-primary/20 border-t-primary"
+            className="absolute inset-0 rounded-full border-2 border-primary/20 border-t-primary"
             animate={{ rotate: 360 }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
           />
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            className="absolute -inset-2 rounded-full border border-dashed border-primary/30"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          />
+
+          {/* Mascot Image */}
+          <motion.div
+            className="relative z-10 flex h-28 w-28 items-center justify-center overflow-hidden rounded-2xl bg-primary/5 p-2"
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           >
-            <ScanSearch className="h-9 w-9 text-primary" />
+            <Image
+              src="/images/maskot/maskot-limbah.png"
+              alt="Maskot Loopi Limbah Menganalisis"
+              width={110}
+              height={110}
+              priority
+              className="h-full w-full object-contain drop-shadow-sm"
+            />
           </motion.div>
+
+          {/* Floating Badge */}
+          <div className="absolute -bottom-2 -right-2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md shadow-primary/30">
+            <ScanSearch className="h-4 w-4" />
+          </div>
         </div>
 
-        {/* Status Message */}
-        <div className="mb-6 flex h-6 items-center gap-2">
+        {/* Dynamic Status Message */}
+        <div className="mb-4 flex h-7 items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.p
               key={statusIndex}
@@ -66,53 +89,60 @@ const LoadingStep = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.25 }}
-              className="text-sm font-medium text-foreground"
+              className="text-base font-bold text-gray-900 dark:text-white"
             >
               {statusMessages[statusIndex]}
             </motion.p>
           </AnimatePresence>
-          <Sparkles className="h-4 w-4 text-primary" />
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full max-w-xs">
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-primary/10">
+        <div className="mb-8">
+          <div className="mb-2 flex justify-between text-xs font-semibold text-gray-500 dark:text-gray-400">
+            <span>Vision AI Processing</span>
+            <span>{currentPercent}%</span>
+          </div>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-primary/10">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
-              initial={{ width: 0 }}
-              animate={{ width: `${Math.min(progress, 95)}%` }}
-              transition={{ duration: 0.3 }}
+              className="h-full rounded-full bg-primary"
+              style={{ width: `${currentPercent}%` }}
+              transition={{ duration: 0.2 }}
             />
           </div>
-          <p className="mt-2 text-center text-[11px] text-muted-foreground">
-            {Math.round(Math.min(progress, 95))}% {t("loading.complete")}
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT — Skeleton Preview (35%) */}
-      <div className="flex flex-col bg-muted/20 p-10 lg:w-[35%] lg:p-12">
-        <div className="mb-6">
-          <Skeleton className="h-5 w-24 rounded-md bg-primary/15" />
-          <Skeleton className="mt-2 h-3 w-40 rounded bg-muted/60" />
         </div>
 
-        <div className="flex flex-1 flex-col justify-center gap-5">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <Skeleton className="h-9 w-9 shrink-0 rounded-xl bg-primary/10" />
-              <div className="flex flex-1 items-center justify-between">
-                <Skeleton className="h-3 w-16 rounded bg-muted/60" />
-                <Skeleton className="h-6 w-20 rounded-full bg-primary/10" />
+        {/* Step Checkmarks */}
+        <div className="space-y-2.5 text-left">
+          {statusMessages.map((msg, i) => {
+            const isDone = i < statusIndex;
+            const isCurrent = i === statusIndex;
+
+            return (
+              <div
+                key={i}
+                className={`flex items-center gap-3 rounded-xl px-4 py-2.5 transition-all duration-300 ${
+                  isCurrent
+                    ? "border border-primary/20 bg-primary/10 text-primary font-medium"
+                    : isDone
+                    ? "bg-primary/5 text-gray-700 dark:text-gray-200"
+                    : "opacity-40 text-gray-400 dark:text-gray-500"
+                }`}
+              >
+                <CircleCheck
+                  className={`h-4 w-4 shrink-0 transition-colors ${
+                    isDone || isCurrent ? "text-primary" : "text-gray-300 dark:text-gray-600"
+                  }`}
+                />
+                <span className="text-xs sm:text-sm truncate">{msg}</span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="mt-6 rounded-xl bg-primary/5 p-4">
-          <Skeleton className="h-3 w-32 rounded bg-primary/10" />
-          <Skeleton className="mt-2 h-2.5 w-full rounded bg-muted/40" />
-          <Skeleton className="mt-1.5 h-2.5 w-3/4 rounded bg-muted/40" />
+        {/* Subtle skeleton card placeholders */}
+        <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 space-y-2.5">
+          <Skeleton className="h-4 w-3/4 mx-auto rounded-lg bg-primary/10" />
+          <Skeleton className="h-3 w-1/2 mx-auto rounded-lg bg-gray-100 dark:bg-gray-800" />
         </div>
       </div>
     </div>

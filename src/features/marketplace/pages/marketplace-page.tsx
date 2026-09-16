@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -46,6 +48,7 @@ export default function MarketplacePage() {
   const sortParam = (searchParams.get("sort") ||
     "recommended") as ProductSortBy;
   const pageParam = Number(searchParams.get("page") || 1);
+  const limitParam = Number(searchParams.get("limit") || 24);
   const minPriceParam = searchParams.get("minPrice")
     ? Number(searchParams.get("minPrice"))
     : undefined;
@@ -118,7 +121,7 @@ export default function MarketplacePage() {
   const isFavoritesTab = categoryParam === "favorites";
   const params: GetProductsParams = {
     page: pageParam,
-    limit: 12,
+    limit: limitParam,
     sort: sortParam,
     search: searchParam || undefined,
     category:
@@ -145,6 +148,15 @@ export default function MarketplacePage() {
 
   const activeQuery = isFavoritesTab ? favoritesQuery : productsQuery;
   const total = activeQuery.data?.meta.total ?? 0;
+  const totalPages = activeQuery.data?.meta.totalPages ?? 1;
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    const p = new URLSearchParams(searchParams.toString());
+    p.set("page", String(newPage));
+    router.push(`${pathname}?${p.toString()}`);
+    window.scrollTo({ top: 380, behavior: "smooth" });
+  };
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -250,6 +262,64 @@ export default function MarketplacePage() {
               params={params}
               onResetFilters={handleResetFilters}
             />
+
+            {/* ── Pagination Controls ── */}
+            {totalPages > 1 && (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 sm:p-5 border border-gray-100 rounded-3xl bg-white dark:bg-gray-900 dark:border-gray-800 shadow-2xs">
+                <p className="text-xs text-muted-foreground font-medium">
+                  Menampilkan{" "}
+                  <span className="font-semibold text-foreground">
+                    {Math.min((pageParam - 1) * limitParam + 1, total)}
+                  </span>
+                  {" - "}
+                  <span className="font-semibold text-foreground">
+                    {Math.min(pageParam * limitParam, total)}
+                  </span>{" "}
+                  dari <span className="font-bold text-primary">{total}</span> produk
+                </p>
+
+                <div className="flex items-center gap-1.5">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={pageParam <= 1}
+                    onClick={() => handlePageChange(pageParam - 1)}
+                    className="rounded-xl px-3 text-xs font-semibold cursor-pointer border-gray-200 hover:bg-gray-50 dark:border-gray-800"
+                  >
+                    <ChevronLeft className="h-4 w-4 mr-1" />
+                    Sebelumnya
+                  </Button>
+
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => handlePageChange(p)}
+                        className={cn(
+                          "h-8 w-8 rounded-xl text-xs font-bold transition-all cursor-pointer select-none",
+                          p === pageParam
+                            ? "bg-primary text-primary-foreground shadow-xs scale-105"
+                            : "bg-gray-50 hover:bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        )}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
+
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={pageParam >= totalPages}
+                    onClick={() => handlePageChange(pageParam + 1)}
+                    className="rounded-xl px-3 text-xs font-semibold cursor-pointer border-gray-200 hover:bg-gray-50 dark:border-gray-800"
+                  >
+                    Selanjutnya
+                    <ChevronRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
+              </div>
+            )}
           </section>
         </div>
       </div>

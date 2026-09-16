@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { KnowledgeContent } from "@/types/api";
 import { authClient } from "@/lib/auth-client";
+import { extractYouTubeId } from "./video-detail";
 
 interface ContentCardProps {
   content: KnowledgeContent;
@@ -17,15 +18,16 @@ export function ContentCard({ content }: ContentCardProps) {
   const [imageError, setImageError] = useState(false);
 
   // Setup thumbnail image
+  const ytId = extractYouTubeId(content.youtubeId) || extractYouTubeId((content as any).secureUrl);
   let thumbnailUrl = content.thumbnailUrl || content.imageUrl;
-  if (content.type === "video" && content.youtubeId && !thumbnailUrl) {
+  if (content.type === "video" && ytId && (!thumbnailUrl || thumbnailUrl.includes("unsplash"))) {
     thumbnailUrl = imageError
-      ? `https://img.youtube.com/vi/${content.youtubeId}/hqdefault.jpg`
-      : `https://img.youtube.com/vi/${content.youtubeId}/maxresdefault.jpg`;
+      ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
+      : `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`;
   }
 
-  if (!thumbnailUrl) {
-    thumbnailUrl = `https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&h=400&q=80`;
+  if (!thumbnailUrl || (imageError && content.type !== "video")) {
+    thumbnailUrl = `/images/panduan/ekonomi-sirkular-pertanian.jpg`;
   }
 
   const detailUrl =
@@ -88,22 +90,16 @@ export function ContentCard({ content }: ContentCardProps) {
 
           {/* Bottom Footer Info */}
           <div className="mt-3 flex items-center gap-3 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-2xs md:text-xs text-muted-foreground font-medium">
-              <BookOpen className="h-3.5 w-3.5" />
+            <span className="text-2xs md:text-xs text-muted-foreground font-medium">
               {t("readDuration", {
                 duration: content.duration.replace(" baca", ""),
               })}
             </span>
-
+            <span className="text-gray-300 dark:text-gray-700">•</span>
             {/* Reward Points */}
-            <div className="inline-flex items-center gap-1 rounded-full bg-amber-50/80 dark:bg-amber-950/30 px-2.5 py-0.5 text-[10px] md:text-xs font-semibold text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50">
-              <Award className="h-3 w-3 text-amber-500" />
-              <span>
-                {session
-                  ? t("pointsReward", { points: content.points })
-                  : t("pointsRewardLocked", { points: content.points })}
-              </span>
-            </div>
+            <span className="rounded-md bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 text-[10px] md:text-xs font-semibold text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50">
+              +{content.points} Poin
+            </span>
           </div>
         </div>
 
@@ -149,7 +145,7 @@ export function ContentCard({ content }: ContentCardProps) {
           </Badge>
         </div>
 
-        {/* Play Button Overlay */}
+        {/* Play Button Overlay (Essential functional indicator) */}
         <div className="absolute inset-0 flex items-center justify-center bg-black/15 transition-colors duration-300 group-hover:bg-black/25">
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-emerald-700 shadow-md transition-transform duration-300 group-hover:scale-105 dark:bg-gray-900/95 dark:text-emerald-400">
             <Play className="h-4.5 w-4.5 fill-current ml-0.5" />
@@ -157,8 +153,7 @@ export function ContentCard({ content }: ContentCardProps) {
         </div>
 
         {/* Video Duration Badge */}
-        <div className="absolute bottom-3 right-3 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-2xs flex items-center gap-1">
-          <Clock className="h-3 w-3" />
+        <div className="absolute bottom-3 right-3 rounded-md bg-black/60 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur-2xs">
           {t("videoDuration", { duration: content.duration })}
         </div>
       </div>
@@ -167,14 +162,9 @@ export function ContentCard({ content }: ContentCardProps) {
       <div className="flex flex-1 flex-col p-5">
         {/* Points & Type */}
         <div className="mb-3 flex items-center justify-between">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 dark:bg-amber-950/20 px-2.5 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50">
-            <Award className="h-3.5 w-3.5 text-amber-500" />
-            <span>
-              {session
-                ? t("pointsReward", { points: content.points })
-                : t("pointsRewardLocked", { points: content.points })}
-            </span>
-          </div>
+          <span className="rounded-md bg-amber-50 dark:bg-amber-950/20 px-2 py-0.5 text-[10px] font-semibold text-amber-700 dark:text-amber-400 border border-amber-200/50 dark:border-amber-900/50">
+            +{content.points} Poin
+          </span>
           <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
             Video
           </span>

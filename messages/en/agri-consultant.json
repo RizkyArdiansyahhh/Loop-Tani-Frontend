@@ -1,0 +1,32 @@
+{
+  "agriConsultant": {
+    "badge": "Agricultural AI Ecosystem",
+    "title": "AI Agri-Consultant",
+    "subtitle": "Three integrated smart solutions for efficiency and optimal crop yield.",
+    "breadcrumb": "AI Agri-Consultant",
+    "home": "Home",
+    "features": {
+      "loopi": {
+        "title": "AI Chatbot Loopi",
+        "tag": "Virtual Assistant",
+        "description": "Interactive AI assistant for real-time consultation on crop pest diagnosis, disease management, and actionable cultivation guidance.",
+        "cta": "Open Chatbot"
+      },
+      "analyzer": {
+        "title": "Limbah Analyzer",
+        "tag": "Computer Vision",
+        "description": "Intelligent Computer Vision model that detects agricultural waste, estimates volume, and calculates potential economic market value.",
+        "cta": "Analyze Waste"
+      },
+      "calculator": {
+        "title": "Fertilizer Calculator",
+        "tag": "Precision Farming",
+        "description": "Precision agriculture engine calculating balanced, cost-effective fertilizer doses tailored to soil conditions and crop stages.",
+        "cta": "Calculate Dose"
+      }
+    },
+    "navbar": {
+      "viewAll": "View All AI Agri-Consultant Features"
+    }
+  }
+}

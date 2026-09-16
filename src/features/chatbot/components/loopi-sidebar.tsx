@@ -24,7 +24,7 @@ const LoopiSidebar = ({
   const deleteMutation = useDeleteConversation();
 
   return (
-    <aside className="hidden w-72 shrink-0 flex-col gap-4 overflow-y-auto lg:flex">
+    <aside className="hidden w-72 shrink-0 flex-col gap-4 overflow-y-auto lg:flex h-full min-h-0">
       {isLoggedIn ? (
         <>
           <Button

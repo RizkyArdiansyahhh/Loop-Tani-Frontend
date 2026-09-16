@@ -30,21 +30,23 @@ import {
   Filter,
   MapPin,
   RotateCcw,
-  Star,
+  CheckCircle2,
   SlidersHorizontal,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 const PROVINCES = [
-  "Jawa Barat",
-  "Jawa Tengah",
-  "Jawa Timur",
-  "DKI Jakarta",
-  "Banten",
-  "DI Yogyakarta",
+  "Aceh",
   "Sumatera Utara",
+  "Sumatera Barat",
   "Riau",
+  "Jambi",
+  "Sumatera Selatan",
+  "Bengkulu",
+  "Lampung",
+  "Kepulauan Riau",
+  "Kepulauan Bangka Belitung",
 ];
 
 const RATINGS = [5, 4.5, 4];
@@ -244,22 +246,10 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
                       : "border-gray-200 hover:border-gray-300"
                   )}
                 >
-                  <div className="flex items-center gap-1">
-                    <div className="flex">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={cn(
-                            "h-3.5 w-3.5",
-                            i < Math.floor(rating)
-                              ? "fill-yellow-400 text-yellow-400"
-                              : "text-gray-200 dark:text-gray-800"
-                          )}
-                        />
-                      ))}
-                    </div>
-                    <span className="ml-1 text-gray-700 dark:text-gray-300">
-                      {rating.toFixed(1)}+
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                      Rating {rating.toFixed(1)}+
                     </span>
                   </div>
                 </button>

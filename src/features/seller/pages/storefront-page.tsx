@@ -7,7 +7,7 @@ import {
   Calendar,
   Phone,
   Search,
-  Star,
+  CheckCircle2,
   Inbox,
   AlertTriangle,
   ArrowLeft,
@@ -253,7 +253,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               <div className="space-y-0.5">
                 <span className="text-[11px] font-semibold text-muted-foreground block">Rating Toko</span>
                 <div className="flex items-center justify-center md:justify-start gap-1">
-                  <Star className="h-4 w-4 text-amber-400 fill-amber-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                   <span className="text-sm font-bold text-foreground">
                     {hasReviews ? store.stats.averageRating : "-"}
                   </span>

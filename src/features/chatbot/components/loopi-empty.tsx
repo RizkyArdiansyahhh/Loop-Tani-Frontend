@@ -34,18 +34,18 @@ const LoopiEmpty = ({ onSelectSuggestion }: LoopiEmptyProps) => {
   ];
 
   return (
-    <div className="flex flex-1 items-center justify-center p-4 sm:p-6 font-sans w-full max-w-5xl mx-auto my-auto overflow-y-auto">
+    <div className="flex flex-1 min-h-0 items-center justify-center p-4 sm:p-6 font-sans w-full max-w-5xl mx-auto my-auto overflow-y-auto">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center w-full">
         {/* Left Column: Mascot & Greeting */}
         <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left space-y-3">
           <div className="relative flex h-24 w-24 sm:h-28 sm:w-28 items-center justify-center shrink-0">
             <div className="absolute inset-0 animate-pulse rounded-full bg-primary/15 blur-2xl" />
             <Image
-              src="/images/maskot.svg"
+              src="/images/maskot/maskot-chatbot.png"
               alt="Loopi Mascot"
               width={100}
               height={100}
-              className="relative transform transition-transform duration-500 hover:scale-105 drop-shadow-md"
+              className="relative transform transition-transform duration-500 hover:scale-105 drop-shadow-md object-contain"
             />
           </div>
 

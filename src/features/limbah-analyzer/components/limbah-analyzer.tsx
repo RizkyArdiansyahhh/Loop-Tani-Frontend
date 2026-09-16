@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Star, AlertTriangle } from "lucide-react";
 import { useTranslations } from "next-intl";
-import RotatingText from "./rotating-text";
+import { AlertTriangle, HelpCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Breadcrumbs from "@/components/shared/breadcrumbs";
+import { FeatureGuideModal, type GuideStep } from "@/components/shared/feature-guide-modal";
 import UploadStep from "./upload-step";
 import LoadingStep from "./loading-step";
 import ResultStep from "./result-step";
@@ -14,11 +16,39 @@ import type { WasteAnalysisResult } from "../types";
 type Step = "upload" | "loading" | "result";
 
 const fadeSlide = {
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -16 },
-  transition: { duration: 0.4, ease: "easeOut" as const },
+  exit: { opacity: 0, y: -12 },
+  transition: { duration: 0.35, ease: "easeOut" as const },
 };
+
+const LIMBAH_GUIDE_STEPS: GuideStep[] = [
+  {
+    stepNumber: 1,
+    title: "Siapkan Foto Limbah Pertanian",
+    description:
+      "Ambil foto sisa hasil panen atau limbah (misalnya jerami, sekam, tandan kosong sawit, ampas tebu, atau kotoran ternak) dengan pencahayaan terang dan objek terlihat fokus.",
+    tip: "Hindari foto buram atau terlalu gelap agar AI dapat mendeteksi kondisi fisik limbah secara akurat.",
+  },
+  {
+    stepNumber: 2,
+    title: "Unggah Foto ke Sistem",
+    description:
+      "Tarik berkas foto atau klik tombol 'Pilih File' di kotak unggah. Format yang didukung: JPG, PNG, atau WEBP hingga ukuran 10MB.",
+  },
+  {
+    stepNumber: 3,
+    title: "Analisis Otomatis oleh AI",
+    description:
+      "AI LoopTani akan mengidentifikasi jenis limbah, tingkat kelembapan/pembusukan, serta merekomendasikan 3–5 opsi pemanfaatan produk bernilai tambah.",
+  },
+  {
+    stepNumber: 4,
+    title: "Cek Estimasi Harga & Jual",
+    description:
+      "Lihat taksiran harga pasar dan peluang serapan pembeli. Anda dapat langsung klik 'Jual Sekarang' untuk memasarkannya di marketplace LoopTani.",
+  },
+];
 
 const LimbahAnalyzer = () => {
   const t = useTranslations("analyzer");
@@ -26,6 +56,19 @@ const LimbahAnalyzer = () => {
   const [result, setResult] = useState<WasteAnalysisResult | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [apiError, setApiError] = useState<string | null>(null);
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
+
+  // Auto-open guide on first access
+  useEffect(() => {
+    try {
+      const dismissed = localStorage.getItem("looptani_guide_limbah_analyzer");
+      if (!dismissed) {
+        setIsGuideOpen(true);
+      }
+    } catch {
+      setIsGuideOpen(true);
+    }
+  }, []);
 
   const { mutate: analyze } = useAnalyzeWaste();
 
@@ -65,179 +108,86 @@ const LimbahAnalyzer = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden pb-20">
-      {/* Gradient Blobs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 -top-32 h-[500px] w-[500px] rounded-full bg-primary/15 blur-[120px]" />
-        <div className="absolute -right-20 top-1/4 h-[400px] w-[400px] rounded-full bg-secondary/30 blur-[100px]" />
-        <div className="absolute left-1/3 top-1/2 h-[350px] w-[350px] rounded-full bg-accent/15 blur-[100px]" />
-        <div className="absolute -right-10 bottom-0 h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px]" />
-        <div className="absolute left-1/4 bottom-1/4 h-[300px] w-[300px] rounded-full bg-primary/10 blur-[100px]" />
+    <div className="min-h-screen bg-white pb-16 dark:bg-gray-950 font-poppins">
+      {/* ── Header ─────────────────────────────────────────────────── */}
+      <div className="relative bg-white dark:bg-gray-950">
+        <div className="mx-auto max-w-7xl px-4 pt-4 pb-2 sm:px-6 lg:px-8 sm:pt-6 sm:pb-3">
+          <Breadcrumbs
+            items={[
+              { label: "Beranda", href: "/" },
+              { label: "AI Agri-Consultant", href: "/agri-consultant" },
+              { label: "Limbah Analyzer" },
+            ]}
+          />
+
+          <div className="mt-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="max-w-3xl">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Limbah Analyzer
+              </h1>
+
+              <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+                {t("hero.subtitle")}
+              </p>
+            </div>
+
+            <Button
+              variant="outline"
+              onClick={() => setIsGuideOpen(true)}
+              className="self-start md:self-end shrink-0 rounded-2xl border-primary/30 bg-white hover:bg-primary/5 hover:border-primary text-primary font-semibold text-xs shadow-2xs gap-2 px-4 py-2.5 cursor-pointer dark:bg-gray-900"
+            >
+              <HelpCircle className="h-4 w-4" />
+              <span>Panduan Penggunaan</span>
+            </Button>
+          </div>
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Hero Section */}
-        <motion.div
-          className="mx-auto max-w-4xl px-4 pt-16 text-center sm:pt-20"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" as const }}
-        >
-          {/* Badge */}
-          <motion.div
-            className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 backdrop-blur-sm"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3 w-3 fill-accent text-accent" />
-              ))}
-            </div>
-            <span className="text-xs font-semibold text-accent-background">
-              {t("hero.badge")}
-            </span>
-          </motion.div>
+      {/* ── Feature Guide Modal ─────────────────────────────────────── */}
+      <FeatureGuideModal
+        isOpen={isGuideOpen}
+        onClose={() => setIsGuideOpen(false)}
+        title="Panduan Penggunaan Limbah Analyzer"
+        subtitle="Ikuti langkah praktis berikut untuk menganalisis limbah pertanian dan mengetahui potensi nilai jualnya secara instan."
+        steps={LIMBAH_GUIDE_STEPS}
+        storageKey="looptani_guide_limbah_analyzer"
+      />
 
-          {/* Headline */}
-          <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            <span>{t("hero.titlePrefix")}</span>
-            <br />
-            <span>
-              {t("hero.titleMiddle")}{" "}
-              <RotatingText
-                texts={t.raw("hero.rotatingTexts") as string[]}
-                mainClassName="rounded-lg bg-primary text-primary-foreground text-center leading-tight py-2"
-                splitLevelClassName="overflow-hidden"
-                staggerFrom="last"
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.025}
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={2000}
-                splitBy="characters"
-                loop
-              />
-            </span>
-          </h1>
-
-          {/* Subtitle */}
-          <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            {t("hero.subtitle")}
-          </motion.p>
-
-          {/* Primary CTA */}
-          <motion.div
-            className="mt-8"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <button
-              onClick={() => {
-                document.getElementById("analyzer-card")?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
-              }}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
-            >
-              <Sparkles className="h-4 w-4" />
-              {t("hero.cta")}
-            </button>
-          </motion.div>
-        </motion.div>
-
-        {/* Spacer */}
-        <div className="h-16 sm:h-20" />
-
-        {/* Main Analyzer Card */}
-        <div id="analyzer-card" className="mx-auto max-w-5xl px-4">
-          {apiError && (
-            <div className="mb-6 flex items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive/10 p-4 text-destructive">
-              <AlertTriangle className="h-5 w-5 shrink-0" />
-              <p className="text-sm font-medium">{apiError}</p>
-            </div>
-          )}
-
-          <motion.div
-            className="overflow-hidden rounded-3xl border border-border/50 bg-white/80 shadow-xl shadow-black/5 backdrop-blur-sm"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" as const }}
-          >
-            <AnimatePresence mode="wait">
-              {step === "upload" && (
-                <motion.div key="upload" {...fadeSlide}>
-                  <UploadStep onAnalyze={handleAnalyze} />
-                </motion.div>
-              )}
-
-              {step === "loading" && (
-                <motion.div key="loading" {...fadeSlide}>
-                  <LoadingStep />
-                </motion.div>
-              )}
-
-              {step === "result" && result && (
-                <motion.div key="result" {...fadeSlide}>
-                  <ResultStep
-                    key={preview}
-                    result={result}
-                    preview={preview}
-                    onReset={handleReset}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          className="mx-auto mt-12 max-w-5xl px-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          <div className="flex flex-col items-center justify-between gap-6 rounded-3xl border border-primary/20 bg-gradient-to-r from-primary/5 to-background p-8 backdrop-blur-sm sm:flex-row sm:p-10">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
-                <svg
-                  className="h-6 w-6 text-primary"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 4 17 4.48 19.2 6.5c2 2 2.5 5.5 1 8.5-1.5 3-4.5 4-6 5" />
-                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-foreground">
-                  {t("bottomCta.title")}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {t("bottomCta.description")}
-                </p>
-              </div>
-            </div>
-            <button className="shrink-0 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl">
-              {t("bottomCta.button")}
-            </button>
+      {/* ── Main Analyzer Card ─────────────────────────────────────── */}
+      <div className="mx-auto max-w-7xl mt-6 sm:mt-8 px-4 sm:px-6 lg:px-8">
+        {apiError && (
+          <div className="mb-4 flex items-center gap-3 rounded-2xl border border-destructive/30 bg-destructive/10 p-4 text-destructive">
+            <AlertTriangle className="h-5 w-5 shrink-0" />
+            <p className="text-sm font-medium">{apiError}</p>
           </div>
-        </motion.div>
+        )}
+
+        <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-xs dark:border-gray-800 dark:bg-gray-900">
+          <AnimatePresence mode="wait">
+            {step === "upload" && (
+              <motion.div key="upload" {...fadeSlide}>
+                <UploadStep onAnalyze={handleAnalyze} />
+              </motion.div>
+            )}
+
+            {step === "loading" && (
+              <motion.div key="loading" {...fadeSlide}>
+                <LoadingStep />
+              </motion.div>
+            )}
+
+            {step === "result" && result && (
+              <motion.div key="result" {...fadeSlide}>
+                <ResultStep
+                  key={preview}
+                  result={result}
+                  preview={preview}
+                  onReset={handleReset}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );

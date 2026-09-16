@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Heart, Star, BadgeCheck, MapPin } from "lucide-react";
+import { Heart, CheckCircle2, BadgeCheck, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import GlareHover from "@/components/ui/glare-hover";
 import BadgeProduct from "@/components/shared/badge-product";
@@ -116,8 +116,8 @@ const CardProduct = ({ product }: CardProductProps) => {
               </span>
             </div>
             {sellerRating > 0 && (
-              <div className="flex items-center gap-0.5 shrink-0 text-xs font-bold text-amber-600 bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 rounded-full">
-                <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+              <div className="flex items-center gap-1 shrink-0 text-xs font-bold text-emerald-700 bg-emerald-50 dark:bg-emerald-950/30 px-2 py-0.5 rounded-full">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
                 <span>{sellerRating.toFixed(1)}</span>
                 <span className="text-gray-400 font-normal">({totalReview})</span>
               </div>

@@ -21,6 +21,14 @@ import { useClaimReward } from "../hooks/use-claim-reward";
 import { authClient } from "@/lib/auth-client";
 import { CommentsSection } from "./comments-section";
 
+export function extractYouTubeId(urlOrId?: string | null): string | null {
+  if (!urlOrId) return null;
+  const trimmed = urlOrId.trim();
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? match[1] : null;
+}
+
 interface VideoDetailProps {
   video: KnowledgeContent;
 }
@@ -41,7 +49,8 @@ export default function VideoDetail({ video }: VideoDetailProps) {
   const completed = progress?.completed ?? false;
   const claimed = progress?.rewardClaimed ?? false;
 
-  const isCloudinary = video.secureUrl && video.secureUrl.startsWith("http");
+  const ytId = extractYouTubeId(video.youtubeId) || extractYouTubeId(video.secureUrl);
+  const isDirectVideo = !ytId && Boolean(video.secureUrl && (video.secureUrl.endsWith(".mp4") || video.secureUrl.includes("res.cloudinary.com")));
 
   // 2. Local progress tracking
   const { watchedPercentage, meetsThreshold } = useVideoProgress({
@@ -145,21 +154,22 @@ export default function VideoDetail({ video }: VideoDetailProps) {
       <article className="mx-auto max-w-4xl px-4 mt-6 font-poppins">
         {/* Video Player Box */}
         <div className="relative aspect-video w-full bg-black rounded-3xl border border-gray-150 dark:border-gray-800 shadow-lg overflow-hidden group mb-8">
-          {isCloudinary ? (
+          {ytId ? (
+            <iframe
+              src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+              className="h-full w-full border-0"
+            />
+          ) : isDirectVideo ? (
             <video
               ref={videoRef}
               src={video.secureUrl || ""}
               controls
               className="h-full w-full object-contain"
               poster={video.thumbnailUrl || video.imageUrl || ""}
-            />
-          ) : video.youtubeId ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
-              title={video.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="h-full w-full border-0"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-white bg-gray-900 font-poppins">
@@ -196,21 +206,21 @@ export default function VideoDetail({ video }: VideoDetailProps) {
               className="h-10 w-10 rounded-full object-cover ring-2 ring-gray-50 dark:ring-gray-850"
             />
             <div className="flex flex-col flex-1 min-w-0 font-poppins">
-              <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5 font-poppins">
-                {video.uploader.name}
-                {video.uploader.role === "Petani Ahli" && (
-                  <Award className="h-4 w-4 text-yellow-500 fill-current" />
-                )}
-              </span>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5 font-poppins">
-                <span className="flex items-center gap-1 font-poppins">
-                  <Clock className="h-3.5 w-3.5" />
-                  {video.duration}
+              <div className="flex items-center gap-2 font-poppins">
+                <span className="text-sm font-bold text-gray-900 dark:text-white">
+                  {video.uploader.name}
                 </span>
+                {video.uploader.role && (
+                  <span className="text-xs px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 font-medium">
+                    {video.uploader.role}
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-1 font-poppins">
+                <span>{video.duration}</span>
                 <span>•</span>
-                <span className="flex items-center gap-1 text-amber-700 dark:text-amber-400 font-medium font-poppins">
-                  <Award className="h-3.5 w-3.5 text-amber-500" />
-                  +{video.points} LP Reward
+                <span className="text-amber-700 dark:text-amber-400 font-semibold">
+                  +{video.points} Poin
                 </span>
               </div>
             </div>
@@ -327,14 +337,14 @@ export default function VideoDetail({ video }: VideoDetailProps) {
                       <span className="text-[10px] text-muted-foreground block leading-normal">
                         Tonton setidaknya 80% video untuk mendapatkan +{video.points} LP
                       </span>
-                      {!isCloudinary && (
+                      {ytId && (
                         <Button
                           onClick={handleYouTubeComplete}
                           disabled={completeMutation.isPending}
                           variant="outline"
                           className="w-full py-2 h-auto text-[10px] rounded-xl font-bold transition-all cursor-pointer border-gray-200"
                         >
-                          Tandai Selesai Manual (Bypass)
+                          Tandai Selesai Menonton
                         </Button>
                       )}
                     </div>

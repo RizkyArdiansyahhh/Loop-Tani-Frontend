@@ -8,11 +8,12 @@ const StepProgress = () => {
       {/* Mascot */}
       <div className="flex flex-col items-center gap-4">
         <Image
-          src="/images/maskot.svg"
-          alt="Loopi"
+          src="/images/maskot/maskot-limbah.png"
+          alt="Loopi Limbah"
           width={180}
           height={180}
           priority
+          className="object-contain"
         />
         <div className="relative rounded-xl bg-secondary/20 px-3 py-2.5 text-center">
           <div className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-secondary/20" />

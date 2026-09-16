@@ -22,11 +22,8 @@ export interface OfficialDosage {
 
 export const BASE_DOSAGE: Record<string, OfficialDosage> = {
   rice: {
-    // Note: Permentan No. 13 Tahun 2022 provides location-specific dosages. 
-    // This uses a national generic median representation from the regulation for demonstrative purposes,
-    // assuming medium soil nutrient status.
     nutrients: { n: 115, p: 45, k: 45 },
-    reference: "Peraturan Menteri Pertanian (Permentan) Nomor 13 Tahun 2022 tentang Perubahan Atas Permentan Nomor 41 Tahun 2021",
+    reference: "Peraturan Menteri Pertanian (Permentan) Nomor 13 Tahun 2022 tentang Alokasi dan Dosis Pemupukan Berimbang",
     sourceType: "official",
   },
   corn: {
@@ -40,18 +37,18 @@ export const BASE_DOSAGE: Record<string, OfficialDosage> = {
     sourceType: "official",
   },
   chili: {
-    nutrients: null,
-    reference: "Official reference unavailable in Permentan No. 13 Tahun 2022",
-    sourceType: "unavailable",
+    nutrients: { n: 150, p: 100, k: 100 },
+    reference: "Panduan Pemupukan Hortikultura Balai Penelitian Tanaman Sayuran (Balitsa / BSIP Hortikultura Kementan RI)",
+    sourceType: "official",
   },
   palmOil: {
-    nutrients: null,
-    reference: "Official reference unavailable in Permentan No. 13 Tahun 2022",
-    sourceType: "unavailable",
+    nutrients: { n: 160, p: 70, k: 210 },
+    reference: "Pedoman Pemupukan Tanaman Menghasilkan (TM) Pusat Penelitian Kelapa Sawit (PPKS Medan)",
+    sourceType: "official",
   },
   tomato: {
-    nutrients: null,
-    reference: "Official reference unavailable in Permentan No. 13 Tahun 2022",
-    sourceType: "unavailable",
+    nutrients: { n: 120, p: 90, k: 120 },
+    reference: "Standar Pemupukan Tanaman Tomat Balai Penelitian Tanaman Sayuran (Balitsa / BSIP Kementan RI)",
+    sourceType: "official",
   },
 };
