@@ -9,6 +9,7 @@ import AccessibilityWidget from "@/components/shared/accessibility-widget";
 import { FloatingIntroVideo } from "@/features/home/components/floating-intro-video";
 import { Providers } from "@/components/providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "LoopTani — Marketplace Sirkular Pertanian",
@@ -64,6 +65,18 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextTopLoader
+            color="#16a34a"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #16a34a,0 0 5px #16a34a"
+            zIndex={99999}
+          />
           <Providers>
             <ReactQueryDevtools initialIsOpen={false} />
             {children}

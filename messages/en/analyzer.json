@@ -94,6 +94,31 @@
       "title": "Ready to turn your agricultural waste into value?",
       "description": "List your waste and receive offers from buyers.",
       "button": "Sell Now"
+    },
+    "guide": {
+      "button": "User Guide",
+      "badge": "Practical Guide",
+      "title": "Waste Analyzer User Guide",
+      "subtitle": "Follow these practical steps to analyze agricultural waste and discover its market value instantly.",
+      "dontShowAgain": "Do not show automatically when opening this page",
+      "understandBtn": "Got It & Get Started",
+      "tipPrefix": "Tip",
+      "step1": {
+        "title": "Prepare Agricultural Waste Photo",
+        "desc": "Take a photo of crop residue or waste (such as straw, husk, palm EFB, bagasse, or manure) in good lighting with the object clearly in focus."
+      },
+      "step2": {
+        "title": "Upload Image or Choose Sample",
+        "desc": "Drag and drop an image into the upload area, click browse to select a file from your device, or click 1-click test on one of the ready-to-use waste samples."
+      },
+      "step3": {
+        "title": "AI Vision Analyzes Automatically",
+        "desc": "Gemini AI Vision inspects waste characteristics: identifying type, confidence score, visual condition, and circular processing potential."
+      },
+      "step4": {
+        "title": "Get Valuation & Start Selling",
+        "desc": "Check the estimated market price range per ton and demand opportunities, then click Sell Now to offer your waste directly to the circular marketplace."
+      }
     }
   }
 }

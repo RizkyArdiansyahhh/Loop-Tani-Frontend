@@ -30,6 +30,44 @@
         "sprayers": "Alat Semprot",
         "irrigationEquipment": "Alat Irigasi"
       }
-    }
+    },
+
+    "features": {
+      "agriConsultant": {
+        "title": "AI Agri-Consultant"
+      },
+      "loopi": {
+        "title": "AI Chatbot Loopi",
+        "description": "Asisten virtual pintar untuk menjawab segala pertanyaan pertanian Anda secara instan."
+      },
+      "analyzer": {
+        "title": "Limbah Analyzer",
+        "description": "Ukur potensi ekonomi limbah pertanian Anda menggunakan pemrosesan gambar AI."
+      },
+      "calculator": {
+        "title": "Kalkulator Pupuk",
+        "description": "Hitung rekomendasi dosis pupuk optimal berdasarkan komoditas dan kondisi tanah."
+      }
+    },
+
+    "links": {
+      "home": "Beranda",
+      "marketplace": "Marketplace",
+      "agriConsultant": "AI Agri-Consultant",
+      "loopi": "AI Loopi",
+      "limbahAnalyzer": "Limbah Analyzer",
+      "fertilizerCalculator": "Kalkulator Pupuk",
+      "panduanTani": "Panduan Tani",
+      "jejakLestari": "Jejak Lestari",
+      "aboutUs": "Tentang Kami"
+    },
+
+    "profile": {
+      "myProfile": "Profil Saya",
+      "cart": "Keranjang Belanja",
+      "logout": "Keluar"
+    },
+
+    "language": "Bahasa / Language"
   }
 }

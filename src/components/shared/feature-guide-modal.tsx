@@ -25,6 +25,10 @@ interface FeatureGuideModalProps {
   subtitle: string;
   steps: GuideStep[];
   storageKey?: string;
+  badgeText?: string;
+  dontShowAgainText?: string;
+  buttonText?: string;
+  tipPrefix?: string;
 }
 
 export function FeatureGuideModal({
@@ -34,6 +38,10 @@ export function FeatureGuideModal({
   subtitle,
   steps,
   storageKey,
+  badgeText = "Panduan Praktis",
+  dontShowAgainText = "Jangan tampilkan otomatis lagi saat membuka halaman",
+  buttonText = "Mengerti & Mulai Menggunakan",
+  tipPrefix = "Tip",
 }: FeatureGuideModalProps) {
   const [dontShowAgain, setDontShowAgain] = useState(false);
 
@@ -57,7 +65,7 @@ export function FeatureGuideModal({
               <HelpCircle className="h-4.5 w-4.5" />
             </span>
             <span className="text-xs font-bold text-primary uppercase tracking-wider">
-              Panduan Praktis
+              {badgeText}
             </span>
           </div>
           <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -87,7 +95,7 @@ export function FeatureGuideModal({
                 </p>
                 {step.tip && (
                   <p className="text-[11px] font-medium text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-lg w-fit mt-1.5 border border-emerald-200/50 dark:border-emerald-800/40">
-                    💡 Tip: {step.tip}
+                    💡 {tipPrefix}: {step.tip}
                   </p>
                 )}
               </div>
@@ -105,7 +113,7 @@ export function FeatureGuideModal({
                 onChange={(e) => setDontShowAgain(e.target.checked)}
                 className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
               />
-              <span>Jangan tampilkan otomatis lagi saat membuka halaman</span>
+              <span>{dontShowAgainText}</span>
             </label>
           )}
 
@@ -113,7 +121,7 @@ export function FeatureGuideModal({
             onClick={handleClose}
             className="w-full h-11 rounded-2xl bg-primary hover:bg-primary/90 text-white font-bold text-xs sm:text-sm shadow-xs flex items-center justify-center gap-2 cursor-pointer"
           >
-            <span>Mengerti & Mulai Menggunakan</span>
+            <span>{buttonText}</span>
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>

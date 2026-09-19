@@ -83,6 +83,32 @@
       "vegetative": "Vegetatif",
       "flowering": "Berbunga",
       "harvest": "Panen"
+    },
+    "guide": {
+      "button": "Panduan Penggunaan",
+      "badge": "Panduan Praktis",
+      "title": "Panduan Penggunaan Kalkulator Pupuk",
+      "subtitle": "Ikuti panduan ringkas berikut untuk mendapatkan takaran pemupukan yang presisi dan ramah lingkungan.",
+      "dontShowAgain": "Jangan tampilkan otomatis lagi saat membuka halaman",
+      "understandBtn": "Mengerti & Mulai Menggunakan",
+      "tipPrefix": "Tip",
+      "step1": {
+        "title": "Pilih Komoditas Tanaman",
+        "desc": "Tentukan jenis tanaman budidaya Anda (Padi, Jagung, Cabai, Kelapa Sawit, dll.). LoopTani menyesuaikan formula berdasarkan standar agronomi resmi.",
+        "tip": "Setiap jenis tanaman memiliki kebutuhan hara makro (N, P, K) yang spesifik untuk hasil panen optimal."
+      },
+      "step2": {
+        "title": "Tentukan Luas Lahan & Jenis Tanah",
+        "desc": "Masukkan ukuran luas lahan Anda (Hektar atau m²) serta pilih jenis tanah (Lempung, Liat, Berpasir, atau Gambut) untuk penyesuaian retensi nutrisi."
+      },
+      "step3": {
+        "title": "Pilih Fase Pertumbuhan Tanaman",
+        "desc": "Pilih tahapan tanaman saat ini: Vegetatif (pertumbuhan awal batang & daun) atau Generatif (fase pembungaan & pembuahan) agar dosis tidak berlebih."
+      },
+      "step4": {
+        "title": "Dapatkan Dosis Tepat & Solusi Sirkular",
+        "desc": "Lihat rincian dosis pupuk kimia (Urea, SP-36, KCl / NPK) dan rekomendasi pupuk organik sirkular lokal yang dapat langsung dipesan dari mitra tani."
+      }
     }
   }
 }

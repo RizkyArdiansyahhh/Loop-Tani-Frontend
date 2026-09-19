@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
@@ -179,14 +180,17 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
         </div>
 
         {/* Cover Image */}
-        <div className="relative aspect-[21/9] sm:aspect-[2.2/1] w-full bg-muted overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-850 shadow-2xs mb-10">
-          <img
+        <div className="relative aspect-21/9 sm:aspect-[2.2/1] w-full bg-muted overflow-hidden rounded-3xl border border-gray-100 dark:border-gray-850 shadow-2xs mb-10">
+          <Image
             src={
               article.imageUrl ||
-              `/images/panduan/ekonomi-sirkular-pertanian.jpg`
+              `/images/panduan/ekonomi-sirkular-pertanian.webp`
             }
             alt={article.title}
-            className="h-full w-full object-cover"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+            className="object-cover"
           />
         </div>
 

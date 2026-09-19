@@ -83,6 +83,32 @@
       "vegetative": "Vegetative",
       "flowering": "Flowering",
       "harvest": "Harvest"
+    },
+    "guide": {
+      "button": "User Guide",
+      "badge": "Practical Guide",
+      "title": "Fertilizer Calculator User Guide",
+      "subtitle": "Follow this concise guide to get precise, eco-friendly fertilization dosages.",
+      "dontShowAgain": "Do not show automatically when opening this page",
+      "understandBtn": "Got It & Get Started",
+      "tipPrefix": "Tip",
+      "step1": {
+        "title": "Select Crop Commodity",
+        "desc": "Specify your cultivated crop (Rice, Corn, Chili, Oil Palm, etc.). LoopTani adjusts formulas based on official agronomic standards.",
+        "tip": "Each crop has specific macro nutrient requirements (N, P, K) for optimal harvest yields."
+      },
+      "step2": {
+        "title": "Specify Land Area & Soil Type",
+        "desc": "Enter your land area (Hectares or m²) and select soil type (Loam, Clay, Sandy, or Peat) for nutrient retention adjustments."
+      },
+      "step3": {
+        "title": "Choose Crop Growth Stage",
+        "desc": "Select the current plant stage: Vegetative (early shoot & leaf growth) or Generative (flowering & fruiting) to avoid over-fertilization."
+      },
+      "step4": {
+        "title": "Get Precise Dosage & Circular Solutions",
+        "desc": "View the chemical fertilizer breakdown (Urea, SP-36, KCl / NPK) and local circular organic fertilizer recommendations directly orderable from farming partners."
+      }
     }
   }
 }

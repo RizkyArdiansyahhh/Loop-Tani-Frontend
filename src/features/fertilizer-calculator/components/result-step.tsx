@@ -215,7 +215,7 @@ Dihitung otomatis melalui LoopTani Smart Fertilizer Calculator`;
 
               <div className="flex flex-1 flex-col justify-center gap-1.5 min-w-0 max-w-full overflow-x-hidden">
                 <div className="flex flex-wrap items-center gap-2 min-w-0 max-w-full">
-                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground break-words min-w-0 max-w-full">
+                  <h3 className="font-fraunces text-xl sm:text-2xl font-bold tracking-tight text-foreground break-words min-w-0 max-w-full">
                     {cropTitle} ({input.landSize} {input.unit})
                   </h3>
                 </div>
@@ -432,7 +432,7 @@ Dihitung otomatis melalui LoopTani Smart Fertilizer Calculator`;
             <Badge className="bg-primary/15 text-primary border border-primary/20 mb-2 font-medium">
               Estimasi Biaya & Kebutuhan Pupuk
             </Badge>
-            <h2 className="text-xl font-bold text-foreground break-words">
+            <h2 className="font-fraunces text-xl font-bold text-foreground break-words">
               Estimasi Total Biaya Pupuk
             </h2>
             <p className="mt-1 text-xs text-muted-foreground break-words">

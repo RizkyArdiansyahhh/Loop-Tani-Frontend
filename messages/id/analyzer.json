@@ -94,6 +94,31 @@
       "title": "Siap mengubah limbah pertanian Anda menjadi bernilai?",
       "description": "Daftarkan limbah Anda dan terima penawaran dari pembeli.",
       "button": "Jual Sekarang"
+    },
+    "guide": {
+      "button": "Panduan Penggunaan",
+      "badge": "Panduan Praktis",
+      "title": "Panduan Penggunaan Limbah Analyzer",
+      "subtitle": "Ikuti langkah praktis berikut untuk menganalisis limbah pertanian dan mengetahui potensi nilai jualnya secara instan.",
+      "dontShowAgain": "Jangan tampilkan otomatis lagi saat membuka halaman",
+      "understandBtn": "Mengerti & Mulai Menggunakan",
+      "tipPrefix": "Tip",
+      "step1": {
+        "title": "Siapkan Foto Limbah Pertanian",
+        "desc": "Ambil foto sisa hasil panen atau limbah (misalnya jerami, sekam, tandan kosong sawit, ampas tebu, atau kotoran ternak) dengan pencahayaan terang dan objek terlihat fokus."
+      },
+      "step2": {
+        "title": "Unggah Gambar atau Pilih Sampel",
+        "desc": "Seret dan lepas gambar ke area unggah, klik tombol telusuri file dari perangkat Anda, atau klik tombol 1-klik uji cepat pada salah satu sampel limbah siap pakai."
+      },
+      "step3": {
+        "title": "AI Vision Menganalisis Otomatis",
+        "desc": "Gemini AI Vision akan membaca karakteristik limbah: mengidentifikasi jenis, tingkat akurasi (confidence score), estimasi visual, dan potensi pengolahan sirkularnya."
+      },
+      "step4": {
+        "title": "Dapatkan Valuasi & Mulai Jual",
+        "desc": "Ketahui kisaran harga jual pasar limbah per ton dan peluang permintaannya, lalu klik tombol Jual Sekarang untuk langsung menawarkan limbah ke pasar sirkular."
+      }
     }
   }
 }

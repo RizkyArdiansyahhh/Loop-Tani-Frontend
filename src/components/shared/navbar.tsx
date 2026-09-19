@@ -22,42 +22,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
-const components: {
-  title: string;
-  href: string;
-  description: string;
-}[] = [
-  {
-    title: "AI Chatbot Loopi",
-    href: "/loopi",
-    description:
-      "Asisten virtual pintar untuk menjawab segala pertanyaan pertanian Anda secara instan.",
-  },
-  {
-    title: "Limbah Analyzer",
-    href: "/limbah-analyzer",
-    description:
-      "Ukur potensi ekonomi limbah pertanian Anda menggunakan pemrosesan gambar AI.",
-  },
-  {
-    title: "Kalkulator Pupuk",
-    href: "/fertilizer-calculator",
-    description:
-      "Hitung rekomendasi dosis pupuk optimal berdasarkan komoditas dan kondisi tanah.",
-  },
-];
-
-const mobileLinks = [
-  { href: "/", label: "Home" },
-  { href: "/marketplace", label: "Marketplace" },
-  { href: "/agri-consultant", label: "AI Agri-Consultant" },
-  { href: "/loopi", label: "AI Loopi" },
-  { href: "/limbah-analyzer", label: "Limbah Analyzer" },
-  { href: "/fertilizer-calculator", label: "Kalkulator Pupuk" },
-  { href: "/panduan-tani", label: "Panduan Tani" },
-  { href: "/jejak-lestari", label: "Jejak Lestari" },
-];
-
 function ListItem({
   title,
   children,
@@ -91,6 +55,35 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+  const components = [
+    {
+      title: t_navbar("features.loopi.title"),
+      href: "/loopi",
+      description: t_navbar("features.loopi.description"),
+    },
+    {
+      title: t_navbar("features.analyzer.title"),
+      href: "/limbah-analyzer",
+      description: t_navbar("features.analyzer.description"),
+    },
+    {
+      title: t_navbar("features.calculator.title"),
+      href: "/fertilizer-calculator",
+      description: t_navbar("features.calculator.description"),
+    },
+  ];
+
+  const mobileLinks = [
+    { href: "/", label: t_navbar("links.home") },
+    { href: "/marketplace", label: t_navbar("links.marketplace") },
+    { href: "/agri-consultant", label: t_navbar("links.agriConsultant") },
+    { href: "/loopi", label: t_navbar("links.loopi") },
+    { href: "/limbah-analyzer", label: t_navbar("links.limbahAnalyzer") },
+    { href: "/fertilizer-calculator", label: t_navbar("links.fertilizerCalculator") },
+    { href: "/panduan-tani", label: t_navbar("links.panduanTani") },
+    { href: "/jejak-lestari", label: t_navbar("links.jejakLestari") },
+  ];
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -148,7 +141,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
-                AI Agri-Consultant
+                {t_navbar("links.agriConsultant")}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="flex flex-col w-[340px] sm:w-[380px] gap-1 p-2">
@@ -187,7 +180,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
-                <Link href="/panduan-tani">Panduan Tani</Link>
+                <Link href="/panduan-tani">{t_navbar("links.panduanTani")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -202,7 +195,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
-                <Link href="/jejak-lestari">Jejak Lestari</Link>
+                <Link href="/jejak-lestari">{t_navbar("links.jejakLestari")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -217,7 +210,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
-                <Link href="/docs">Tentang Kami</Link>
+                <Link href="/docs">{t_navbar("links.aboutUs")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -281,7 +274,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                         className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/60"
                       >
                         <User className="h-4 w-4 text-muted-foreground" />
-                        Profil Saya
+                        {t_navbar("profile.myProfile")}
                       </Link>
                     </div>
 
@@ -295,7 +288,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                         }}
                         className="flex items-center gap-2 w-full text-left px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-750 dark:text-red-400 dark:hover:bg-red-950/30 rounded-lg cursor-pointer"
                       >
-                        Keluar
+                        {t_navbar("profile.logout")}
                       </button>
                     </div>
                   </motion.div>
@@ -374,7 +367,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
             <div className="mt-6 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Bahasa / Language
+                  {t_navbar("language")}
                 </span>
                 <LanguageSwitcher />
               </div>
@@ -388,7 +381,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   >
                     <Link href="/profile" onClick={() => setMobileOpen(false)}>
                       <User className="h-4.5 w-4.5 mr-2 text-primary" />
-                      Profil Saya
+                      {t_navbar("profile.myProfile")}
                     </Link>
                   </Button>
                   <Button
@@ -399,7 +392,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                   >
                     <Link href="/cart" onClick={() => setMobileOpen(false)}>
                       <ShoppingCart className="h-4.5 w-4.5 mr-2 text-primary" />
-                      Keranjang Belanja
+                      {t_navbar("profile.cart")}
                     </Link>
                   </Button>
                   <Button
@@ -410,7 +403,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     }}
                     className="rounded-2xl h-11 w-full bg-red-600 text-white hover:bg-red-700"
                   >
-                    Keluar
+                    {t_navbar("profile.logout")}
                   </Button>
                 </div>
               ) : (
