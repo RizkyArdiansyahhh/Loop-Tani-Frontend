@@ -60,7 +60,7 @@ const CollectionsProduct = ({ params, onResetFilters }: CollectionsProductProps)
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
           <ProductSkeleton key={i} />
         ))}
@@ -93,7 +93,7 @@ const CollectionsProduct = ({ params, onResetFilters }: CollectionsProductProps)
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
       {products.map((product) => (
         <CardProduct key={product.id} product={product} />
       ))}

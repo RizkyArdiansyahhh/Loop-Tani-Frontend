@@ -303,17 +303,17 @@ export function FilterSheetMobile() {
         <Button
           variant="outline"
           size="sm"
-          className="flex items-center gap-2 rounded-xl border-gray-200 font-semibold"
+          className="flex items-center gap-1.5 sm:gap-2 h-9 sm:h-10 rounded-xl border-gray-200 text-[11px] sm:text-xs font-semibold cursor-pointer"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           Filter
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl px-5 pb-5 pt-5 border-t border-gray-100">
-        <SheetHeader className="mb-4">
+      <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl px-4 sm:px-5 pb-5 pt-4 sm:pt-5 border-t border-gray-100">
+        <SheetHeader className="mb-3 sm:mb-4">
           <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-gray-200" />
-          <SheetTitle className="flex items-center gap-2 text-left text-base font-bold">
-            <Filter className="h-4.5 w-4.5 text-primary" />
+          <SheetTitle className="flex items-center gap-2 text-left text-sm sm:text-base font-bold">
+            <Filter className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-primary" />
             Filter Produk
           </SheetTitle>
         </SheetHeader>

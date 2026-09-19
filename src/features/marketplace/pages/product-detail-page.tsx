@@ -634,7 +634,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
           <div className="space-y-4 pt-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-foreground font-poppins">
+                <h2 className="text-sm sm:text-lg font-bold text-foreground font-poppins">
                   {t("sameSellerTitle")}
                 </h2>
               </div>
@@ -644,7 +644,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="text-xs font-bold text-primary hover:text-primary/90"
+                  className="text-[11px] sm:text-xs font-bold text-primary hover:text-primary/90"
                 >
                   <Link href={`/store/${product.seller.storeSlug}`}>
                     {t("viewAll")}
@@ -654,7 +654,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
               {sameSellerProducts.map((p) => (
                 <CardProduct key={p.id} product={p} />
               ))}
@@ -667,7 +667,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
           <div className="space-y-4 pt-6 border-t border-border/40">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="text-lg font-bold text-foreground font-poppins">
+                <h2 className="text-sm sm:text-lg font-bold text-foreground font-poppins">
                   {t("recommendedTitle")}
                 </h2>
               </div>
@@ -676,7 +676,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
                 asChild
                 variant="ghost"
                 size="sm"
-                className="text-xs font-bold text-primary hover:text-primary/90"
+                className="text-[11px] sm:text-xs font-bold text-primary hover:text-primary/90"
               >
                 <Link href={`/marketplace?category=${product.category}`}>
                   {t("viewMore")}
@@ -685,7 +685,7 @@ export default function ProductDetailPage({ id }: { id: string }) {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
               {recommendedProducts.map((p) => (
                 <CardProduct key={p.id} product={p} />
               ))}

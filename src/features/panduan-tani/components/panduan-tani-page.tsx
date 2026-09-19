@@ -77,9 +77,6 @@ export default function PanduanTani() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="space-y-3 max-w-3xl">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 w-fit">
-                Edukasi Agrikultur Berkelanjutan
-              </span>
               <h1 className="font-fraunces text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
                 {t("title")}
               </h1>
