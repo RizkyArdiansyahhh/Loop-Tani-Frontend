@@ -23,7 +23,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { ProvinceSelect } from "@/features/address/components/province-select";
 import { RegencySelect } from "@/features/address/components/regency-select";
-import { Store, Loader2, Info, ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
+import { Store, Loader2, Info, ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck } from "lucide-react";
 
 const step1Schema = z.object({
   storeName: z.string().min(3, "Nama toko minimal 3 karakter").max(80),

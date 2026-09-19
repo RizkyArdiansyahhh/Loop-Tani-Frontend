@@ -10,7 +10,7 @@ import {
   useSpring,
 } from "motion/react";
 import {
-  Sparkles,
+  Leaf,
   MessageSquare,
   ShoppingBag,
   Calculator,
@@ -140,7 +140,7 @@ export function InteractiveTukuHero() {
           transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-white/60 dark:bg-black/40 px-4 py-1.5 backdrop-blur-md shadow-sm mb-4"
         >
-          <Sparkles className="h-4 w-4 text-emerald-600 dark:text-emerald-400 animate-spin-slow" />
+          <Leaf className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
           <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300 tracking-wide uppercase">
             Ekosistem Pertanian Sirkular Interaktif
           </span>

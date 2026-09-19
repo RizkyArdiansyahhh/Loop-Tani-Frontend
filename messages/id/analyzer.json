@@ -18,6 +18,20 @@
       "change": "Ganti",
       "button": "Analisis Limbah"
     },
+    "samples": {
+      "title": "Sampel Pengujian Cepat untuk Juri",
+      "subtitle": "Klik salah satu sampel limbah berikut untuk simulasi analisis instan:",
+      "orDivider": "Atau Coba Sampel Demo Juri",
+      "clickToTest": "Uji Sampel",
+      "riceHusk": "Sekam Padi",
+      "cornCob": "Tongkol Jagung",
+      "riceStraw": "Jerami Padi",
+      "sugarcaneBagasse": "Ampas Tebu",
+      "tagBiomass": "Biomassa",
+      "tagFeed": "Pakan",
+      "tagOrganic": "Organik",
+      "tagFiber": "Serat"
+    },
     "summary": {
       "title": "Ringkasan AI",
       "description": "Unggah foto untuk melihat hasil analisis.",

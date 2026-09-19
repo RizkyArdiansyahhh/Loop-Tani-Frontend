@@ -8,7 +8,7 @@ import { useUpdateProduct } from "@/features/marketplace/hooks/use-update-produc
 import { SellerProductsTable } from "../components/seller-products-table";
 import { ProductFormModal } from "../components/product-form-modal";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Package, Plus, Sparkles, Store, ShoppingBag } from "lucide-react";
+import { Package, Plus, Store, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import type { Product } from "@/types/api";

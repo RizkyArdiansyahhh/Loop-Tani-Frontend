@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Accessibility, Type, Eye, Check, X, RotateCcw } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useLocale } from "next-intl";
+import { Accessibility, Type, Eye, Check, X, RotateCcw, Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "@/i18n/navigation";
 
@@ -34,6 +36,11 @@ export default function AccessibilityWidget() {
   const pathname = usePathname();
   const normalizedPathname = pathname.replace(/^\/(id|en)(\/|$)/, "$2") || "/";
 
+  const { theme, setTheme } = useTheme();
+  const locale = useLocale();
+  const isEn = locale === "en";
+  const [mounted, setMounted] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
   const [settings, setSettings] = useState<AccessibilitySettings>(DEFAULT_SETTINGS);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -46,6 +53,7 @@ export default function AccessibilityWidget() {
 
   // Load settings from localStorage and apply them to HTML root on mount
   useEffect(() => {
+    setMounted(true);
     const stored = localStorage.getItem("looptani_a11y");
     if (stored) {
       try {
@@ -86,6 +94,7 @@ export default function AccessibilityWidget() {
     setSettings(DEFAULT_SETTINGS);
     localStorage.setItem("looptani_a11y", JSON.stringify(DEFAULT_SETTINGS));
     applySettings(DEFAULT_SETTINGS);
+    setTheme("system");
   };
 
   // Direct DOM updates for zero React re-render overhead of parent elements
@@ -128,8 +137,8 @@ export default function AccessibilityWidget() {
           "flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-primary/30",
           isOpen ? "bg-gray-900 hover:bg-gray-800" : "bg-primary"
         )}
-        aria-label="Fitur Aksesibilitas"
-        title="Pengaturan Aksesibilitas"
+        aria-label={isEn ? "Accessibility Features" : "Fitur Aksesibilitas"}
+        title={isEn ? "Accessibility & Theme Settings" : "Pengaturan Aksesibilitas & Tema"}
       >
         {isOpen ? <X className="h-5.5 w-5.5" /> : <Accessibility className="h-5.5 w-5.5" />}
       </button>
@@ -140,12 +149,14 @@ export default function AccessibilityWidget() {
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-100 dark:border-gray-800">
             <div className="flex items-center gap-2">
               <Accessibility className="h-4.5 w-4.5 text-primary" />
-              <span className="text-sm font-bold text-gray-900 dark:text-white">Aksesibilitas</span>
+              <span className="text-sm font-bold text-gray-900 dark:text-white">
+                {isEn ? "Accessibility" : "Aksesibilitas"}
+              </span>
             </div>
             <button
               onClick={resetSettings}
               className="text-[10px] font-bold text-gray-400 hover:text-primary transition-colors flex items-center gap-1"
-              title="Reset ke Bawaan"
+              title={isEn ? "Reset to Default" : "Reset ke Bawaan"}
             >
               <RotateCcw className="h-3 w-3" />
               Reset
@@ -153,10 +164,61 @@ export default function AccessibilityWidget() {
           </div>
 
           <div className="space-y-4">
+            {/* 0. Color / Mode Switch */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                <Sun className="h-3.5 w-3.5" /> {isEn ? "Color Mode" : "Mode Tampilan"}
+              </label>
+              <div className="grid grid-cols-3 gap-1 bg-gray-50 dark:bg-gray-800/50 p-0.5 rounded-xl border border-gray-100 dark:border-gray-800">
+                <button
+                  type="button"
+                  onClick={() => setTheme("light")}
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-all",
+                    mounted && theme === "light"
+                      ? "bg-white text-primary shadow-xs dark:bg-gray-800 dark:text-white"
+                      : "text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  )}
+                  title={isEn ? "Light Mode" : "Mode Terang"}
+                >
+                  <Sun className="h-3.5 w-3.5" />
+                  <span>{isEn ? "Light" : "Terang"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTheme("dark")}
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-all",
+                    mounted && theme === "dark"
+                      ? "bg-white text-primary shadow-xs dark:bg-gray-800 dark:text-white"
+                      : "text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  )}
+                  title={isEn ? "Dark Mode" : "Mode Gelap"}
+                >
+                  <Moon className="h-3.5 w-3.5" />
+                  <span>{isEn ? "Dark" : "Gelap"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTheme("system")}
+                  className={cn(
+                    "flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-all",
+                    mounted && theme === "system"
+                      ? "bg-white text-primary shadow-xs dark:bg-gray-800 dark:text-white"
+                      : "text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                  )}
+                  title={isEn ? "System Default" : "Ikuti Sistem"}
+                >
+                  <Monitor className="h-3.5 w-3.5" />
+                  <span>{isEn ? "Auto" : "Sistem"}</span>
+                </button>
+              </div>
+            </div>
+
             {/* 1. Zoom Text */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-gray-400 flex items-center gap-1.5">
-                <Type className="h-3.5 w-3.5" /> Ukuran Teks
+              <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                <Type className="h-3.5 w-3.5" /> {isEn ? "Text Size" : "Ukuran Teks"}
               </label>
               <div className="grid grid-cols-3 gap-1 bg-gray-50 dark:bg-gray-800/50 p-0.5 rounded-xl border border-gray-100 dark:border-gray-800">
                 {(["sm", "md", "lg"] as TextZoom[]).map((z) => (

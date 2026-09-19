@@ -140,13 +140,13 @@ const LoopiChat = () => {
   const hasMessages = displayMessages.length > 0;
 
   return (
-    <div className="relative flex h-[calc(100vh-4rem)] gap-6 p-6 overflow-hidden">
+    <div className="relative flex h-full w-full gap-4 sm:gap-6 p-3 sm:p-5 lg:p-6 overflow-hidden">
       {/* Background glow effects for premium look */}
       <div className="absolute top-1/4 left-1/4 -z-10 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
       <div className="absolute bottom-1/4 right-1/4 -z-10 h-72 w-72 rounded-full bg-secondary/10 blur-3xl" />
 
       {/* Main Chat Area */}
-      <div className="flex min-w-0 flex-1 flex-col overflow-hidden rounded-3xl border border-border/70 bg-card/95 shadow-xl shadow-primary/5 backdrop-blur-md transition-all duration-300">
+      <div className="flex min-w-0 min-h-0 flex-1 flex-col overflow-hidden rounded-3xl border border-border/70 bg-card/95 shadow-xl shadow-primary/5 backdrop-blur-md transition-all duration-300">
         {/* Header */}
         <div className="shrink-0 border-b border-border/70 px-5 py-3 bg-card/50">
           <LoopiHeader onNewChat={handleNewChat} isLoggedIn={isLoggedIn} />

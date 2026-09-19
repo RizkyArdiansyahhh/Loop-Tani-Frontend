@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 
 const chipClass = cn(
-  "inline-flex h-10 items-center justify-center gap-2 rounded-full border",
-  "bg-background px-5 text-sm font-semibold text-foreground",
+  "inline-flex h-7.5 sm:h-10 items-center justify-center gap-1 sm:gap-2 rounded-full border",
+  "bg-background px-2.5 sm:px-5 text-[11px] sm:text-sm font-semibold text-foreground",
   "transition-all duration-300 ease-in-out cursor-pointer select-none",
   "hover:border-primary hover:bg-primary/5 hover:text-primary hover:shadow-xs",
   "peer-data-[state=checked]:border-primary",
@@ -31,7 +31,7 @@ export default function CategoryFilter({
     <RadioGroup
       value={value ?? "all"}
       onValueChange={onValueChange}
-      className="flex flex-nowrap lg:flex-wrap items-center gap-3"
+      className="flex flex-nowrap lg:flex-wrap items-center gap-2 sm:gap-3"
     >
       {/* 1. All */}
       <label htmlFor="cat-all" className="flex">
@@ -70,7 +70,7 @@ export default function CategoryFilter({
       </label>
 
       {/* Divider */}
-      <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1" />
+      <div className="h-5 sm:h-6 w-px bg-gray-200 dark:bg-gray-800 mx-0.5 sm:mx-1" />
 
       {/* 5. Favorites */}
       <label htmlFor="cat-favorites" className="flex">
@@ -85,7 +85,7 @@ export default function CategoryFilter({
             "peer-data-[state=checked]:border-red-500 peer-data-[state=checked]:bg-red-500 peer-data-[state=checked]:text-white hover:border-red-500 hover:text-red-500 hover:bg-red-50"
           )}
         >
-          <Heart className="h-4 w-4 shrink-0 fill-current" />
+          <Heart className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 fill-current" />
           {t("favorites")}
         </div>
       </label>

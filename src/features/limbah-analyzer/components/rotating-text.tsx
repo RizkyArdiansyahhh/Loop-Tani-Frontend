@@ -69,18 +69,19 @@ const RotatingText = ({
     splitBy === "characters" ? currentText.split("") : currentText.split(" ");
 
   return (
-    <span
-      className={`inline-block ${mainClassName}`}
-      style={{ width: `${Math.ceil(maxLength / 2) + 2}ch` }}
+    <motion.span
+      layout
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      className={`inline-flex items-center justify-center whitespace-nowrap align-middle ${mainClassName}`}
     >
       <AnimatePresence mode="wait">
         <motion.span
           key={currentIndex}
-          className="inline-flex flex-wrap"
+          className="inline-flex items-center justify-center whitespace-nowrap flex-nowrap"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.1 }}
+          transition={{ duration: 0.15 }}
         >
           {segments.map((char, i) => {
             const actualIndex =
@@ -88,7 +89,7 @@ const RotatingText = ({
             return (
               <span
                 key={`${currentIndex}-${actualIndex}`}
-                className={`inline-block ${splitLevelClassName}`}
+                className={`inline-block whitespace-pre ${splitLevelClassName}`}
               >
                 <motion.span
                   className="inline-block"
@@ -107,7 +108,7 @@ const RotatingText = ({
           })}
         </motion.span>
       </AnimatePresence>
-    </span>
+    </motion.span>
   );
 };
 

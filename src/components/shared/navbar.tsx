@@ -5,10 +5,10 @@ import { useRef, useEffect, useState, type RefObject } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X, ShoppingCart, User, ChevronDown } from "lucide-react";
+import { Menu, X, ShoppingCart, User, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { usePathname } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/features/cart/hooks/use-cart";
@@ -50,6 +50,7 @@ const components: {
 const mobileLinks = [
   { href: "/", label: "Home" },
   { href: "/marketplace", label: "Marketplace" },
+  { href: "/agri-consultant", label: "AI Agri-Consultant" },
   { href: "/loopi", label: "AI Loopi" },
   { href: "/limbah-analyzer", label: "Limbah Analyzer" },
   { href: "/fertilizer-calculator", label: "Kalkulator Pupuk" },
@@ -66,9 +67,12 @@ function ListItem({
   return (
     <li {...props}>
       <NavigationMenuLink asChild>
-        <Link href={href}>
+        <Link
+          href={href}
+          className="block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+        >
           <div className="text-sm leading-none font-medium text-gray-900 dark:text-white">{title}</div>
-          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug mt-1">
             {children}
           </p>
         </Link>
@@ -78,8 +82,10 @@ function ListItem({
 }
 
 function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
+  const router = useRouter();
   const t = useTranslations("auth");
   const t_navbar = useTranslations("navbar");
+  const t_agri = useTranslations("agriConsultant");
   const { data: session } = authClient.useSession();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -132,8 +138,9 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
 
             <NavigationMenuItem>
               <NavigationMenuTrigger
-                onPointerDown={(e) => e.preventDefault()}
-                onClick={(e) => e.preventDefault()}
+                onClick={() => {
+                  router.push("/agri-consultant");
+                }}
                 className={cn(
                   "bg-transparent font-semibold transition-colors duration-300",
                   isTransparent
@@ -144,7 +151,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                 AI Agri-Consultant
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ul className="flex flex-col w-[340px] sm:w-[380px] gap-1 p-2">
                   {components.map((component) => (
                     <ListItem
                       key={component.title}
@@ -154,6 +161,17 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                       {component.description}
                     </ListItem>
                   ))}
+                  <li className="mt-1 border-t border-gray-100 pt-1 dark:border-gray-800">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/agri-consultant"
+                        className="flex items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/5 dark:hover:bg-primary/10"
+                      >
+                        <span>{t_agri("navbar.viewAll")}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
-  Sparkles,
   Leaf,
   Target,
   Compass,
@@ -75,7 +74,7 @@ export default function AboutPage() {
     {
       title: t("pillars.analyzerTitle"),
       desc: t("pillars.analyzerDesc"),
-      icon: Sparkles,
+      icon: Leaf,
       href: "/limbah-analyzer",
       badge: "Vision AI",
       color: "from-emerald-500/10 via-emerald-500/5 to-transparent border-emerald-500/30",
@@ -168,7 +167,7 @@ export default function AboutPage() {
           className="relative text-center pt-8 sm:pt-16 pb-6"
         >
           <motion.div variants={itemVariants} className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs sm:text-sm font-semibold text-primary shadow-2xs mb-6">
-            <Sparkles className="h-4 w-4 shrink-0" />
+            <Leaf className="h-4 w-4 shrink-0" />
             <span>{t("badge")}</span>
           </motion.div>
 

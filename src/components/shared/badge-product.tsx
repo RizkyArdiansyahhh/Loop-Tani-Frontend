@@ -16,7 +16,7 @@ const BadgeProduct = ({ category, className }: BadgeProductProps) => {
   const label = categoryKey ? t(categoryKey) : category;
 
   return (
-    <div className="absolute left-3 top-3 z-30">
+    <div className="absolute left-1.5 top-1.5 sm:left-3 sm:top-3 z-30">
       <LiquidGlassCard
         draggable={false}
         expandable={false}
@@ -25,7 +25,7 @@ const BadgeProduct = ({ category, className }: BadgeProductProps) => {
         glowIntensity="xs"
         borderRadius="9999px"
         className={clsx(
-          "inline-flex items-center justify-center px-3.5 py-1 text-xs font-bold tracking-wide text-foreground bg-white/40 dark:bg-black/40 border border-white/40 dark:border-white/20 select-none shadow-sm",
+          "inline-flex items-center justify-center px-1.5 sm:px-3.5 py-0.5 sm:py-1 text-[8px] sm:text-xs font-bold tracking-wide text-foreground bg-white/40 dark:bg-black/40 border border-white/40 dark:border-white/20 select-none shadow-xs",
           className
         )}
       >

@@ -30,21 +30,23 @@ import {
   Filter,
   MapPin,
   RotateCcw,
-  Star,
+  CheckCircle2,
   SlidersHorizontal,
 } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 const PROVINCES = [
-  "Jawa Barat",
-  "Jawa Tengah",
-  "Jawa Timur",
-  "DKI Jakarta",
-  "Banten",
-  "DI Yogyakarta",
+  "Aceh",
   "Sumatera Utara",
+  "Sumatera Barat",
   "Riau",
+  "Jambi",
+  "Sumatera Selatan",
+  "Bengkulu",
+  "Lampung",
+  "Kepulauan Riau",
+  "Kepulauan Bangka Belitung",
 ];
 
 const RATINGS = [5, 4.5, 4];
@@ -244,22 +246,10 @@ function FilterContent({ onApply }: { onApply?: () => void }) {
                       : "border-gray-200 hover:border-gray-300"
                   )}
                 >
-                  <div className="flex items-center gap-1">
-                    <div className="flex">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={cn(
-                            "h-3.5 w-3.5",
-                            i < Math.floor(rating)
-                              ? "fill-yellow-400 text-yellow-400"
-                              : "text-gray-200 dark:text-gray-800"
-                          )}
-                        />
-                      ))}
-                    </div>
-                    <span className="ml-1 text-gray-700 dark:text-gray-300">
-                      {rating.toFixed(1)}+
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-gray-700 dark:text-gray-300 font-medium">
+                      Rating {rating.toFixed(1)}+
                     </span>
                   </div>
                 </button>
@@ -313,17 +303,17 @@ export function FilterSheetMobile() {
         <Button
           variant="outline"
           size="sm"
-          className="flex items-center gap-2 rounded-xl border-gray-200 font-semibold"
+          className="flex items-center gap-1.5 sm:gap-2 h-9 sm:h-10 rounded-xl border-gray-200 text-[11px] sm:text-xs font-semibold cursor-pointer"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           Filter
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl px-5 pb-5 pt-5 border-t border-gray-100">
-        <SheetHeader className="mb-4">
+      <SheetContent side="bottom" className="h-[85vh] rounded-t-3xl px-4 sm:px-5 pb-5 pt-4 sm:pt-5 border-t border-gray-100">
+        <SheetHeader className="mb-3 sm:mb-4">
           <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-gray-200" />
-          <SheetTitle className="flex items-center gap-2 text-left text-base font-bold">
-            <Filter className="h-4.5 w-4.5 text-primary" />
+          <SheetTitle className="flex items-center gap-2 text-left text-sm sm:text-base font-bold">
+            <Filter className="h-4 w-4 sm:h-4.5 sm:w-4.5 text-primary" />
             Filter Produk
           </SheetTitle>
         </SheetHeader>

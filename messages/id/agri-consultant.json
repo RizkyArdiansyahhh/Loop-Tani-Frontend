@@ -1,0 +1,32 @@
+{
+  "agriConsultant": {
+    "badge": "Ekosistem AI Pertanian",
+    "title": "AI Agri-Consultant",
+    "subtitle": "Tiga solusi cerdas terintegrasi untuk efisiensi dan hasil panen optimal.",
+    "breadcrumb": "AI Agri-Consultant",
+    "home": "Beranda",
+    "features": {
+      "loopi": {
+        "title": "AI Chatbot Loopi",
+        "tag": "Asisten Virtual",
+        "description": "Asisten pintar AI untuk konsultasi interaktif seputar deteksi hama, penyakit tanaman, serta panduan praktis budidaya secara instan.",
+        "cta": "Buka Chatbot"
+      },
+      "analyzer": {
+        "title": "Limbah Analyzer",
+        "tag": "Computer Vision",
+        "description": "Model Computer Vision cerdas untuk mendeteksi jenis limbah panen, mengestimasi volume, dan menghitung potensi nilai jual ekonomisnya.",
+        "cta": "Analisis Limbah"
+      },
+      "calculator": {
+        "title": "Kalkulator Pupuk",
+        "tag": "Pertanian Presisi",
+        "description": "Sistem kalkulasi presisi berbasis kebutuhan nutrisi tanaman untuk menentukan dosis pupuk berimbang yang hemat biaya dan ramah lingkungan.",
+        "cta": "Hitung Dosis"
+      }
+    },
+    "navbar": {
+      "viewAll": "Lihat Semua Fitur AI Agri-Consultant"
+    }
+  }
+}

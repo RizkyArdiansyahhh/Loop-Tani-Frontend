@@ -24,7 +24,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-300 font-sans select-none">
+    <footer className="relative border-t border-gray-200/80 dark:border-stone-800 bg-gray-50/80 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors duration-300 font-sans select-none">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 py-16 relative z-10 font-poppins">
         {/* ── Top Section: Brand & Newsletter Subscription ── */}
         <div className="grid gap-8 lg:grid-cols-12 items-center border-b border-stone-200 dark:border-stone-800 pb-12 mb-12">
@@ -51,7 +51,7 @@ export function Footer() {
 
             <form
               onSubmit={handleSubscribe}
-              className="flex max-w-md ml-auto mr-0 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 shadow-xs focus-within:ring-2 focus-within:ring-primary/30 transition-all duration-300"
+              className="flex max-w-md ml-auto mr-0 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-1.5 focus-within:ring-2 focus-within:ring-primary/30 transition-all duration-300"
             >
               <input
                 type="email"
@@ -64,7 +64,7 @@ export function Footer() {
               <Button
                 type="submit"
                 size="sm"
-                className="bg-primary hover:bg-emerald-700 text-white rounded-lg h-9 px-4 font-bold text-xs shadow-xs cursor-pointer"
+                className="bg-primary hover:bg-emerald-700 text-white rounded-lg h-9 px-4 font-bold text-xs cursor-pointer"
               >
                 {subscribed ? (
                   t("subscribedBtn")
@@ -106,7 +106,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone-200 dark:border-stone-800 bg-stone-100 dark:bg-stone-900 text-stone-700 dark:text-stone-300 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-white hover:shadow-md cursor-pointer"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-white hover:shadow-md cursor-pointer"
                     aria-label={social.name}
                   >
                     <IconComp className="h-4.5 w-4.5" />

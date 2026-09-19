@@ -158,21 +158,21 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
             className="h-12 w-12 rounded-full object-cover ring-2 ring-gray-50 dark:ring-gray-850"
           />
           <div className="flex flex-col flex-1 min-w-0 font-poppins">
-            <span className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
-              {article.uploader.name}
-              {article.uploader.role === "Petani Ahli" && (
-                <Award className="h-4 w-4 text-amber-500 fill-current" />
-              )}
-            </span>
-            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-0.5 font-poppins">
-              <span className="flex items-center gap-1">
-                <BookOpen className="h-3.5 w-3.5" />
-                {article.duration}
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-gray-900 dark:text-white">
+                {article.uploader.name}
               </span>
+              {article.uploader.role && (
+                <span className="text-xs px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300 font-medium">
+                  {article.uploader.role}
+                </span>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-1 font-poppins">
+              <span>{article.duration}</span>
               <span>•</span>
-              <span className="flex items-center gap-1 text-amber-700 dark:text-amber-400 font-medium font-poppins">
-                <Award className="h-3.5 w-3.5 text-amber-500" />
-                +{article.points} LP Reward
+              <span className="text-amber-700 dark:text-amber-400 font-semibold">
+                +{article.points} Poin
               </span>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function ArticleDetail({ article }: ArticleDetailProps) {
           <img
             src={
               article.imageUrl ||
-              `https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1200&q=80`
+              `/images/panduan/ekonomi-sirkular-pertanian.jpg`
             }
             alt={article.title}
             className="h-full w-full object-cover"

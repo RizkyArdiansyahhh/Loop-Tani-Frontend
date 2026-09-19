@@ -77,10 +77,6 @@ export default function PanduanTani() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="space-y-3 max-w-3xl">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary dark:bg-primary/20 w-fit">
-                <Leaf className="h-3.5 w-3.5" />
-                Edukasi Agrikultur Berkelanjutan
-              </span>
               <h1 className="font-fraunces text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-tight">
                 {t("title")}
               </h1>
@@ -118,21 +114,16 @@ export default function PanduanTani() {
             <LoopPointsWidget points={points} onRedeem={handleRedeemPoints} />
           ) : (
             <div className="rounded-3xl border border-primary/20 bg-primary/5 p-6 sm:p-8 shadow-2xs dark:border-primary/20 dark:bg-primary/10 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex flex-col md:flex-row gap-5 items-start text-left">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
-                  <Leaf className="h-6 w-6" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-bold text-primary uppercase tracking-widest leading-none font-poppins">
-                    Mode Belajar Tamu
-                  </span>
-                  <h3 className="font-poppins text-xl font-bold text-gray-900 dark:text-white mt-1 mb-1.5">
-                    {t("guestCTA.title")}
-                  </h3>
-                  <p className="text-xs md:text-sm text-muted-foreground max-w-2xl leading-relaxed font-poppins">
-                    {t("guestCTA.description")}
-                  </p>
-                </div>
+              <div className="flex flex-col gap-1 text-left">
+                <span className="text-[10px] font-bold text-primary uppercase tracking-widest leading-none font-poppins">
+                  Mode Belajar Tamu
+                </span>
+                <h3 className="font-poppins text-xl font-bold text-gray-900 dark:text-white mt-1 mb-1.5">
+                  {t("guestCTA.title")}
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground max-w-2xl leading-relaxed font-poppins">
+                  {t("guestCTA.description")}
+                </p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto shrink-0 font-poppins">
@@ -166,13 +157,12 @@ export default function PanduanTani() {
                     setActiveTab("artikel");
                     setSelectedCategory("semua");
                   }}
-                  className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-350 cursor-pointer ${
+                  className={`flex-1 md:flex-initial flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-350 cursor-pointer ${
                     activeTab === "artikel"
                       ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
                       : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
-                  <BookOpen className="h-4 w-4" />
                   {t("tabArticles")}
                 </button>
                 <button
@@ -180,13 +170,12 @@ export default function PanduanTani() {
                     setActiveTab("video");
                     setSelectedCategory("semua");
                   }}
-                  className={`flex-1 md:flex-initial flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-350 cursor-pointer ${
+                  className={`flex-1 md:flex-initial flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-350 cursor-pointer ${
                     activeTab === "video"
                       ? "bg-white text-gray-900 shadow-sm dark:bg-gray-850 dark:text-white"
                       : "text-muted-foreground hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
-                  <Video className="h-4 w-4" />
                   {t("tabVideos")}
                 </button>
               </div>

@@ -7,7 +7,7 @@ import {
   Calendar,
   Phone,
   Search,
-  Star,
+  CheckCircle2,
   Inbox,
   AlertTriangle,
   ArrowLeft,
@@ -253,7 +253,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               <div className="space-y-0.5">
                 <span className="text-[11px] font-semibold text-muted-foreground block">Rating Toko</span>
                 <div className="flex items-center justify-center md:justify-start gap-1">
-                  <Star className="h-4 w-4 text-amber-400 fill-amber-400" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                   <span className="text-sm font-bold text-foreground">
                     {hasReviews ? store.stats.averageRating : "-"}
                   </span>
@@ -361,16 +361,16 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               </h3>
               
               {isLatestLoading ? (
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-card border border-border/60 rounded-2xl p-4 space-y-3 animate-pulse">
+                    <div key={i} className="bg-card border border-border/60 rounded-2xl p-2.5 sm:p-4 space-y-2 sm:space-y-3 animate-pulse">
                       <div className="aspect-square bg-muted rounded-xl" />
                       <div className="h-4 w-3/4 bg-muted rounded-lg" />
                     </div>
                   ))}
                 </div>
               ) : latestProducts.length > 0 ? (
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
                   {latestProducts.map((product) => (
                     <CardProduct key={product.id} product={product} />
                   ))}
@@ -440,9 +440,9 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
 
             {/* Product Feed Grid */}
             {isProductsLoading ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="bg-card border border-border/60 rounded-2xl p-4 space-y-3 animate-pulse">
+                  <div key={i} className="bg-card border border-border/60 rounded-2xl p-2.5 sm:p-4 space-y-2 sm:space-y-3 animate-pulse">
                     <div className="aspect-square bg-muted rounded-xl" />
                     <div className="h-4 w-3/4 bg-muted rounded-lg" />
                   </div>
@@ -450,7 +450,7 @@ export default function StorefrontPage({ slug }: StorefrontPageProps) {
               </div>
             ) : storeProducts.length > 0 ? (
               <div className="space-y-6">
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
                   {storeProducts.map((product) => (
                     <CardProduct key={product.id} product={product} />
                   ))}
