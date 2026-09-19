@@ -27,41 +27,38 @@ const fadeSlide = {
   transition: { duration: 0.35, ease: "easeOut" as const },
 };
 
-const FERTILIZER_GUIDE_STEPS: GuideStep[] = [
-  {
-    stepNumber: 1,
-    title: "Pilih Komoditas Tanaman",
-    description:
-      "Tentukan jenis tanaman budidaya Anda (Padi, Jagung, Cabai, Kelapa Sawit, dll.). LoopTani menyesuaikan formula berdasarkan standar agronomi resmi.",
-    tip: "Setiap jenis tanaman memiliki kebutuhan hara makro (N, P, K) yang spesifik untuk hasil panen optimal.",
-  },
-  {
-    stepNumber: 2,
-    title: "Tentukan Luas Lahan & Jenis Tanah",
-    description:
-      "Masukkan ukuran luas lahan Anda (Hektar atau m²) serta pilih jenis tanah (Lempung, Liat, Berpasir, atau Gambut) untuk penyesuaian retensi nutrisi.",
-  },
-  {
-    stepNumber: 3,
-    title: "Pilih Fase Pertumbuhan Tanaman",
-    description:
-      "Pilih tahapan tanaman saat ini: Vegetatif (pertumbuhan awal batang & daun) atau Generatif (fase pembungaan & pembuahan) agar dosis tidak berlebih.",
-  },
-  {
-    stepNumber: 4,
-    title: "Dapatkan Dosis Tepat & Solusi Sirkular",
-    description:
-      "Lihat rincian dosis pupuk kimia (Urea, SP-36, KCl / NPK) dan rekomendasi pupuk organik sirkular lokal yang dapat langsung dipesan dari mitra tani.",
-  },
-];
-
 const FertilizerCalculator = () => {
   const t = useTranslations("fertilizer");
+  const tAgri = useTranslations("agriConsultant");
   const locale = useLocale();
   const [step, setStep] = useState<Step>("form");
   const [result, setResult] = useState<CalculationResult | null>(null);
   const [liveProducts, setLiveProducts] = useState<MarketplaceProduct[]>([]);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
+
+  const guideSteps: GuideStep[] = [
+    {
+      stepNumber: 1,
+      title: t("guide.step1.title"),
+      description: t("guide.step1.desc"),
+      tip: t("guide.step1.tip"),
+    },
+    {
+      stepNumber: 2,
+      title: t("guide.step2.title"),
+      description: t("guide.step2.desc"),
+    },
+    {
+      stepNumber: 3,
+      title: t("guide.step3.title"),
+      description: t("guide.step3.desc"),
+    },
+    {
+      stepNumber: 4,
+      title: t("guide.step4.title"),
+      description: t("guide.step4.desc"),
+    },
+  ];
   const [formData, setFormData] = useState<FarmFormData>({
     cropType: "",
     landSize: "",
@@ -130,22 +127,21 @@ const FertilizerCalculator = () => {
     <div className="min-h-screen bg-white pb-16 dark:bg-gray-950 font-poppins">
       {/* ── Header ─────────────────────────────────────────────────── */}
       <div className="relative bg-white dark:bg-gray-950">
-        <div className="mx-auto max-w-7xl px-4 pt-4 pb-2 sm:px-6 lg:px-8 sm:pt-6 sm:pb-3">
+        <div className="mx-auto max-w-7xl px-4 pt-6 pb-6 sm:px-6 lg:px-8 sm:pt-10 sm:pb-8">
           <Breadcrumbs
             items={[
-              { label: "Beranda", href: "/" },
-              { label: "AI Agri-Consultant", href: "/agri-consultant" },
-              { label: "Kalkulator Pupuk" },
+              { label: tAgri("breadcrumb"), href: "/agri-consultant" },
+              { label: tAgri("features.calculator.title") },
             ]}
           />
 
-          <div className="mt-3.5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+              <h1 className="font-fraunces text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {t("hero.title")}
               </h1>
 
-              <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
+              <p className="mt-4 sm:mt-5 text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
                 {t("hero.subtitle")}
               </p>
             </div>
@@ -156,7 +152,7 @@ const FertilizerCalculator = () => {
               className="self-start md:self-end shrink-0 rounded-2xl border-primary/30 bg-white hover:bg-primary/5 hover:border-primary text-primary font-semibold text-xs shadow-2xs gap-2 px-4 py-2.5 cursor-pointer dark:bg-gray-900"
             >
               <HelpCircle className="h-4 w-4" />
-              <span>Panduan Penggunaan</span>
+              <span>{t("guide.button")}</span>
             </Button>
           </div>
         </div>
@@ -166,9 +162,13 @@ const FertilizerCalculator = () => {
       <FeatureGuideModal
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
-        title="Panduan Penggunaan Kalkulator Pupuk"
-        subtitle="Ikuti panduan ringkas berikut untuk mendapatkan takaran pemupukan yang presisi dan ramah lingkungan."
-        steps={FERTILIZER_GUIDE_STEPS}
+        title={t("guide.title")}
+        subtitle={t("guide.subtitle")}
+        badgeText={t("guide.badge")}
+        dontShowAgainText={t("guide.dontShowAgain")}
+        buttonText={t("guide.understandBtn")}
+        tipPrefix={t("guide.tipPrefix")}
+        steps={guideSteps}
         storageKey="looptani_guide_fertilizer_calculator"
       />
 

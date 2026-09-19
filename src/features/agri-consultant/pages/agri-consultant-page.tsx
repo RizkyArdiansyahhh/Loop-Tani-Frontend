@@ -44,20 +44,19 @@ export default function AgriConsultantPage() {
     <div className="min-h-screen bg-white pb-12 dark:bg-gray-950 font-poppins">
       {/* ── Hero Header ─────────────────────────────────────────── */}
       <div className="relative bg-white dark:bg-gray-950">
-        <div className="relative mx-auto max-w-6xl px-4 pt-4 pb-2 sm:px-6 sm:pt-6">
+        <div className="relative mx-auto max-w-7xl px-4 pt-6 pb-6 sm:px-6 lg:px-8 sm:pt-10 sm:pb-8">
           <Breadcrumbs
             items={[
-              { label: t("home"), href: "/" },
               { label: t("breadcrumb") },
             ]}
           />
 
-          <div className="mt-3 max-w-2xl">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
+          <div className="mt-6 sm:mt-8 max-w-3xl">
+            <h1 className="font-fraunces text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
               {t("title")}
             </h1>
 
-            <p className="mt-1.5 text-xs leading-relaxed text-gray-600 dark:text-gray-300 sm:text-sm">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base leading-relaxed text-gray-600 dark:text-gray-300">
               {t("subtitle")}
             </p>
           </div>
@@ -65,7 +64,7 @@ export default function AgriConsultantPage() {
       </div>
 
       {/* ── 3 Main AI Cards (Side-by-Side Grid) ───────────────────── */}
-      <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-6">
           {cards.map((card) => (
             <div

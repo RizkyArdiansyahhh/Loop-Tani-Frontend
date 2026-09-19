@@ -30,6 +30,44 @@
         "sprayers": "Sprayers",
         "irrigationEquipment": "Irrigation Equipment"
       }
-    }
+    },
+
+    "features": {
+      "agriConsultant": {
+        "title": "AI Agri-Consultant"
+      },
+      "loopi": {
+        "title": "AI Chatbot Loopi",
+        "description": "Smart virtual assistant to answer all your agricultural questions instantly."
+      },
+      "analyzer": {
+        "title": "Waste Analyzer",
+        "description": "Measure the economic potential of your agricultural waste using AI image processing."
+      },
+      "calculator": {
+        "title": "Fertilizer Calculator",
+        "description": "Calculate optimal fertilizer dosage recommendations based on crop and soil conditions."
+      }
+    },
+
+    "links": {
+      "home": "Home",
+      "marketplace": "Marketplace",
+      "agriConsultant": "AI Agri-Consultant",
+      "loopi": "AI Loopi",
+      "limbahAnalyzer": "Waste Analyzer",
+      "fertilizerCalculator": "Fertilizer Calculator",
+      "panduanTani": "Farming Guide",
+      "jejakLestari": "Sustainability Tracker",
+      "aboutUs": "About Us"
+    },
+
+    "profile": {
+      "myProfile": "My Profile",
+      "cart": "Shopping Cart",
+      "logout": "Sign Out"
+    },
+
+    "language": "Language / Bahasa"
   }
 }

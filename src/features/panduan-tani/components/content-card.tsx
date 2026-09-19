@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { Play, Award, Clock, BookOpen, User } from "lucide-react";
@@ -27,7 +28,7 @@ export function ContentCard({ content }: ContentCardProps) {
   }
 
   if (!thumbnailUrl || (imageError && content.type !== "video")) {
-    thumbnailUrl = `/images/panduan/ekonomi-sirkular-pertanian.jpg`;
+    thumbnailUrl = `/images/panduan/ekonomi-sirkular-pertanian.webp`;
   }
 
   const detailUrl =
@@ -105,11 +106,13 @@ export function ContentCard({ content }: ContentCardProps) {
 
         {/* Right Side: Thumbnail */}
         <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden shrink-0 border border-gray-100 dark:border-gray-800 bg-muted shadow-2xs">
-          <img
+          <Image
             src={thumbnailUrl}
             alt={content.title}
+            fill
+            sizes="(max-width: 768px) 96px, 128px"
             onError={() => setImageError(true)}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
         </div>
@@ -127,11 +130,13 @@ export function ContentCard({ content }: ContentCardProps) {
     >
       {/* Media Cover / Image Section */}
       <div className="relative aspect-16/10 w-full overflow-hidden bg-muted">
-        <img
+        <Image
           src={thumbnailUrl}
           alt={content.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onError={() => setImageError(true)}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
           loading="lazy"
         />
 
