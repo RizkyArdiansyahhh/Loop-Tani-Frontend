@@ -151,7 +151,8 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
       : [prod.thumbnail || "/images/bento-farmer-tech.png"]
     : [
         prod.image,
-        // Note: no extra images for placeholder cards — reduces eager image downloads
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493221/loop-tani/products/olahan/pakan_jerami_fermentasi_1.jpg",
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493245/loop-tani/products/olahan/pupuk_realstrong_organik.jpg",
       ];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -758,8 +759,7 @@ const HomePage = () => {
                   onScroll={handleSliderScroll}
                   className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
                 >
-                  {/* Show skeleton when section not visible or loading — prevents 170 KiB of product images from downloading before viewport */}
-                  {(!productSectionVisible || isProductsLoading)
+                  {isProductsLoading
                     ? Array.from({ length: 4 }).map((_, i) => (
                         <div
                           key={i}
