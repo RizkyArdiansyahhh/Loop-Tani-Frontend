@@ -1,0 +1,28 @@
+export const dynamic = "force-static";
+
+export async function GET() {
+  const content = `# LoopTani — Platform Ekonomi Sirkular Pertanian Indonesia
+
+> LoopTani adalah ekosistem marketplace sirkular dan teknologi pertanian modern di Indonesia yang menghubungkan petani, peternak, dan industri pengolahan limbah pertanian menjadi produk bernilai ekonomi tinggi.
+
+## Fitur & Layanan Utama
+
+- [Marketplace Produk Sirkular](https://www.looptani.id/id/marketplace): Jual beli limbah pertanian, pakan ternak fermentasi, pupuk organik, dan alat mesin tani bekas berkualitas.
+- [Panduan Tani & Edukasi](https://www.looptani.id/id/panduan-tani): Modul belajar pengolahan limbah, pembuatan kompos organik, dan praktik pertanian berkelanjutan.
+- [Jejak Lestari (ESG Metrics)](https://www.looptani.id/id/jejak-lestari): Kalkulator jejak karbon, pengurangan emisi gas rumah kaca, dan laporan keberlanjutan pertanian sirkular.
+- [Konsultan Tani & Loopi AI](https://www.looptani.id/id/loopi): Asisten cerdas berbasis AI untuk diagnosis tanaman, rekomendasi pupuk, dan konsultasi pertanian 24/7.
+- [Tentang Kami & Tim](https://www.looptani.id/id/about): Mengenal visi, misi, dan tim kepemimpinan di balik gerakan ekonomi hijau LoopTani.
+
+## Kontak & Informasi
+
+- Website: https://www.looptani.id
+- Email: support@looptani.id
+`;
+
+  return new Response(content, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400, s-maxage=86400",
+    },
+  });
+}
