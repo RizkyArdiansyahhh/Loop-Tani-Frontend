@@ -30,8 +30,8 @@ interface SlideStaticData {
 const SLIDES: SlideStaticData[] = [
   {
     type: "video",
-    src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
-    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:eco,f_auto,w_1440,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto:eco,f_auto,w_1280,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:eco,f_auto,w_960,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -132,7 +132,7 @@ export const CarouselHomePage = () => {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeIndex}
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={activeIndex === 0 ? false : { opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -175,16 +175,24 @@ export const CarouselHomePage = () => {
                 className="max-w-2xl space-y-4 md:space-y-6"
               >
                 {/* Eyebrow */}
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.4 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs"
-                >
-                  <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
-                    {currentSlide.eyebrow}
-                  </span>
-                </motion.div>
+                {activeIndex === 0 ? (
+                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs">
+                    <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                      {currentSlide.eyebrow}
+                    </span>
+                  </div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, duration: 0.4 }}
+                    className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs"
+                  >
+                    <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                      {currentSlide.eyebrow}
+                    </span>
+                  </motion.div>
+                )}
 
                 {/* Heading (Fraunces serif) - h1 on initial slide for immediate LCP paint */}
                 {activeIndex === 0 ? (
@@ -202,45 +210,77 @@ export const CarouselHomePage = () => {
                   </motion.h2>
                 )}
 
-                {/* Animated Description (Plus Jakarta Sans) */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.5 }}
-                  className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl"
-                >
-                  {currentSlide.description}
-                </motion.p>
-
-                {/* Animated Buttons */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45, duration: 0.5 }}
-                  className="flex flex-wrap items-center gap-3 pt-2"
-                >
-                  <Button
-                    size="lg"
-                    asChild
-                    className="rounded-full font-semibold px-8 py-6"
+                {/* Description (Plus Jakarta Sans) - Static on initial slide for instant LCP paint */}
+                {activeIndex === 0 ? (
+                  <p className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl">
+                    {currentSlide.description}
+                  </p>
+                ) : (
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.35, duration: 0.5 }}
+                    className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl"
                   >
-                    <Link href={currentSlide.actionLink}>
-                      {currentSlide.actionText}
-                    </Link>
-                  </Button>
-                  {currentSlide.secondaryLink && (
+                    {currentSlide.description}
+                  </motion.p>
+                )}
+
+                {/* Buttons - Static on initial slide */}
+                {activeIndex === 0 ? (
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
                     <Button
                       size="lg"
-                      variant="outline"
                       asChild
-                      className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
+                      className="rounded-full font-semibold px-8 py-6"
                     >
-                      <Link href={currentSlide.secondaryLink}>
-                        {currentSlide.secondaryText}
+                      <Link href={currentSlide.actionLink}>
+                        {currentSlide.actionText}
                       </Link>
                     </Button>
-                  )}
-                </motion.div>
+                    {currentSlide.secondaryLink && (
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        asChild
+                        className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
+                      >
+                        <Link href={currentSlide.secondaryLink}>
+                          {currentSlide.secondaryText}
+                        </Link>
+                      </Button>
+                    )}
+                  </div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.45, duration: 0.5 }}
+                    className="flex flex-wrap items-center gap-3 pt-2"
+                  >
+                    <Button
+                      size="lg"
+                      asChild
+                      className="rounded-full font-semibold px-8 py-6"
+                    >
+                      <Link href={currentSlide.actionLink}>
+                        {currentSlide.actionText}
+                      </Link>
+                    </Button>
+                    {currentSlide.secondaryLink && (
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        asChild
+                        className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
+                      >
+                        <Link href={currentSlide.secondaryLink}>
+                          {currentSlide.secondaryText}
+                        </Link>
+                      </Button>
+                    )}
+                  </motion.div>
+                )}
               </motion.div>
             </div>
           </div>

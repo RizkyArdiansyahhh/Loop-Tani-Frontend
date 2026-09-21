@@ -30,7 +30,7 @@ const LoopiAvatar = ({ size = "md", showOnline = true }: LoopiAvatarProps) => {
         className={`${sizeMap[size]} flex items-center justify-center rounded-full bg-secondary/30 shadow-sm`}
       >
         <Image
-          src="/images/loopi-icon.svg"
+          src="/images/loopi-icon.webp"
           alt="Loopi"
           width={imageSizeMap[size]}
           height={imageSizeMap[size]}
