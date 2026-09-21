@@ -22,17 +22,47 @@ import {
   ChevronLeft,
   Compass,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "motion/react";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
 import { ScrollFeaturesSection } from "../components/scroll-features";
-import { FaqSection } from "../components/faq-section";
-import { SingleVelocityBanner } from "../components/single-velocity-banner";
-import { FullWidthVideoSection } from "../components/fullwidth-video-section";
 import { FeaturedSolutionSection } from "../components/featured-solution-section";
-import { FamousQuoteSection } from "../components/famous-quote-section";
-import { MovementImpactSection } from "../components/movement-impact-section";
 import { cn } from "@/lib/utils";
+
+// Below-the-fold components loaded dynamically for fast initial page load
+const FaqSection = dynamic(
+  () => import("../components/faq-section").then((m) => m.FaqSection),
+  { ssr: true }
+);
+const SingleVelocityBanner = dynamic(
+  () =>
+    import("../components/single-velocity-banner").then(
+      (m) => m.SingleVelocityBanner
+    ),
+  { ssr: true }
+);
+const FullWidthVideoSection = dynamic(
+  () =>
+    import("../components/fullwidth-video-section").then(
+      (m) => m.FullWidthVideoSection
+    ),
+  { ssr: true }
+);
+const FamousQuoteSection = dynamic(
+  () =>
+    import("../components/famous-quote-section").then(
+      (m) => m.FamousQuoteSection
+    ),
+  { ssr: true }
+);
+const MovementImpactSection = dynamic(
+  () =>
+    import("../components/movement-impact-section").then(
+      (m) => m.MovementImpactSection
+    ),
+  { ssr: true }
+);
 
 import { useProducts } from "@/features/marketplace/hooks/use-products";
 
@@ -747,17 +777,20 @@ const HomePage = () => {
         {/* ── DEDICATED FULL-WIDTH VIDEO BRAND SECTION ── */}
         <FullWidthVideoSection />
 
-        {/* ── FEATURED EDITORIAL SOLUTION SECTION ── */}
-        <FeaturedSolutionSection />
+        {/* ── LOWER BELOW-THE-FOLD SECTIONS (DEFERRED RENDERING) ── */}
+        <div className="space-y-12 sm:space-y-20 [content-visibility:auto] [contain-intrinsic-size:1px_1200px]">
+          {/* ── FEATURED EDITORIAL SOLUTION SECTION ── */}
+          <FeaturedSolutionSection />
 
-        {/* ── FAMOUS HISTORICAL QUOTE SECTION ── */}
-        <FamousQuoteSection />
+          {/* ── FAMOUS HISTORICAL QUOTE SECTION ── */}
+          <FamousQuoteSection />
 
-        {/* ── SECTION: Frequently Asked Questions (FAQ) ── */}
-        <FaqSection />
+          {/* ── SECTION: Frequently Asked Questions (FAQ) ── */}
+          <FaqSection />
 
-        {/* ── SOCIAL MOVEMENT & IMPACT SECTION (UNTUK MEREKA. UNTUK INDONESIA. UNTUK EKONOMI.) ── */}
-        <MovementImpactSection />
+          {/* ── SOCIAL MOVEMENT & IMPACT SECTION (UNTUK MEREKA. UNTUK INDONESIA. UNTUK EKONOMI.) ── */}
+          <MovementImpactSection />
+        </div>
       </div>
     </main>
   );
