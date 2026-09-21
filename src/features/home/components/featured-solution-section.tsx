@@ -50,7 +50,9 @@ export function FeaturedSolutionSection() {
                   src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720433/pexels-ink-spreader-292689809-18436545_1.jpg"
                   alt="Petani Modern LoopTani"
                   fill
-                  className="object-cover "
+                  sizes="(max-width: 768px) 50vw, 320px"
+                  loading="lazy"
+                  className="object-cover"
                 />
               </div>
               <div className="relative h-64 sm:h-80 w-full rounded-lg overflow-hidden shadow-md border border-border group bg-muted">
@@ -58,6 +60,8 @@ export function FeaturedSolutionSection() {
                   src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720428/pexels-rdne-8540985.jpg"
                   alt="Hasil Olahan Organik"
                   fill
+                  sizes="(max-width: 768px) 50vw, 320px"
+                  loading="lazy"
                   className="object-cover"
                 />
               </div>
@@ -84,7 +88,9 @@ export function FeaturedSolutionSection() {
                 src="https://res.cloudinary.com/aexisrpt/image/upload/v1786720478/pexels-florence-mathiot-417781-37078677.jpg"
                 alt="Analisis Lapangan AI LoopTani"
                 fill
-                className="object-cover "
+                sizes="(max-width: 768px) 100vw, 500px"
+                loading="lazy"
+                className="object-cover"
               />
             </div>
           </div>
