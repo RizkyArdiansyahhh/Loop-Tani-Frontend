@@ -146,7 +146,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                 {t_navbar("links.agriConsultant")}
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="flex flex-col w-[340px] sm:w-[380px] gap-1 p-2">
+                <ul className="flex flex-col w-85 sm:w-95 gap-1 p-2">
                   {components.map((component) => (
                     <ListItem
                       key={component.title}

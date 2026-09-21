@@ -17,6 +17,12 @@ export function formatCurrency(value: number): string {
 export function optimizeCloudinaryUrl(url: string, width = 400): string {
   if (!url || typeof url !== "string") return url;
   if (!url.includes("res.cloudinary.com")) return url;
-  if (url.includes("/f_auto") || url.includes("/q_auto")) return url;
-  return url.replace("/upload/", `/upload/f_auto,q_auto,w_${width},c_limit/`);
+
+  const uploadMatch = url.match(/(https:\/\/res\.cloudinary\.com\/[^/]+\/(?:image|video)\/upload\/)(?:[^/]+\/)?(v\d+\/.*|[a-zA-Z0-9_-]+\.[a-zA-Z0-9]+.*)/);
+  if (uploadMatch) {
+    const [, base, path] = uploadMatch;
+    return `${base}f_auto,q_auto:good,w_${width},c_limit/${path}`;
+  }
+
+  return url.replace("/upload/", `/upload/f_auto,q_auto:good,w_${width},c_limit/`);
 }
