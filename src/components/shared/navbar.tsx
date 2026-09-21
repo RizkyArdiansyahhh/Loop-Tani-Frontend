@@ -108,6 +108,9 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
           alt="LoopTani Logo"
           width={139}
           height={40}
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
           className="h-10 w-auto object-contain"
         />
       </Link>
