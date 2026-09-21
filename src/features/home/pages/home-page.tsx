@@ -23,45 +23,61 @@ import {
   Compass,
 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
-import { ScrollFeaturesSection } from "../components/scroll-features";
-import { FeaturedSolutionSection } from "../components/featured-solution-section";
 import { cn, optimizeCloudinaryUrl } from "@/lib/utils";
+
+// Heavy scroll-jacking section — deferred entirely from initial JS bundle
+const ScrollFeaturesSection = dynamic(
+  () =>
+    import("../components/scroll-features").then(
+      (m) => m.ScrollFeaturesSection
+    ),
+  { ssr: false }
+);
+
+// Bento card section — below fold, no SSR needed
+const FeaturedSolutionSection = dynamic(
+  () =>
+    import("../components/featured-solution-section").then(
+      (m) => m.FeaturedSolutionSection
+    ),
+  { ssr: false }
+);
 
 // Below-the-fold components loaded dynamically for fast initial page load
 const FaqSection = dynamic(
   () => import("../components/faq-section").then((m) => m.FaqSection),
-  { ssr: true }
+  { ssr: false }
 );
 const SingleVelocityBanner = dynamic(
   () =>
     import("../components/single-velocity-banner").then(
       (m) => m.SingleVelocityBanner
     ),
-  { ssr: true }
+  { ssr: false }
 );
 const FullWidthVideoSection = dynamic(
   () =>
     import("../components/fullwidth-video-section").then(
       (m) => m.FullWidthVideoSection
     ),
-  { ssr: true }
+  { ssr: false }
 );
 const FamousQuoteSection = dynamic(
   () =>
     import("../components/famous-quote-section").then(
       (m) => m.FamousQuoteSection
     ),
-  { ssr: true }
+  { ssr: false }
 );
 const MovementImpactSection = dynamic(
   () =>
     import("../components/movement-impact-section").then(
       (m) => m.MovementImpactSection
     ),
-  { ssr: true }
+  { ssr: false }
 );
 
 import { useProducts } from "@/features/marketplace/hooks/use-products";

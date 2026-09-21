@@ -22,8 +22,23 @@ const nextConfig: NextConfig = {
         hostname: "i.ytimg.com",
       },
     ],
+    // Optimized format support for modern browsers
+    formats: ["image/avif", "image/webp"],
   },
-  /* config options here */
+  // Tree-shake heavy icon and animation libraries — reduces initial JS bundle
+  experimental: {
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "motion",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-select",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-tooltip",
+    ],
+  },
   reactCompiler: true,
 };
 
