@@ -29,21 +29,21 @@ const SLIDES: SlideStaticData[] = [
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-4-randy-fath.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_1280,c_limit/v1789981929/slide-4-randy-fath.jpg",
     duration: 10000,
     actionLink: "/marketplace",
     key: "slide2",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-2-karsten-bauche.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_1280,c_limit/v1789981929/slide-2-karsten-bauche.jpg",
     duration: 10000,
     actionLink: "/panduan-tani",
     key: "slide3",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-3-karsten-wurth.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_1280,c_limit/v1789981929/slide-3-karsten-wurth.jpg",
     duration: 10000,
     actionLink: "/jejak-lestari",
     key: "slide4",
@@ -57,6 +57,23 @@ interface HeroMediaProps {
 
 function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
   const [loadVideo, setLoadVideo] = useState(false);
+  // Only mount slide 0 on initial page load to save ~1.4 MB bandwidth from offscreen slides
+  const [mountedSlides, setMountedSlides] = useState<number[]>([0]);
+
+  useEffect(() => {
+    // When active slide changes, ensure it's mounted
+    setMountedSlides((prev) => (prev.includes(activeIndex) ? prev : [...prev, activeIndex]));
+  }, [activeIndex]);
+
+  useEffect(() => {
+    // Lazy-mount next slide well after initial page load (5s) for smooth transitions
+    const timer = setTimeout(() => {
+      const nextSlide = (activeIndex + 1) % SLIDES.length;
+      setMountedSlides((prev) => (prev.includes(nextSlide) ? prev : [...prev, nextSlide]));
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [activeIndex]);
 
   useEffect(() => {
     if (slide.type !== "video") return;
@@ -91,6 +108,8 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
     <div className="absolute inset-0 h-full w-full">
       {SLIDES.map((s, idx) => {
         const isCurrent = idx === activeIndex;
+        const shouldRenderMedia = mountedSlides.includes(idx) || isCurrent;
+
         return (
           <div
             key={s.key}
@@ -128,13 +147,17 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
                 )}
               </div>
             ) : (
-              <img
-                src={s.src}
-                alt={s.key}
-                loading={idx === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover"
-              />
+              shouldRenderMedia && (
+                <img
+                  src={s.src}
+                  srcSet={`${s.src.replace("w_1280", "w_640")} 640w, ${s.src} 1280w`}
+                  sizes="100vw"
+                  alt={s.key}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )
             )}
             {/* Premium Mesh Gradient Overlay */}
             <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent md:from-black/75 md:via-black/35" />
