@@ -83,6 +83,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
     { href: "/fertilizer-calculator", label: t_navbar("links.fertilizerCalculator") },
     { href: "/panduan-tani", label: t_navbar("links.panduanTani") },
     { href: "/jejak-lestari", label: t_navbar("links.jejakLestari") },
+    { href: "/about", label: t_navbar("links.aboutUs") },
   ];
 
   React.useEffect(() => {
@@ -210,7 +211,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
                     : "text-gray-900 dark:text-white hover:text-primary dark:hover:text-primary",
                 )}
               >
-                <Link href="/docs">{t_navbar("links.aboutUs")}</Link>
+                <Link href="/about">{t_navbar("links.aboutUs")}</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

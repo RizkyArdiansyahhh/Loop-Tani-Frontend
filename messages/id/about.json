@@ -54,6 +54,34 @@
       "t3Title": "Ekosistem Marketplace & Loopi",
       "t3Desc": "Peluncuran pasar sirkular terpadu, asisten AI Loopi, dan ekspansi nasional."
     },
+    "team": {
+      "badge": "Inisiator & Komunitas",
+      "headline": "BERAWAL DARI KAMPUS, TUMBUH BERSAMA PETANI",
+      "headlinePart1": "BERAWAL DARI KAMPUS,",
+      "headlinePart2": "TUMBUH BERSAMA PETANI",
+      "swipeHint": "<< GESER KE KIRI UNTUK MELIHAT LEBIH BANYAK >>",
+      "subheadline": "LoopTani lahir dari dedikasi mahasiswa dan akademisi Universitas Riau dalam ajang inovasi UTU Awards. Kami menjembatani kecerdasan buatan dari ruang riset langsung ke tangan petani dan pengolah limbah di seluruh pelosok Indonesia.",
+      "utuBadge": "Inovator UTU Awards",
+      "univBadge": "Universitas Riau",
+      "members": {
+        "dosen": {
+          "name": "Dosen Pembimbing",
+          "role": "Advisor & Penasihat Riset"
+        },
+        "rizky": {
+          "name": "Rizky Ardiansyah",
+          "role": "COO (Chief Operating Officer)"
+        },
+        "ahmad": {
+          "name": "Ahmad Kurniawan",
+          "role": "CMO (Chief Marketing Officer)"
+        },
+        "abel": {
+          "name": "Abel Vigrajuska Asri",
+          "role": "CEO (Chief Executive Officer)"
+        }
+      }
+    },
     "cta": {
       "title": "Mulai Berkontribusi dalam Ekonomi Sirkular",
       "subtitle": "Jelajahi pasar limbah pertanian atau analisis potensi limbah Anda sekarang.",
