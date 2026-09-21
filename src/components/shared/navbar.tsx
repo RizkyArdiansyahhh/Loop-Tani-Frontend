@@ -351,7 +351,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="absolute top-full right-4 w-[85vw] max-w-[360px] sm:w-[320px] z-150 mt-3 overflow-hidden rounded-3xl border border-gray-150 bg-white/95 p-6 shadow-xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/95 lg:hidden"
+            className="absolute top-full right-4 w-[85vw] max-w-90 sm:w-[320px] z-150 mt-3 overflow-hidden rounded-3xl border border-gray-150 bg-white/95 p-6 shadow-xl backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/95 lg:hidden"
           >
             <nav className="flex flex-col gap-4">
               {mobileLinks.map((link) => (
