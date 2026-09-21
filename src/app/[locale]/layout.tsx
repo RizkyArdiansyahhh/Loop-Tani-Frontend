@@ -3,10 +3,7 @@ import { Plus_Jakarta_Sans, Fraunces, Poppins } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Toaster } from "@/components/ui/sonner";
-import LoopiFloating from "@/features/chatbot/components/loopi-floating";
-import AccessibilityWidget from "@/components/shared/accessibility-widget";
-import { FloatingIntroVideo } from "@/features/home/components/floating-intro-video";
+import { ClientOverlays } from "@/components/shared/client-overlays";
 import { Providers } from "@/components/providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import NextTopLoader from "nextjs-toploader";
@@ -97,10 +94,7 @@ export default async function RootLayout({
               <ReactQueryDevtools initialIsOpen={false} />
             )}
             {children}
-            <Toaster />
-            <LoopiFloating />
-            <AccessibilityWidget />
-            <FloatingIntroVideo />
+            <ClientOverlays />
           </Providers>
         </NextIntlClientProvider>
       </body>
