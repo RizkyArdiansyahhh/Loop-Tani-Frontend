@@ -267,19 +267,7 @@ html.font-dyslexic * {
   font-family: var(--font-sans), sans-serif;
 }
 
-/* ── Carousel Dot Progress & Composited Scroll Line ── */
-@keyframes dot-progress-anim {
-  from {
-    stroke-dashoffset: 43.982;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-dot-progress {
-  animation: dot-progress-anim linear forwards;
-}
+/* ── Carousel Composited Scroll Line ── */
 
 @keyframes scroll-line-loop {
   0% {

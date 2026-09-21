@@ -23,7 +23,6 @@ import {
   Compass,
 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "framer-motion";
 import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
 import { cn, optimizeCloudinaryUrl } from "@/lib/utils";
@@ -740,63 +739,53 @@ const HomePage = () => {
                 >
                   {tab.label}
                   {isActive && (
-                    <motion.div
-                      layoutId="longinesActiveTabLine"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground"
-                      transition={{ type: "spring", stiffness: 500, damping: 40 }}
-                    />
+                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-foreground transition-all duration-300" />
                   )}
                 </button>
               );
             })}
           </div>
 
-          {/* Longines Single Row Scrollable Product Carousel with AnimatePresence */}
+          {/* Longines Single Row Scrollable Product Carousel */}
           <div className="h-115 relative overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={homeCategoryTab}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="h-115"
+            <div
+              key={homeCategoryTab}
+              className="h-115 transition-opacity duration-300"
+            >
+              <div
+                ref={sliderRef}
+                onScroll={handleSliderScroll}
+                className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
               >
-                <div
-                  ref={sliderRef}
-                  onScroll={handleSliderScroll}
-                  className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
-                >
-                  {(!productSectionVisible || isProductsLoading)
-                    ? Array.from({ length: 4 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className="w-50 sm:w-57.5 lg:w-60 shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
-                        >
-                          <div className="aspect-4/5 w-full bg-muted/40 rounded-xs" />
-                          <div className="h-4 bg-muted rounded w-2/3" />
-                          <div className="h-3 bg-muted rounded w-1/2" />
-                          <div className="h-4 bg-muted rounded w-1/3" />
-                        </div>
-                      ))
-                    : (backendProducts.length > 0
-                        ? backendProducts
-                        : luxuryCollections.filter((c) =>
-                            homeCategoryTab === "all"
-                              ? true
-                              : c.link.includes(homeCategoryTab)
-                          )
-                      ).map((prod: any) => (
-                        <LonginesProductCard
-                          key={prod.id}
-                          prod={prod}
-                          onScrollLeft={() => scrollSlider("left")}
-                          onScrollRight={() => scrollSlider("right")}
-                        />
-                      ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                {(!productSectionVisible || isProductsLoading)
+                  ? Array.from({ length: 4 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-50 sm:w-57.5 lg:w-60 shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
+                      >
+                        <div className="aspect-4/5 w-full bg-muted/40 rounded-xs" />
+                        <div className="h-4 bg-muted rounded w-2/3" />
+                        <div className="h-3 bg-muted rounded w-1/2" />
+                        <div className="h-4 bg-muted rounded w-1/3" />
+                      </div>
+                    ))
+                  : (backendProducts.length > 0
+                      ? backendProducts
+                      : luxuryCollections.filter((c) =>
+                          homeCategoryTab === "all"
+                            ? true
+                            : c.link.includes(homeCategoryTab)
+                        )
+                    ).map((prod: any) => (
+                      <LonginesProductCard
+                        key={prod.id}
+                        prod={prod}
+                        onScrollLeft={() => scrollSlider("left")}
+                        onScrollRight={() => scrollSlider("right")}
+                      />
+                    ))}
+              </div>
+            </div>
           </div>
 
           {/* Longines Bottom Progress Line & Active Interactive Control Arrows */}
