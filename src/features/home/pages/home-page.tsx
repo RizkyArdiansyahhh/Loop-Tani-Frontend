@@ -411,7 +411,8 @@ const HomePage = () => {
       subtitle: "Koleksi Limbah Utama",
       name: "Sekam Padi Kering Murni",
       price: "Rp 1.200 / kg",
-      image: "/images/panduan/arang-sekam-biochar.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493221/loop-tani/products/olahan/pakan_jerami_fermentasi_1.jpg",
       location: "Deli Serdang, Sumatera Utara",
       tag: "Grade A",
       link: "/marketplace/agricultural-waste/rice-husk",
@@ -421,7 +422,8 @@ const HomePage = () => {
       subtitle: "Formula Pupuk Organik",
       name: "Pupuk Kompos Granul Terverifikasi",
       price: "Rp 4.500 / kg",
-      image: "/images/panduan/kompos-kulit-kopi.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493245/loop-tani/products/olahan/pupuk_realstrong_organik.jpg",
       location: "Kota Jambi, Jambi",
       tag: "Organik Sertifikasi",
       link: "/marketplace/processed-products/compost",
@@ -431,7 +433,8 @@ const HomePage = () => {
       subtitle: "Inovasi Biochar",
       name: "Biochar Arang Sekam Penjaga Air",
       price: "Rp 6.000 / kg",
-      image: "/images/panduan/arang-sekam-biochar.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493243/loop-tani/products/olahan/pupuk_mpob_f4_sawit.jpg",
       location: "Pekanbaru, Riau",
       tag: "Karbon Netral",
       link: "/marketplace/processed-products/briquettes",
@@ -441,7 +444,8 @@ const HomePage = () => {
       subtitle: "Alat Tani Presisi",
       name: "Traktor Tangan Kubota Quick 2021",
       price: "Rp 12.500.000",
-      image: "/images/panduan/merawat-traktor-tangan-bekas.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493824/loop-tani/products/secondhand/secondhand_03_5724_s_4wd_154284_1702878543_0.jpg",
       location: "Banda Aceh, Aceh",
       tag: "Terawat Sempurna",
       link: "/marketplace/secondhand/tractors",
@@ -451,7 +455,8 @@ const HomePage = () => {
       subtitle: "Koleksi Limbah Utama",
       name: "Jerami Padi Potong Segar",
       price: "Rp 900 / kg",
-      image: "/images/panduan/manfaat-mulsa-jerami.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493225/loop-tani/products/olahan/pakan_jerami_fermentasi_2.jpg",
       location: "Pidie Jaya, Aceh",
       tag: "Fresh Harvest",
       link: "/marketplace/agricultural-waste/straw",
@@ -461,7 +466,8 @@ const HomePage = () => {
       subtitle: "Formula Pupuk Organik",
       name: "POC Pupuk Organik Cair Super",
       price: "Rp 25.000 / Liter",
-      image: "/images/panduan/poc-dari-limbah-dapur.webp",
+      image:
+        "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360,c_limit/v1789493228/loop-tani/products/olahan/pakan_jerami_fermentasi_3.jpg",
       location: "Padang Pariaman, Sumatera Barat",
       tag: "Formula Hayati",
       link: "/marketplace/processed-products/poc",
@@ -761,7 +767,7 @@ const HomePage = () => {
                   onScroll={handleSliderScroll}
                   className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
                 >
-                  {isProductsLoading
+                  {(!productSectionVisible || isProductsLoading)
                     ? Array.from({ length: 4 }).map((_, i) => (
                         <div
                           key={i}

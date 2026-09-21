@@ -411,8 +411,8 @@ export function ScrollFeaturesSection() {
 
                 {/* Device Mockups */}
                 <div className="absolute left-[0px] top-[185px] w-[360px] h-[230px]">
-                  {/* Image of Farmer (Background under devices) */}
-                  <div className="absolute inset-0 bg-[url('/images/panduan/ekonomi-sirkular-pertanian.webp')] bg-cover bg-center rounded-2xl opacity-10 filter contrast-125 border border-emerald-500/10" />
+                  {/* Background texture under devices */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/40 via-slate-900/60 to-slate-950/80 rounded-2xl opacity-50 border border-emerald-500/10" />
 
                   {/* Tablet Container */}
                   <div className="absolute left-0 top-0 w-[320px] h-[215px] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden z-10 flex flex-col justify-between">
