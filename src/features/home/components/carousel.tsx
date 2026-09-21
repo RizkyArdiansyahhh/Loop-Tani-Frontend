@@ -31,7 +31,7 @@ interface SlideStaticData {
 const SLIDES: SlideStaticData[] = [
   {
     type: "video",
-    src: "https://res.cloudinary.com/aexisrpt/video/upload/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
+    src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -39,21 +39,21 @@ const SLIDES: SlideStaticData[] = [
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1783269526/karsten-bauche-dc3X_g5f28s-unsplash_wjrwjs.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-4-randy-fath.jpg",
     duration: 10000,
     actionLink: "/marketplace",
     key: "slide2",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1784704305/karsten-wurth-UbGYPMbMYP8-unsplash_ybufgt.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-2-karsten-bauche.jpg",
     duration: 10000,
     actionLink: "/panduan-tani",
     key: "slide3",
   },
   {
     type: "image",
-    src: "https://res.cloudinary.com/dy9gtwsh7/image/upload/v1784704311/randy-fath-dDc0vuVH_LU-unsplash_e8070x.jpg",
+    src: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto,w_1920,c_limit/v1789981929/slide-3-karsten-wurth.jpg",
     duration: 10000,
     actionLink: "/jejak-lestari",
     key: "slide4",
@@ -145,6 +145,7 @@ export const CarouselHomePage = () => {
               muted
               loop
               playsInline
+              preload="metadata"
               className="h-full w-full object-cover"
             />
           ) : (
@@ -154,7 +155,8 @@ export const CarouselHomePage = () => {
               fill
               priority={activeIndex === 0}
               className="object-cover"
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, 1920px"
+              quality={80}
             />
           )}
 
