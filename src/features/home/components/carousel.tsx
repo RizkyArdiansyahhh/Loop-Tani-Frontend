@@ -7,8 +7,6 @@ import clsx from "clsx";
 import {
   AnimatePresence,
   motion,
-  useScroll,
-  useTransform,
 } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
@@ -31,7 +29,7 @@ const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto:eco,f_auto,w_1280,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
-    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:eco,f_auto,w_960,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:eco,f_auto,w_640,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -64,11 +62,26 @@ export const CarouselHomePage = () => {
   const t = useTranslations("carousel");
   const [activeIndex, setActiveIndex] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
-  // Parallax Scroll Effect for Carousel Text (Moves text downward on scroll)
-  const { scrollY } = useScroll();
-  const textY = useTransform(scrollY, [0, 600], [0, 180]);
-  const textOpacity = useTransform(scrollY, [0, 450], [1, 0]);
+  useEffect(() => {
+    const handleTrigger = () => setShouldLoadVideo(true);
+    window.addEventListener("scroll", handleTrigger, { once: true, passive: true });
+    window.addEventListener("touchstart", handleTrigger, { once: true, passive: true });
+    window.addEventListener("click", handleTrigger, { once: true, passive: true });
+
+    // Idle / timeout fallback: load after 1.5s so video starts automatically
+    const timer = setTimeout(() => {
+      setShouldLoadVideo(true);
+    }, 1500);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleTrigger);
+      window.removeEventListener("touchstart", handleTrigger);
+      window.removeEventListener("click", handleTrigger);
+    };
+  }, []);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -128,6 +141,14 @@ export const CarouselHomePage = () => {
 
   return (
     <section className="relative h-full w-full overflow-hidden bg-black text-white">
+      {/* High-priority preload for Hero poster to accelerate LCP */}
+      <link
+        rel="preload"
+        as="image"
+        href={SLIDES[0].poster}
+        fetchPriority="high"
+      />
+
       {/* Background Media */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -140,13 +161,14 @@ export const CarouselHomePage = () => {
         >
           {currentSlide.type === "video" ? (
             <video
-              src={currentSlide.src}
+              key={currentSlide.src}
+              src={shouldLoadVideo ? currentSlide.src : undefined}
               poster={currentSlide.poster}
               autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload={shouldLoadVideo ? "auto" : "none"}
               className="h-full w-full object-cover"
               aria-label="LoopTani Hero Video"
             >
@@ -170,10 +192,7 @@ export const CarouselHomePage = () => {
           {/* Interactive Text Overlay Content */}
           <div className="absolute inset-0 flex items-center">
             <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
-              <motion.div
-                style={{ y: textY, opacity: textOpacity }}
-                className="max-w-2xl space-y-4 md:space-y-6"
-              >
+              <div className="max-w-2xl space-y-4 md:space-y-6">
                 {/* Eyebrow */}
                 {activeIndex === 0 ? (
                   <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs">
@@ -281,7 +300,7 @@ export const CarouselHomePage = () => {
                     )}
                   </motion.div>
                 )}
-              </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>
