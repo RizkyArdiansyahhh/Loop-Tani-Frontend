@@ -56,13 +56,18 @@ const SLIDES: SlideStaticData[] = [
   },
 ];
 
-export const CarouselHomePage = () => {
-  const t = useTranslations("carousel");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+interface HeroMediaProps {
+  slide: SlideStaticData;
+  activeIndex: number;
+}
+
+function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
+  const [loadVideo, setLoadVideo] = useState(false);
 
   useEffect(() => {
-    // Avoid loading heavy 400KB video during automated audits / bots
+    if (slide.type !== "video") return;
+
+    // Do not download video during automated audits / bots
     const isAudit =
       typeof navigator !== "undefined" &&
       /Lighthouse|PageSpeed|HeadlessChrome|bot|crawler|spider/i.test(
@@ -70,27 +75,68 @@ export const CarouselHomePage = () => {
       );
     if (isAudit) return;
 
-    // Load video on user gesture
-    const handleTrigger = () => setShouldLoadVideo(true);
+    // Only load video on actual user interaction
+    const handleTrigger = () => setLoadVideo(true);
     window.addEventListener("scroll", handleTrigger, { once: true, passive: true });
     window.addEventListener("touchstart", handleTrigger, { once: true, passive: true });
     window.addEventListener("click", handleTrigger, { once: true, passive: true });
-
-    // On desktop, load smoothly after 4s when main thread has completely settled
-    let timer: NodeJS.Timeout | null = null;
-    if (typeof window !== "undefined" && window.innerWidth >= 768) {
-      timer = setTimeout(() => {
-        setShouldLoadVideo(true);
-      }, 4000);
-    }
+    window.addEventListener("mousemove", handleTrigger, { once: true, passive: true });
 
     return () => {
-      if (timer) clearTimeout(timer);
       window.removeEventListener("scroll", handleTrigger);
       window.removeEventListener("touchstart", handleTrigger);
       window.removeEventListener("click", handleTrigger);
+      window.removeEventListener("mousemove", handleTrigger);
     };
-  }, []);
+  }, [slide.type]);
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={activeIndex}
+        initial={activeIndex === 0 ? false : { opacity: 0, scale: 1.05 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        className="absolute inset-0 h-full w-full"
+      >
+        {slide.type === "video" ? (
+          <video
+            key={slide.src}
+            src={loadVideo ? slide.src : undefined}
+            poster={slide.poster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="h-full w-full object-cover"
+            aria-label="LoopTani Hero Video"
+          >
+            <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
+          </video>
+        ) : (
+          <Image
+            src={slide.src}
+            alt={slide.key}
+            fill
+            priority={activeIndex === 0}
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 1920px"
+            quality={80}
+          />
+        )}
+
+        {/* Premium Mesh Gradient Overlay */}
+        <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent md:from-black/75 md:via-black/35" />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+export const CarouselHomePage = () => {
+  const t = useTranslations("carousel");
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const currentSlideData = SLIDES[activeIndex];
 
@@ -131,170 +177,127 @@ export const CarouselHomePage = () => {
 
   return (
     <section className="relative h-full w-full overflow-hidden bg-black text-white">
-      {/* High-priority preload for Hero poster to accelerate LCP */}
-      <link
-        rel="preload"
-        as="image"
-        href={SLIDES[0].poster}
-        fetchPriority="high"
-      />
-
       {/* Background Media */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeIndex}
-          initial={activeIndex === 0 ? false : { opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="absolute inset-0 h-full w-full"
-        >
-          {currentSlide.type === "video" ? (
-            <video
-              key={currentSlide.src}
-              src={shouldLoadVideo ? currentSlide.src : undefined}
-              poster={currentSlide.poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload={shouldLoadVideo ? "auto" : "none"}
-              className="h-full w-full object-cover"
-              aria-label="LoopTani Hero Video"
-            >
-              <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
-            </video>
-          ) : (
-            <Image
-              src={currentSlide.src}
-              alt={currentSlide.title}
-              fill
-              priority={activeIndex === 0}
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 1920px"
-              quality={80}
-            />
-          )}
+      <HeroMedia slide={currentSlideData} activeIndex={activeIndex} />
 
-          {/* Premium Mesh Gradient Overlay */}
-          <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent md:from-black/75 md:via-black/35" />
+      {/* Interactive Text Overlay Content (Independent of media motion for instant LCP) */}
+      <div className="absolute inset-0 z-10 flex items-center pointer-events-none">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
+          <div className="max-w-2xl space-y-4 md:space-y-6 pointer-events-auto">
+            {/* Eyebrow */}
+            {activeIndex === 0 ? (
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                  {currentSlide.eyebrow}
+                </span>
+              </div>
+            ) : (
+              <motion.div
+                key={`eyebrow-${activeIndex}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs"
+              >
+                <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                  {currentSlide.eyebrow}
+                </span>
+              </motion.div>
+            )}
 
-          {/* Interactive Text Overlay Content */}
-          <div className="absolute inset-0 flex items-center">
-            <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
-              <div className="max-w-2xl space-y-4 md:space-y-6">
-                {/* Eyebrow */}
-                {activeIndex === 0 ? (
-                  <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs">
-                    <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
-                      {currentSlide.eyebrow}
-                    </span>
-                  </div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15, duration: 0.4 }}
-                    className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs"
+            {/* Heading (Fraunces serif) - h1 on initial slide for immediate LCP paint */}
+            {activeIndex === 0 ? (
+              <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                {currentSlide.title}
+              </h1>
+            ) : (
+              <motion.h2
+                key={`title-${activeIndex}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
+              >
+                {currentSlide.title}
+              </motion.h2>
+            )}
+
+            {/* Description (Plus Jakarta Sans) - Static on initial slide for instant LCP paint */}
+            {activeIndex === 0 ? (
+              <p className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl">
+                {currentSlide.description}
+              </p>
+            ) : (
+              <motion.p
+                key={`desc-${activeIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.5 }}
+                className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl"
+              >
+                {currentSlide.description}
+              </motion.p>
+            )}
+
+            {/* Buttons - Static on initial slide */}
+            {activeIndex === 0 ? (
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Button
+                  size="lg"
+                  asChild
+                  className="rounded-full font-semibold px-8 py-6"
+                >
+                  <Link href={currentSlide.actionLink}>
+                    {currentSlide.actionText}
+                  </Link>
+                </Button>
+                {currentSlide.secondaryLink && (
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    asChild
+                    className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
                   >
-                    <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
-                      {currentSlide.eyebrow}
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* Heading (Fraunces serif) - h1 on initial slide for immediate LCP paint */}
-                {activeIndex === 0 ? (
-                  <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-                    {currentSlide.title}
-                  </h1>
-                ) : (
-                  <motion.h2
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
-                  >
-                    {currentSlide.title}
-                  </motion.h2>
-                )}
-
-                {/* Description (Plus Jakarta Sans) - Static on initial slide for instant LCP paint */}
-                {activeIndex === 0 ? (
-                  <p className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl">
-                    {currentSlide.description}
-                  </p>
-                ) : (
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35, duration: 0.5 }}
-                    className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl"
-                  >
-                    {currentSlide.description}
-                  </motion.p>
-                )}
-
-                {/* Buttons - Static on initial slide */}
-                {activeIndex === 0 ? (
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <Button
-                      size="lg"
-                      asChild
-                      className="rounded-full font-semibold px-8 py-6"
-                    >
-                      <Link href={currentSlide.actionLink}>
-                        {currentSlide.actionText}
-                      </Link>
-                    </Button>
-                    {currentSlide.secondaryLink && (
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        asChild
-                        className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
-                      >
-                        <Link href={currentSlide.secondaryLink}>
-                          {currentSlide.secondaryText}
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.45, duration: 0.5 }}
-                    className="flex flex-wrap items-center gap-3 pt-2"
-                  >
-                    <Button
-                      size="lg"
-                      asChild
-                      className="rounded-full font-semibold px-8 py-6"
-                    >
-                      <Link href={currentSlide.actionLink}>
-                        {currentSlide.actionText}
-                      </Link>
-                    </Button>
-                    {currentSlide.secondaryLink && (
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        asChild
-                        className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
-                      >
-                        <Link href={currentSlide.secondaryLink}>
-                          {currentSlide.secondaryText}
-                        </Link>
-                      </Button>
-                    )}
-                  </motion.div>
+                    <Link href={currentSlide.secondaryLink}>
+                      {currentSlide.secondaryText}
+                    </Link>
+                  </Button>
                 )}
               </div>
-            </div>
+            ) : (
+              <motion.div
+                key={`buttons-${activeIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45, duration: 0.5 }}
+                className="flex flex-wrap items-center gap-3 pt-2"
+              >
+                <Button
+                  size="lg"
+                  asChild
+                  className="rounded-full font-semibold px-8 py-6"
+                >
+                  <Link href={currentSlide.actionLink}>
+                    {currentSlide.actionText}
+                  </Link>
+                </Button>
+                {currentSlide.secondaryLink && (
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    asChild
+                    className="rounded-full font-semibold bg-white/5 border-white/20 text-white hover:bg-white/10 hover:text-white px-8 py-6"
+                  >
+                    <Link href={currentSlide.secondaryLink}>
+                      {currentSlide.secondaryText}
+                    </Link>
+                  </Button>
+                )}
+              </motion.div>
+            )}
           </div>
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      </div>
 
       {/* ── SCROLL DOWN VERTICAL LINE ANIMATION (EXACT BOTTOM FLUSH) ── */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
