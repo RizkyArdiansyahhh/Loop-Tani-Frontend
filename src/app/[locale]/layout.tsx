@@ -26,7 +26,15 @@ export const metadata: Metadata = {
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
+  display: "optional",
+  fallback: [
+    "system-ui",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "'Segoe UI'",
+    "Roboto",
+    "sans-serif",
+  ],
 });
 
 const fontFraunces = Fraunces({
@@ -41,7 +49,8 @@ const fontPoppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
   variable: "--font-poppins",
-  display: "swap",
+  display: "optional",
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
   preload: false,
 });
 
@@ -71,7 +80,7 @@ export default async function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_400,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg"
+          href="https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_35,f_auto,w_360,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg"
           fetchPriority="high"
         />
       </head>
