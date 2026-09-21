@@ -27,7 +27,7 @@ const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto:eco,f_auto,w_1280,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
-    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_500,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_400,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -112,6 +112,8 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
             preload="none"
             className="h-full w-full object-cover"
             aria-label="LoopTani Hero Video"
+            // Tell browser this video's poster is the LCP element
+            {...({ fetchpriority: "high" } as any)}
           >
             <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
           </video>
