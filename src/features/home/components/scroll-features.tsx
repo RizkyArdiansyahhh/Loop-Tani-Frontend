@@ -412,7 +412,7 @@ export function ScrollFeaturesSection() {
                 {/* Device Mockups */}
                 <div className="absolute left-[0px] top-[185px] w-[360px] h-[230px]">
                   {/* Image of Farmer (Background under devices) */}
-                  <div className="absolute inset-0 bg-[url('/images/auth-carousel-1.jpg')] bg-cover bg-center rounded-2xl opacity-10 filter contrast-125 border border-emerald-500/10" />
+                  <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_360/v1789493221/loop-tani/products/olahan/pakan_jerami_fermentasi_1.jpg')] bg-cover bg-center rounded-2xl opacity-10 filter contrast-125 border border-emerald-500/10" />
 
                   {/* Tablet Container */}
                   <div className="absolute left-0 top-0 w-[320px] h-[215px] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden z-10 flex flex-col justify-between">

@@ -33,6 +33,9 @@ const fontFraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   display: "swap",
+  preload: true,
+  weight: ["700", "800", "900"],
+  style: ["normal"],
 });
 
 const fontPoppins = Poppins({
