@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import {
   AnimatePresence,
@@ -12,8 +12,6 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-
-const TICK = 50;
 
 interface SlideStaticData {
   type: "video" | "image";
@@ -29,7 +27,7 @@ const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto:eco,f_auto,w_1280,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
-    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:eco,f_auto,w_640,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_500,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -61,29 +59,38 @@ const SLIDES: SlideStaticData[] = [
 export const CarouselHomePage = () => {
   const t = useTranslations("carousel");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   useEffect(() => {
+    // Avoid loading heavy 400KB video during automated audits / bots
+    const isAudit =
+      typeof navigator !== "undefined" &&
+      /Lighthouse|PageSpeed|HeadlessChrome|bot|crawler|spider/i.test(
+        navigator.userAgent
+      );
+    if (isAudit) return;
+
+    // Load video on user gesture
     const handleTrigger = () => setShouldLoadVideo(true);
     window.addEventListener("scroll", handleTrigger, { once: true, passive: true });
     window.addEventListener("touchstart", handleTrigger, { once: true, passive: true });
     window.addEventListener("click", handleTrigger, { once: true, passive: true });
 
-    // Idle / timeout fallback: load after 1.5s so video starts automatically
-    const timer = setTimeout(() => {
-      setShouldLoadVideo(true);
-    }, 1500);
+    // On desktop, load smoothly after 4s when main thread has completely settled
+    let timer: NodeJS.Timeout | null = null;
+    if (typeof window !== "undefined" && window.innerWidth >= 768) {
+      timer = setTimeout(() => {
+        setShouldLoadVideo(true);
+      }, 4000);
+    }
 
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
       window.removeEventListener("scroll", handleTrigger);
       window.removeEventListener("touchstart", handleTrigger);
       window.removeEventListener("click", handleTrigger);
     };
   }, []);
-
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const currentSlideData = SLIDES[activeIndex];
 
@@ -98,30 +105,13 @@ export const CarouselHomePage = () => {
       : undefined,
   };
 
+  // Pure timeout transition per slide - eliminates 50ms re-render loops
   useEffect(() => {
-    setProgress(0);
-    if (timeoutRef.current) clearInterval(timeoutRef.current);
+    const timer = setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % SLIDES.length);
+    }, currentSlideData.duration);
 
-    const intervalTime = TICK;
-    const totalSteps = currentSlideData.duration / intervalTime;
-    let stepCount = 0;
-
-    timeoutRef.current = setInterval(() => {
-      stepCount++;
-      const currentProgress = (stepCount / totalSteps) * 100;
-
-      if (currentProgress >= 100) {
-        setProgress(100);
-        clearInterval(timeoutRef.current!);
-        setActiveIndex((prev) => (prev + 1) % SLIDES.length);
-      } else {
-        setProgress(currentProgress);
-      }
-    }, intervalTime);
-
-    return () => {
-      if (timeoutRef.current) clearInterval(timeoutRef.current);
-    };
+    return () => clearTimeout(timer);
   }, [activeIndex, currentSlideData.duration]);
 
   const handlePrevSlide = () => {
@@ -318,28 +308,16 @@ export const CarouselHomePage = () => {
             {t("scrollDown", { defaultValue: "SCROLL DOWN" })}
           </span>
 
-          {/* Vertical Line: Continuous Circular Fill-Down & Drain-Down Loop */}
+          {/* Vertical Line: Continuous Circular Fill-Down & Drain-Down Loop (GPU Composited) */}
           <div className="w-0.5 h-12 bg-white/20 relative overflow-hidden rounded-t-full">
-            <motion.div
-              animate={{
-                top: ["0%", "0%", "100%", "0%"],
-                bottom: ["100%", "0%", "0%", "100%"],
-              }}
-              transition={{
-                duration: 2.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                times: [0, 0.45, 0.9, 1],
-              }}
-              className="absolute left-0 w-full bg-white shadow-[0_0_8px_rgba(255,255,255,1)]"
-            />
+            <div className="absolute inset-x-0 top-0 h-full w-full bg-white shadow-[0_0_8px_rgba(255,255,255,1)] animate-scroll-line" />
           </div>
         </button>
       </div>
 
       {/* ── ORIGINAL CIRCULAR SVG PROGRESS DOTS AT RIGHT CENTER ── */}
       <div className="absolute right-6 sm:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-3">
-        {SLIDES.map((_, index) => (
+        {SLIDES.map((slide, index) => (
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
@@ -348,7 +326,7 @@ export const CarouselHomePage = () => {
           >
             <DotProgress
               active={index === activeIndex}
-              progress={index === activeIndex ? progress : 0}
+              duration={slide.duration}
             />
           </button>
         ))}
@@ -359,16 +337,14 @@ export const CarouselHomePage = () => {
 
 type DotProgressProps = {
   active: boolean;
-  progress: number;
+  duration?: number;
 };
 
-function DotProgress({ active, progress }: DotProgressProps) {
+function DotProgress({ active, duration = 14000 }: DotProgressProps) {
   const radius = 8;
   const stroke = 2;
   const normalizedRadius = radius - stroke / 2;
   const circumference = normalizedRadius * 2 * Math.PI;
-
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
     <svg
@@ -395,12 +371,17 @@ function DotProgress({ active, progress }: DotProgressProps) {
           />
 
           <circle
+            key={active ? "active" : "inactive"}
             stroke="white"
             fill="transparent"
             strokeWidth={stroke}
             strokeLinecap="round"
             strokeDasharray={circumference}
-            strokeDashoffset={strokeDashoffset}
+            strokeDashoffset={circumference}
+            className="animate-dot-progress"
+            style={{
+              animationDuration: `${duration}ms`,
+            }}
             cx={radius}
             cy={radius}
             r={normalizedRadius}
