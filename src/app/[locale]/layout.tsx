@@ -33,9 +33,6 @@ const fontFraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   display: "swap",
-  preload: true,
-  weight: ["700", "800", "900"],
-  style: ["normal"],
 });
 
 const fontPoppins = Poppins({
@@ -68,20 +65,11 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://api.looptani.id" />
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        {/* Mobile-specific LCP hero poster (smaller = faster LCP on mobile) */}
+        {/* LCP hero poster preload - exact match for instant cache hit across devices */}
         <link
           rel="preload"
           as="image"
           href="https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_400,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg"
-          media="(max-width: 768px)"
-          fetchPriority="high"
-        />
-        {/* Desktop-specific LCP hero poster */}
-        <link
-          rel="preload"
-          as="image"
-          href="https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_500,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg"
-          media="(min-width: 769px)"
           fetchPriority="high"
         />
       </head>

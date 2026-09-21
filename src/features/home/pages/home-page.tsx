@@ -151,7 +151,9 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
       : [prod.thumbnail || "/images/bento-farmer-tech.png"]
     : [
         prod.image,
-        // Note: no extra images for placeholder cards — reduces eager image downloads
+        "/images/auth-carousel-2.jpg",
+        "/images/auth-carousel-3.jpg",
+        "/images/auth-carousel-1.jpg",
       ];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -225,31 +227,32 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
             : "h-0 pt-0 opacity-0 pointer-events-none"
         )}
       >
-        {imageList.slice(0, 4).map((img, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setActiveImageIndex(idx);
-            }}
-            className={cn(
-              "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background shrink-0",
-              activeImageIndex === idx
-                ? "border-foreground shadow-xs ring-1 ring-foreground/20"
-                : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
-            )}
-          >
-            <img
-              src={optimizeCloudinaryUrl(img, 100)}
-              alt={`Variant ${idx + 1}`}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
-          </button>
-        ))}
+        {isHovered &&
+          imageList.slice(0, 4).map((img, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveImageIndex(idx);
+              }}
+              className={cn(
+                "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background shrink-0",
+                activeImageIndex === idx
+                  ? "border-foreground shadow-xs ring-1 ring-foreground/20"
+                  : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
+              )}
+            >
+              <img
+                src={optimizeCloudinaryUrl(img, 100)}
+                alt={`Variant ${idx + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </button>
+          ))}
       </div>
 
       {/* Product Meta Below Image & Thumbnails */}
@@ -408,7 +411,7 @@ const HomePage = () => {
       subtitle: "Koleksi Limbah Utama",
       name: "Sekam Padi Kering Murni",
       price: "Rp 1.200 / kg",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493221/loop-tani/products/olahan/pakan_jerami_fermentasi_1.jpg",
+      image: "/images/auth-carousel-1.jpg",
       location: "Deli Serdang, Sumatera Utara",
       tag: "Grade A",
       link: "/marketplace/agricultural-waste/rice-husk",
@@ -418,7 +421,7 @@ const HomePage = () => {
       subtitle: "Formula Pupuk Organik",
       name: "Pupuk Kompos Granul Terverifikasi",
       price: "Rp 4.500 / kg",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493245/loop-tani/products/olahan/pupuk_realstrong_organik.jpg",
+      image: "/images/auth-carousel-2.jpg",
       location: "Kota Jambi, Jambi",
       tag: "Organik Sertifikasi",
       link: "/marketplace/processed-products/compost",
@@ -428,7 +431,7 @@ const HomePage = () => {
       subtitle: "Inovasi Biochar",
       name: "Biochar Arang Sekam Penjaga Air",
       price: "Rp 6.000 / kg",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493243/loop-tani/products/olahan/pupuk_mpob_f4_sawit.jpg",
+      image: "/images/auth-carousel-3.jpg",
       location: "Pekanbaru, Riau",
       tag: "Karbon Netral",
       link: "/marketplace/processed-products/briquettes",
@@ -438,7 +441,7 @@ const HomePage = () => {
       subtitle: "Alat Tani Presisi",
       name: "Traktor Tangan Kubota Quick 2021",
       price: "Rp 12.500.000",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493824/loop-tani/products/secondhand/secondhand_03_5724_s_4wd_154284_1702878543_0.jpg",
+      image: "/images/auth-carousel-1.jpg",
       location: "Banda Aceh, Aceh",
       tag: "Terawat Sempurna",
       link: "/marketplace/secondhand/tractors",
@@ -448,7 +451,7 @@ const HomePage = () => {
       subtitle: "Koleksi Limbah Utama",
       name: "Jerami Padi Potong Segar",
       price: "Rp 900 / kg",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493225/loop-tani/products/olahan/pakan_jerami_fermentasi_2.jpg",
+      image: "/images/auth-carousel-2.jpg",
       location: "Pidie Jaya, Aceh",
       tag: "Fresh Harvest",
       link: "/marketplace/agricultural-waste/straw",
@@ -458,7 +461,7 @@ const HomePage = () => {
       subtitle: "Formula Pupuk Organik",
       name: "POC Pupuk Organik Cair Super",
       price: "Rp 25.000 / Liter",
-      image: "https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:good,w_360,c_limit/v1789493228/loop-tani/products/olahan/pakan_jerami_fermentasi_3.jpg",
+      image: "/images/auth-carousel-3.jpg",
       location: "Padang Pariaman, Sumatera Barat",
       tag: "Formula Hayati",
       link: "/marketplace/processed-products/poc",
@@ -758,8 +761,7 @@ const HomePage = () => {
                   onScroll={handleSliderScroll}
                   className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
                 >
-                  {/* Show skeleton when section not visible or loading — prevents 170 KiB of product images from downloading before viewport */}
-                  {(!productSectionVisible || isProductsLoading)
+                  {isProductsLoading
                     ? Array.from({ length: 4 }).map((_, i) => (
                         <div
                           key={i}
