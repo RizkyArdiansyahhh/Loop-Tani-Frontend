@@ -8,6 +8,15 @@
     "start": "next start",
     "lint": "eslint"
   },
+  "browserslist": [
+    "chrome >= 107",
+    "firefox >= 107",
+    "safari >= 15.6",
+    "edge >= 107",
+    "samsung >= 19",
+    "opera >= 93",
+    "not dead"
+  ],
   "dependencies": {
     "@ark-ui/react": "^5.37.2",
     "@hookform/resolvers": "^5.4.0",

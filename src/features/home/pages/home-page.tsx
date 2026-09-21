@@ -286,6 +286,26 @@ const HomePage = () => {
   >("marketplace");
 
   const [homeCategoryTab, setHomeCategoryTab] = useState<string>("all");
+  const [productSectionVisible, setProductSectionVisible] = useState(false);
+  const productSectionRef = useRef<HTMLElement>(null);
+
+  // Defer product fetch until the product section scrolls into view
+  // This prevents ~250 KiB of product images from competing with the LCP hero
+  useEffect(() => {
+    const el = productSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setProductSectionVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // Start fetching 200px before it enters view
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const categoryTabs = [
     { id: "all", label: t("tabs.all") },
@@ -316,10 +336,14 @@ const HomePage = () => {
   };
 
   // Fetch real dynamic products from backend API with category filter
+  // Only fires once the product section is visible (deferred from initial load)
   const { data: productsData, isLoading: isProductsLoading } = useProducts({
     params: {
       limit: 12,
       category: homeCategoryTab === "all" ? undefined : (homeCategoryTab as any),
+    },
+    queryConfig: {
+      enabled: productSectionVisible,
     },
   });
 
@@ -688,7 +712,7 @@ const HomePage = () => {
         <SingleVelocityBanner />
 
         {/* ── LONGINES 1:1 STYLE MASTER COLLECTIONS ("KOLEKSI UNGGULAN") ── */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50" aria-labelledby="featured-collection-heading">
+        <section ref={productSectionRef} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50" aria-labelledby="featured-collection-heading">
           <h2 id="featured-collection-heading" className="sr-only">
             {t("masterCollectionsTitle")}
           </h2>
