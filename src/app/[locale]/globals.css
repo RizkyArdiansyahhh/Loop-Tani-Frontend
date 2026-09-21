@@ -267,3 +267,39 @@ html.font-dyslexic * {
   font-family: var(--font-sans), sans-serif;
 }
 
+/* ── Carousel Dot Progress & Composited Scroll Line ── */
+@keyframes dot-progress-anim {
+  from {
+    stroke-dashoffset: 43.982;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-dot-progress {
+  animation: dot-progress-anim linear forwards;
+}
+
+@keyframes scroll-line-loop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-line {
+  animation: scroll-line-loop 2.2s ease-in-out infinite;
+  will-change: transform;
+}
+

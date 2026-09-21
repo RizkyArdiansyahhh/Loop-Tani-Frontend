@@ -40,9 +40,10 @@ const fontFraunces = Fraunces({
 
 const fontPoppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-poppins",
   display: "swap",
+  preload: false,
 });
 
 export default async function RootLayout({
@@ -67,6 +68,12 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://api.looptani.id" />
         <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        <link
+          rel="preload"
+          as="image"
+          href="https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_500,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg"
+          fetchPriority="high"
+        />
       </head>
       <body
         className={`${fontSans.variable} ${fontFraunces.variable} ${fontPoppins.variable} antialiased`}
