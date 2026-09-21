@@ -54,6 +54,34 @@
       "t3Title": "Marketplace & Loopi Ecosystem",
       "t3Desc": "Launch of unified circular marketplace, Loopi AI assistant, and national expansion."
     },
+    "team": {
+      "badge": "Our Innovators & Community",
+      "headline": "STARTED ON CAMPUS, GROWING WITH FARMERS",
+      "headlinePart1": "STARTED ON CAMPUS,",
+      "headlinePart2": "GROWING WITH FARMERS",
+      "swipeHint": "<< SWIPE LEFT TO SEE MORE >>",
+      "subheadline": "LoopTani was born from the dedication of researchers and students at Universitas Riau in the UTU Awards innovation arena. We bridge artificial intelligence directly from research labs to the hands of farmers and agricultural waste processors across Indonesia.",
+      "utuBadge": "UTU Awards Innovators",
+      "univBadge": "Universitas Riau",
+      "members": {
+        "dosen": {
+          "name": "Academic Advisor",
+          "role": "Advisor & Research Supervisor"
+        },
+        "rizky": {
+          "name": "Rizky Ardiansyah",
+          "role": "COO (Chief Operating Officer)"
+        },
+        "ahmad": {
+          "name": "Ahmad Kurniawan",
+          "role": "CMO (Chief Marketing Officer)"
+        },
+        "abel": {
+          "name": "Abel Vigrajuska Asri",
+          "role": "CEO (Chief Executive Officer)"
+        }
+      }
+    },
     "cta": {
       "title": "Join the Circular Economy Revolution",
       "subtitle": "Explore agricultural waste trade or analyze your waste potential now.",
