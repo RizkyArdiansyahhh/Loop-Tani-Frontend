@@ -227,31 +227,32 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
             : "h-0 pt-0 opacity-0 pointer-events-none"
         )}
       >
-        {imageList.slice(0, 4).map((img, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setActiveImageIndex(idx);
-            }}
-            className={cn(
-              "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background shrink-0",
-              activeImageIndex === idx
-                ? "border-foreground shadow-xs ring-1 ring-foreground/20"
-                : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
-            )}
-          >
-            <img
-              src={optimizeCloudinaryUrl(img, 100)}
-              alt={`Variant ${idx + 1}`}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
-            />
-          </button>
-        ))}
+        {isHovered &&
+          imageList.slice(0, 4).map((img, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveImageIndex(idx);
+              }}
+              className={cn(
+                "h-7 w-7 rounded-xs border p-0.5 overflow-hidden transition-all cursor-pointer bg-background shrink-0",
+                activeImageIndex === idx
+                  ? "border-foreground shadow-xs ring-1 ring-foreground/20"
+                  : "border-border/60 hover:border-foreground/50 opacity-70 hover:opacity-100"
+              )}
+            >
+              <img
+                src={optimizeCloudinaryUrl(img, 100)}
+                alt={`Variant ${idx + 1}`}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </button>
+          ))}
       </div>
 
       {/* Product Meta Below Image & Thumbnails */}

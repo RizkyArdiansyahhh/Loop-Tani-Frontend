@@ -101,22 +101,32 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
         className="absolute inset-0 h-full w-full"
       >
         {slide.type === "video" ? (
-          <video
-            key={slide.src}
-            src={loadVideo ? slide.src : undefined}
-            poster={slide.poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="h-full w-full object-cover"
-            aria-label="LoopTani Hero Video"
-            // Tell browser this video's poster is the LCP element
-            {...({ fetchpriority: "high" } as any)}
-          >
-            <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
-          </video>
+          <div className="relative h-full w-full">
+            {/* Direct img LCP element for browser preload scanner & instant paint at FCP */}
+            {slide.poster && (
+              <img
+                src={slide.poster}
+                alt="LoopTani Hero"
+                fetchPriority={activeIndex === 0 ? "high" : "auto"}
+                decoding="sync"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
+            <video
+              key={slide.src}
+              src={loadVideo ? slide.src : undefined}
+              poster={slide.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+              className="relative h-full w-full object-cover"
+              aria-label="LoopTani Hero Video"
+            >
+              <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
+            </video>
+          </div>
         ) : (
           <Image
             src={slide.src}
