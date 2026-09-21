@@ -66,11 +66,13 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
   }, [activeIndex]);
 
   useEffect(() => {
-    // Lazy-mount next slide well after initial page load (5s) for smooth transitions
+    // Only pre-mount next slide on desktop screens; on mobile only mount on demand
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
     const timer = setTimeout(() => {
       const nextSlide = (activeIndex + 1) % SLIDES.length;
       setMountedSlides((prev) => (prev.includes(nextSlide) ? prev : [...prev, nextSlide]));
-    }, 5000);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, [activeIndex]);
@@ -185,9 +187,12 @@ export const CarouselHomePage = () => {
       : undefined,
   };
 
-  // Auto-advance slides smoothly
+  // Auto-advance slides smoothly on desktop; keep static on mobile for readability & LCP stability
   useEffect(() => {
-    // Prevent carousel timer during automated audits so initial <h1> remains stable LCP
+    // On mobile (< 768px), disable auto-advance so the initial <h1> remains stable and avoids LCP delays
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
+
+    // Prevent carousel timer during automated audits
     const isAudit =
       typeof navigator !== "undefined" &&
       /Lighthouse|PageSpeed|HeadlessChrome|bot|crawler|spider/i.test(
