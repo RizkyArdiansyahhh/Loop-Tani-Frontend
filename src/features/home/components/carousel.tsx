@@ -231,12 +231,12 @@ export const CarouselHomePage = () => {
             </div>
 
             {/* Heading (Fraunces serif) */}
-            <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1] transition-opacity duration-300">
+            <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
               {currentSlide.title}
             </h1>
 
             {/* Description (Plus Jakarta Sans) */}
-            <p className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl transition-opacity duration-300">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed max-w-xl">
               {currentSlide.description}
             </p>
 

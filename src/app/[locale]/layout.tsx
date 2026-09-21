@@ -33,7 +33,8 @@ const fontFraunces = Fraunces({
   subsets: ["latin"],
   weight: ["700"],
   variable: "--font-fraunces",
-  display: "swap",
+  display: "optional",
+  fallback: ["Georgia", "serif"],
 });
 
 const fontPoppins = Poppins({
