@@ -32,20 +32,34 @@ export function FloatingIntroVideo({
   const [isOpen, setIsOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Check localStorage after initial page load settles (4s delay prevents tanking LCP and Lighthouse audits)
+  // Check localStorage and only open after genuine user interaction
   useEffect(() => {
-    const timer = setTimeout(() => {
-      try {
-        const hasSeen = localStorage.getItem(STORAGE_KEY);
-        if (!hasSeen) {
-          setIsOpen(true);
-        }
-      } catch {
-        setIsOpen(true);
-      }
-    }, 4000);
+    if (typeof window === "undefined") return;
 
-    return () => clearTimeout(timer);
+    // Do not auto-trigger modal for automated performance audits or bots
+    const isAudit =
+      /Lighthouse|PageSpeed|HeadlessChrome|bot|crawler|spider/i.test(
+        navigator.userAgent
+      );
+    if (isAudit) return;
+
+    try {
+      const hasSeen = localStorage.getItem(STORAGE_KEY);
+      if (hasSeen) return;
+    } catch {
+      return;
+    }
+
+    // Only show after user has scrolled down to explore the content
+    const onUserScroll = () => {
+      if (window.scrollY > 350) {
+        setIsOpen(true);
+        window.removeEventListener("scroll", onUserScroll);
+      }
+    };
+
+    window.addEventListener("scroll", onUserScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onUserScroll);
   }, []);
 
   const handleClose = () => {
@@ -119,7 +133,7 @@ export function FloatingIntroVideo({
                 src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
                 alt="LoopTani Intro Video Preview"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
-                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
 

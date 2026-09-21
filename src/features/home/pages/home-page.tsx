@@ -155,7 +155,7 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
       {/* Clean Full-Bleed Product Image Frame */}
       <div className="relative aspect-4/5 w-full rounded-lg overflow-hidden bg-muted/20 flex items-center justify-center transition-all duration-500">
         <img
-          src={optimizeCloudinaryUrl(currentImage, 480)}
+          src={optimizeCloudinaryUrl(currentImage, 360)}
           alt={name}
           loading="lazy"
           decoding="async"
@@ -252,6 +252,7 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
         <div className="pt-2">
           <Link
             href={linkHref}
+            aria-label={`Lihat Detail Produk: ${name}`}
             className="inline-block text-xs font-bold text-foreground underline underline-offset-4 hover:text-primary transition-colors font-poppins"
           >
             Lihat Detail Produk
@@ -660,9 +661,9 @@ const HomePage = () => {
 
             {/* Right Column: Longer Headline */}
             <div className="lg:col-span-8 text-left">
-              <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.18]">
+              <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground leading-[1.18]">
                 {t("heroHeadline")}
-              </h1>
+              </h2>
             </div>
           </div>
         </section>
@@ -671,7 +672,10 @@ const HomePage = () => {
         <SingleVelocityBanner />
 
         {/* ── LONGINES 1:1 STYLE MASTER COLLECTIONS ("KOLEKSI UNGGULAN") ── */}
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50">
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 border-t border-border/50" aria-labelledby="featured-collection-heading">
+          <h2 id="featured-collection-heading" className="sr-only">
+            {t("masterCollectionsTitle")}
+          </h2>
           {/* Longines Minimalist Category Tab Bar (Centered) */}
           <div className="flex items-center justify-center border-b border-border/40 pb-0 mb-12 overflow-x-auto scrollbar-none gap-6 sm:gap-12">
             {categoryTabs.map((tab) => {

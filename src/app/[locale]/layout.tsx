@@ -63,9 +63,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://api.looptani.id" />
+        <link rel="preconnect" href="https://api.looptani.id" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://api.looptani.id" />
-        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body
