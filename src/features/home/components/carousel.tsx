@@ -112,20 +112,20 @@ function HeroMedia({ slide, activeIndex }: HeroMediaProps) {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             )}
-            <video
-              key={slide.src}
-              src={loadVideo ? slide.src : undefined}
-              poster={slide.poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              className="relative h-full w-full object-cover"
-              aria-label="LoopTani Hero Video"
-            >
-              <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
-            </video>
+            {loadVideo && (
+              <video
+                key={slide.src}
+                src={slide.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover"
+                aria-label="LoopTani Hero Video"
+              >
+                <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
+              </video>
+            )}
           </div>
         ) : (
           <Image
