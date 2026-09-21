@@ -21,7 +21,7 @@ const SLIDES: SlideStaticData[] = [
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto:eco,f_auto,w_1280,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
     poster:
-      "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto:low,f_auto,w_400,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
+      "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_35,f_auto,w_360,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -224,8 +224,8 @@ export const CarouselHomePage = () => {
         <div className="mx-auto max-w-7xl px-6 sm:px-8 w-full">
           <div className="max-w-2xl space-y-4 md:space-y-6 pointer-events-auto">
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 py-1.5 backdrop-blur-xs transition-all duration-300">
-              <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground">
+            <div className="h-7 inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/20 px-3.5 backdrop-blur-xs">
+              <span className="text-xs font-bold uppercase tracking-wider text-primary-foreground leading-none">
                 {currentSlide.eyebrow}
               </span>
             </div>

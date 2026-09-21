@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import CountUp from "@/components/CountUp";
@@ -46,23 +45,21 @@ export function FeaturedSolutionSection() {
             {/* Right Content: 2 Side-by-Side Images */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               <div className="relative h-64 sm:h-80 w-full rounded-lg overflow-hidden shadow-md border border-border group bg-muted">
-                <Image
+                <img
                   src="https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_480,c_limit/v1786720433/pexels-ink-spreader-292689809-18436545_1.jpg"
                   alt="Petani Modern LoopTani"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 320px"
                   loading="lazy"
-                  className="object-cover"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
               <div className="relative h-64 sm:h-80 w-full rounded-lg overflow-hidden shadow-md border border-border group bg-muted">
-                <Image
+                <img
                   src="https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_480,c_limit/v1786720428/pexels-rdne-8540985.jpg"
                   alt="Hasil Olahan Organik"
-                  fill
-                  sizes="(max-width: 768px) 50vw, 320px"
                   loading="lazy"
-                  className="object-cover"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
             </div>
@@ -84,13 +81,12 @@ export function FeaturedSolutionSection() {
 
             {/* Clean Visual Image Container */}
             <div className="relative rounded-lg overflow-hidden aspect-16/10 border border-border bg-muted group shadow-inner">
-              <Image
+              <img
                 src="https://res.cloudinary.com/aexisrpt/image/upload/f_auto,q_auto:eco,w_600,c_limit/v1786720478/pexels-florence-mathiot-417781-37078677.jpg"
                 alt="Analisis Lapangan AI LoopTani"
-                fill
-                sizes="(max-width: 768px) 100vw, 500px"
                 loading="lazy"
-                className="object-cover"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
           </div>
