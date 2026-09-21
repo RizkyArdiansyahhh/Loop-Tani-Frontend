@@ -78,7 +78,9 @@ export default async function RootLayout({
             zIndex={99999}
           />
           <Providers>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {process.env.NODE_ENV === "development" && (
+              <ReactQueryDevtools initialIsOpen={false} />
+            )}
             {children}
             <Toaster />
             <LoopiFloating />

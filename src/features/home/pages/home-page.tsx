@@ -150,13 +150,15 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start group flex flex-col text-left font-poppins"
+      className="w-50 sm:w-57.5 lg:w-60 shrink-0 snap-start group flex flex-col text-left font-poppins"
     >
       {/* Clean Full-Bleed Product Image Frame */}
-      <div className="relative aspect-[4/5] w-full rounded-lg overflow-hidden bg-muted/20 flex items-center justify-center transition-all duration-500">
+      <div className="relative aspect-4/5 w-full rounded-lg overflow-hidden bg-muted/20 flex items-center justify-center transition-all duration-500">
         <img
           src={currentImage}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 pointer-events-none"
         />
 
@@ -228,6 +230,8 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
             <img
               src={img}
               alt={`Variant ${idx + 1}`}
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover"
             />
           </button>
@@ -239,7 +243,7 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
         <h3 className="font-poppins text-sm sm:text-base font-bold text-foreground uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-1">
           {name}
         </h3>
-        <p className="text-xs text-muted-foreground font-medium line-clamp-1">
+        <p className="text-xs text-muted-foreground line-clamp-2 max-w-56">
           {subtitleStr} • {locationStr}
         </p>
         <p className="text-sm font-bold text-foreground font-poppins pt-0.5">
@@ -567,7 +571,7 @@ const HomePage = () => {
                     📖
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-foreground truncate max-w-[220px] font-poppins">
+                    <h4 className="text-xs font-bold text-foreground truncate max-w-56 font-poppins">
                       {modul.title}
                     </h4>
                     <span className="text-[10px] text-muted-foreground">
@@ -697,7 +701,7 @@ const HomePage = () => {
           </div>
 
           {/* Longines Single Row Scrollable Product Carousel with AnimatePresence */}
-          <div className="h-[460px] relative overflow-hidden">
+          <div className="h-115 relative overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={homeCategoryTab}
@@ -705,20 +709,20 @@ const HomePage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="h-[460px]"
+                className="h-115"
               >
                 <div
                   ref={sliderRef}
                   onScroll={handleSliderScroll}
-                  className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-[460px]"
+                  className="flex items-start overflow-x-auto scrollbar-none snap-x snap-mandatory gap-6 scroll-smooth pb-2 select-none h-115"
                 >
                   {isProductsLoading
                     ? Array.from({ length: 4 }).map((_, i) => (
                         <div
                           key={i}
-                          className="w-[200px] sm:w-[230px] lg:w-[240px] shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
+                          className="w-50 sm:w-57.5 lg:w-60 shrink-0 snap-start flex flex-col text-left space-y-3 animate-pulse"
                         >
-                          <div className="aspect-[4/5] w-full bg-muted/40 rounded-xs" />
+                          <div className="aspect-4/5 w-full bg-muted/40 rounded-xs" />
                           <div className="h-4 bg-muted rounded w-2/3" />
                           <div className="h-3 bg-muted rounded w-1/2" />
                           <div className="h-4 bg-muted rounded w-1/3" />
@@ -836,7 +840,7 @@ interface StatCardProps {
 
 function StatCard({ icon: Icon, value, unit, label, subtext }: StatCardProps) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-card p-5 shadow-xs flex flex-col justify-between min-h-[140px] text-left hover:border-amber-500/50 transition-colors">
+    <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-card p-5 shadow-xs flex flex-col justify-between min-h-35 text-left hover:border-amber-500/50 transition-colors">
       <div className="flex items-start justify-between">
         <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground font-poppins">
           {label}

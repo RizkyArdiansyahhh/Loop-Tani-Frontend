@@ -14,14 +14,13 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { CldVideoPlayer } from "next-cloudinary";
-import "next-cloudinary/dist/cld-video-player.css";
 
 const TICK = 50;
 
 interface SlideStaticData {
   type: "video" | "image";
   src: string;
+  poster?: string;
   duration: number;
   actionLink: string;
   secondaryLink?: string;
@@ -32,6 +31,7 @@ const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -141,6 +141,7 @@ export const CarouselHomePage = () => {
           {currentSlide.type === "video" ? (
             <video
               src={currentSlide.src}
+              poster={currentSlide.poster}
               autoPlay
               muted
               loop
