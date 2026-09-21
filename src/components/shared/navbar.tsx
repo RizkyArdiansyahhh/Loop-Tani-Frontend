@@ -2,13 +2,12 @@
 
 import * as React from "react";
 import { useRef, useEffect, useState, type RefObject } from "react";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, ShoppingCart, User, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/shared/language-switcher";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { useCart } from "@/features/cart/hooks/use-cart";
@@ -103,11 +102,13 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
 
   return (
     <div className="relative mx-auto flex w-full items-center justify-between gap-4 px-6 py-3">
-      <Link href="/" className="shrink-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <Link href="/" className="shrink-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white" aria-label="LoopTani Beranda">
         <img
-          src="/images/logo-putih.png"
+          src="/images/logo-putih.webp"
           alt="LoopTani Logo"
-          className="h-10"
+          width={139}
+          height={40}
+          className="h-10 w-auto object-contain"
         />
       </Link>
 

@@ -148,7 +148,10 @@ export const CarouselHomePage = () => {
               playsInline
               preload="metadata"
               className="h-full w-full object-cover"
-            />
+              aria-label="LoopTani Hero Video"
+            >
+              <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
+            </video>
           ) : (
             <Image
               src={currentSlide.src}
@@ -183,15 +186,21 @@ export const CarouselHomePage = () => {
                   </span>
                 </motion.div>
 
-                {/* Animated Heading (Fraunces serif) */}
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.5 }}
-                  className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
-                >
-                  {currentSlide.title}
-                </motion.h2>
+                {/* Heading (Fraunces serif) - h1 on initial slide for immediate LCP paint */}
+                {activeIndex === 0 ? (
+                  <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                    {currentSlide.title}
+                  </h1>
+                ) : (
+                  <motion.h2
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
+                  >
+                    {currentSlide.title}
+                  </motion.h2>
+                )}
 
                 {/* Animated Description (Plus Jakarta Sans) */}
                 <motion.p
@@ -336,7 +345,6 @@ function DotProgress({ active, progress }: DotProgressProps) {
             cx={radius}
             cy={radius}
             r={normalizedRadius}
-            className="transition-[stroke-dashoffset] duration-75 ease-linear"
           />
         </>
       )}

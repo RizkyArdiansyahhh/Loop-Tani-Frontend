@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 const fontSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const fontFraunces = Fraunces({
@@ -39,8 +40,9 @@ const fontFraunces = Fraunces({
 
 const fontPoppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
+  display: "swap",
 });
 
 export default async function RootLayout({
@@ -60,6 +62,12 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://api.looptani.id" />
+        <link rel="dns-prefetch" href="https://api.looptani.id" />
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+      </head>
       <body
         className={`${fontSans.variable} ${fontFraunces.variable} ${fontPoppins.variable} antialiased`}
         suppressHydrationWarning

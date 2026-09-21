@@ -28,7 +28,7 @@ import { CarouselHomePage } from "../components/carousel";
 import { Button } from "@/components/ui/button";
 import { ScrollFeaturesSection } from "../components/scroll-features";
 import { FeaturedSolutionSection } from "../components/featured-solution-section";
-import { cn } from "@/lib/utils";
+import { cn, optimizeCloudinaryUrl } from "@/lib/utils";
 
 // Below-the-fold components loaded dynamically for fast initial page load
 const FaqSection = dynamic(
@@ -155,7 +155,7 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
       {/* Clean Full-Bleed Product Image Frame */}
       <div className="relative aspect-4/5 w-full rounded-lg overflow-hidden bg-muted/20 flex items-center justify-center transition-all duration-500">
         <img
-          src={currentImage}
+          src={optimizeCloudinaryUrl(currentImage, 480)}
           alt={name}
           loading="lazy"
           decoding="async"
@@ -228,7 +228,7 @@ const LonginesProductCard: React.FC<LonginesProductCardProps> = ({
             )}
           >
             <img
-              src={img}
+              src={optimizeCloudinaryUrl(img, 100)}
               alt={`Variant ${idx + 1}`}
               loading="lazy"
               decoding="async"
