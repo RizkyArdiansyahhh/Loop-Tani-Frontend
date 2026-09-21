@@ -29,10 +29,14 @@ export function Footer() {
         {/* ── Top Section: Brand & Newsletter Subscription ── */}
         <div className="grid gap-8 lg:grid-cols-12 items-center border-b border-stone-200 dark:border-stone-800 pb-12 mb-12">
           <div className="lg:col-span-5 space-y-3">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block" aria-label="LoopTani Beranda">
               <img
-                src="/images/logo-putih.png"
+                src="/images/logo-putih.webp"
                 alt="LoopTani Logo"
+                width={139}
+                height={40}
+                loading="lazy"
+                decoding="async"
                 className="h-10 w-auto object-contain"
               />
             </Link>

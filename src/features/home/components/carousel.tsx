@@ -14,14 +14,13 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { CldVideoPlayer } from "next-cloudinary";
-import "next-cloudinary/dist/cld-video-player.css";
 
 const TICK = 50;
 
 interface SlideStaticData {
   type: "video" | "image";
   src: string;
+  poster?: string;
   duration: number;
   actionLink: string;
   secondaryLink?: string;
@@ -32,6 +31,7 @@ const SLIDES: SlideStaticData[] = [
   {
     type: "video",
     src: "https://res.cloudinary.com/aexisrpt/video/upload/q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.mp4",
+    poster: "https://res.cloudinary.com/aexisrpt/video/upload/so_0,q_auto,f_auto,w_1920,c_limit/v1786439414/5104194-uhd_3840_2160_30fps.jpg",
     duration: 14000,
     actionLink: "/marketplace",
     secondaryLink: "/loopi",
@@ -141,13 +141,17 @@ export const CarouselHomePage = () => {
           {currentSlide.type === "video" ? (
             <video
               src={currentSlide.src}
+              poster={currentSlide.poster}
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
               className="h-full w-full object-cover"
-            />
+              aria-label="LoopTani Hero Video"
+            >
+              <track kind="captions" srcLang="id" label="Bahasa Indonesia" />
+            </video>
           ) : (
             <Image
               src={currentSlide.src}
@@ -182,15 +186,21 @@ export const CarouselHomePage = () => {
                   </span>
                 </motion.div>
 
-                {/* Animated Heading (Fraunces serif) */}
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.5 }}
-                  className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
-                >
-                  {currentSlide.title}
-                </motion.h2>
+                {/* Heading (Fraunces serif) - h1 on initial slide for immediate LCP paint */}
+                {activeIndex === 0 ? (
+                  <h1 className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                    {currentSlide.title}
+                  </h1>
+                ) : (
+                  <motion.h2
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="font-fraunces text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]"
+                  >
+                    {currentSlide.title}
+                  </motion.h2>
+                )}
 
                 {/* Animated Description (Plus Jakarta Sans) */}
                 <motion.p
@@ -335,7 +345,6 @@ function DotProgress({ active, progress }: DotProgressProps) {
             cx={radius}
             cy={radius}
             r={normalizedRadius}
-            className="transition-[stroke-dashoffset] duration-75 ease-linear"
           />
         </>
       )}
