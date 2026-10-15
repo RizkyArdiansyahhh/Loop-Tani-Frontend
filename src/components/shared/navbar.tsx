@@ -82,7 +82,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
     { href: "/fertilizer-calculator", label: t_navbar("links.fertilizerCalculator") },
     { href: "/panduan-tani", label: t_navbar("links.panduanTani") },
     { href: "/jejak-lestari", label: t_navbar("links.jejakLestari") },
-    { href: "/about", label: t_navbar("links.aboutUs") },
+    // { href: "/about", label: t_navbar("links.aboutUs") },
   ];
 
   React.useEffect(() => {
@@ -204,7 +204,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
               </NavigationMenuLink>
             </NavigationMenuItem>
 
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
                 className={cn(
@@ -217,7 +217,7 @@ function NavbarContent({ isTransparent }: { isTransparent?: boolean }) {
               >
                 <Link href="/about">{t_navbar("links.aboutUs")}</Link>
               </NavigationMenuLink>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
